@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "articles.apps.ArticlesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -115,8 +116,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+# https://stackoverflow.com/questions/48287154/django-imagefield-image-not-displaying
 
+MEDIA_ROOT = BASE_DIR/ "media/"
+MEDIA_URL = 'media/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # NOTE wade doesn't know why this is here. it's for deployment apparently?
+STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
