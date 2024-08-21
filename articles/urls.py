@@ -4,9 +4,9 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="article_index"),
-    path("authors", views.index, name="article_author_index"),
-    path("tags", views.index, name="article_category_index"),
-    path("issues", views.index, name="article_issues_index"),
+    path("authors", views.article_author_index, name="article_author_index"),
+    path("tags", views.article_category_index, name="article_category_index"),
+    path("issues", views.article_issues_index, name="article_issues_index"),
     path("editor/issue", views.index, name="article_issues_edit"),
     path("post/<str:slug>/<int:pk>", views.index, name="article_detail"),
     path("category/<category>/", views.index, name="article_category"),
