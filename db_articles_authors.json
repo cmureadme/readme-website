@@ -1,1 +1,32 @@
-[{"model": "articles.author", "pk": "test2", "fields": {"img": "author_images/pixil-frame-0.png", "bio": "asdfasdf", "roles": "asdfsadf", "pronouns": "", "major": "asdfasdf", "year": "asdfasdf", "location": "", "fact": "asdfsadf", "email": ""}}, {"model": "articles.author", "pk": "test_author_wahoo!! wheee", "fields": {"img": "author_images/tile_0121.png", "bio": "I have a bio? I'm just a test author D:", "roles": "be a nuisance", "pronouns": "", "major": "Major", "year": "year?", "location": "", "fact": "Let that sink in!", "email": ""}}]
+[
+    {
+        "model": "articles.author",
+        "pk": "test2",
+        "fields": {
+            "img": "author_images/pixil-frame-0.png",
+            "bio": "asdfasdf",
+            "roles": "asdfsadf",
+            "pronouns": "",
+            "major": "asdfasdf",
+            "year": "asdfasdf",
+            "location": "",
+            "fact": "asdfsadf",
+            "email": ""
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "test_author_wahoo!! wheee",
+        "fields": {
+            "img": "author_images/tile_0121.png",
+            "bio": "I have a bio? I'm just a test author D:",
+            "roles": "be a nuisance",
+            "pronouns": "",
+            "major": "Major",
+            "year": "year?",
+            "location": "",
+            "fact": "Let that sink in!",
+            "email": ""
+        }
+    }
+]

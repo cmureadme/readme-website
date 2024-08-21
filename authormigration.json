@@ -1,0 +1,332 @@
+[
+    {
+        "model": "articles.author",
+        "pk": "Eshaan Joshi",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Affable idiot with a pen",
+            "roles": "Editor-in-Chief, Strikebreaker, Labor Law Violator",
+            "pronouns": "He/Him",
+            "major": "Who the hell knows",
+            "year": "Sometime this decade",
+            "location": "Cohon University Center, Third Floor",
+            "fact": "Also known as the Dumbest Boy Alive",
+            "email": "evj@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Benner Rogers",
+        "fields": {
+            "img": "benner.jpg",
+            "bio": "Yes, I am a real person. README'S number one and only journalist since 1981",
+            "roles": "Staffwriter",
+            "pronouns": "She/her",
+            "major": "Literature and Culture",
+            "year": "DC '27",
+            "location": "Wean 5202",
+            "fact": "I'm illiterate. Don't tell Eshaan, he hasn't noticed yet.",
+            "email": "bennerr@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Cindy Gao",
+        "fields": {
+            "img": "cindy.webp",
+            "bio": "perhaps better known as auntie readme. two truths and a lie: i have a perfect record of dying in every edition of every readme that i've appeared in, i'm still running from whatever i unleashed that one time i stole an eldritch book from wean 2 (help), and as a humanities student, each time i've died, i've been replaced with an ai",
+            "roles": "Staffwriter",
+            "pronouns": "they/them primarily, whatever makes the bit work secondarily",
+            "major": "behavioral economics (like econ but if you assume people are kinda stupid!), creative writing (what some would term \"lying\")",
+            "year": "DC '27",
+            "location": "rapidly approaching yours!",
+            "fact": "﻿!",
+            "email": "cindygao@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Danya Kogan",
+        "fields": {
+            "img": "danya.gif",
+            "bio": "I don't know what I am doing.",
+            "roles": "Staffwriter, Union Agitator, Special Correspondent to Dr. Et Al",
+            "pronouns": "She/They",
+            "major": "Mechanical Engineering",
+            "year": "CIT (19)27",
+            "location": "Lawn guy land, New Yawk",
+            "fact": "Lactose intolerant? I have all 10 of them???",
+            "email": "dkogan2@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Emily Jiang",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Academic Weapon",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Dr. Et Al.",
+        "fields": {
+            "img": "etal.png",
+            "bio": "I have a PhD in every possible field, and am proudly tenured here at Carnegie Mellon University.",
+            "roles": "Staffwriter, Science Correspondent",
+            "pronouns": "Any/all",
+            "major": "Everything",
+            "year": "Everything",
+            "location": "Ur, Mesopotamia",
+            "fact": "Memento Mori",
+            "email": "etwardal@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Tali Kirschenbaum",
+        "fields": {
+            "img": "tali.jpeg",
+            "bio": "Tali is a judgmental bitch who prefers critiquing others' work instead of creating her own, which is why she mostly edits for readme. However, the rest of our writers are lazy and suck at their jobs (except Benner, of course), so Tali writes articles on occasion as well—usually when she can be a fucking nerd about something. In Tali's free time, you can find them procrastinating.",
+            "roles": "Staff Editor, Staffwriter",
+            "pronouns": "She/they",
+            "major": "Civil Engineering + Engineering Public Policy",
+            "year": "CIT '27",
+            "location": "Washington, DC",
+            "fact": "Tali is a Carnegie Mellon nepo baby!",
+            "email": "skirsche@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Ryan Chernoff",
+        "fields": {
+            "img": "ryan.jpg",
+            "bio": "Has contributed absolute nothing to ReadMe and may very well not exist.",
+            "roles": "Contributor",
+            "pronouns": "I/me/my",
+            "major": "Computer Science",
+            "year": "SCS '27",
+            "location": "<a href=\"https://imgur.com/a/rX15zCz\">https://imgur.com/a/rX15zCz</a>",
+            "fact": "Loved 122 (weirdo)",
+            "email": "readme@kgb.org"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Jacobi Edge",
+        "fields": {
+            "img": "jacobi.jpg",
+            "bio": "I kiss wet rats",
+            "roles": "Staff Artist",
+            "pronouns": "He/they",
+            "major": "Creative Writing",
+            "year": "DC '27",
+            "location": "no comment",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Kevin Song",
+        "fields": {
+            "img": "kevin.jpg",
+            "bio": "Kevin isn't literate, so we make him draw some of the pictures. We also use him as the printing goon, who sends and picks up printing orders.",
+            "roles": "Senior Advisor, Staff Artist",
+            "pronouns": "he/him",
+            "major": "Electrical and Computer Engineering",
+            "year": "CIT '24",
+            "location": "somewhere nearby, watching you from afar.",
+            "fact": "Kevin was born on a funny day.",
+            "email": "kevinson@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Jasmine Papino-Wood",
+        "fields": {
+            "img": "anon.png",
+            "bio": "i'm the one who wrote the dysphoria article",
+            "roles": "Operations Manager, Staffwriter",
+            "pronouns": "trans/bitch",
+            "major": "funny computer beep boop noises",
+            "year": "CFA '27 (if all goes to plan)",
+            "location": "witness protection",
+            "fact": "fiction",
+            "email": "gpapinow@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Kyle Hynes",
+        "fields": {
+            "img": "anon.png",
+            "bio": "LEFT_EMPTY",
+            "roles": "Staffwriter",
+            "pronouns": "he/him",
+            "major": "International Relations and Politics, Statistics and Machine Learning",
+            "year": "DC '27",
+            "location": "Lancaster, NH",
+            "fact": "LEFT_EMPTY",
+            "email": "khynes@andrew.cmu.edu"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "A. Axolotl",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Unknowable and Mysterious",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Author Who Asked To Be Credited Only As ‘He Who Shall Not Be Named’",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Unknowable and Mysterious",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Author Who Asked To Be Credited Only As ‘He Who Shall Not Be Named’ II",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Unknowable and Mysterious",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Wade Cheng",
+        "fields": {
+            "img": "wade.png",
+            "bio": "Sometimes sillying. Periodically serious'd.",
+            "roles": "Staffwriter, Webmaster",
+            "pronouns": "My dear sir, there are individuals roaming the streets of Fallen London at this very moment with the faces of squid! Squid! Do you ask them their gender? And yet you waste our time asking me trifling and impertinent questions about mine?",
+            "major": "StatML",
+            "year": "DC '27",
+            "location": "{{wade.gif}}",
+            "fact": "Loved 122 (weirdo)",
+            "email": "readme@kgb.org"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Abe James",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Unknowable and Mysterious",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Jeremiah Cornelius Penname XXVII",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Unknowable and Mysterious",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Dr. Dee Pression",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Unknowable and Mysterious",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Ariel Kinel",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Aquafina Company Representative",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Mike Rophon",
+        "fields": {
+            "img": "anon.png",
+            "bio": "Unknowable and Mysterious",
+            "roles": "Staffwriter",
+            "pronouns": "LEFT_EMPTY",
+            "major": "LEFT_EMPTY",
+            "year": "LEFT_EMPTY",
+            "location": "LEFT_EMPTY",
+            "fact": "LEFT_EMPTY",
+            "email": "LEFT_EMPTY"
+        }
+    },
+    {
+        "model": "articles.author",
+        "pk": "Maximillian Bartholemow VIII",
+        "fields": {
+            "img": "max_barty.png",
+            "bio": "Born to a wealthy landowning family in Surrey, England, Maximillian Bartholemew III, is our highly esteemed lawyer. After graduating at the top of his class at Oxford University with a degree in international law, Sir Bartholemew committed himself to our proletarian cause, spreading truth to the masses, highly nobly. As we all know very well, those who speak with upmost sincerity find themselves the target of “defamation lawsuits”, “copyright infringements”, and “cease-and-desist letters”, and we thus find ourselves in dire need of a savior like Sir. Bartholemew.\r\n\r\n(Close acquaintances are permitted to refer to our revered nobleman as ‘Max Barty’, but that name is also authorized to be used at cocaine-fueled yacht parties, which our honor often attends)",
+            "roles": "Staffwriter",
+            "pronouns": "sir/sirs/sirself",
+            "major": "Juris Doctor",
+            "year": "Oxford Faculty of Law, 1999",
+            "location": "Berkshire, England",
+            "fact": "My great great grandfather was a major figure in the North Atlantic telegraph-line laying industry",
+            "email": "contact my butler instead: Barnaby Reginald Jeeves"
+        }
+    }
+]
