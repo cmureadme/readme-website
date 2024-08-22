@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from django.http import HttpResponseRedirect
+import markdown
 from articles.forms import (
     CommentForm,
 )
@@ -60,14 +61,14 @@ def article_category_index(request):
 
 
 def article_category(request, category):
-    posts = (
+    articles = (
         Article.objects.filter(categories__name__contains=category)
         .order_by("-created_on")
         .filter(published=True)
     )
     context = {
         "category": category,
-        "posts": posts,
+        "articles": articles,
     }
     return render(request, "articles/category.html", context)
 
@@ -91,13 +92,43 @@ def article_issues_index(request):
 
 def article_issue(request, vol, num):
     issue = Issue.objects.get(num=num, vol=vol)
-    posts = Article.objects.filter(issues__name__contains=issue.name).order_by(
+    articles = Article.objects.filter(issues__name__contains=issue.name).order_by(
         "-created_on"
     )
 
     context = {
         "i": issue,
         "issue": issue.name,
-        "posts": posts,
+        "articles": articles,
     }
     return render(request, "articles/issue.html", context)
+
+
+# TODO REMEMBER TO CHANGE POST TO ARTICLE
+def article_detail(request, slug, pk):
+    article = Article.objects.get(slug=slug, pk=pk)
+    # comments = Comment.objects.filter(post=post)
+    # form = CommentForm()
+
+    # NOTE avoid double mding?
+    # md = markdown.Markdown(extensions=["fenced_code"])
+    # content = md.convert(article.body)
+
+    # if request.method == "POST":
+    #     form = CommentForm(request.POST)
+    #     if form.is_valid():
+    #         comment = Comment(
+    #             author=form.cleaned_data["author"],
+    #             body=form.cleaned_data["body"],
+    #             post=post,
+    #         )
+    #         comment.save()
+    #         return HttpResponseRedirect(request.path_info)
+
+    context = {
+        "article": article,
+        # "comments": comments,
+        # "form": CommentForm(),
+    }
+
+    return render(request, "articles/article_page.html", context)
