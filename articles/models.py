@@ -45,7 +45,7 @@ class Issue(models.Model):
     def fold(self):
         return f"{self.vol}-{self.num}"
     def archive_path(self):
-        """self's issue pdf, if one exists, shall live at media/static/{{self.archive_path()}}"""
+        """self's issue pdf, if one exists, shall live at {{self.archive_path()}}"""
         return f"vol{self.vol}/issue{self.num}/CMUREADME_VOL{self.vol}_ISSUE{self.num}.pdf"
 
 # TODO NOTE THE related_name CHANGE FROM ARTICLES TO POSTS. THIS WILL CAUSE ERRORS. FIX THEM.

@@ -92,10 +92,11 @@
             </div>
             {% for author in authors %}
             <li class="author-card">
-                {% if author.img == "anon.png" %}
-                    <img src="/static/author/anon.png" style="image-rendering: pixelated;" alt="Author Image">
+                {% if author.img == "" or author.img == "author_images/anon.png" %}
+                    {% load static %}
+                    <img src="{% static 'anon.png' %}" style="image-rendering: pixelated;">
                 {% else %}
-                    <img src="/static/author/{{ author.img }}" alt="Author Image">
+                    <img src="{{ author.img.url }}" alt="Author Image">
                 {% endif %}
                 <div class="author-info">
                     <div class="author-name">

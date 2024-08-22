@@ -80,7 +80,8 @@
                 </li>
                 {% for category in categories %}
                 <li class="author-item">
-                    <img src="/static/author/anon.png">
+                    {% load static %}
+                    <img src="{% static 'anon.png' %}" style="image-rendering: pixelated;">
                     <div class="author-info">
                         <div class="author-name"><h4><a href="{% url 'article_category' category.name %}" style="font-family: 'Special Elite', cursive;">{{ category.name }}</div>
                        
