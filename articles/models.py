@@ -35,7 +35,7 @@ class SocialMediaLink(models.Model):
         return self.link
 
 class Issue(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, primary_key=True)
     vol = models.IntegerField(default=0)
     num = models.IntegerField(default=0)
     class Meta:
@@ -59,7 +59,7 @@ class Article(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField("Category", related_name="articles")
     # categories = models.ManyToManyField("Category", related_name="posts")
-    slug = models.SlugField()
+    slug = models.SlugField(primary_key=True)
     issues = models.ForeignKey("Issue", related_name='articles', on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
 

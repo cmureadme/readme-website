@@ -105,8 +105,8 @@ def article_issue(request, vol, num):
 
 
 # TODO REMEMBER TO CHANGE POST TO ARTICLE
-def article_detail(request, slug, pk):
-    article = Article.objects.get(slug=slug, pk=pk)
+def article_detail(request, slug):
+    article = Article.objects.get(slug=slug)
     # comments = Comment.objects.filter(post=post)
     # form = CommentForm()
 
