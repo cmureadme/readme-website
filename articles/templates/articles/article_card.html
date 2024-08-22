@@ -1,0 +1,35 @@
+<div class="col-centered  g-0 border rounded overflow-hidden mb-4 shadow-sm h-md-250 p-5 justify-content-center">
+    <strong class="d-inline-block mb-2 text-success-emphasis">
+        Tags: 
+        {% for category in article.categories.all %}
+        <a href="{% url 'article_category' category.name %}">
+            {{ category.name }}
+        </a>
+        {% endfor %}
+    </strong>
+
+    <h3 class="mb-0" style="font-family: Cutive Mono;">
+        <a href="{% url 'article_detail' article.slug article.pk %}">{{ article.title }}</a>
+    </h3>
+        
+    <div class="mb-1 text-body-secondary">{{article.created_on}}</div>
+        
+    <small>
+        <!-- byline. output such as Author 1 | Dr. Et Al. | Vol 0, Issue 0 -->
+        By:
+        {% for author in article.authors.all %}
+        <a href="{% url 'article_author' author.name %}">
+            {{ author.name }}
+        </a> | 
+        {% endfor %}
+
+        <a href="{% url 'article_issue' article.issues.vol article.issues.num %}">
+            Vol {{ article.issues.vol }}, Issue {{ article.issues.num}}
+        </a>
+    </small>
+        
+    {% load tag %}
+    <p>
+        {{ article.body | slice:":400" | create_md | imgswitch:article.issues.fold | safe | slice:":400" }}...
+    </p>
+</div>

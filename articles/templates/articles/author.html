@@ -1,6 +1,6 @@
 <!-- articles/templates/articles/category.html -->
 
-{% extends "articles/index.html" %}
+{% extends "base.html" %}
 
 {% block page_title %}
 
@@ -82,7 +82,10 @@
         </p>
 
         <hr>
-
+      
+        {% for article in articles %}
+          {% include "./article_card.html" %}  
+        {% endfor %}
       <!-- spacer div -->
       <div class="col-sm-2"></div>
     </div>

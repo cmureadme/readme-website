@@ -37,7 +37,7 @@ def article_author_index(request):
 
 
 def article_author(request, author):
-    posts = (
+    articles = (
         Article.objects.filter(authors__name__contains=author)
         .order_by("-created_on")
         .filter(published=True)
@@ -46,7 +46,7 @@ def article_author(request, author):
     context = {
         "a": aut,
         "author": author,
-        "posts": posts,
+        "articles": articles,
     }
     return render(request, "articles/author.html", context)
 
