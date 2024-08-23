@@ -14,26 +14,26 @@
 
       <!-- image and stats column -->
       <div class="col-sm-2">
-        <img src="{{a.img.url}}" class="img-fluid mb-3" alt="image of {{a.name  }}">
+        <img src="{{author.img.url}}" class="img-fluid mb-3" alt="image of {{author.name  }}">
 
         <div class="author-stat">
           <p>
             <i data-feather="tag"></i>
-            Pronouns: {{a.pronouns}}
+            Pronouns: {{author.pronouns}}
           </p>
         </div>
 
         <div class="author-stat">
             <p>
             <i data-feather="book-open"></i>
-            Major: {{a.major}}
+            Major: {{author.major}}
           </p>
         </div>
 
         <div class="author-stat">
             <p>
             <i data-feather="award"></i>
-            Year: {{a.year}}
+            Year: {{author.year}}
           </p>
         </div>
 
@@ -41,25 +41,25 @@
             <p>
             <i data-feather="home"></i>
             {% load tag %}
-            Location: {{a.location|imgswitch:"author"|safe}}
+            Location: {{author.location}}
           </p>
         </div>
 
         <div class="author-stat">
             <p>
             <i data-feather="file-text"></i>
-            Fact: {{a.fact}}
+            Fact: {{author.fact}}
           </p>
         </div>
 
         <div class="author-stat">
             <p>
             <i data-feather="mail"></i>
-            Email: {{a.email}}
+            Email: {{author.email}}
           </p>
         </div>
 
-        {% for link in a.misc_links.all %}
+        {% for link in author.misc_links.all %}
         <div class="author-stat">
             <p>
             <i data-feather="link"></i>
@@ -71,14 +71,14 @@
       
       <!-- bio and previous works -->
       <div class="col-sm-6">
-        <h1>{{a.name}}</h1>
+        <h1>{{author.name}}</h1>
 
         <hr>
 
         <h2>Bio</h2>
 
         <p>
-          {{a.bio}}
+          {{author.bio}}
         </p>
 
         <hr>

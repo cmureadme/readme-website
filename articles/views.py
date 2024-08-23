@@ -27,8 +27,6 @@ def index(request):
     return render(request, "articles/index.html", context)
 
 
-
-
 def article_author_index(request):
     authors = Author.objects.all()
     context = {
@@ -38,14 +36,13 @@ def article_author_index(request):
 
 
 def article_author(request, author):
+    author = Author.objects.get(pk=author)
     articles = (
-        Article.objects.filter(authors__name__contains=author)
+        Article.objects.filter(authors__pk=author)
         .order_by("-created_on")
         .filter(published=True)
     )
-    aut = Author.objects.filter(name__contains=author).first()
     context = {
-        "a": aut,
         "author": author,
         "articles": articles,
     }
