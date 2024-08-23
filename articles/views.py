@@ -79,11 +79,10 @@ def article_issues_index(request):
         if volume not in issues_by_volume:
             issues_by_volume[volume] = []
         issues_by_volume[volume].append(issue)
-    issue = issues
     return render(
         request,
         "articles/issuelist.html",
-        {"issues": issue, "issues_by_volume": issues_by_volume},
+        {"issues": issues, "issues_by_volume": issues_by_volume},
     )
 
 
@@ -103,7 +102,7 @@ def article_issue(request, vol, num):
 
 # TODO REMEMBER TO CHANGE POST TO ARTICLE
 def article_detail(request, slug):
-    article = Article.objects.get(slug=slug)
+    article = Article.objects.get(pk=slug)
     # comments = Comment.objects.filter(post=post)
     # form = CommentForm()
 
