@@ -1,0 +1,242 @@
+
+.person-link {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .person-link:hover {
+    text-decoration: underline;
+    font-weight: normal;
+    color: rgb(128, 0, 0);
+  }
+
+  .navbar-nav a{
+    vertical-align:text-bottom;
+    margin: 0;
+    font-size: large;
+    font-family: 'Special Elite', cursive;
+  }
+  .post-content p {
+text-indent: 1em; /* Adjust the indent size as needed */
+}
+  .navbar-nav a:hover {
+    background-color: darkgray;
+    vertical-align: bottom;
+    font-family: 'Special Elite', cursive;
+    font-style: italic;
+    text-align: center;
+  }
+
+  a:link {
+    color: red;
+    font-family: 'Spectral', serif
+  }
+
+  /* visited link */
+  a:visited {
+    color: goldenrod;
+  }
+
+  /* mouse over link */
+  a:hover {
+    color: darkred;
+  }
+
+  /* selected link */
+  a:active {
+    color: black;
+  }
+
+  .center2 {
+    display: flex;
+    justify-content: right;
+    margin: auto;
+    border: 3px solid #0c1db8;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    justify-content: flex-end;
+  }
+
+  .container img {
+    width: 100px; /* Adjust the size of the square image */
+    height: 100px; /* Adjust the size of the square image */
+  }
+
+  .container .text {
+    font-size: 18px;
+  }
+
+  .kgb {
+    color: darkred;
+    font-family: Copperplate, fantasy;
+  }
+
+  .navbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .left, .center, .right {
+    display: flex;
+    align-items: center;
+  }
+
+  .center {
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .right .container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .right .container img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    color: darkred;
+  }
+
+  .right .container .text {
+    color: darkred;
+    font-size: 18px;
+    font-family: Copperplate, fantasy;
+  }
+
+  @media (max-width: 768px) {
+    .navbar-nav a {
+      font-size: medium;
+    }
+
+    .right .container img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .right .container .text {
+      font-size: 16px;
+    }
+
+    .header-logo img {
+      width: 120px;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .header-logo img {
+      width: 100px;
+      height: auto;
+    }
+
+    .navbar-nav a {
+      font-size: small;
+    }
+
+    .right .container img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .right .container .text {
+      font-size: 14px;
+    }
+
+    .center {
+      flex-direction: column;
+    }
+  }
+  .navbar-nav .nav-link {
+    align-items: center;
+    color: black;
+    text-align: center;
+    font-size: large;
+    font-family: 'Special Elite', cursive;
+  } 
+  .navbar-brand {
+    width: 60px;
+    height: 60px;
+    background-color: darkred;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+  }
+  .navbar-brand:hover {
+    width: 60px;
+    height: 60px;
+    background-color: rgb(73, 0, 0);
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+  }
+
+.navbar-nav .nav-link:hover {
+background-color: darkgray;
+font-style: italic;
+text-align: center;
+}
+
+@media (max-width: 768px) {
+.navbar-nav .nav-link {
+    font-size: medium;
+}
+}
+
+@media (max-width: 576px) {
+.navbar-nav .nav-link {
+    font-size: small;
+}
+}
+.kgb-link {
+text-align: center;
+justify-content: center;
+}
+
+/* Styles for text elements to ensure proper spacing */
+.kgb-link .text {
+margin: 0 10px;
+}
+.kgb-link:hover{
+background-color: darkgrey;
+}
+
+.kgb-link:active{
+color: darkred;
+}
+
+/* Adjust layout for mobile devices */
+@media (max-width: 768px) {
+.kgb-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.kgb-link .text {
+    margin: 0 5px;
+}
+
+}
+.navbar-toggler{
+color: darkred;
+}
+.navbar-toggler-icon{
+--bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='darkred' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.custom-toggler-icon {
+    border-color: #000; /* Dark color for the lines */
+}
