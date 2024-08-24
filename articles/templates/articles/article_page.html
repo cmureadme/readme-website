@@ -41,7 +41,7 @@
     <div class="border rounded overflow-hidden shadow-sm h-md-250 p-4" style="width: 100%; max-width: 1000px;">
         <p>
             {% load tag %}
-            {{ article.body|create_md|imgswitch:article.issues.fold | safe }}
+            {{ article.body|create_md|imgswitch:"article_images/" | safe }}
         </p>
     </div>
 </div>
