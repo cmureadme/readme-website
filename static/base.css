@@ -137,6 +137,11 @@ a:active {
   font-family: Copperplate, fantasy;
 }
 
+.header-logo img {
+  width: 240px;
+  height: auto;
+}
+
 @media (max-width: 768px) {
   .navbar-nav a {
     font-size: medium;
