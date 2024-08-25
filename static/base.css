@@ -209,12 +209,15 @@ text-align: center;
 .kgb-link {
 text-align: center;
 justify-content: center;
+padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 /* Styles for text elements to ensure proper spacing */
 .kgb-link .text {
 margin: 0 10px;
 }
+
 .kgb-link:hover{
 background-color: darkgrey;
 }

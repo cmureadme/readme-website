@@ -123,7 +123,7 @@ USE_TZ = True
 MEDIA_ROOT = BASE_DIR/ "media/"
 MEDIA_URL = 'media/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # NOTE wade doesn't know why this is here. it's for deployment apparently?
-STATIC_URL = "static/"
+STATIC_URL = "staticfiles/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
