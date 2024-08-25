@@ -114,6 +114,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+CSRF_TRUSTED_ORIGINS = ["https://cmureadme.com", "http://cmureadme.com", "https://staging.cmureadme.com", "http://staging.cmureadme.com"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -123,7 +124,7 @@ USE_TZ = True
 MEDIA_ROOT = BASE_DIR/ "media/"
 MEDIA_URL = 'media/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # NOTE wade doesn't know why this is here. it's for deployment apparently?
-STATIC_URL = "static/"
+STATIC_URL = "staticfiles/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
