@@ -35,7 +35,7 @@
 }
 
 .author-item2 {
-    background-color: #fff8de;
+    background-color: var(--background);
     list-style: none;
     text-align: center;
     width: 100%;
@@ -43,12 +43,12 @@
 }
 
 .collapsible-btn {
-    background-color: #fff6d6;
+    background-color: var(--background-dark);
     color: #333;
     padding: 15px;
     text-align: center;
     cursor: pointer;
-    border-color: #7c4e27;
+    border-color: var(--secondary-dark);
     border-style: solid;
     border-width: 1px;
     border-radius: 8px;
@@ -80,8 +80,8 @@
 .issue-square {
     width: 100px;
     height: 100px;
-    background-color: #fff6d6;
-    border-color: #7c4e27;
+    background-color: var(--background-dark);
+    border-color: var(--secondary-dark);
     border-style: solid;
     border-width: 1px;
     display: flex;
@@ -132,7 +132,7 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    background-color: #fff8de;
+    background-color: var(--background);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 0;
@@ -140,7 +140,7 @@
 
 .arrow {
     margin-left: auto;
-    color: #7c4e27;
+    color: var(--secondary-dark);
     width: 18px;
     height: 18px;
     transition: transform 0.2s;

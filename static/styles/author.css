@@ -14,7 +14,7 @@
 }
 
 .author-card {
-    background-color: #fff8de;
+    background-color: var(--background);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -46,7 +46,7 @@
 .special-author {
     grid-column: 1 / -1;
     /* Span across all columns */
-    background-color: #fff6d6;
+    background-color: var(--background-dark);
     /* Lighter background color */
     padding: 20px;
     margin-bottom: 20px;
