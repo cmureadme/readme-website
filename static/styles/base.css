@@ -5,6 +5,10 @@ body {
   padding: 0;
 }
 
+hr {
+  color: #7c4e27;
+}
+
 a:link {
   color: #f50000;
   font-family: "Spectral", serif;
