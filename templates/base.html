@@ -23,9 +23,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/CSS" href="{% static 'base.css' %}">
+    <link rel="stylesheet" type="text/CSS" href="{% static 'styles/base.css' %}">
     <!-- Google tag (gtag.js) for Google analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSZY9M0VFR"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSZY9M0VFR" />
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -54,7 +54,7 @@
                 </a>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-dark border-top border-bottom">
+        <nav class="row navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
                     <img src="{% static 'readme_white.png' %}" width="50" height="50" class="d-inline-block align-top"
@@ -95,7 +95,6 @@
         </nav>
 
     </header>
-    <hr>
     {% block page_title %}{% endblock page_title %}
     {% block page_info %}{% endblock page_info %}
     {% block page_content %}{% endblock page_content %}

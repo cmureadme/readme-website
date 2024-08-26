@@ -2,6 +2,8 @@
 
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block page_title %}
 {% endblock page_title %}
 
@@ -9,56 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-        .author-container {
-            max-width: 600px;
-            width: 100%; /* Ensure the container takes full width */
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .author-list {
-            list-style: none;
-            padding: 0;
-        }
-        .author-item {
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            padding: 20px;
-        }
-        .author-item img {
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin-right: 20px;
-            object-fit: cover;
-        }
-        .author-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .author-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin: 0 0 5px;
-        }
-        .author-bio {
-            font-size: 16px;
-            color: #555;
-            margin: 0;
-        }
-    </style>
+    <link rel="stylesheet" type="text/CSS" href="{% static 'styles/category.css' %}">
 </head>
 {% endblock page_info %}
 
@@ -66,7 +19,6 @@
     
     <body>
         <div class="container">
-        <div class="author-container">
             <ul class="author-list">
                 <li class="author-item">
                     <h3><em>The Stuff We Do</em></h3>
@@ -77,12 +29,11 @@
                     <img src="{% static 'anon.png' %}" style="image-rendering: pixelated;">
                     <div class="author-info">
                         <div class="author-name"><h4><a href="{% url 'article_category' category.name %}" style="font-family: 'Special Elite', cursive;">{{ category.name }}</div>
-                       
+                    
                     </div>
                 </li>
                 {% endfor %}
             </ul>
         </div>
-    </div>
     </body>
 {% endblock page_content %}

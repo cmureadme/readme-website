@@ -44,6 +44,10 @@ a:active {
 .navbar {
   background-color: #fff6d6;
   padding-left: 80px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: #7c4e27;
 }
 
 .navbar-nav a {
@@ -196,22 +200,15 @@ a:active {
 
 .navbar-brand {
   width: 60px;
-  height: 60px;
   background-color: #f50000;
-  padding-left: 5px;
-  padding-top: 5px;
-  padding-right: 5px;
-  padding-bottom: 5px;
+  padding: 5px;
 }
 
 .navbar-brand:hover {
   width: 60px;
   height: 60px;
   background-color: #b5002a;
-  padding-left: 5px;
-  padding-top: 5px;
-  padding-right: 5px;
-  padding-bottom: 5px;
+  padding: 5px;
 }
 
 .navbar-nav .nav-link:hover {
