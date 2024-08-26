@@ -46,8 +46,6 @@
 .special-author {
     grid-column: 1 / -1;
     /* Span across all columns */
-    background-color: var(--background-dark);
-    /* Lighter background color */
     padding: 20px;
     margin-bottom: 20px;
     /* Space below the card */
