@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="article_index"),
-    path("authors", views.article_author_index, name="article_author_index"),
-    path("authors/<author>/", views.article_author, name="article_author"),
+    path("people", views.article_author_index, name="article_author_index"),
+    path("people/<author>/", views.article_author, name="article_author"),
 
     path("tags", views.article_category_index, name="article_category_index"),
     path("tags/<category>/", views.article_category, name="article_category"),
