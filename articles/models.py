@@ -23,6 +23,7 @@ class Author(models.Model):
     email = models.CharField(max_length=255, blank=True)
     class Meta:
         verbose_name_plural = "authors"
+        ordering = ["pk"]
     def __str__(self) -> str:
         return self.name
     
