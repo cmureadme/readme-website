@@ -6,6 +6,7 @@
 
 {% endblock page_title %}
 {% block page_info %}
+
 <div class="container-lg">
     <script src="https://unpkg.com/feather-icons"></script>
     <div class="row mt-5 mb-3">
@@ -14,56 +15,76 @@
 
       <!-- image and stats column -->
       <div class="col-sm-2">
-        <img src="{{author.img.url}}" class="img-fluid mb-3" alt="image of {{author.name}}">
+        <!-- hide on screens wider than sm (DESKTOP) -->
+        <div class="d-sm-none">
+          <h1>{{author.name}}</h1>
+        </div>
 
+        <!-- hide on screens thinner than sm (DESKTOP) -->
+        <div class="d-none d-sm-block">
+          <img src="{{author.img.url}}" id="author-desktop-img" class="mb-3" alt="image of {{author.name}}">
+        </div>
+        <!-- hide on screens wider than sm (MOBILE) -->
+        <div class="d-sm-none">
+          <img src="{{author.img.url}}" id="author-mobile-img" class="mb-3" alt="image of {{author.name}}">
+        </div>
+
+        
+        
+        {% if author.pronouns.strip %}
         <div class="author-stat">
           <p>
             <i data-feather="tag"></i>
             Pronouns: {{author.pronouns}}
           </p>
         </div>
+        {% endif %}
 
         <div class="author-stat">
-            <p>
+          <p>
             <i data-feather="book-open"></i>
             Major: {{author.major}}
           </p>
         </div>
 
         <div class="author-stat">
-            <p>
+          <p>
             <i data-feather="award"></i>
             Year: {{author.year}}
           </p>
         </div>
 
+        {% if author.location.strip %}
         <div class="author-stat">
-            <p>
+          <p>
             <i data-feather="home"></i>
             {% load tag %}
             Location: {{author.location}}
           </p>
         </div>
+        {% endif %}
 
         <div class="author-stat">
-            <p>
+          <p>
             <i data-feather="file-text"></i>
             Fact: {{author.fact}}
           </p>
         </div>
 
+        {% if author.email.strip %}
         <div class="author-stat">
-            <p>
+          <p>
             <i data-feather="mail"></i>
-            Email: {{author.email}}
+            Email: <a href= "mailto: {{author.email}}">{{author.email}}</a>
           </p>
         </div>
+        {% endif %}
 
         {% for link in author.misc_links.all %}
         <div class="author-stat">
-            <p>
+          <p>
             <i data-feather="link"></i>
-            {{link.text}}: {{link.link}}
+            <a href= "{{link.link}}">{{link.text}}</a>
           </p>
         </div>
         {% endfor %}
@@ -71,7 +92,10 @@
       
       <!-- bio and previous works -->
       <div class="col-sm-6">
-        <h1>{{author.name}}</h1>
+        <!-- hide on screens smaller than sm -->
+        <div class="d-none d-sm-block">
+          <h1>{{author.name}}</h1>
+        </div>
 
         <hr>
 
@@ -93,4 +117,18 @@
       feather.replace();
     </script>
   </div>
+
+
+<style>
+  
+
+#author-mobile-img {
+    max-height: 150px;
+    width: auto;
+}
+
+#author-desktop-img {
+    width: 100%;
+}
+</style>
 {% endblock page_info %}
