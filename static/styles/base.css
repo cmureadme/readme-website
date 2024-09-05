@@ -58,11 +58,17 @@ a:active {
 
 .navbar {
   background-color: var(--background-dark);
-  padding-left: 80px;
+  padding: 8px;
+  margin-left: -12px;
+  margin-right: -12px;
   border-top-style: solid;
   border-bottom-style: solid;
   border-width: 1px;
   border-color: var(--secondary-dark);
+}
+
+.navbar-nav {
+  padding-left: 8%;
 }
 
 .navbar-nav a {
@@ -220,16 +226,20 @@ a:active {
 }
 
 .navbar-brand:hover {
-  width: 60px;
-  height: 60px;
   background-color: var(--primary-dark);
-  padding: 5px;
 }
 
 .navbar-nav .nav-link:hover {
   background-color: var(--background-darkest);
   font-style: italic;
   text-align: center;
+}
+
+@media (max-width: 992px) {
+  .navbar-nav {
+    padding-left: 0;
+    padding-top: 8px;
+  }
 }
 
 @media (max-width: 768px) {
