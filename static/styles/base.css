@@ -235,7 +235,7 @@ a:active {
   text-align: center;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
   .navbar-nav {
     padding-left: 0;
     padding-top: 8px;
