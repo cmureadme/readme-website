@@ -1,5 +1,6 @@
 from django.db import models
 import markdown
+from django.core.validators import FileExtensionValidator
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True, primary_key=True)
@@ -34,11 +35,18 @@ class SocialMediaLink(models.Model):
 
     def __str__(self) -> str:
         return self.link
+    
+def issue_upload_path(instance, _):
+    return f"vol{instance.vol}/issue{instance.num}/CMUREADME_VOL{instance.vol}_ISSUE{instance.num}.pdf"
 
 class Issue(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
     vol = models.IntegerField(default=0)
     num = models.IntegerField(default=0)
+    archive = models.FileField(
+        upload_to=issue_upload_path,
+        validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
+    )
     class Meta:
         verbose_name_plural = "issues"
     def __str__(self):
