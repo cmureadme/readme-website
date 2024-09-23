@@ -119,13 +119,13 @@
   "pk": "Cindy Gao",
   "fields": {
     "img": "author_images/cindy.webp",
-    "bio": "perhaps better known as auntie readme. two truths and a lie: i have a perfect record of dying in every edition of every readme that i've appeared in, i'm still running from whatever i unleashed that one time i stole an eldritch book from wean 2 (help), and as a humanities student, each time i've died, i've been replaced with an ai",
+    "bio": "perhaps better known as auntie readme. almost certainly not a cat.",
     "roles": "Staffwriter",
     "pronouns": "they/them primarily, whatever makes the bit work secondarily",
     "major": "behavioral economics (like econ but if you assume people are kinda stupid!), creative writing (what some would term \"lying\")",
     "year": "DC '27",
     "location": "rapidly approaching yours!",
-    "fact": "﻿!",
+    "fact": "two lies and a truth: i have a perfect record of dying in every edition of every readme that i've appeared in, i'm still running from whatever i unleashed that one time i stole an eldritch book from wean 2 (help), and as a humanities student, each time i",
     "email": "cindygao@andrew.cmu.edu"
   }
 },
@@ -281,6 +281,21 @@
 },
 {
   "model": "articles.author",
+  "pk": "Lee Rodriguez",
+  "fields": {
+    "img": "author_images/pfp_5_crop_bigradient_SNOWY_vignette.png",
+    "bio": "𝐼𝒻 𝐼 𝒸𝒶𝓃 𝓂𝒶𝓀𝑒 𝒾𝓉 𝒽𝑒𝓇𝑒, 𝐼 𝒸𝒶𝓃 𝓂𝒶𝓀𝑒 𝒾𝓉 𝒶𝓃𝓎𝓌𝒽𝑒𝓇𝑒 \r\n♡\r\n\r\nI ❤️ NY | PRISM Chair 🛜 | Creative Writing🐸",
+    "roles": "Chief Technical Officer, server rack owner, revenge bedtime procrastinator",
+    "pronouns": "They/them",
+    "major": "ECE",
+    "year": "2026",
+    "location": "CUC 335",
+    "fact": "dm for admin",
+    "email": "lee9@cmu.edu"
+  }
+},
+{
+  "model": "articles.author",
   "pk": "Maximillian Bartholemow VIII",
   "fields": {
     "img": "author_images/max_barty.png",
@@ -311,17 +326,32 @@
 },
 {
   "model": "articles.author",
+  "pk": "Phong",
+  "fields": {
+    "img": "author_images/1000_F_103321628_i1jlcaQGJ2FE432eDtDxDJTGbFJO73wf.jpg",
+    "bio": "None of the potentially incriminating things I've said in internal Readme communications (namely ████████████████████, ██████████████, ██████████, ████████████, and ███████████████) were not serious. Do not deport me, please.",
+    "roles": "writer",
+    "pronouns": "he/him",
+    "major": "ECE",
+    "year": "The year of our lord.",
+    "location": "In your walls.",
+    "fact": "Most people have 10 fingers.",
+    "email": "phongt@andrew.cmu.edu"
+  }
+},
+{
+  "model": "articles.author",
   "pk": "Ryan Chernoff",
   "fields": {
     "img": "author_images/ryan.jpg",
     "bio": "Has contributed absolute nothing to ReadMe and may very well not exist.",
-    "roles": "Contributor",
+    "roles": "Contributor, Web developer",
     "pronouns": "I/me/my",
     "major": "Computer Science",
     "year": "SCS '27",
-    "location": "<a href=\"https://imgur.com/a/rX15zCz\">https://imgur.com/a/rX15zCz</a>",
-    "fact": "Loved 122 (weirdo)",
-    "email": "readme@kgb.org"
+    "location": "Behind you",
+    "fact": "If everyone in China were to jump at once, it would be the equivalent of detonating a couple tons of TNT",
+    "email": "rchernof@andrew.cmu.edu"
   }
 },
 {
@@ -355,11 +385,30 @@
   }
 },
 {
+  "model": "articles.socialmedialink",
+  "pk": 1,
+  "fields": {
+    "link": "https://www.flickr.com/photos/188191851@N05/",
+    "text": "My flickr!",
+    "issues": "Lee Rodriguez"
+  }
+},
+{
   "model": "articles.issue",
   "pk": "the issue in which readme gets off of double secret probation",
   "fields": {
     "vol": 1,
-    "num": 1
+    "num": 1,
+    "archive": "vol1/issue1/CMUREADME_VOL1_ISSUE1.pdf"
+  }
+},
+{
+  "model": "articles.issue",
+  "pk": "the issue in which the writing staff of this fine publication choose to exercise their rights",
+  "fields": {
+    "vol": 2,
+    "num": 2,
+    "archive": "vol2/issue2/CMUREADME_VOL2_ISSUE2.pdf"
   }
 },
 {
@@ -367,7 +416,8 @@
   "pk": "the issue in which we discuss the merits and downsides of severe alcohol poisoning",
   "fields": {
     "vol": 1,
-    "num": 6
+    "num": 6,
+    "archive": "vol1/issue6/CMUREADME_VOL1_ISSUE6.pdf"
   }
 },
 {
@@ -375,7 +425,8 @@
   "pk": "the issue in which we initiate the freshmen to our storied traditions",
   "fields": {
     "vol": 2,
-    "num": 0
+    "num": 0,
+    "archive": "vol2/issue0/CMUREADME_VOL2_ISSUE0.pdf"
   }
 },
 {
@@ -383,7 +434,17 @@
   "pk": "the issue in which we notate the complete collapse of this fine school",
   "fields": {
     "vol": 1,
-    "num": 2
+    "num": 2,
+    "archive": "vol1/issue2/CMUREADME_VOL1_ISSUE2.pdf"
+  }
+},
+{
+  "model": "articles.issue",
+  "pk": "the issue in which we reveal the dark and seedy underbelly of Carnegie's finest publication",
+  "fields": {
+    "vol": 2,
+    "num": 1,
+    "archive": "vol2/issue1/CMUREADME_VOL2_ISSUE1.pdf"
   }
 },
 {
@@ -391,7 +452,8 @@
   "pk": "the issue in which we say \"yeah science bitch\" and prove we deserve our degrees",
   "fields": {
     "vol": 1,
-    "num": 3
+    "num": 3,
+    "archive": "vol1/issue3/CMUREADME_VOL1_ISSUE3.pdf"
   }
 },
 {
@@ -399,7 +461,8 @@
   "pk": "the issue in which we start investigating the strange happenings",
   "fields": {
     "vol": 1,
-    "num": 5
+    "num": 5,
+    "archive": "vol1/issue5/CMUREADME_VOL1_ISSUE5.pdf"
   }
 },
 {
@@ -407,7 +470,8 @@
   "pk": "the issue in which we turn readme into a weapon of mass destruction",
   "fields": {
     "vol": 1,
-    "num": 4
+    "num": 4,
+    "archive": "vol1/issue4/CMUREADME_VOL1_ISSUE4.pdf"
   }
 },
 {
@@ -516,6 +580,24 @@
     ],
     "categories": [
       "Real News"
+    ]
+  }
+},
+{
+  "model": "articles.article",
+  "pk": "auntie-readme-real-freshman-questions",
+  "fields": {
+    "title": "Auntie Readme’s: Answering REAL Questions Asked By REAL Freshmen",
+    "body": "Welcome, freshmen, to the most prestigious institution this side of the Monongahela River! (And this side of the Allegheny as well, and the other side of Forbes, and the other other side of Schenley, and, well, you get the point.) Some of you are probably (understandably!) nervous about going to the school that spawned the monstrosity known as the Duolingo owl, has an inscription on one of its buildings suggesting that women should be responsible for “domestic pleasures” or whatever, and has had almost every one of its buildings flooded, and those of you who aren’t are beyond my help anyways. So, without further ado, I will use my vast year of wisdom to answer REAL questions REAL freshmen have asked.\r\n\r\n\r\n**Where can I get a fake ID?**\r\n\r\n\r\nFor best results, you should probably hit up the CMU Police—they’ve probably seen a lot of them in their day and likely have an entire archive of confiscated ones, so they’re likely at the cutting edge of how to make one look extra convincing! If you choose to go a freelancer and find that you’ve gotten scammed with a bad fake ID, you should immediately call CMUPD, explain your situation to them, and see if they can issue you a new one.\r\n\r\n\r\n**How do I get into Jane Street?**\r\n\r\n\r\nLegend has it that sometimes, if you’re walking home from a long day at Gates, frustrated by the seeming uselessness of computer science, a stray poodle may lead you to the crossroads where the Mall meets the Pausch Bridge. Oh, don’t be afraid! Little known fact, this poodle is a Jane Street recruiter. Unless you can successfully compress all fifty states into a 5x5 grid, or perhaps create a more optimal solution for the Enigma, he’ll disappear into the night. This will leave you with no more chances to be hired, and no more job prospects.\r\n\r\n\r\nHeed this word of warning, though. One doesn’t realize that part of the “working for Jane Street” bargain means that you can’t ever feel a single moment of bliss and job satisfaction. Unfortunately, those who do forfeit their souls. Given souls will be immediately possessed by the recruiter and put to work continuing to make real-time market valuations.\r\n\r\n\r\n(Haha, your Jane Street test has already begun. This advice is a puzzle!)\r\n\r\n\r\n**Best ways to fuck with my roommates?**\r\n\r\n\r\nStart by putting one grain of sand on the floor. For every day that passes, double the number of sand grains on the floor—two for the second day, four for the third, etc. This should remain undetected for the first few weeks or so.\r\n\r\n\r\nEventually, your roommates may see trails of sand on the ground, and start to have some questions. If you’re lucky, and you’ve cultivated your Bay Area persona well enough, they may dismiss this as a natural part of growing up near a beach. They will be unprepared for the day that sand leaks from the closets and under beds and out of drawers and pushes them out of the room entirely.\r\n\r\n\r\n**How to deal with bad professors?**\r\n\r\n\r\nFind their most groundbreaking/notable/cited paper, or their dissertation for grad school or whatever. Write one proposing the same ideas. Backdate it to exactly one year before they published theirs (yes, this may be before you were born. If questioned about it, say that you were just a really precocious child). Bring forth charges of plagiarism and watch as they are pushed out in academic disgrace.\r\n\r\n\r\nIf that fails, I may have an idea about a lecture hall and some bags of sand...\r\n\r\n\r\n**Where’s the best place to secretly drink?**\r\n\r\n\r\nIf you’re a School of Computer Science student who wants to keep other SCS students from finding out about your emerging alcoholism, you should try Baker-Porter, or any other humanities building, or really anything that’s outside the Gates/Newell-Simon/Wean triangle. I guarantee they won’t be able to find it.\r\n\r\n\r\n**How do I transfer to MIT?**\r\n\r\n\r\nNow *that* is an iconically Tartan question! Props for already embracing one of the iconic CMU mottos— “my heart is in the work”, “everyone at this school is better than me and I’m an imposter”, and “why did MIT have to reject me?” are words we live by around here. *Now* you’re really getting into the Carnegie Mellon spirit!",
+    "created_on": "2024-08-28T16:25:26.315Z",
+    "last_modified": "2024-08-28T16:25:26.315Z",
+    "issues": "the issue in which we initiate the freshmen to our storied traditions",
+    "published": true,
+    "authors": [
+      "Cindy Gao"
+    ],
+    "categories": [
+      "Auntie Readme"
     ]
   }
 },
@@ -813,6 +895,24 @@
 },
 {
   "model": "articles.article",
+  "pk": "enrollment-contract-update-details",
+  "fields": {
+    "title": "Carnegie Mellon Updates Enrollment Contract, Since Nobody Reads Those Things Anyway: Here are Some of the Details",
+    "body": "In an email sent directly to students’ spam folders, Carnegie Mellon University has announced changes to the contract signed by all students upon enrollment. “Because no one is going to read this,” Provost Jim Garrett writes in the email, “we are proud to announce that we have made some of the biggest changes to this contract in Carnegie Mellon history. Read them (or don’t) here.” Below is a non-comprehensive list of the changes made:\r\n\r\n\r\nArticle 2, section 3 now states: “By attending Carnegie Mellon University, you agree to grant Carnegie Mellon University and all of its known affiliates full ownership of your image and likeness for commercial and recreational use. This ownership shall be extended to your first born grandson, if none is born between now and August 24, 2035 you may be subject to fines of at least 7% of Carnegie Mellon University’s net worth and jail time up to 50% of your tenure as a student.”\r\n\r\n\r\nArticle 4, section 5 now states: “All Carnegie Mellon students are responsible for all actions taken by the University and its donors, including but not limited to: creating robots to shoot innocent children in the Middle East, research done by the English Department, and the existence of David Tepper.”\r\n\r\n\r\nArticle 5, section 21 now states: “By paying tuition or receiving financial aid from Carnegie Mellon University, you acknowledge that you will never again have free time. Instead, all of your time will be devoted to your classes, your professors, your TAs, and this university, because your heart is in the work.”\r\n\r\n\r\nArticle 7̴̢̞̘̐̒̚, section 6̵̢̫͔͒̈́͆̾͐̀͆͆͜͝͠6̴̢̜̥̩̰̭̽͑͗͆̀̎͑̎̇ͅͅ6̷̹̋́̆̑ states: “In the event of an altercation with Satan, you agree to forfeit ownership of your undying soul for the usage of bargaining and other forms of commerce. Failure to do so will result in a meeting with a disciplinary board and potential expulsion.”\r\n\r\n\r\nArticle 8, section 1 states: “The contents of this article are false.”\r\n\r\n\r\nArticle 9, section 7 now states: “By attending Carnegie Mellon University, you agree to accept the African-American man who is part of the Walking to the Sky statue, commonly known as Daddy Thicc, as your lord and savior, and agree to bow down to him any time he enters your line of sight.”\r\n\r\n\r\nWhile these additions make up just a small portion of the contract, they are expected to cause absolutely no change to campus life, despite their seemingly dire nature. This is because no student, including the one writing this article, read the contract in its entirety, meaning that these provisions are unenforceable, if they are even real.",
+    "created_on": "2024-08-28T16:26:16.055Z",
+    "last_modified": "2024-08-28T16:26:16.055Z",
+    "issues": "the issue in which we initiate the freshmen to our storied traditions",
+    "published": true,
+    "authors": [
+      "Tali Kirschenbaum"
+    ],
+    "categories": [
+      "Real News"
+    ]
+  }
+},
+{
+  "model": "articles.article",
   "pk": "fence-dispute",
   "fields": {
     "title": "Zoning Dispute Leaves Carnegie Mellon With a Broken Fence and Broken Heart",
@@ -826,6 +926,24 @@
     ],
     "categories": [
       "Real News"
+    ]
+  }
+},
+{
+  "model": "articles.article",
+  "pk": "five-minute-crafts-ece",
+  "fields": {
+    "title": "5-Minute Crafts: ECE!",
+    "body": "Ah, 18-100 introduction to Electrical & Computer Engineering, truly a quintessential class in the Carnegie Mellon undergraduate experience. Students get to build various fun labs every week, such as building 3 bit adders, a radio, and even programming their own machine learning classification system! To be able to complete such endeavors, each student is given a Lab Kit containing various electronic components, such as transistors, resistors, estradiol, and op-amp chips! After the semester ends, students get to keep the lab kits as long as they would like! This poses the question, what should you do with your kit when you are no longer grinding out labs? You could donate it to the CMU robotics club, which will welcome more electronic components to their collection, or, you could build the following fun projects!\r\n\r\n\r\n1) Car bomb (our legal counsel advised me to mention that this is in Minecraft!)\r\n2) Missile drone that targets endangered species\r\n3) Radio signal jammer\r\n4) Bread teleporter\r\n5) Vision canceling goggles\r\n6) Missile drone that targets essential roadway infrastructure\r\n7) Chess-solving buttplug\r\n8) Missile drone that targets actual people what the fuck is wrong with you\r\n9) Did you just glaze over 8 what the fuck is wrong with you :(\r\n10) 4 bit adder",
+    "created_on": "2024-08-28T16:28:17.204Z",
+    "last_modified": "2024-08-28T16:28:17.204Z",
+    "issues": "the issue in which we initiate the freshmen to our storied traditions",
+    "published": true,
+    "authors": [
+      "Dr. Et Al."
+    ],
+    "categories": [
+      "Science and Technology"
     ]
   }
 },
@@ -1049,6 +1167,24 @@
 },
 {
   "model": "articles.article",
+  "pk": "oweek-crime-report",
+  "fields": {
+    "title": "O-Week Crime Report",
+    "body": "Hello freshmen, welcome to the best years of your life! And to everyone else, we are so glad you didn’t drop out or quit. While you all were busy, we at readme were also busy, sniffing out crime on campus. Really getting into the dirt for this one. Interested? Read this to catch up on all the terrible horrible things that have happened to our beloved CMU while you all were away.\r\n\r\n\r\n**WEB OF LIES**\r\nIn a shocking twist of events, a large crocheted web was erected over the main campus buildings. According to authorities, this web had been up for about two weeks before anyone took action. It was only removed because many Pittsburgh citizens grew worried about the reason for such a strange creation. Also, the emails and phone calls were starting to pile up. Currently, CMUPD is trying to unravel the culprits and any students in the loop behind such a heinous crime. If you have any ideas on the case, please contact readme@cmukgb.org.\r\n\r\n\r\n**GREEK HOUSE HORROR**\r\nAttention all CMU personnel! Authorities are on the search for the person(s) who stole all of the letters off of the Greek Houses. The English-looking letters were found in Schenley Park in what appeared to be an oversized game of Scrabble which was outlined in crudely done chalk. However, none of the exclusively Greek letters were found anywhere in Schenley. Authorities are under the belief that these letters are being held hostage in someone’s house or dorm. In an interview with a local fraternity brother, he suggested that it was “a tragedy” and was “calling for the safe return of [their] beloved letters”. Please help save these Greek letters and bring them back home!\r\n\r\n\r\n**FENCE GONE, CMU DISTRAUGHT**\r\nLast night, a group of students staked out the Fence. It was reported that they poured about 100 gallons of paint stripper and distilled vinegar on it to clean up the built up paint. The Fence was constructed of 95% built up paint and only 5% actual fence, which happened to be super brittle and old. Unsurprisingly, it immediately fell apart when stripped of all the paint. Now there is no Fence. Many are left in deep pain. A group of students have created an ambitious plan to glue the Fence back with paint, but we at readme are not sure how successful it will be considering parts of the Fence have disintegrated and turned to ash. CMU staff and the student government have no idea what to do about the new state of the Fence and have elected to allow this to happen until a real solution is found.\r\n\r\n\r\n**FRESHMAN DECORATIONS GO AWRY**\r\nCarnegie Mellon is in shambles. Who allowed the freshman dormitories to be painted their respective colors? The windows are one thing, the whole building? Donner, of course, is not affected in the slightest since the building was already the color of the Caribbean Sea. Many of the freshman RAs claim sabotage from the blue dorm. However, Donner claims this was all an attempt to smear their name. Who knows? Barely any of the upperclassmen care, and the staff believe this is some sort of dormitory spirit thing. The maintenance care though, as they have to clean it up now. Rumors flying around indicate that they plan to increase the cost of maintenance requests by a factor of 200 because of this.\r\n\r\n\r\nStay safe, Tartans!",
+    "created_on": "2024-08-28T16:27:09.545Z",
+    "last_modified": "2024-08-28T16:27:09.545Z",
+    "issues": "the issue in which we initiate the freshmen to our storied traditions",
+    "published": true,
+    "authors": [
+      "Abe James"
+    ],
+    "categories": [
+      "Crime Report"
+    ]
+  }
+},
+{
+  "model": "articles.article",
   "pk": "plagiarism",
   "fields": {
     "title": "README Found to be Plagiarizing the Tartan",
@@ -1175,6 +1311,24 @@
 },
 {
   "model": "articles.article",
+  "pk": "volume2-issue0-letter-from-the-editor",
+  "fields": {
+    "title": "A Letter from the Editor",
+    "body": "As the premier and only newspaper on campus, readme is honored to welcome each and every single one of you to Carnegie Mellon University, four years of your life you couldn't have anywhere else. Unless, of course, you buy the all inclusive package for 20% more plus shipping, in which case you can enjoy Carnegie Mellon from the comfort of your own home, 24/7, on up to three different devices! This place has a long and storied history, as one of the first institutions of higher learning on this side of the Appalachians. From the Fence, first constructed in 1917 to keep students from jumping into The Ravine, to the secret tunnels under Purnell that drama professors use to escape angry mobs, to the pre­finals scream all students participate in to convince their professors to curve, dear ol' Tech is a place with a good many traditions for you to engage in. And besides studying in Hunt, and studying in Sorrells, and studying in your dorm, and studying in bed, there is actually quite a bit to do here. I haven't even touched on all the good study rooms in the UC.\r\n\r\n\r\nReadme, of course, is excited to see you all here, and we really do wish the best in your time on this campus. While we do not, in any way, endorse fun, it's important to remember to prank all your professors once a semester ­ it's hard to get an A otherwise. CMU's a wonderful place, filled with wonderful people, and you'll make your government­mandated one (1) lifelong memory here in due time. The rest of it? Honestly pretty forgettable.\r\nWith all that aside, it's good to remember the three rules of college:\r\n\r\n\r\n 1) Don't increase the population\r\n\r\n 2) Don't decrease the population\r\n\r\n 3) Try not getting caught?\r\n\r\nWithout further ado, and with a warm welcome to hell itself...\r\n\r\n\r\n# *readme, volume #2, issue #0*",
+    "created_on": "2024-08-28T16:23:19.071Z",
+    "last_modified": "2024-09-03T14:36:24.620Z",
+    "issues": "the issue in which we initiate the freshmen to our storied traditions",
+    "published": true,
+    "authors": [
+      "Eshaan Joshi"
+    ],
+    "categories": [
+      "Letter from the Editor"
+    ]
+  }
+},
+{
+  "model": "articles.article",
   "pk": "war1",
   "fields": {
     "title": "CMU to literally go to war with U of Pitt",
@@ -1196,9 +1350,9 @@
   "pk": "war2",
   "fields": {
     "title": "Amid Pitt Threat, Defensive Campus Turtles to Increase in Number",
-    "body": "As the laser cannon atop the University of Pittsburgh's Cathedral of Learning nears completion, projected for the fall 2024 semester, Pitt students rejoice their opportunity to reenter the locked top floors of Cathy to zap unsuspecting cmu students. A Pitt alumn elaborated in an interview, “I always loved studying up there. The fear of death that comes from doing multidimensional calculus at that height—gusts of wind blowing your notes around, the ledge so perilously close to your study nook, pset deadline three minutes away and ticking down fast—it was really just an immense boost to my productivity. I haven’t been able to focus so well since I was an undergrad. But now I can visit my alma mater, finally get some work done, and zap some pretentious CMU students all in the same visit? I wouldn’t pass it up for the world.”\r\n\r\nLuckily for us, a recent email from the War Director at CMU states that Carnegie Mellon’s new Highmark Center for Health, Wellness and Athletics, replacing the now-demolished Skibo Gym, is on schedule to provide necessary shelter in the form of yet another turtle on campus. \r\n\r\n{{turtle.png}}\r\n\r\nAs we all know, turtles have hard shells on their backs. Additionally, arbitrary cross sections of turtles' shells are smooth concave surfaces, and as such are suitable for deflecting lasers (see helpful graphic). The Director assures that the combined coverage of Wean, Gates, and the new Highmark Center will give CMU ample cover to remain safe under the watchful eye of Upitt's laser cannons constructing on top of the Cathedral.\r\n\r\n{{war.png}}",
+    "body": "As the laser cannon atop the University of Pittsburgh's Cathedral of Learning nears completion, projected for the fall 2024 semester, Pitt students rejoice their opportunity to reenter the locked top floors of Cathy to zap unsuspecting cmu students. A Pitt alumn elaborated in an interview, “I always loved studying up there. The fear of death that comes from doing multidimensional calculus at that height—gusts of wind blowing your notes around, the ledge so perilously close to your study nook, pset deadline three minutes away and ticking down fast—it was really just an immense boost to my productivity. I haven’t been able to focus so well since I was an undergrad. But now I can visit my alma mater, finally get some work done, and zap some pretentious CMU students all in the same visit? I wouldn’t pass it up for the world.”\r\n\r\nLuckily for us, a recent email from the War Director at CMU states that Carnegie Mellon’s new Highmark Center for Health, Wellness and Athletics, replacing the now-demolished Skibo Gym, is on schedule to provide necessary shelter in the form of yet another turtle on campus. \r\n\r\n{{gates_turtle.png}}\r\n\r\nAs we all know, turtles have hard shells on their backs. Additionally, arbitrary cross sections of turtles' shells are smooth concave surfaces, and as such are suitable for deflecting lasers (see helpful graphic). The Director assures that the combined coverage of Wean, Gates, and the new Highmark Center will give CMU ample cover to remain safe under the watchful eye of Upitt's laser cannons constructing on top of the Cathedral.\r\n\r\n{{helpful_graphic.png}}",
     "created_on": "2024-06-23T10:38:57.660Z",
-    "last_modified": "2024-08-25T17:26:57.158Z",
+    "last_modified": "2024-09-23T17:54:39.339Z",
     "issues": "the issue in which we turn readme into a weapon of mass destruction",
     "published": true,
     "authors": [
@@ -1313,8 +1467,8 @@
   "pk": 10,
   "fields": {
     "show": "war2",
-    "image": "article_images/turtle.png",
-    "alt_text": ""
+    "image": "article_images/gates_turtle.png",
+    "alt_text": "an image of Gates, at an angle where a cantilever resembles turtle's head"
   }
 },
 {
@@ -1331,15 +1485,83 @@
   "pk": 12,
   "fields": {
     "show": "war2",
-    "image": "article_images/war.png",
-    "alt_text": ""
+    "image": "article_images/helpful_graphic.png",
+    "alt_text": "a notes app-drawn depiction of a badly drawn cathedral of learning, shooting a laser deflecting off a turtle"
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "editor",
+    "permissions": [
+      [
+        "add_article",
+        "articles",
+        "article"
+      ],
+      [
+        "change_article",
+        "articles",
+        "article"
+      ],
+      [
+        "view_article",
+        "articles",
+        "article"
+      ],
+      [
+        "add_articleimage",
+        "articles",
+        "articleimage"
+      ],
+      [
+        "change_articleimage",
+        "articles",
+        "articleimage"
+      ],
+      [
+        "view_articleimage",
+        "articles",
+        "articleimage"
+      ],
+      [
+        "add_author",
+        "articles",
+        "author"
+      ],
+      [
+        "change_author",
+        "articles",
+        "author"
+      ],
+      [
+        "view_author",
+        "articles",
+        "author"
+      ],
+      [
+        "add_socialmedialink",
+        "articles",
+        "socialmedialink"
+      ],
+      [
+        "change_socialmedialink",
+        "articles",
+        "socialmedialink"
+      ],
+      [
+        "view_socialmedialink",
+        "articles",
+        "socialmedialink"
+      ]
+    ]
   }
 },
 {
   "model": "auth.user",
   "fields": {
-    "password": "pbkdf2_sha256$870000$cvrZ6WyK6ns1VfPox39Nqy$I7whG2f5gKMFsczGWD2tp9kYVLrDCmmCZH7oGtP3MHw=",
-    "last_login": "2024-08-25T17:15:26.374Z",
+    "password": "pbkdf2_sha256$870000$lzmWKoxCmwNwEbR7ZU8PLq$ON3hVYtTKqZII9oVcBuGHYfOszZAQqKF59i0pYJNTZA=",
+    "last_login": "2024-09-23T16:26:41.282Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -1350,6 +1572,173 @@
     "date_joined": "2024-08-22T19:17:03.770Z",
     "groups": [],
     "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$MfRM16CpYXnc70Y50gjo3G$vMTk16Aie3UKfc/IrDM30enDXIynxQUFbRCcAZ3AzdY=",
+    "last_login": "2024-08-27T01:31:09.261Z",
+    "is_superuser": false,
+    "username": "RyanNotARobot",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-08-26T00:39:28Z",
+    "groups": [
+      [
+        "editor"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$yHyThaEbLHXW5hA3lel65o$A6QYwLGj+dkkLWtCI+TO2R+drE1MsuH3djo7XilQqPk=",
+    "last_login": "2024-09-21T22:07:17.615Z",
+    "is_superuser": false,
+    "username": "phong",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-08-26T00:45:28Z",
+    "groups": [
+      [
+        "editor"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$zzb01zh0I4f4nwT1ZjOF7W$51mhjRJ29jB6AnSurJyayukhcenFzo8aREi3eaabuqA=",
+    "last_login": "2024-08-26T01:02:02.482Z",
+    "is_superuser": false,
+    "username": "auntiereadme",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-08-26T01:00:01Z",
+    "groups": [
+      [
+        "editor"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$pvtl88bwpyIx6SFWlAfJWd$QHj284+8VuNKsQZa+pc7FV5OqOkfYAqA5sEiPzNHJ/Y=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dkogan2",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-08-26T01:01:32Z",
+    "groups": [
+      [
+        "editor"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$6zHLRxDznqQq9RvKyl8iu1$47Zd8g+7/RWLcWs6l8QpebvNFNoNqnNQ2ZqmzvL/CU0=",
+    "last_login": "2024-08-26T02:35:32.492Z",
+    "is_superuser": false,
+    "username": "evj",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-08-26T02:34:49Z",
+    "groups": [
+      [
+        "editor"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$S4bLFw1lqvpUUK5RMcafjz$MAs1lfBYzahYwXUHhZkwngsqDYEsQUpAOqIEUuuS+CA=",
+    "last_login": "2024-09-11T23:36:58.903Z",
+    "is_superuser": false,
+    "username": "talishir",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-08-28T16:19:23Z",
+    "groups": [
+      [
+        "editor"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$qJ5Uko6h58WvzpEhK2x85N$3H3MPwTJ4v+RXoJAzFLp/eKwQ2NZQPruLOVXxS05q3M=",
+    "last_login": "2024-09-17T19:22:54.857Z",
+    "is_superuser": false,
+    "username": "authorcreator",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-09-17T19:21:31Z",
+    "groups": [],
+    "user_permissions": [
+      [
+        "add_author",
+        "articles",
+        "author"
+      ],
+      [
+        "change_author",
+        "articles",
+        "author"
+      ],
+      [
+        "view_author",
+        "articles",
+        "author"
+      ]
+    ]
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0r8ymb5fyw6pxbw4jcdubf1i06zuce6r",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1sieWo:i4uRdhFehglY5B7Re7BTh3S_WKJ93tGE2cy5-kYfdKM",
+    "expire_date": "2024-09-09T18:33:22.730Z"
   }
 },
 {
@@ -1370,10 +1759,106 @@
 },
 {
   "model": "sessions.session",
+  "pk": "6yosmtpnsdzd79st1sbmj5zk4h1lut2f",
+  "fields": {
+    "session_data": ".eJxVjE0OwiAYBe_C2hCg_NWle89AHh8gVUOT0q6Md9cmXej2zcx7sYBtrWHreQlTYmdm2Ol3i6BHbjtId7TbzGlu6zJFviv8oJ1f55Sfl8P9O6jo9VuDIIwSvjgM0MKNZCMMfITQTthBOq2yJwtHogCW9EiQZZCAzo4Ue38A6Yg4Pw:1siO7O:cAW7LZDs5EDQEFOfDdCYRvnhLDnEfpCB9Isy4U2yUVw",
+    "expire_date": "2024-09-09T01:02:02.485Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "95e8722t8nh7x4bbw5mbjwrwj15y9hto",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1slDUd:z-hQWFXSZpcXXTXViZ6zReTMQ0FM9Q9Z4w9PiDI2yZA",
+    "expire_date": "2024-09-16T20:17:43.955Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "dnzojyvfkgy4e05mtawlrekyl09fuzfh",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pBShgZcuvcMZIYZpGogKe3KeHdt0oVu_3vvv1TEbS1x67LEmdVZgTr9boTpIXUHfMd6azq1ui4z6V3RB-362liel8P9OyjYy7dGSyAD58HQJMwik3GGXCYOLngPiJgNYAoi4tkR8ChkU7AJshkB1fsDIY45eQ:1sil2v:Do8TjyWx6UOXcGbYHeZWLfCRYjLMomJRFF54zndd_TM",
+    "expire_date": "2024-09-10T01:30:57.792Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "eag8bvin7zmpmswig18r0xq34cux7l0d",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pBShgZcuvcMZIYZpGogKe3KeHdt0oVu_3vvv1TEbS1x67LEmdVZgTr9boTpIXUHfMd6azq1ui4z6V3RB-362liel8P9OyjYy7dGSyAD58HQJMwik3GGXCYOLngPiJgNYAoi4tkR8ChkU7AJshkB1fsDIY45eQ:1ss8G5:O9DvQCXY25RbQGc5537xPMXJ0L0JGutfTkTfWtRGs_0",
+    "expire_date": "2024-10-05T22:07:17.617Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "lmveigtbevn8uoamvv7kgz7kyg6qjcgi",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCRQSgu3XuGhmEYqRpISrsy3l2bdKHb_977LzXGdSnj2vM8TqzOyqjD70YxPXLdAN9jvTWdWl3mifSm6J12fW2cn5fd_TsosZdvjRGsCGRgb8QDUWDI5MBATlZOgI4DJwnI4lCcY_SJvLE4-OOAIur9AfdmODY:1sil37:MXe7b3d1uZWYjdspCya5XXAp8Alu39aNM3gpULRSKiY",
+    "expire_date": "2024-09-10T01:31:09.264Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "pqhyq4gols8ovghn7lw3b5y3gtxvyysn",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1slNmY:BAWRHhTvf6QLGQZfkNH32y8Gsaw0HfGiHTeBGvrigag",
+    "expire_date": "2024-09-17T07:16:54.211Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "wcuf6qklaen367srf3q7ulcm0ct3ftc8",
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2hAYqIJL956BzDCDVA1NSrsy3l2bdKHb_977L5VwXWpau8xpZHVWVh1-N8L8kLYBvmO7TTpPbZlH0puid9r1dWJ5Xnb376Bir986eBuGUoIXE5HiEaigRwRjxBlXiDn6cGKJYgODc6FwzIwABSATDer9Ae8GOJI:1siGIz:AK5dp3GPSVobp1E-EVHjhMFi5w5Hc56I9vpud-x7H1E",
     "expire_date": "2024-09-08T16:41:29.767Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "xadsmri45f3xzqv1j6guzdq4jy4tj3hl",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1sjXo8:8jKdQc7CzFu-0jLK5ZGG1pbgbgZaGK8hHpgEyJ2LZjc",
+    "expire_date": "2024-09-12T05:34:56.198Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "y17jlrg24vwnlzhnexy86rwn78mp0axo",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1ssltZ:_xW3MU15z69VixOCESNyYUw7jC-3OBVt8wqQAMT1ekU",
+    "expire_date": "2024-10-07T16:26:41.285Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "z4palhhqyqi0qnblkzodetm0k9p6hr9o",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1sicQq:Qko_REtIuCua4sCLc28OPGT5uekIcngYtfYZ_RFqrps",
+    "expire_date": "2024-09-09T16:19:04.210Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "z9u2x3fbaujf7scnhlh6s5e7sme2cbpk",
+  "fields": {
+    "session_data": ".eJxVjEsOwiAUAO_C2hA-hQcu3fcM5PEAqRqalHZlvLsh6UK3M5N5s4DHXsPR8xaWxK4M2OWXRaRnbkOkB7b7ymlt-7ZEPhJ-2s7nNeXX7Wz_BhV7HVuJLoLRMRtBSMV5IzJYcHIqVpRiVXFKRT9Jj0SUtfEGQWkLoH1ynn2-4N03bA:1siPZs:nARasnixVLMdG3VYBGcydMO7WGwXC2YHGVjKFT4rVzA",
+    "expire_date": "2024-09-09T02:35:32.495Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zft0xfmg46jqwvqputkldrxmq9vuamyd",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBKKQMu3XsGMswMUjVtUtqV8e7apAvd_vfef6mE21rT1mRJI6uzCur0u2Wkh0w74DtOt1nTPK3LmPWu6IM2fZ1ZnpfD_Tuo2Oq3lkJAwaAv7Af2fW9sLDkCDhBttGRCJmGg3kJw2EXLHYiAM1aEMjn1_gD1PzhH:1sjLQ1:AvCnu9RMc_Ef5ZbqKS95Bv62YbxEx4cBn13UJDx1bXI",
+    "expire_date": "2024-09-11T16:21:13.037Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ztpmos1zmqso6jcw2lp9qvtmokiql90l",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBKKQMu3XsGMswMUjVtUtqV8e7apAvd_vfef6mE21rT1mRJI6uzCur0u2Wkh0w74DtOt1nTPK3LmPWu6IM2fZ1ZnpfD_Tuo2Oq3lkJAwaAv7Af2fW9sLDkCDhBttGRCJmGg3kJw2EXLHYiAM1aEMjn1_gD1PzhH:1soWtO:K72ejaMPi2sKzuMi-G9gUHD6K7ACOEJMOizBeTN-hh4",
+    "expire_date": "2024-09-25T23:36:58.905Z"
   }
 },
 {
@@ -1590,6 +2075,834 @@
     "object_repr": "Amid Pitt Threat, Defensive Campus Turtles to Increase in Number",
     "action_flag": 2,
     "change_message": "[{\"added\": {\"name\": \"article image\", \"object\": \"ArticleImage object (12)\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2024-08-26T00:33:57.719Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "object_id": "1",
+    "object_repr": "editor",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2024-08-26T00:39:29.757Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "RyanNotARobot",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2024-08-26T00:40:02.450Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "RyanNotARobot",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2024-08-26T00:42:05.521Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "3",
+    "object_repr": "ttph",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2024-08-26T00:42:25.552Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "3",
+    "object_repr": "ttph",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2024-08-26T00:44:08.282Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "3",
+    "object_repr": "ttph",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2024-08-26T00:44:51.700Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "3",
+    "object_repr": "ttph",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2024-08-26T00:45:29.323Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "4",
+    "object_repr": "phong",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2024-08-26T00:45:41.505Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "4",
+    "object_repr": "phong",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2024-08-26T00:46:46.489Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "RyanNotARobot",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2024-08-26T00:46:58.927Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "4",
+    "object_repr": "phong",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2024-08-26T00:51:38.500Z",
+    "user": [
+      "phong"
+    ],
+    "content_type": [
+      "articles",
+      "author"
+    ],
+    "object_id": "Phong",
+    "object_repr": "Phong",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2024-08-26T01:00:02.117Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "5",
+    "object_repr": "auntiereadme",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2024-08-26T01:00:34.265Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "5",
+    "object_repr": "auntiereadme",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2024-08-26T01:01:33.893Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "6",
+    "object_repr": "dkogan2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2024-08-26T01:01:42.022Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "6",
+    "object_repr": "dkogan2",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2024-08-26T01:03:30.102Z",
+    "user": [
+      "auntiereadme"
+    ],
+    "content_type": [
+      "articles",
+      "author"
+    ],
+    "object_id": "Cindy Gao",
+    "object_repr": "Cindy Gao",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Bio\", \"Fact\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2024-08-26T02:34:49.891Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "7",
+    "object_repr": "evj",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2024-08-26T02:35:02.148Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "7",
+    "object_repr": "evj",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2024-08-26T02:35:10.785Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "7",
+    "object_repr": "evj",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2024-08-26T14:09:01.391Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "object_id": "1",
+    "object_repr": "editor",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2024-08-27T01:34:02.433Z",
+    "user": [
+      "RyanNotARobot"
+    ],
+    "content_type": [
+      "articles",
+      "author"
+    ],
+    "object_id": "Ryan Chernoff",
+    "object_repr": "Ryan Chernoff",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Roles\", \"Location\", \"Fact\", \"Email\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2024-08-27T01:35:38.003Z",
+    "user": [
+      "phong"
+    ],
+    "content_type": [
+      "articles",
+      "author"
+    ],
+    "object_id": "Phong",
+    "object_repr": "Phong",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Bio\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2024-08-28T16:19:24.026Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "8",
+    "object_repr": "talishir",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2024-08-28T16:19:33.554Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "8",
+    "object_repr": "talishir",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2024-08-28T16:23:19.079Z",
+    "user": [
+      "talishir"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "volume2-issue0-letter-from-the-editor",
+    "object_repr": "A Letter from the Editor",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2024-08-28T16:25:26.321Z",
+    "user": [
+      "talishir"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "auntie-readme-real-freshman-questions",
+    "object_repr": "Auntie Readme’s: Answering REAL Questions Asked By REAL Freshmen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2024-08-28T16:26:16.058Z",
+    "user": [
+      "talishir"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "enrollment-contract-update-details",
+    "object_repr": "Carnegie Mellon Updates Enrollment Contract, Since Nobody Reads Those Things Anyway: Here are Some of the Details",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2024-08-28T16:27:09.548Z",
+    "user": [
+      "talishir"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "oweek-crime-report",
+    "object_repr": "O-Week Crime Report",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2024-08-28T16:28:17.208Z",
+    "user": [
+      "talishir"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "five-minute-crafts-ece",
+    "object_repr": "5-Minute Crafts: ECE!",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2024-09-01T18:12:15.137Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "author"
+    ],
+    "object_id": "Lee Rodriguez",
+    "object_repr": "Lee Rodriguez",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"social media link\", \"object\": \"https://www.flickr.com/photos/188191851@N05/\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2024-09-01T18:17:21.045Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "author"
+    ],
+    "object_id": "Lee Rodriguez",
+    "object_repr": "Lee Rodriguez",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2024-09-03T14:36:24.623Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "volume2-issue0-letter-from-the-editor",
+    "object_repr": "A Letter from the Editor",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Body\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2024-09-17T19:21:32.002Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "9",
+    "object_repr": "authorcreator",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2024-09-17T19:21:59.284Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "9",
+    "object_repr": "authorcreator",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"User permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2024-09-21T22:07:36.956Z",
+    "user": [
+      "phong"
+    ],
+    "content_type": [
+      "articles",
+      "author"
+    ],
+    "object_id": "Phong",
+    "object_repr": "Phong",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Bio\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2024-09-23T16:27:17.910Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which readme gets off of double secret probation",
+    "object_repr": "Vol 1, Issue 1, 'the issue in which readme gets off of double secret probation'",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2024-09-23T16:27:30.666Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which we notate the complete collapse of this fine school",
+    "object_repr": "Vol 1, Issue 2, 'the issue in which we notate the complete collapse of this fine school'",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2024-09-23T16:27:41.216Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which we say \"yeah science bitch\" and prove we deserve our degrees",
+    "object_repr": "Vol 1, Issue 3, 'the issue in which we say \"yeah science bitch\" and prove we deserve our degrees'",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2024-09-23T16:27:49.445Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which we turn readme into a weapon of mass destruction",
+    "object_repr": "Vol 1, Issue 4, 'the issue in which we turn readme into a weapon of mass destruction'",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2024-09-23T16:27:58.395Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which we start investigating the strange happenings",
+    "object_repr": "Vol 1, Issue 5, 'the issue in which we start investigating the strange happenings'",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2024-09-23T16:28:05.903Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which we discuss the merits and downsides of severe alcohol poisoning",
+    "object_repr": "Vol 1, Issue 6, 'the issue in which we discuss the merits and downsides of severe alcohol poisoning'",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2024-09-23T16:28:12.181Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which we initiate the freshmen to our storied traditions",
+    "object_repr": "Vol 2, Issue 0, 'the issue in which we initiate the freshmen to our storied traditions'",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2024-09-23T16:32:04.204Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which we reveal the dark and seedy underbelly of Carnegie's finest publication",
+    "object_repr": "Vol 2, Issue 1, 'the issue in which we reveal the dark and seedy underbelly of Carnegie's finest publication'",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2024-09-23T16:39:24.303Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "issue"
+    ],
+    "object_id": "the issue in which the writing staff of this fine publication choose to exercise their rights",
+    "object_repr": "Vol 2, Issue 2, 'the issue in which the writing staff of this fine publication choose to exercise their rights'",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2024-09-23T17:54:39.345Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "war2",
+    "object_repr": "Amid Pitt Threat, Defensive Campus Turtles to Increase in Number",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Body\"]}}, {\"changed\": {\"name\": \"article image\", \"object\": \"ArticleImage object (10)\", \"fields\": [\"Image\", \"Alt text\"]}}, {\"changed\": {\"name\": \"article image\", \"object\": \"ArticleImage object (12)\", \"fields\": [\"Image\", \"Alt text\"]}}]"
   }
 }
 ]
