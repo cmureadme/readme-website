@@ -1,74 +1,86 @@
 {% extends "base.html" %}
 
-{% block page_title %}
+{% block head-content %}
 <style>
-    /* Default styling for mobile devices */
-    .centered-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        width: 1000px;
-    }
-    .content-box {
-        width: 100%;
-        max-width: 1200px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-    }
-    
-    /* Media query for wider screens (desktops) */
-    @media (min-width: 768px) {
-        .content-box {
-            max-width: 2000px; /* Increase max-width for desktop */
-        }
-    }
-    </style>
-{% load static %}
-<div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="border rounded overflow-hidden shadow-sm h-md-250 p-4" style="width: 100%; max-width: 1000px;">
-        {% include "./article_title_block.html" %} 
-    </div>
-</div>
-{% endblock page_title %}
-{% block page_info %}
+#article {
+    display: flex;
+    justify-content: center;
+    padding: 48px;
+    text-align: justify;
+    font-size: 18px;
+}
 
-{% endblock page_info %}
+#article-wrapper {
+    width: 720px;
+}
+
+#article img {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+#article h1 {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 60px;
+    text-align: center;
+    text-wrap: pretty;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+#article p.byline {
+    text-align: center;
+}
+
+p.byline a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#article hr {
+    border-width: 0;
+    margin: 24px 0;
+    height: 1px;
+    background-color: #888;
+}
+
+#article p {
+    margin-bottom: 12px;
+}
+
+@media (max-width: 1200px) {
+    #wrapper {
+        width: 100%;
+        max-width: unset;
+    }
+}
+
+@media (max-width: 826px) {
+    #splash {
+        display: none;
+    }
+}
+</style>
+{% endblock head-content %}
+
 {% block page-content %}
-<div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="border rounded overflow-hidden shadow-sm h-md-250 p-4" style="width: 100%; max-width: 1000px;">
-        <p>
-            {% load tag %}
-            {{ article.body|create_md|imgswitch:"article_images/" | safe }}
-        </p>
+<div id="article">
+    <div id="article-wrapper">
+        <h1>{{ article.title }}</h1>
+
+        <!-- <img src="" alt=""/> -->
+
+        <p class="byline">By 
+            {% for author in article.authors.all %}
+            <a href="#">{{ author.name }}</a>
+            {% endfor %} • Vol {{ article.issues.vol }} Issue {{ article.issues.num}}</p>
+            
+        <hr>
+
+        {% load tag %}
+        {{ article.body|create_md|imgswitch:"article_images/" | safe }}
     </div>
 </div>
-{% comment %} <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="border rounded overflow-hidden shadow-sm h-md-250 p-4" style="width: 100%; max-width: 1000px;">
-        <h3>Leave a comment:</h3>
-        <form method="post">
-            {% csrf_token %}
-            <div>
-                {{ form.author }}
-            </div>
-            <div>
-                {{ form.body }}
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <h3>Comments:</h3>
-        {% for comment in comments %}
-            <div class="border rounded overflow-hidden shadow-sm p-4" style="margin-bottom: 10px;">
-                <p>
-                    On {{ comment.created_on.date }} <b>{{ comment.author }}</b> wrote:
-                </p>
-                <p>
-                    {{ comment.body | linebreaks }}
-                </p>
-            </div>
-        {% endfor %}
-    </div>
-</div> {% endcomment %}
 {% endblock page-content %}
