@@ -1,8 +1,281 @@
 <!-- articles/templates/articles/index.html -->
 
 {% extends "base.html" %}
+{% load static %}
 
-{% block page_content %}
+{% block head-content %}
+<style>
+#content {
+    display: flex;
+    padding: 24px;
+    text-align: justify;
+}
+
+#main {
+    flex-grow: 1;
+    padding-right: 24px;
+}
+
+#main img {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+#main h1 {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 42px;
+    text-align: center;
+    text-wrap: pretty;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+#main > div > p.byline {
+    text-align: center;
+}
+
+p.byline a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#main hr {
+    border-width: 0;
+    margin: 24px 0;
+    height: 1px;
+    background-color: #888;
+}
+
+.module-1 {
+    display: flex;
+}
+
+.module-1 .module-column {
+    width: 240px;
+    padding-right: 24px;
+    box-sizing: content-box;
+    border-right: 1px solid #888;
+    flex-shrink: 0;
+}
+
+.module-column h2 {
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+#main .module-column img {
+    margin-bottom: 6px;
+}
+
+.module-column p.byline {
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.module-column p {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.module-1 .module-wide {
+    padding-left: 24px;
+    flex-grow: 1;
+}
+
+.module-wide p.byline {
+    margin-bottom: 12px;
+}
+
+.module-wide p {
+    font-size: 14px;
+}
+
+.module-wide > div {
+    margin-bottom: 24px;
+}
+
+#sidebar {
+    padding-left: 24px;
+    box-sizing: content-box;
+    width: 300px;
+    max-width: 25vw;
+    flex-shrink: 0;
+    border-left: 1px solid #888;
+}
+
+#sidebar > div {
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-weight: 900;
+    font-size: 24px;
+    text-wrap: pretty;
+    line-height: 1.25;
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+#sidebar p.byline {
+    margin-bottom: 12px;
+}
+
+#sidebar p {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+#ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 4px 0;
+    background-color: #121212;
+    color: #ffffff;
+    font-weight: 500;
+    font-family: 'Roboto';
+}
+
+#ticker > div {
+    overflow-x: hidden;
+    white-space: pre;
+    animation-name: ticker;
+    animation-timing-function: linear;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+}
+
+#ticker > div::after {
+    content: ' • ';
+}
+
+@keyframes ticker {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-50%, 0);
+    }
+}
+
+@media (prefers-reduced-motion) {
+    #ticker > div {
+        animation: none !important;
+        position: relative;
+        top: 0;
+        left: 50vw;
+        transform: translate(-50%, 0);
+    }
+
+    #ticker > div::after {
+        content: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    #wrapper {
+        width: 100%;
+        max-width: unset;
+    }
+}
+
+@media (max-width: 960px) {
+    #main {
+        padding-right: 0;
+    }
+
+    #sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 826px) {
+    #splash {
+        display: none;
+    }
+}
+</style>
+{% endblock head-content %}
+
+{% block page-content %}
+<div id="main">
+    <div>
+        <img src="{% static 'mockup/ilianoCIA.webp' %}" alt="Iliano in front of the CIA crest"/>
+
+        <h1>Iliano spills all, denies ties to CIA</h1>
+        <p class="byline">By <a href="#">"Tyan Rosh"</a> • Vol 2 Issue 6</p>
+    </div>
+    
+    <hr>
+
+    <div class="module-1">
+        <div class="module-column">
+            <h2>Cryptid Corner: The Invisible Homosexual</h2>
+            <img src="{% static 'mockup/cryptidcorner.png' %}" alt="An invisible entity doing some gay shit in a classroom"/>
+
+            <p class="byline">By <a href="#">Isabelle Florence</a> • Vol 2 Issue 6</p>
+
+            <p>I know no one will believe me, but a completely invisible, incorporeal gay man has been watching me. I'm aware that there is no way to prove this, but I can feel him judging me in the way that only a gay man (or maybe he/they?) can.</p>
+            <p>I'll be walking towards the Schatz Dining Room when I hear his bitchy voice in my head saying “Praying it's the salad bar, queen.” <a href="#">Read more</a></p>
+        </div>
+
+        <div class="module-wide">
+            <div>
+                <h2>Novel answer to wasteful elevator use at CMU</h2>
+                <p class="byline">By <a href="#">Dr. Et Al</a>, <a href="#">Danya Kogan</a>, <a href="#">Wade Cheng</a> • Vol 2 Issue 6</p>
+
+                <p>When John Elevator first unveiled elevators at the Chicago World Fair in Des Moines IA, 1462, the technology immediately garnered worldwide adoption. Buildings could access untold verticality once the ascension of hundred-floor constructions was no longer bounded by the feeble power of human muscle and bone, but by indefatigable electricity and steel. <a href="#">Read more</a></p>
+            </div>
+
+            <div>
+                <img src="{% static 'mockup/christmaslockmart.png' %}" alt="Lockheed Martin ad, &quot;The war on Christmas ends with us.&quot;"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar">
+    <div>
+        <h2>CMU announces austerity to reduce funding woes</h2>
+        <p class="byline">By <a href="#">Thatcher Maggie</a> • March 16th, 2024</p>
+
+        <p>Amidst rising inflation costs and increasing building maintenance fees, Carnegie Mellon University administration voted to implement austerity measures as a cost-cutting measure.</p>
+
+        <p>The English department will be entirely destroyed, as there are only 4 English majors anyways, and all social sciences will have budgets slashed in half, <a href="#">Read more</a></p>
+    </div>
+
+    <div>
+        <h2>Pittsburgh announces cheat day for airspace laser-pointer laws</h2>
+        <p class="byline">By <a href="#">I am NOT writing this under my name thank you very much</a> • August 28th, 2024</p>
+
+        <p>One thing we all liked to do as kids is mess around with laser­pointers. Watching cats chase around the dots, blinding our siblings, but most fun of all, aiming at airplanes! Unfortunately for our joyful childhood spirits, the very 1984 United States of America government passed a law in 2012 that “Whoever knowingly aims the beam of a laser pointer at an aircraft shall be imprisoned for 5 years, or both.” <a href="#">Read more</a></p>
+    </div>
+
+    <div>
+        <h2>CMU discovers secret life of Wean Hall namesake</h2>
+        <p class="byline">By <a href="#">"Tyan Rosh"</a> • October 8th, 2024</p>
+
+        <p>Wean Hall needs no introduction. As the sole brutalist structure on campus, its stark concrete facade gives an intimidating visage to the campus's hub for science and engineering. Many are vaguely aware of Raymond J Wean, founder of Wean Incorporated, and the namesake of Wean Hall, immortalized in a plaque on the wall of La Prima. <a href="#">Read more</a></p>
+    </div>
+</div>
+{% endblock page-content %}
+
+{% block after-container-content %}
+<div id="ticker"><div>It's a Christmas Miracle! Readme disbanded • Santa is proud of you, even if no one else is • Duct tape, gags and other gifts for your conservative relatives • Tucker Carlson finally proposes to Green M&M • Hallmark Movie Cityboy Exes Support Group opens doors • Santa takes unannounced detour, US goes to DEFCON 2 • Christmas Wishes Granted: CEO Shot • Naughty List leaked • Mrs. Claus revealed to actually be Amy Schumer • I met Santa Claus, she's black • TikTok caught selling data to Santa to determine Naughty/Nice list • Reindeer waste on Epstein Island raises concerns • Supreme Court overturns Naughty List affirmative action • Elves join UAW Local 1701 • Breaking: Worst man you know is about to dangle mistletoe over his head • Child tries to separate parents to get two Christmases • It's a Christmas Miracle! Readme disbanded • Santa is proud of you, even if no one else is • Duct tape, gags and other gifts for your conservative relatives • Tucker Carlson finally proposes to Green M&M • Hallmark Movie Cityboy Exes Support Group opens doors • Santa takes unannounced detour, US goes to DEFCON 2 • Christmas Wishes Granted: CEO Shot • Naughty List leaked • Mrs. Claus revealed to actually be Amy Schumer • I met Santa Claus, she's black • TikTok caught selling data to Santa to determine Naughty/Nice list • Reindeer waste on Epstein Island raises concerns • Supreme Court overturns Naughty List affirmative action • Elves join UAW Local 1701 • Breaking: Worst man you know is about to dangle mistletoe over his head • Child tries to separate parents to get two Christmases</div></div>
+
+<!-- Make sure this runs after font has loaded!!! -->
+<script>
+    {
+        const ticker = document.getElementById("ticker");
+        ticker.firstChild.style.animationDuration = (ticker.offsetWidth / 200) + "s";
+    }
+</script>
+{% endblock after-container-content %}
+
+{% comment %}
+{% block page-content %}
 <div class="row" style=" margin-right: 0px; margin-left: 0px;">
     <div class="col-md-3"></div><!-- spacer div -->
         <div class="col-md-6">
@@ -12,4 +285,5 @@
         </div>
     <div class="col-md-3"></div><!-- spacer div -->
 </div>
-{% endblock page_content %}
+{% endblock page-content %}
+{% endcomment %}
