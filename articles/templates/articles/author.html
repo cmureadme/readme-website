@@ -2,133 +2,135 @@
 
 {% extends "base.html" %}
 
-{% block page_title %}
-
-{% endblock page_title %}
-{% block page_info %}
-
-<div class="container-lg">
-    <script src="https://unpkg.com/feather-icons"></script>
-    <div class="row mt-5 mb-3">
-      <!-- spacer div -->
-      <div class="col-sm-2"></div>
-
-      <!-- image and stats column -->
-      <div class="col-sm-2">
-        <!-- hide on screens wider than sm (DESKTOP) -->
-        <div class="d-sm-none">
-          <h1>{{author.name}}</h1>
-        </div>
-
-        <!-- hide on screens thinner than sm (DESKTOP) -->
-        <div class="d-none d-sm-block">
-          <img src="{{author.img.url}}" id="author-desktop-img" class="mb-3" alt="image of {{author.name}}">
-        </div>
-        <!-- hide on screens wider than sm (MOBILE) -->
-        <div class="d-sm-none">
-          <img src="{{author.img.url}}" id="author-mobile-img" class="mb-3" alt="image of {{author.name}}">
-        </div>
-
-        
-        
-        {% if author.pronouns.strip %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="tag"></i>
-            Pronouns: {{author.pronouns}}
-          </p>
-        </div>
-        {% endif %}
-
-        <div class="author-stat">
-          <p>
-            <i data-feather="book-open"></i>
-            Major: {{author.major}}
-          </p>
-        </div>
-
-        <div class="author-stat">
-          <p>
-            <i data-feather="award"></i>
-            Year: {{author.year}}
-          </p>
-        </div>
-
-        {% if author.location.strip %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="home"></i>
-            {% load tag %}
-            Location: {{author.location}}
-          </p>
-        </div>
-        {% endif %}
-
-        <div class="author-stat">
-          <p>
-            <i data-feather="file-text"></i>
-            Fact: {{author.fact}}
-          </p>
-        </div>
-
-        {% if author.email.strip %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="mail"></i>
-            Email: <a href= "mailto: {{author.email}}">{{author.email}}</a>
-          </p>
-        </div>
-        {% endif %}
-
-        {% for link in author.misc_links.all %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="link"></i>
-            <a href= "{{link.link}}">{{link.text}}</a>
-          </p>
-        </div>
-        {% endfor %}
-      </div>
-      
-      <!-- bio and previous works -->
-      <div class="col-sm-6">
-        <!-- hide on screens smaller than sm -->
-        <div class="d-none d-sm-block">
-          <h1>{{author.name}}</h1>
-        </div>
-
-        <hr>
-
-        <h2>Bio</h2>
-
-        <p>
-          {{author.bio}}
-        </p>
-
-        <hr>
-      
-        {% for article in articles %}
-          {% include "./article_card.html" %}  
-        {% endfor %}
-      <!-- spacer div -->
-      <div class="col-sm-2"></div>
-    </div>
-    <script>
-      feather.replace();
-    </script>
-  </div>
-
-
+{% block head-content %}
 <style>
-  
-
-#author-mobile-img {
-    max-height: 150px;
-    width: auto;
+#suspect {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+  text-align: justify;
+  font-size: 18px;
 }
 
-#author-desktop-img {
-    width: 100%;
+#suspect-wrapper {
+  width: 720px;
+}
+
+.suspect-card {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #888;
+  font-family: 'Roboto';
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.suspect-card > img {
+  width: 144px;
+  /* border-radius: 50%; */
+}
+
+.suspect-card > div {
+  flex-grow: 1;
+}
+
+#suspect .suspect-card p {
+  margin-bottom: 0;
+}
+
+#suspect .suspect-card p.pronouns {
+  font-size: 14px;
+  margin-top: -4px;
+  margin-bottom: 12px;
+  font-family: 'Special Elite';
+}
+
+.suspect-card .roles {
+  font-weight: bold;
+}
+
+#article img {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#suspect h1 {
+  font-weight: 900;
+  font-size: 48px;
+  text-wrap: pretty;
+  line-height: 1.25;
+}
+
+#suspect h2 {
+  font-family: 'Roboto';
+  font-size: 24px;
+  text-wrap: pretty;
+}
+
+#suspect hr {
+  border-width: 0;
+  margin: 24px 0;
+  height: 1px;
+  background-color: #888;
+}
+
+#suspect p {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 1200px) {
+  #wrapper {
+      width: 100%;
+      max-width: unset;
+  }
+}
+
+@media (max-width: 826px) {
+  #splash {
+      display: none;
+  }
 }
 </style>
-{% endblock page_info %}
+{% endblock head-content %}
+
+{% block page-content %}
+
+<div id="suspect">
+    <div id="suspect-wrapper">
+        <div class="suspect-card">
+            <img src="{{author.img.url}}" alt="{{author.name}}"/>
+
+            <div>
+                <h1>{{author.name}}</h1>
+                <p class="pronouns">
+                {% if author.pronouns.strip %}
+                    {{author.pronouns}}
+                {% else %}
+                    missing&hellip;
+                {% endif %}
+            </p>
+
+                <p class="roles">{{author.roles}}</p>
+                <p>{{author.major}}, {{author.year}}</p>
+            </div>
+        </div>
+
+        <div>
+            <h2>Bio</h2>
+
+            <p>{{author.bio}}</p>
+
+            <h2>Fun Fact:</h2>
+
+            <p>{{author.fact}}</p>
+
+            <h2>Previous Work</h2>
+            {% for article in articles %}
+                {% include "./article_card.html" %}  
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock page-content %}
