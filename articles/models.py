@@ -83,6 +83,19 @@ class ArticleImage(models.Model):
     image = models.ImageField(upload_to="article_images/")
     alt_text = models.CharField(max_length=255, blank=True)
 
+class IndexPage(models.Model):
+    # the index is specified by 
+    # - the largest featured article (at top)
+    # - a column (bottom left)
+    # - featured article (center second from bottom)
+    # - featured image (center bottom)
+
+    # https://docs.djangoproject.com/en/5.1/ref/models/fields/#django.db.models.ForeignKey.related_name
+    # set related_name to '+' to not create a backwards relation
+    largest = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
+    column = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
+    article = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
+    image = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
 
 # TODO NOTE SEE ABOVE ABOUT HOW ERRORS NEED TO BE FIXED. Comment.post("Post") changed to Comment.article("Article")
 class Comment(models.Model):
