@@ -200,40 +200,83 @@ h2 {
 {% endblock head-content %}
 
 {% block page-content %}
-<div id="main">
-    <div>
-        <img src="{% static 'mockup/ilianoCIA.webp' %}" alt="Iliano in front of the CIA crest"/>
 
-        <h1>Iliano spills all, denies ties to CIA</h1>
-        <p class="byline">By <a href="#">"Tyan Rosh"</a> • Vol 2 Issue 6</p>
+<div id="main">
+    {% with largest=feat_articles.largest %}
+    <div>
+        <img src="{{MEDIA_URL}}/{{largest.images.first.image}}" alt="Iliano in front of the CIA crest"/>
+
+        <h1><a href="{% url 'article_detail' largest.slug %}">
+            {{ largest.title }}
+        </a></h1>
+        <p class="byline">By {% for author in largest.authors.all %}
+            <a href="{% url 'article_author' author.name %}">
+                {{ author.name }}
+            </a>
+        {% endfor %} • 
+        {% with issue=largest.issues %}
+            Vol {{issue.vol}} Issue {{issue.num}}
+        {% endwith %}
+        </p>
     </div>
+    {% endwith %}
     
     <hr>
 
     <div class="module-1">
         <div class="module-column">
-            <h2>Cryptid Corner: The Invisible Homosexual</h2>
-            <img src="{% static 'mockup/cryptidcorner.png' %}" alt="An invisible entity doing some gay shit in a classroom"/>
-
-            <p class="byline">By <a href="#">Isabelle Florence</a> • Vol 2 Issue 6</p>
-
-            <p>I know no one will believe me, but a completely invisible, incorporeal gay man has been watching me. I'm aware that there is no way to prove this, but I can feel him judging me in the way that only a gay man (or maybe he/they?) can.</p>
-            <p>I'll be walking towards the Schatz Dining Room when I hear his bitchy voice in my head saying “Praying it's the salad bar, queen.” <a href="#">Read more</a></p>
+            {% with column=feat_articles.column %}
+            <div>
+                <h2>
+                    <a href="{% url 'article_detail' column.slug %}">
+                        {{ column.title }}
+                    </a>
+                </h2>
+                <p class="byline">By 
+                    {% for author in column.authors.all %}
+                        <a href="{% url 'article_author' author.name %}">
+                            {{ author.name }}
+                        </a>
+                    {% endfor %}
+                </a> • {{column.created_on|date:"DATE_FORMAT"}}</p>
+        
+                {% load tag %}
+                {{ column.body|create_md|imgswitch:"article_images/" | safe }}
+                <p><a href="{% url 'article_detail' column.slug %}">Read more</a></p>
+            </div>
+            {% endwith %}
         </div>
 
         <div class="module-wide">
+            {% with article=feat_articles.article %}
             <div>
-                <h2>Novel answer to wasteful elevator use at CMU</h2>
-                <p class="byline">By <a href="#">Dr. Et Al</a>, <a href="#">Danya Kogan</a>, <a href="#">Wade Cheng</a> • Vol 2 Issue 6</p>
-
-                <p>When John Elevator first unveiled elevators at the Chicago World Fair in Des Moines IA, 1462, the technology immediately garnered worldwide adoption. Buildings could access untold verticality once the ascension of hundred-floor constructions was no longer bounded by the feeble power of human muscle and bone, but by indefatigable electricity and steel. <a href="#">Read more</a></p>
+                <h2>
+                    <a href="{% url 'article_detail' article.slug %}">
+                        {{ article.title }}
+                    </a>
+                </h2>
+                <p class="byline">By 
+                    {% for author in article.authors.all %}
+                        <a href="{% url 'article_author' author.name %}">
+                            {{ author.name }}
+                        </a>
+                    {% endfor %}
+                </a> • {{article.created_on|date:"DATE_FORMAT"}}</p>
+        
+                {% load tag %}
+                {{article.body | create_md | safe | truncatewords_html:50}}
+                <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
             </div>
-
+            {% endwith %}
             <hr>
-
+            
+            {% with image=feat_articles.image %}
             <div>
-                <img src="{% static 'mockup/christmaslockmart.png' %}" alt="Lockheed Martin ad, &quot;The war on Christmas ends with us.&quot;"/>
+                <a href="{% url 'article_detail' image.slug %}">
+                    <img src="{{MEDIA_URL}}/{{image.images.first.image}}" alt="image.images.first.alt_text"/>
+                </a>
             </div>
+            {% endwith %}
         </div>
     </div>
 </div>
@@ -246,7 +289,7 @@ h2 {
                     {{ article.title }}
                 </a>
             </h2>
-            <p class="byline">By <a href="#">
+            <p class="byline">By
                 {% for author in article.authors.all %}
                     <a href="{% url 'article_author' author.name %}">
                         {{ author.name }}

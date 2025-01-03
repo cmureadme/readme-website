@@ -11,6 +11,7 @@ from articles.models import (
     Author,
     Issue,
     Category,
+    IndexPage,
 )
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -18,11 +19,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+from django.conf import settings
 
 def index(request):
     rand_articles = Article.objects.all().filter(published=True).order_by("?")[0:3]
+    feat_articles = IndexPage.objects.all()[0]
     context = {
         "rand_articles": rand_articles,
+        "feat_articles": feat_articles,
+        "MEDIA_URL": settings.MEDIA_URL,
     }
     return render(request, "articles/index.html", context)
 
