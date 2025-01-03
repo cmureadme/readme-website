@@ -73,7 +73,7 @@ class Article(models.Model):
     published = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.title
+        return self.slug
 
 class ArticleImage(models.Model):
     # ForeignKey means many of these can be in an Article
