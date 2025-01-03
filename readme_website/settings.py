@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "articles.apps.ArticlesConfig",
-    "interactables.apps.InteractablesConfig",
+    "games.apps.GamesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
