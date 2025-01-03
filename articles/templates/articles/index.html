@@ -229,6 +229,8 @@ h2 {
                 <p>When John Elevator first unveiled elevators at the Chicago World Fair in Des Moines IA, 1462, the technology immediately garnered worldwide adoption. Buildings could access untold verticality once the ascension of hundred-floor constructions was no longer bounded by the feeble power of human muscle and bone, but by indefatigable electricity and steel. <a href="#">Read more</a></p>
             </div>
 
+            <hr>
+
             <div>
                 <img src="{% static 'mockup/christmaslockmart.png' %}" alt="Lockheed Martin ad, &quot;The war on Christmas ends with us.&quot;"/>
             </div>
@@ -237,28 +239,27 @@ h2 {
 </div>
 
 <div id="sidebar">
-    <div>
-        <h2>CMU announces austerity to reduce funding woes</h2>
-        <p class="byline">By <a href="#">Thatcher Maggie</a> • March 16th, 2024</p>
+    {% for article in rand_articles %}
+        <div>
+            <h2>
+                <a href="{% url 'article_detail' article.slug %}">
+                    {{ article.title }}
+                </a>
+            </h2>
+            <p class="byline">By <a href="#">
+                {% for author in article.authors.all %}
+                    <a href="{% url 'article_author' author.name %}">
+                        {{ author.name }}
+                    </a>
+                {% endfor %}
+            </a> • {{article.created_on|date:"DATE_FORMAT"}}</p>
+    
+            {% load tag %}
+            {{article.body | create_md | safe | truncatewords_html:50}}
+            <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
+        </div>
+    {% endfor %}
 
-        <p>Amidst rising inflation costs and increasing building maintenance fees, Carnegie Mellon University administration voted to implement austerity measures as a cost-cutting measure.</p>
-
-        <p>The English department will be entirely destroyed, as there are only 4 English majors anyways, and all social sciences will have budgets slashed in half, <a href="#">Read more</a></p>
-    </div>
-
-    <div>
-        <h2>Pittsburgh announces cheat day for airspace laser-pointer laws</h2>
-        <p class="byline">By <a href="#">I am NOT writing this under my name thank you very much</a> • August 28th, 2024</p>
-
-        <p>One thing we all liked to do as kids is mess around with laser­pointers. Watching cats chase around the dots, blinding our siblings, but most fun of all, aiming at airplanes! Unfortunately for our joyful childhood spirits, the very 1984 United States of America government passed a law in 2012 that “Whoever knowingly aims the beam of a laser pointer at an aircraft shall be imprisoned for 5 years, or both.” <a href="#">Read more</a></p>
-    </div>
-
-    <div>
-        <h2>CMU discovers secret life of Wean Hall namesake</h2>
-        <p class="byline">By <a href="#">"Tyan Rosh"</a> • October 8th, 2024</p>
-
-        <p>Wean Hall needs no introduction. As the sole brutalist structure on campus, its stark concrete facade gives an intimidating visage to the campus's hub for science and engineering. Many are vaguely aware of Raymond J Wean, founder of Wean Incorporated, and the namesake of Wean Hall, immortalized in a plaque on the wall of La Prima. <a href="#">Read more</a></p>
-    </div>
 </div>
 {% endblock page-content %}
 

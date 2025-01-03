@@ -20,9 +20,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    articles = Article.objects.all().order_by("-created_on").filter(published=True)
+    rand_articles = Article.objects.all().filter(published=True).order_by("?")[0:3]
     context = {
-        "articles": articles,
+        "rand_articles": rand_articles,
     }
     return render(request, "articles/index.html", context)
 
