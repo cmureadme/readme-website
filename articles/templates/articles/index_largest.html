@@ -1,5 +1,5 @@
 <div>
-    <img src="{{MEDIA_URL}}/{{largest.images.first.image}}"/>
+    <img src="{{MEDIA_URL}}{{largest.images.first.image}}"/>
 
     <h1>
         <a href="{% url 'article_detail' largest.slug %}">

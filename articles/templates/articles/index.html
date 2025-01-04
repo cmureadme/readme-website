@@ -230,7 +230,7 @@ h2 a {
             {% with image=imagearticle.images.first %}
             <div>
                 <a href="{% url 'article_detail' imagearticle.slug %}">
-                    <img src="{{MEDIA_URL}}/{{image.image}}" alt="{{image.alt_text}}"/>
+                    <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
                 </a>
             </div>
             {% endwith %}
