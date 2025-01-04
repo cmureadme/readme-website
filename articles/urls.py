@@ -1,8 +1,11 @@
 from django.urls import path
+from django.http import HttpResponseRedirect
 
 from . import views
 
 urlpatterns = [
+    path("podcasts/artificial-intelligence-for-real-this-time", lambda request: HttpResponseRedirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")),
+
     path("", views.index, name="article_index"),
     path("people", views.article_author_index, name="article_author_index"),
     path("people/<author>/", views.article_author, name="article_author"),
