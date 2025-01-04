@@ -1,0 +1,22 @@
+<div>
+    <h2>
+        <a href="{% url 'article_detail' article.slug %}">
+            {{ article.title }}
+        </a>
+    </h2>
+    
+    <p class="byline">
+        By 
+        {% for author in article.authors.all %}
+            <a href="{% url 'article_author' author.name %}">
+                {{ author.name }}
+            </a>
+        {% endfor %}
+        •
+        {{article.created_on|date:"DATE_FORMAT"}}
+    </p>
+
+    {% load tag %}
+    {{article.body | create_md | safe | truncatewords_html:50}}
+    <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
+</div>

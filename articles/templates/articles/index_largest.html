@@ -1,0 +1,22 @@
+<div>
+    <img src="{{MEDIA_URL}}/{{largest.images.first.image}}"/>
+
+    <h1>
+        <a href="{% url 'article_detail' largest.slug %}">
+            {{ largest.title }}
+        </a>
+    </h1>
+    
+    <p class="byline">
+        By
+        {% for author in largest.authors.all %}
+            <a href="{% url 'article_author' author.name %}">
+                {{ author.name }}
+            </a>
+        {% endfor %}
+        •
+        {% with issue=largest.issues %}
+            Vol {{issue.vol}} Issue {{issue.num}}
+        {% endwith %}
+    </p>
+</div>

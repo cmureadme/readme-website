@@ -212,72 +212,18 @@ h2 a {
 {% block page-content %}
 
 <div id="main">
-    {% with largest=feat_articles.largest %}
-    <div>
-        <img src="{{MEDIA_URL}}/{{largest.images.first.image}}"/>
-
-        <h1><a href="{% url 'article_detail' largest.slug %}">
-            {{ largest.title }}
-        </a></h1>
-        <p class="byline">By {% for author in largest.authors.all %}
-            <a href="{% url 'article_author' author.name %}">
-                {{ author.name }}
-            </a>
-        {% endfor %} • 
-        {% with issue=largest.issues %}
-            Vol {{issue.vol}} Issue {{issue.num}}
-        {% endwith %}
-        </p>
-    </div>
-    {% endwith %}
+    {% include "./index_largest.html" with largest=feat_articles.largest %}
     
     <hr>
 
     <div class="module-1">
         <div class="module-column">
-            {% with column=feat_articles.column %}
-            <div>
-                <h2>
-                    <a href="{% url 'article_detail' column.slug %}">
-                        {{ column.title }}
-                    </a>
-                </h2>
-                <p class="byline">By 
-                    {% for author in column.authors.all %}
-                        <a href="{% url 'article_author' author.name %}">
-                            {{ author.name }}
-                        </a>
-                    {% endfor %}
-                </a> • {{column.created_on|date:"DATE_FORMAT"}}</p>
-        
-                {% load tag %}
-                {{ column.body|create_md|imgswitch:"article_images/" | safe }}
-                <p><a href="{% url 'article_detail' column.slug %}">Read more</a></p>
-            </div>
-            {% endwith %}
+            {% include "./index_article_card.html" with article=feat_articles.column %}
         </div>
 
         <div class="module-wide">
-            {% with article=feat_articles.article %}
-            <div>
-                <h2>
-                    <a href="{% url 'article_detail' article.slug %}">
-                        {{ article.title }}
-                    </a>
-                </h2>
-                <p class="byline">By 
-                    {% for author in article.authors.all %}
-                        <a href="{% url 'article_author' author.name %}">
-                            {{ author.name }}
-                        </a>
-                    {% endfor %}
-                </a> • {{article.created_on|date:"DATE_FORMAT"}}</p>
-        
-                {% load tag %}
-                {{article.body | create_md | safe | truncatewords_html:50}}
-                <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
-            </div>
-            {% endwith %}
+            {% include "./index_article_card.html" with article=feat_articles.article %}
+
             <hr>
             
             {% with image=feat_articles.image %}
@@ -293,24 +239,7 @@ h2 a {
 
 <div id="sidebar">
     {% for article in rand_articles %}
-        <div>
-            <h2>
-                <a href="{% url 'article_detail' article.slug %}">
-                    {{ article.title }}
-                </a>
-            </h2>
-            <p class="byline">By
-                {% for author in article.authors.all %}
-                    <a href="{% url 'article_author' author.name %}">
-                        {{ author.name }}
-                    </a>
-                {% endfor %}
-            </a> • {{article.created_on|date:"DATE_FORMAT"}}</p>
-    
-            {% load tag %}
-            {{article.body | create_md | safe | truncatewords_html:50}}
-            <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
-        </div>
+        {% include "./index_article_card.html" %}
     {% endfor %}
 
 </div>
