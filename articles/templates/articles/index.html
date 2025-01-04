@@ -31,6 +31,11 @@
     margin-bottom: 12px;
 }
 
+h1 a {
+    color: black;
+    text-decoration: none;
+}
+
 #main > div > p.byline {
     text-align: center;
 }
@@ -116,6 +121,11 @@ h2 {
     line-height: 1.25;
     margin-bottom: 2px;
     text-align: left;
+}
+
+h2 a {
+    color: black;
+    text-decoration: none;
 }
 
 #sidebar p.byline {
@@ -204,7 +214,7 @@ h2 {
 <div id="main">
     {% with largest=feat_articles.largest %}
     <div>
-        <img src="{{MEDIA_URL}}/{{largest.images.first.image}}" alt="Iliano in front of the CIA crest"/>
+        <img src="{{MEDIA_URL}}/{{largest.images.first.image}}"/>
 
         <h1><a href="{% url 'article_detail' largest.slug %}">
             {{ largest.title }}
