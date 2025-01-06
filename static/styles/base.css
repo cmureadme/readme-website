@@ -106,11 +106,13 @@ header::after {
 
 #splash {
   position: absolute;
-  top: 24px;
-  left: 24px;
-  max-width: 216px;
+  top: 36px;
+  right: 24px;
+  max-width: 128px;
   text-wrap: pretty;
   font-size: 14px;
+  text-align: center;
+  font-style: italic;
 }
 
 header img {
