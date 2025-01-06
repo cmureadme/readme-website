@@ -28,6 +28,7 @@
     height: 100px;
     margin-bottom: 15px;
     object-fit: cover;
+    margin: auto;
 }
 
 .author-name {

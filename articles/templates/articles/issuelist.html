@@ -4,23 +4,14 @@
 
 {% load static %}
 
-{% block page_title %}
-{% endblock page_title %}
-
-{% block page_info %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/CSS" href="{% static 'styles/issue.css' %}">
-</head>
-{% endblock page_info %}
+{% block head-content %}<link rel="stylesheet" type="text/CSS" href="{% static 'styles/issue.css' %}">{% endblock head-content %}
 
 {% block page-content %}
 {% load static %}
 <body>
     <div class="container">
         <div class="author-header">
-            <h3><em>Our Greatest Hits</em></h3>
+            <h1><em>Our Greatest Hits</em></h1>
         </div>
         <ul class="author-list">
             {% regroup issues by vol as vol_issues %}
