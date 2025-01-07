@@ -107,7 +107,7 @@ header::after {
 #splash {
   position: absolute;
   top: 36px;
-  right: 24px;
+  left: 24px;
   max-width: 128px;
   text-wrap: pretty;
   font-size: 14px;
