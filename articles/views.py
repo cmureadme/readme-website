@@ -134,3 +134,6 @@ def article_detail(request, slug):
     }
 
     return render(request, "articles/article_page.html", context)
+
+def about_us(request):
+    return render(request, "articles/aboutus.html")

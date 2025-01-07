@@ -16,6 +16,8 @@ urlpatterns = [
     path("issues", views.article_issues_index, name="article_issues_index"),
     path("issues/<int:vol>/<int:num>", views.article_issue, name="article_issue"),
 
+    path("aboutus", views.about_us, name="about_us"),
+
     path("article/<str:slug>/", views.article_detail, name="article_detail"),
 
     path('login/', views.index, name='login'),
