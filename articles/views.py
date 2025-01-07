@@ -76,7 +76,7 @@ def article_category(request, category):
 
 
 def article_issues_index(request):
-    issues = Issue.objects.all().order_by("vol")
+    issues = Issue.objects.all().order_by("vol", "num")
     issues_by_volume = {}
 
     for issue in issues:
