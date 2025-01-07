@@ -33,9 +33,10 @@ def index(request):
 
 
 def article_author_index(request):
-    authors = Author.objects.all()
     context = {
-        "authors": authors,
+        "usual_suspects": Author.objects.filter(author_status="US"),
+        "independent_contractors": Author.objects.filter(author_status="IC"),
+        "escapees": Author.objects.filter(author_status="EE"),
     }
     return render(request, "articles/authorlist.html", context)
 
