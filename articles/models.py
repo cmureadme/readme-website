@@ -1,6 +1,7 @@
 from django.db import models
 import markdown
 from django.core.validators import FileExtensionValidator
+from django.utils.translation import gettext_lazy
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True, primary_key=True)
@@ -22,6 +23,18 @@ class Author(models.Model):
     location = models.CharField(max_length=255, blank=True)
     fact = models.CharField(max_length=255)
     email = models.CharField(max_length=255, blank=True)
+
+    class AuthorStatus(models.TextChoices):
+        USUAL_SUSPECT = "US", gettext_lazy("Usual Suspect")
+        INDEPENDENT_CONTRACTOR = "IC", gettext_lazy("Independant Contractor")
+        ESCAPEE = "EE", gettext_lazy("Escapee")
+
+    author_status = models.CharField(
+        max_length=2,
+        choices=AuthorStatus,
+        default=AuthorStatus.USUAL_SUSPECT,
+    )
+
     class Meta:
         verbose_name_plural = "authors"
         ordering = ["pk"]

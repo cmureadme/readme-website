@@ -33,6 +33,7 @@ class AuthorAdminForm(forms.ModelForm):
             "location",
             "fact",
             "email",
+            "author_status",
         )
 
 
