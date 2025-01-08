@@ -77,7 +77,7 @@ class Article(models.Model):
     authors = models.ManyToManyField("Author", related_name="articles")
     # authors = models.ManyToManyField("Author", related_name="posts")
     body = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField()
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField("Category", related_name="articles")
     # categories = models.ManyToManyField("Category", related_name="posts")
