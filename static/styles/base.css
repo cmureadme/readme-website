@@ -154,3 +154,10 @@ nav a:hover {
   font-style: italic;
   text-align: center;
 }
+
+#bar-subtext{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-weight: bold;
+}
