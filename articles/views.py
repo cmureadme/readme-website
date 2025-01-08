@@ -38,7 +38,7 @@ def article_author_index(request):
         "independent_contractors": Author.objects.filter(author_status="IC"),
         "escapees": Author.objects.filter(author_status="EE"),
     }
-    return render(request, "articles/authorlist.html", context)
+    return render(request, "articles/author_list.html", context)
 
 
 def article_author(request, author):
@@ -60,7 +60,7 @@ def article_category_index(request):
     context = {
         "categories": categories,
     }
-    return render(request, "articles/categorylist.html", context)
+    return render(request, "articles/category_list.html", context)
 
 
 def article_category(request, category):
@@ -136,4 +136,4 @@ def article_detail(request, slug):
     return render(request, "articles/article_page.html", context)
 
 def about_us(request):
-    return render(request, "articles/aboutus.html")
+    return render(request, "articles/about_us.html")
