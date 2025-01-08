@@ -87,7 +87,7 @@ def article_issues_index(request):
         issues_by_volume[volume].append(issue)
     return render(
         request,
-        "articles/issuelist.html",
+        "articles/issue_list.html",
         {"issues": issues, "issues_by_volume": issues_by_volume},
     )
 
