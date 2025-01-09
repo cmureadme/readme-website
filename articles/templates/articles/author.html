@@ -1,50 +1,44 @@
 <!-- articles/templates/articles/category.html -->
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
-{% block head-content %}
+{% block wrapper-head-content %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/author.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'styles/article_card.css' %}">
-{% endblock head-content %}
+{% endblock wrapper-head-content %}
 
-{% block page-content %}
+{% block wrapper-content %}
+<div class="suspect-card">
+    <img src="{{author.img.url}}" alt="{{author.name}}"/>
 
-<div id="suspect">
-    <div id="suspect-wrapper">
-        <div class="suspect-card">
-            <img src="{{author.img.url}}" alt="{{author.name}}"/>
+    <div>
+        <h1>{{author.name}}</h1>
+        <p class="pronouns">
+        {% if author.pronouns.strip %}
+            {{author.pronouns}}
+        {% else %}
+            missing&hellip;
+        {% endif %}
+    </p>
 
-            <div>
-                <h1>{{author.name}}</h1>
-                <p class="pronouns">
-                {% if author.pronouns.strip %}
-                    {{author.pronouns}}
-                {% else %}
-                    missing&hellip;
-                {% endif %}
-            </p>
-
-                <p class="roles">{{author.roles}}</p>
-                <p>{{author.major}}, {{author.year}}</p>
-            </div>
-        </div>
-
-        <div>
-            <h2>Bio</h2>
-
-            <p>{{author.bio}}</p>
-
-            <h2>Fun Fact:</h2>
-
-            <p>{{author.fact}}</p>
-
-            <h2>Previous Work</h2>
-            {% for article in articles %}
-                {% include "./article_card.html" %}  
-            {% endfor %}
-        </div>
+        <p class="roles">{{author.roles}}</p>
+        <p>{{author.major}}, {{author.year}}</p>
     </div>
 </div>
 
-{% endblock page-content %}
+<div>
+    <h2>Bio</h2>
+
+    <p>{{author.bio}}</p>
+
+    <h2>Fun Fact:</h2>
+
+    <p>{{author.fact}}</p>
+
+    <h2>Previous Work</h2>
+    {% for article in articles %}
+        {% include "./article_card.html" %}  
+    {% endfor %}
+</div>
+{% endblock wrapper-content %}

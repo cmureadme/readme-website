@@ -1,0 +1,10 @@
+#content {
+    display: flex;
+    justify-content: center;
+    padding: 48px;
+    font-size: 18px;
+}
+  
+#content-wrapper {
+    width: 720px;
+}

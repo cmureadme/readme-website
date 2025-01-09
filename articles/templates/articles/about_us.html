@@ -1,37 +1,34 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
-{% block head-content %}
+{% block wrapper-head-content %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/about_us.css' %}">
-{% endblock head-content %}
+{% endblock wrapper-head-content %}
 
-{% block page-content %}
-<body>
-    <div class = "page-header">
-        <h1><em>About Us</em></h1>
-    </div>
+{% block wrapper-content %}
+<div class = "page-header">
+    <h1><em>About Us</em></h1>
+</div>
 
-    <div class = "main-content">
-        <p>
-            Hello! We're readme, a re­established student­-run satire magazine at the one and only Carnegie Mellon University! 
-            We were originally founded in 1992, when Jim McDougal, Terry Former, Elle Forest, and that Scooter "Skip" Hoodwinkle decided to meet in the deep recesses of the Doherty A level and think up an idea nobody had ever thought about before  
-            ­could Carnegie Mellon students be funny? Unfortunately, during this meeting, Skip cracked the first ever joke told on CMU campus, leading to two hospitalizations and the death of Jim McDougal from excessive laughter. 
-            The tragic result of this meeting delayed the foundation of readme until the early 2000s, where as a response to the attacks on September 11, 2001, Carnegie Mellon students once again attempted to be funny, but this time, to heal the nation. 
-            readme had a great run from 2000-­2017. The magazine was a favorite of many dictators across the world, and Vladimir Putin called the August 2017 issue "the funniest thing he read since he threw his last political rival out the window." 
-            Similarly, Saddam Hussein requested a copy of readme prior to his execution in 2006. However, outside pressure led to our publication being dissolved for "excessive propogandization", though rumors have it a few issues are still in circulation in North Korea. 
-            A few of our members were expelled. Most of the rest were arrested, and had to finish their 122 final in jail. Luckily for us, it only took a few years for us to get picked up by the KGB. They helped rebuild the magazine from scratch, 
-            leading to our re­establishment in 2024, with a new message. We hope to be honest, truthful, informative, and above all else, entirely fucking useless. Without further ado, the Carnegie Mellon KGB presents...
-        </p>
-        <p>
-            If you think we're funny we have weekly pitch meeting in Doherty 1117, Saturdays at 5pm. Come make jokes and pitch ideas.
-        </p>
-    </div>
+<div class = "main-content">
+    <p>
+        Hello! We're readme, a re­established student­-run satire magazine at the one and only Carnegie Mellon University! 
+        We were originally founded in 1992, when Jim McDougal, Terry Former, Elle Forest, and that Scooter "Skip" Hoodwinkle decided to meet in the deep recesses of the Doherty A level and think up an idea nobody had ever thought about before  
+        ­could Carnegie Mellon students be funny? Unfortunately, during this meeting, Skip cracked the first ever joke told on CMU campus, leading to two hospitalizations and the death of Jim McDougal from excessive laughter. 
+        The tragic result of this meeting delayed the foundation of readme until the early 2000s, where as a response to the attacks on September 11, 2001, Carnegie Mellon students once again attempted to be funny, but this time, to heal the nation. 
+        readme had a great run from 2000-­2017. The magazine was a favorite of many dictators across the world, and Vladimir Putin called the August 2017 issue "the funniest thing he read since he threw his last political rival out the window." 
+        Similarly, Saddam Hussein requested a copy of readme prior to his execution in 2006. However, outside pressure led to our publication being dissolved for "excessive propogandization", though rumors have it a few issues are still in circulation in North Korea. 
+        A few of our members were expelled. Most of the rest were arrested, and had to finish their 122 final in jail. Luckily for us, it only took a few years for us to get picked up by the KGB. They helped rebuild the magazine from scratch, 
+        leading to our re­establishment in 2024, with a new message. We hope to be honest, truthful, informative, and above all else, entirely fucking useless. Without further ado, the Carnegie Mellon KGB presents...
+    </p>
+    <p>
+        If you think we're funny we have weekly pitch meeting in Doherty 1117, Saturdays at 5pm. Come make jokes and pitch ideas.
+    </p>
+</div>
 
-    <div class = "links">
-        <a class="nav-link" href='https://discord.gg/8eR4C3wuty'>Our Discord</a>
-        <a class="nav-link" href='https://www.instagram.com/readme.news/'>Our Instagram</a>
-    </div>
-    
-</body>
-{% endblock page-content %}
+<div class = "links">
+    <a class="nav-link" href='https://discord.gg/8eR4C3wuty'>Our Discord</a>
+    <a class="nav-link" href='https://www.instagram.com/readme.news/'>Our Instagram</a>
+</div>
+{% endblock wrapper-content %}
