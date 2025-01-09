@@ -169,3 +169,7 @@ nav a {
     flex-direction: row;
     justify-content: space-between;
 }
+
+#content {
+    width: 100%;
+}
