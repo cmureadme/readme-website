@@ -1,8 +1,39 @@
-<div class="col-centered  g-0 shadow-lg overflow-hidden mb-4 shadow-sm h-md-250 p-5 justify-content-center">
-    {% include "./article_title_block.html" %}
+
+{% comment %} When you use the card in another view make sure in that views head you include article_card.css {% endcomment %}
+
+<div>
+    <h3 class = "article-title">
+        <a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a>
+    </h3>
+    
+    <strong>
+        Tags: 
+        {% for category in article.categories.all %}
+        <a href="{% url 'article_category' category.name %}">
+            {{ category.name }}
+        </a>
+        {% endfor %}
+    </strong>
+        
+    <div>{{article.created_on}}</div>
+        
+    <small>
+        <!-- byline. output such as Author 1 | Dr. Et Al. | Vol 0, Issue 0 -->
+        By:
+        {% for author in article.authors.all %}
+        <a href="{% url 'article_author' author.name %}">
+            {{ author.name }}
+        </a> | 
+        {% endfor %}
+    
+        <a href="{% url 'article_issue' article.issues.vol article.issues.num %}">
+            Vol {{ article.issues.vol }}, Issue {{ article.issues.num}}
+        </a>
+    </small>
 
     {% load tag %}
     <p>
         {{ article.body | slice:":400" | create_md | imgswitch:"article_images/" | safe | slice:":400" }}...
     </p>
 </div>
+
