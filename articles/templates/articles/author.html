@@ -1,14 +1,15 @@
 <!-- articles/templates/articles/category.html -->
-{% extends "wrapper.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
-{% block wrapper-head-content %}
+{% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/author.css' %}">
 <link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
-{% endblock wrapper-head-content %}
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
 
-{% block wrapper-content %}
+{% block page-content %}
 <div class="suspect-card">
     <img src="{{author.img.url}}" alt="{{author.name}}"/>
 
@@ -41,4 +42,4 @@
         {% include "./article_card.html" %}  
     {% endfor %}
 </div>
-{% endblock wrapper-content %}
+{% endblock page-content %}

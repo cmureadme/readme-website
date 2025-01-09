@@ -1,12 +1,13 @@
-{% extends "wrapper.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
-{% block wrapper-head-content %}
+{% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/about_us.css' %}">
-{% endblock wrapper-head-content %}
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
 
-{% block wrapper-content %}
+{% block page-content %}
 <div class = "page-header">
     <h1><em>About Us</em></h1>
 </div>
@@ -31,4 +32,4 @@
     <a class="nav-link" href='https://discord.gg/8eR4C3wuty'>Our Discord</a>
     <a class="nav-link" href='https://www.instagram.com/readme.news/'>Our Instagram</a>
 </div>
-{% endblock wrapper-content %}
+{% endblock page-content %}

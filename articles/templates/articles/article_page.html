@@ -1,12 +1,13 @@
-{% extends "wrapper.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
-{% block wrapper-head-content %}
+{% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/article_page.css' %}">
-{% endblock wrapper-head-content %}
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
 
-{% block wrapper-content %}
+{% block page-content %}
 <h1>{{ article.title }}</h1>
 
 <!-- <img src="" alt=""/> -->
@@ -20,4 +21,4 @@
 
 {% load tag %}
         {{ article.body|create_md|imgswitch:"article_images/" | safe }}
-{% endblock wrapper-content %}
+{% endblock page-content %}
