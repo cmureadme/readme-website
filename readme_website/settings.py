@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-dorr)@&&^dz79b_do&7t83vgl903y8+_2qce7gipxr2@wsv=iw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".cmureadme.com", ".localhost", "127.0.0.1"]
 
 
 # Application definition
