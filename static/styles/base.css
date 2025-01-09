@@ -155,13 +155,6 @@ nav a {
     text-decoration: none;
 }
 
-nav a:hover {
-    color: black;
-    vertical-align: bottom;
-    font-style: italic;
-    text-align: center;
-}
-
 #bar-subtext {
     padding-top: 5px;
     padding-bottom: 5px;
