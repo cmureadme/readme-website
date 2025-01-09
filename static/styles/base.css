@@ -158,8 +158,12 @@ nav a:hover {
 #bar-subtext{
   padding-top: 5px;
   padding-bottom: 5px;
-  text-align: center;
   font-weight: bolder;
   font-family: "Courier New", monospace; 
-  font-size: 16px;
+  font-size: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
+

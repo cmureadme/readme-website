@@ -26,13 +26,14 @@ class Author(models.Model):
 
     class AuthorStatus(models.TextChoices):
         USUAL_SUSPECT = "US", gettext_lazy("Usual Suspect")
-        INDEPENDENT_CONTRACTOR = "IC", gettext_lazy("Independant Contractor")
+        INDEPENDENT_CONTRACTOR = "IC", gettext_lazy("Independent Contractor")
         ESCAPEE = "EE", gettext_lazy("Escapee")
 
     author_status = models.CharField(
         max_length=2,
         choices=AuthorStatus,
         default=AuthorStatus.USUAL_SUSPECT,
+        help_text = "Usual suspect for current writers or recurring characters, independent contractors for one off bits, escapee for alumni"
     )
 
     class Meta:

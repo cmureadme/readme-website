@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 choices=[
                     ("US", "Usual Suspect"),
-                    ("IC", "Independant Contractor"),
+                    ("IC", "Independent Contractor"),
                     ("EE", "Escapee"),
                 ],
                 default="US",
