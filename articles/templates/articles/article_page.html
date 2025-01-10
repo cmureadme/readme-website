@@ -13,7 +13,7 @@
 
         <p class="byline">By 
             {% for author in article.authors.all %}
-            <a href="#">{{ author.name }}</a>
+            <a href="{% url 'article_author' author.name %}">{{ author.name }}</a>
             {% endfor %} • Vol {{ article.issues.vol }} Issue {{ article.issues.num}}</p>
             
         <hr>
