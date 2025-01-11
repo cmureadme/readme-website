@@ -1,13 +1,25 @@
 .page-header{
     text-align: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
+.sub-header{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .main-content{
      
 }
 
 .links{
-    text-align: center
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.email{
+    text-align: center;
 }
