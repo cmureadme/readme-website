@@ -6,3 +6,4 @@
 - [ ] Mobile layout or something (low prority)
 - [ ] CODE REVIEW
 - [ ] Look at all the admin accounts and consolidate them
+- [ ] Readme png should take you back to home page
