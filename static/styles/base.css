@@ -47,6 +47,12 @@ p {
     text-wrap: pretty;
 }
 
+/* a paragraph proceeded by another paragraph will have a top margin */
+p + p {
+    margin-top: 0.5em;
+}
+
+
 img {
     display: block;
 }
