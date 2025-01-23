@@ -56,17 +56,3 @@
     }
 </script>
 {% endblock after-container-content %}
-
-{% comment %}
-{% block page-content %}
-<div class="row" style=" margin-right: 0px; margin-left: 0px;">
-    <div class="col-md-3"></div><!-- spacer div -->
-        <div class="col-md-6">
-            {% for article in articles %}
-                {% include "./article_card.html" %}  
-            {% endfor %}
-        </div>
-    <div class="col-md-3"></div><!-- spacer div -->
-</div>
-{% endblock page-content %}
-{% endcomment %}
