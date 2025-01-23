@@ -9,7 +9,9 @@
 }
 
 .suspect-card > img {
-    width: 144px;
+    flex-shrink: 0; /* don't shrink this img's width */
+    width: 144px; /* set that width */
+    align-self: flex-start; /* set img's height to correct its aspect ratio, given our width */
     /* border-radius: 50%; */
 }
 
