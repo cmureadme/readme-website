@@ -121,13 +121,8 @@ h2 a {
     text-decoration: none;
 }
 
-#sidebar p.byline {
-    margin-bottom: 12px;
-}
-
 #sidebar p {
     font-size: 14px;
-    margin-bottom: 6px;
 }
 
 #ticker {
