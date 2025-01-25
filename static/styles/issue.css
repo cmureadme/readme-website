@@ -1,0 +1,17 @@
+.title-block {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--background-dark);
+    border: 1px solid var(--secondary-dark);
+    margin-bottom: 20px;
+}
+.title-block h3 {
+    font-family: 'Special Elite', cursive;
+    font-size: 24px;
+    margin: 0;
+    padding: 10px;
+}
+.title-block em {
+    font-style: italic;
+    color: black;
+}
