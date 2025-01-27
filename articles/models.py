@@ -2,6 +2,7 @@ from django.db import models
 import markdown
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy
+import datetime
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True, primary_key=True)
@@ -61,6 +62,7 @@ class Issue(models.Model):
         upload_to=issue_upload_path,
         validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
     )
+    release_date = models.DateField(default=datetime.date.fromtimestamp(0))
     class Meta:
         verbose_name_plural = "issues"
     def __str__(self):

@@ -19,7 +19,7 @@
             Vol {{ article.issues.vol }}, Issue {{ article.issues.num}}
         </a>
         •
-        {{article.created_on|date:"DATE_FORMAT"}}
+        {{article.issues.release_date|date:"DATE_FORMAT"}}
     </p>
 
     {% load tag %}
