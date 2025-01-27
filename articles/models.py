@@ -65,6 +65,7 @@ class Issue(models.Model):
     release_date = models.DateField(default=datetime.date.fromtimestamp(0))
     class Meta:
         verbose_name_plural = "issues"
+        ordering = ["vol", "num", "name"]
     def __str__(self):
         return f"Vol {self.vol}, Issue {self.num}, '{self.name}'"
     def fold(self):
