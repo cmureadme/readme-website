@@ -73,6 +73,15 @@ class Issue(models.Model):
         """self's issue pdf, if one exists, shall live at {{self.archive_path()}}"""
         return f"vol{self.vol}/issue{self.num}/CMUREADME_VOL{self.vol}_ISSUE{self.num}.pdf"
 
+    def save(self, **kwargs):
+        super().save(**kwargs)  # Call the "real" save() method.
+        articles: QuerySet[Article] = self.articles.all() # get the articles that belong to this Issue (https://docs.djangoproject.com/en/5.1/topics/db/queries/#following-relationships-backward)
+        for article in articles:
+            if article.created_on is None:
+                article.true_created_on = self.release_date
+                article.save()
+
+
 # TODO NOTE THE related_name CHANGE FROM ARTICLES TO POSTS. THIS WILL CAUSE ERRORS. FIX THEM.
 class Article(models.Model):
     title = models.CharField(max_length=225)
@@ -80,13 +89,30 @@ class Article(models.Model):
     authors = models.ManyToManyField("Author", related_name="articles")
     # authors = models.ManyToManyField("Author", related_name="posts")
     body = models.TextField()
-    created_on = models.DateTimeField()
+    created_on = models.DateField(blank=True, null=True, help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.")
+    true_created_on = models.DateField(
+        blank=True,
+        null=True,
+        help_text="field hidden from admin panel. " 
+            "can be updated when this Article or its corresponding Issue is updated. "
+            "should prefer Article's date, falling back to Issue if it was NULL."
+    )
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField("Category", related_name="articles")
     # categories = models.ManyToManyField("Category", related_name="posts")
     slug = models.SlugField(primary_key=True)
     issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
+
+    def save(self, **kwargs):
+        super().save(**kwargs)  # Call the "real" save() method.
+        if self.created_on is not None:
+            self.true_created_on = self.created_on
+            print("setting true to self")
+        else:
+            self.true_created_on = self.issue.release_date
+            print("setting true to issue")
+        super().save(**kwargs)  # Call the "real" save() method.
 
     def __str__(self) -> str:
         return self.slug
