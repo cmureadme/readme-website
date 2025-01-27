@@ -11,6 +11,7 @@ from articles.models import (
     Author,
     Issue,
     Category,
+    IndexPage,
 )
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -18,21 +19,26 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+from django.conf import settings
 
 def index(request):
-    articles = Article.objects.all().order_by("-created_on").filter(published=True)
+    rand_articles = Article.objects.all().filter(published=True).order_by("?")[0:3]
+    feat_articles = IndexPage.objects.all()[0]
     context = {
-        "articles": articles,
+        "rand_articles": rand_articles,
+        "feat_articles": feat_articles,
+        "MEDIA_URL": settings.MEDIA_URL,
     }
     return render(request, "articles/index.html", context)
 
 
 def article_author_index(request):
-    authors = Author.objects.all()
     context = {
-        "authors": authors,
+        "usual_suspects": Author.objects.filter(author_status="US"),
+        "independent_contractors": Author.objects.filter(author_status="IC"),
+        "escapees": Author.objects.filter(author_status="EE"),
     }
-    return render(request, "articles/authorlist.html", context)
+    return render(request, "articles/author_list.html", context)
 
 
 def article_author(request, author):
@@ -54,7 +60,7 @@ def article_category_index(request):
     context = {
         "categories": categories,
     }
-    return render(request, "articles/categorylist.html", context)
+    return render(request, "articles/category_list.html", context)
 
 
 def article_category(request, category):
@@ -71,7 +77,7 @@ def article_category(request, category):
 
 
 def article_issues_index(request):
-    issues = Issue.objects.all().order_by("vol")
+    issues = Issue.objects.all().order_by("vol", "num")
     issues_by_volume = {}
 
     for issue in issues:
@@ -81,7 +87,7 @@ def article_issues_index(request):
         issues_by_volume[volume].append(issue)
     return render(
         request,
-        "articles/issuelist.html",
+        "articles/issue_list.html",
         {"issues": issues, "issues_by_volume": issues_by_volume},
     )
 
@@ -128,3 +134,6 @@ def article_detail(request, slug):
     }
 
     return render(request, "articles/article_page.html", context)
+
+def about_us(request):
+    return render(request, "articles/about_us.html")

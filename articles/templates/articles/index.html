@@ -1,15 +1,58 @@
 <!-- articles/templates/articles/index.html -->
 
 {% extends "base.html" %}
+{% load static %}
 
-{% block page_content %}
-<div class="row" style=" margin-right: 0px; margin-left: 0px;">
-    <div class="col-md-3"></div><!-- spacer div -->
-        <div class="col-md-6">
-            {% for article in articles %}
-                {% include "./article_card.html" %}  
-            {% endfor %}
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/index.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+
+<div id="main">
+    {% include "./index_largest.html" with largest=feat_articles.largest %}
+    
+    <hr>
+
+    <div class="module-1">
+        <div class="module-column">
+            {% include "./index_article_card.html" with article=feat_articles.column %}
         </div>
-    <div class="col-md-3"></div><!-- spacer div -->
+
+        <div class="module-wide">
+            {% include "./index_article_card.html" with article=feat_articles.article %}
+
+            <hr>
+            
+            {% with imagearticle=feat_articles.image %}
+            {% with image=imagearticle.images.first %}
+            <div>
+                <a href="{% url 'article_detail' imagearticle.slug %}">
+                    <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
+                </a>
+            </div>
+            {% endwith %}
+            {% endwith %}
+        </div>
+    </div>
 </div>
-{% endblock page_content %}
+
+<div id="sidebar">
+    {% for article in rand_articles %}
+        {% include "./index_article_card.html" %}
+    {% endfor %}
+
+</div>
+{% endblock page-content %}
+
+{% block after-container-content %}
+<div id="ticker"><div>It's a Christmas Miracle! Readme disbanded • Santa is proud of you, even if no one else is • Duct tape, gags and other gifts for your conservative relatives • Tucker Carlson finally proposes to Green M&M • Hallmark Movie Cityboy Exes Support Group opens doors • Santa takes unannounced detour, US goes to DEFCON 2 • Christmas Wishes Granted: CEO Shot • Naughty List leaked • Mrs. Claus revealed to actually be Amy Schumer • I met Santa Claus, she's black • TikTok caught selling data to Santa to determine Naughty/Nice list • Reindeer waste on Epstein Island raises concerns • Supreme Court overturns Naughty List affirmative action • Elves join UAW Local 1701 • Breaking: Worst man you know is about to dangle mistletoe over his head • Child tries to separate parents to get two Christmases • It's a Christmas Miracle! Readme disbanded • Santa is proud of you, even if no one else is • Duct tape, gags and other gifts for your conservative relatives • Tucker Carlson finally proposes to Green M&M • Hallmark Movie Cityboy Exes Support Group opens doors • Santa takes unannounced detour, US goes to DEFCON 2 • Christmas Wishes Granted: CEO Shot • Naughty List leaked • Mrs. Claus revealed to actually be Amy Schumer • I met Santa Claus, she's black • TikTok caught selling data to Santa to determine Naughty/Nice list • Reindeer waste on Epstein Island raises concerns • Supreme Court overturns Naughty List affirmative action • Elves join UAW Local 1701 • Breaking: Worst man you know is about to dangle mistletoe over his head • Child tries to separate parents to get two Christmases</div></div>
+
+<!-- Make sure this runs after font has loaded!!! -->
+<script>
+    {
+        const ticker = document.getElementById("ticker");
+        ticker.firstChild.style.animationDuration = (ticker.offsetWidth / 200) + "s";
+    }
+</script>
+{% endblock after-container-content %}

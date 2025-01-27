@@ -1352,7 +1352,7 @@
     "title": "Amid Pitt Threat, Defensive Campus Turtles to Increase in Number",
     "body": "As the laser cannon atop the University of Pittsburgh's Cathedral of Learning nears completion, projected for the fall 2024 semester, Pitt students rejoice their opportunity to reenter the locked top floors of Cathy to zap unsuspecting cmu students. A Pitt alumn elaborated in an interview, “I always loved studying up there. The fear of death that comes from doing multidimensional calculus at that height—gusts of wind blowing your notes around, the ledge so perilously close to your study nook, pset deadline three minutes away and ticking down fast—it was really just an immense boost to my productivity. I haven’t been able to focus so well since I was an undergrad. But now I can visit my alma mater, finally get some work done, and zap some pretentious CMU students all in the same visit? I wouldn’t pass it up for the world.”\r\n\r\nLuckily for us, a recent email from the War Director at CMU states that Carnegie Mellon’s new Highmark Center for Health, Wellness and Athletics, replacing the now-demolished Skibo Gym, is on schedule to provide necessary shelter in the form of yet another turtle on campus. \r\n\r\n{{gates_turtle.png}}\r\n\r\nAs we all know, turtles have hard shells on their backs. Additionally, arbitrary cross sections of turtles' shells are smooth concave surfaces, and as such are suitable for deflecting lasers (see helpful graphic). The Director assures that the combined coverage of Wean, Gates, and the new Highmark Center will give CMU ample cover to remain safe under the watchful eye of Upitt's laser cannons constructing on top of the Cathedral.\r\n\r\n{{helpful_graphic.png}}",
     "created_on": "2024-06-23T10:38:57.660Z",
-    "last_modified": "2024-09-23T17:54:39.339Z",
+    "last_modified": "2025-01-03T09:17:24.671Z",
     "issues": "the issue in which we turn readme into a weapon of mass destruction",
     "published": true,
     "authors": [
@@ -1490,6 +1490,16 @@
   }
 },
 {
+  "model": "articles.indexpage",
+  "pk": 1,
+  "fields": {
+    "largest": "war2",
+    "column": "auntie-readme2",
+    "article": "work",
+    "image": "duopush"
+  }
+},
+{
   "model": "auth.group",
   "fields": {
     "name": "editor",
@@ -1561,7 +1571,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$870000$lzmWKoxCmwNwEbR7ZU8PLq$ON3hVYtTKqZII9oVcBuGHYfOszZAQqKF59i0pYJNTZA=",
-    "last_login": "2024-09-23T16:26:41.282Z",
+    "last_login": "2024-12-29T03:38:54.549Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -1803,6 +1813,14 @@
   "fields": {
     "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1slNmY:BAWRHhTvf6QLGQZfkNH32y8Gsaw0HfGiHTeBGvrigag",
     "expire_date": "2024-09-17T07:16:54.211Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ri5ogozfw4go9bxcgw20mlekp87uoqey",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGpqUdmX8dyXpQrfnnHtfLMK-1bh3WuOM7MwkO_2yBPlBbQi8Q7stPC9tW-fER8IP2_l1QXpejvbvoEKv33UwCjUV4ZLP6LBIDFDClIXN3pB31oMusiBKQkKlVDakxOBiQquBvT8EMzh5:1tRk8k:m12VL06zkimYjwLYPH_3osZy3OUBAQg9eX-7GdqTlHc",
+    "expire_date": "2025-01-12T03:38:54.554Z"
   }
 },
 {
@@ -2903,6 +2921,60 @@
     "object_repr": "Amid Pitt Threat, Defensive Campus Turtles to Increase in Number",
     "action_flag": 2,
     "change_message": "[{\"changed\": {\"fields\": [\"Body\"]}}, {\"changed\": {\"name\": \"article image\", \"object\": \"ArticleImage object (10)\", \"fields\": [\"Image\", \"Alt text\"]}}, {\"changed\": {\"name\": \"article image\", \"object\": \"ArticleImage object (12)\", \"fields\": [\"Image\", \"Alt text\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2025-01-03T08:42:57.544Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "indexpage"
+    ],
+    "object_id": "1",
+    "object_repr": "IndexPage object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2025-01-03T09:17:24.677Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "object_id": "war2",
+    "object_repr": "war2",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"article image\", \"object\": \"ArticleImage object (10)\", \"fields\": [\"Image\"]}}, {\"changed\": {\"name\": \"article image\", \"object\": \"ArticleImage object (12)\", \"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2025-01-03T09:37:01.587Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "articles",
+      "indexpage"
+    ],
+    "object_id": "1",
+    "object_repr": "IndexPage object (1)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Column\"]}}]"
   }
 }
 ]

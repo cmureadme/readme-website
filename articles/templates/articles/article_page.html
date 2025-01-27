@@ -1,74 +1,35 @@
 {% extends "base.html" %}
 
-{% block page_title %}
-<style>
-    /* Default styling for mobile devices */
-    .centered-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        width: 1000px;
-    }
-    .content-box {
-        width: 100%;
-        max-width: 1200px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-    }
-    
-    /* Media query for wider screens (desktops) */
-    @media (min-width: 768px) {
-        .content-box {
-            max-width: 2000px; /* Increase max-width for desktop */
-        }
-    }
-    </style>
 {% load static %}
-<div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="border rounded overflow-hidden shadow-sm h-md-250 p-4" style="width: 100%; max-width: 1000px;">
-        {% include "./article_title_block.html" %} 
-    </div>
-</div>
-{% endblock page_title %}
-{% block page_info %}
 
-{% endblock page_info %}
-{% block page_content %}
-<div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="border rounded overflow-hidden shadow-sm h-md-250 p-4" style="width: 100%; max-width: 1000px;">
-        <p>
-            {% load tag %}
-            {{ article.body|create_md|imgswitch:"article_images/" | safe }}
-        </p>
-    </div>
-</div>
-{% comment %} <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="border rounded overflow-hidden shadow-sm h-md-250 p-4" style="width: 100%; max-width: 1000px;">
-        <h3>Leave a comment:</h3>
-        <form method="post">
-            {% csrf_token %}
-            <div>
-                {{ form.author }}
-            </div>
-            <div>
-                {{ form.body }}
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <h3>Comments:</h3>
-        {% for comment in comments %}
-            <div class="border rounded overflow-hidden shadow-sm p-4" style="margin-bottom: 10px;">
-                <p>
-                    On {{ comment.created_on.date }} <b>{{ comment.author }}</b> wrote:
-                </p>
-                <p>
-                    {{ comment.body | linebreaks }}
-                </p>
-            </div>
-        {% endfor %}
-    </div>
-</div> {% endcomment %}
-{% endblock page_content %}
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/article_page.css' %}">
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+<h1>{{ article.title }}</h1>
+
+<!-- <img src="" alt=""/> -->
+
+<p class="byline">
+    <!-- byline. output such as Author 1 | Dr. Et Al. | Vol 0, Issue 0 -->
+    By 
+    {% for author in article.authors.all %}
+        <a href="{% url 'article_author' author.name %}">
+            {{ author.name }}
+        </a>
+    {% endfor %}
+    •
+    <a href="{% url 'article_issue' article.issues.vol article.issues.num %}">
+        Vol {{ article.issues.vol }}, Issue {{ article.issues.num}}
+    </a>
+    •
+    {{article.created_on|date:"DATE_FORMAT"}}
+</p>
+    
+<hr>
+
+{% load tag %}
+        {{ article.body|create_md|imgswitch:"article_images/" | safe }}
+{% endblock page-content %}

@@ -1,75 +1,77 @@
-.container {
+.suspect-card {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #888;
+    font-family: 'Roboto';
+    font-size: 16px;
+    margin-bottom: 24px;
 }
 
-.author-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    max-width: 800px;
-    width: 100%;
+.suspect-card > img {
+    flex-shrink: 0; /* don't shrink this img's width */
+    width: 144px; /* set that width */
+    align-self: flex-start; /* set img's height to correct its aspect ratio, given our width */
+    /* border-radius: 50%; */
 }
 
-.author-card {
-    background-color: var(--background);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    list-style: none;
+.suspect-card > div {
+    flex-grow: 1;
 }
 
-.author-card img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 15px;
-    object-fit: cover;
-}
-
-.author-name {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.author-bio {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.4;
+#suspect .suspect-card p {
     margin-bottom: 0;
 }
 
-.special-author {
-    grid-column: 1 / -1;
-    /* Span across all columns */
-    padding: 20px;
-    margin-bottom: 20px;
-    /* Space below the card */
+#suspect .suspect-card p.pronouns {
+    font-size: 14px;
+    margin-top: -4px;
+    margin-bottom: 12px;
+    font-family: 'Special Elite';
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
+.suspect-card .roles {
+    font-weight: bold;
+}
 
-    .author-card {
-        padding: 15px;
-    }
+#article img {
+    width: 100%;
+    margin-bottom: 12px;
+}
 
-    .author-name {
-        font-size: 18px;
-    }
+#suspect h1 {
+    font-weight: 900;
+    font-size: 48px;
+    text-wrap: pretty;
+    line-height: 1.25;
+}
 
-    .author-bio {
-        font-size: 13px;
-    }
+#suspect h2 {
+    font-family: 'Roboto';
+    font-size: 24px;
+    text-wrap: pretty;
+}
 
-    .special-author {
-        padding: 15px;
+#suspect hr {
+    border-width: 0;
+    margin: 24px 0;
+    height: 1px;
+    background-color: #888;
+}
+
+#suspect p {
+    margin-bottom: 12px;
+}
+
+@media (max-width: 1200px) {
+    #wrapper {
+        width: 100%;
+        max-width: unset;
+    }
+}
+
+@media (max-width: 826px) {
+    #splash {
+        display: none;
     }
 }

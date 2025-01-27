@@ -1,134 +1,45 @@
 <!-- articles/templates/articles/category.html -->
-
 {% extends "base.html" %}
 
-{% block page_title %}
+{% load static %}
 
-{% endblock page_title %}
-{% block page_info %}
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/author.css' %}">
+<link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
 
-<div class="container-lg">
-    <script src="https://unpkg.com/feather-icons"></script>
-    <div class="row mt-5 mb-3">
-      <!-- spacer div -->
-      <div class="col-sm-2"></div>
+{% block page-content %}
+<div class="suspect-card">
+    <img src="{{author.img.url}}" alt="{{author.name}}"/>
 
-      <!-- image and stats column -->
-      <div class="col-sm-2">
-        <!-- hide on screens wider than sm (DESKTOP) -->
-        <div class="d-sm-none">
-          <h1>{{author.name}}</h1>
-        </div>
-
-        <!-- hide on screens thinner than sm (DESKTOP) -->
-        <div class="d-none d-sm-block">
-          <img src="{{author.img.url}}" id="author-desktop-img" class="mb-3" alt="image of {{author.name}}">
-        </div>
-        <!-- hide on screens wider than sm (MOBILE) -->
-        <div class="d-sm-none">
-          <img src="{{author.img.url}}" id="author-mobile-img" class="mb-3" alt="image of {{author.name}}">
-        </div>
-
-        
-        
+    <div>
+        <h1>{{author.name}}</h1>
+        <p class="pronouns">
         {% if author.pronouns.strip %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="tag"></i>
-            Pronouns: {{author.pronouns}}
-          </p>
-        </div>
+            {{author.pronouns}}
+        {% else %}
+            missing&hellip;
         {% endif %}
+    </p>
 
-        <div class="author-stat">
-          <p>
-            <i data-feather="book-open"></i>
-            Major: {{author.major}}
-          </p>
-        </div>
-
-        <div class="author-stat">
-          <p>
-            <i data-feather="award"></i>
-            Year: {{author.year}}
-          </p>
-        </div>
-
-        {% if author.location.strip %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="home"></i>
-            {% load tag %}
-            Location: {{author.location}}
-          </p>
-        </div>
-        {% endif %}
-
-        <div class="author-stat">
-          <p>
-            <i data-feather="file-text"></i>
-            Fact: {{author.fact}}
-          </p>
-        </div>
-
-        {% if author.email.strip %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="mail"></i>
-            Email: <a href= "mailto: {{author.email}}">{{author.email}}</a>
-          </p>
-        </div>
-        {% endif %}
-
-        {% for link in author.misc_links.all %}
-        <div class="author-stat">
-          <p>
-            <i data-feather="link"></i>
-            <a href= "{{link.link}}">{{link.text}}</a>
-          </p>
-        </div>
-        {% endfor %}
-      </div>
-      
-      <!-- bio and previous works -->
-      <div class="col-sm-6">
-        <!-- hide on screens smaller than sm -->
-        <div class="d-none d-sm-block">
-          <h1>{{author.name}}</h1>
-        </div>
-
-        <hr>
-
-        <h2>Bio</h2>
-
-        <p>
-          {{author.bio}}
-        </p>
-
-        <hr>
-      
-        {% for article in articles %}
-          {% include "./article_card.html" %}  
-        {% endfor %}
-      <!-- spacer div -->
-      <div class="col-sm-2"></div>
+        <p class="roles">{{author.roles}}</p>
+        <p>{{author.major}}, {{author.year}}</p>
     </div>
-    <script>
-      feather.replace();
-    </script>
-  </div>
+</div>
 
+<div>
+    <h2>Bio</h2>
 
-<style>
-  
+    <p>{{author.bio}}</p>
 
-#author-mobile-img {
-    max-height: 150px;
-    width: auto;
-}
+    <h2>Fun Fact:</h2>
 
-#author-desktop-img {
-    width: 100%;
-}
-</style>
-{% endblock page_info %}
+    <p>{{author.fact}}</p>
+
+    <h2>Previous Work</h2>
+    {% for article in articles %}
+        {% include "./article_card.html" %}  
+    {% endfor %}
+</div>
+{% endblock page-content %}

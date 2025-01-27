@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from articles.models import Issue, Author, Category, Comment, Article, ArticleImage, SocialMediaLink
+from articles.models import Issue, Author, Category, Comment, Article, ArticleImage, SocialMediaLink, IndexPage
 # from articles.models import Show, ShowPhoto
 from articles.forms import ArticleAdminForm, AuthorAdminForm
 
@@ -35,6 +35,10 @@ class ArticleImageInline(admin.TabularInline):
 class ArticleAdmin(admin.ModelAdmin):
     form = ArticleAdminForm
     inlines = [ArticleImageInline]
+
+@admin.register(IndexPage)
+class IndexPageAdmin(admin.ModelAdmin):
+    pass
 
 # @admin.register(Show)
 # class ShowAdmin(admin.ModelAdmin):

@@ -1,0 +1,162 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .author-container {
+        width: 100%;
+    }
+}
+
+.author-item {
+    background-color: var(--background);
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.author-square-header,
+.author-header {
+    background-color: var(--background);
+    border-radius: 8px;
+    list-style: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.author-item2 {
+    background-color: var(--background);
+    list-style: none;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.collapsible-btn {
+    background-color: var(--background-dark);
+    color: #333;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    border-color: var(--secondary-dark);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Special Elite', cursive;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible-btn:hover {
+    background-color: #aaa;
+}
+
+.collapsible-content {
+    display: none;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border-radius: 0 0 8px 8px;
+    font-family: 'Special Elite', cursive;
+}
+
+.author-item .collapsible-content {
+    margin-top: 10px;
+}
+
+.issue-square {
+    width: 100px;
+    height: 100px;
+    background-color: var(--background-dark);
+    border-color: var(--secondary-dark);
+    border-style: solid;
+    border-width: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    flex-shrink: 0;
+}
+
+.issue-text {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.author-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 5px;
+}
+
+.author-name a {
+    text-decoration: none;
+    color: #333;
+}
+
+.author-name a:hover {
+    text-decoration: underline;
+}
+
+.author-bio {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+}
+
+.author-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--background);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0;
+}
+
+.arrow {
+    margin-left: auto;
+    color: var(--secondary-dark);
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s;
+}
+
+.arrow-down {
+    transform: rotate(0deg);
+}
+
+.arrow-up {
+    transform: rotate(180deg);
+}
+
+.a {
+    font-family: 'Special Elite', cursive;
+}

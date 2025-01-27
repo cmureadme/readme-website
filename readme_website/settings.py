@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [".cmureadme.com", ".localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     "articles.apps.ArticlesConfig",
-    "interactables.apps.InteractablesConfig",
+    "games.apps.GamesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -115,7 +115,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-CSRF_TRUSTED_ORIGINS = ["https://cmureadme.com", "http://cmureadme.com", "https://staging.cmureadme.com", "http://dev.cmureadme.com"]
+CSRF_TRUSTED_ORIGINS = ["https://cmureadme.com", "http://cmureadme.com", "https://staging.cmureadme.com", "http://dev.cmureadme.com", "https://dev.cmureadme.com"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

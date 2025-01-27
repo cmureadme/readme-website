@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/author_list.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+<body>
+    <div class="container">
+        <div class="author-grid">
+            <div class="author-card special-author shadow">
+                <h3><em>Our Usual Suspects</em></h3>
+            </div>
+            {% for author in usual_suspects %}
+            <li class="author-card">
+                {% if author.img == "" or author.img == "author_images/anon.png" %}
+                    {% load static %}
+                    <img src="{% static 'anon.png' %}" style="image-rendering: pixelated;">
+                {% else %}
+                    <img src="{{ author.img.url }}" alt="Author Image">
+                {% endif %}
+                <div class="author-info">
+                    <div class="author-name">
+                        <h4><a href="{% url 'article_author' author.name %}">{{ author.name }}</a></h4>
+                    </div>
+                    <div class="author-bio">
+                        <b>{{ author.roles }}</b><br>{{ author.bio|truncatechars:100 }}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+
+            <div class="author-card special-author shadow">
+                <h3><em>Independent Contractors</em></h3>
+            </div>
+            {% for author in independent_contractors %}
+            <li class="author-card">
+                {% if author.img == "" or author.img == "author_images/anon.png" %}
+                    {% load static %}
+                    <img src="{% static 'anon.png' %}" style="image-rendering: pixelated;">
+                {% else %}
+                    <img src="{{ author.img.url }}" alt="Author Image">
+                {% endif %}
+                <div class="author-info">
+                    <div class="author-name">
+                        <h4><a href="{% url 'article_author' author.name %}">{{ author.name }}</a></h4>
+                    </div>
+                    <div class="author-bio">
+                        <b>{{ author.roles }}</b><br>{{ author.bio|truncatechars:100 }}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            
+            <div class="author-card special-author shadow">
+                <h3><em>Escapees</em></h3>
+            </div>
+            {% for author in escapees %}
+            <li class="author-card">
+                {% if author.img == "" or author.img == "author_images/anon.png" %}
+                    {% load static %}
+                    <img src="{% static 'anon.png' %}" style="image-rendering: pixelated;">
+                {% else %}
+                    <img src="{{ author.img.url }}" alt="Author Image">
+                {% endif %}
+                <div class="author-info">
+                    <div class="author-name">
+                        <h4><a href="{% url 'article_author' author.name %}">{{ author.name }}</a></h4>
+                    </div>
+                    <div class="author-bio">
+                        <b>{{ author.roles }}</b><br>{{ author.bio|truncatechars:100 }}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% endblock page-content %}

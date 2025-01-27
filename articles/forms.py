@@ -33,6 +33,7 @@ class AuthorAdminForm(forms.ModelForm):
             "location",
             "fact",
             "email",
+            "author_status",
         )
 
 
@@ -47,6 +48,7 @@ class ArticleAdminForm(forms.ModelForm):
             "slug",
             "issues",
             "published",
+            "created_on",
         )
     # photos = forms.FileField(
     #     widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True}),

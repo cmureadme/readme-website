@@ -1,6 +1,7 @@
 from django.db import models
 import markdown
 from django.core.validators import FileExtensionValidator
+from django.utils.translation import gettext_lazy
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True, primary_key=True)
@@ -22,6 +23,19 @@ class Author(models.Model):
     location = models.CharField(max_length=255, blank=True)
     fact = models.CharField(max_length=255)
     email = models.CharField(max_length=255, blank=True)
+
+    class AuthorStatus(models.TextChoices):
+        USUAL_SUSPECT = "US", gettext_lazy("Usual Suspect")
+        INDEPENDENT_CONTRACTOR = "IC", gettext_lazy("Independent Contractor")
+        ESCAPEE = "EE", gettext_lazy("Escapee")
+
+    author_status = models.CharField(
+        max_length=2,
+        choices=AuthorStatus,
+        default=AuthorStatus.USUAL_SUSPECT,
+        help_text = "Usual suspect for current writers or recurring characters, independent contractors for one off bits, escapee for alumni"
+    )
+
     class Meta:
         verbose_name_plural = "authors"
         ordering = ["pk"]
@@ -64,7 +78,7 @@ class Article(models.Model):
     authors = models.ManyToManyField("Author", related_name="articles")
     # authors = models.ManyToManyField("Author", related_name="posts")
     body = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField()
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField("Category", related_name="articles")
     # categories = models.ManyToManyField("Category", related_name="posts")
@@ -73,7 +87,7 @@ class Article(models.Model):
     published = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.title
+        return self.slug
 
 class ArticleImage(models.Model):
     # ForeignKey means many of these can be in an Article
@@ -83,6 +97,19 @@ class ArticleImage(models.Model):
     image = models.ImageField(upload_to="article_images/")
     alt_text = models.CharField(max_length=255, blank=True)
 
+class IndexPage(models.Model):
+    # the index is specified by 
+    # - the largest featured article (at top)
+    # - a column (bottom left)
+    # - featured article (center second from bottom)
+    # - featured image (center bottom)
+
+    # https://docs.djangoproject.com/en/5.1/ref/models/fields/#django.db.models.ForeignKey.related_name
+    # set related_name to '+' to not create a backwards relation
+    largest = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
+    column = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
+    article = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
+    image = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
 
 # TODO NOTE SEE ABOVE ABOUT HOW ERRORS NEED TO BE FIXED. Comment.post("Post") changed to Comment.article("Article")
 class Comment(models.Model):
