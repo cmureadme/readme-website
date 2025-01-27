@@ -24,5 +24,9 @@ def replace_double_braces(arg, folder):
     modified_text = re.sub(pattern, lambda x: replace(x.group(1)), arg)
     return modified_text
 
+def imgremove(arg):
+    return re.sub(r'\{\{.*?\}\}', "", arg)
+
 register.filter("create_md", create_md)
 register.filter("imgswitch", replace_double_braces)
+register.filter("imgremove", imgremove)
