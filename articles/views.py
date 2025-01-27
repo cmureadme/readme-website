@@ -45,7 +45,7 @@ def article_author(request, author):
     author = Author.objects.get(pk=author)
     articles = (
         Article.objects.filter(authors__pk=author)
-        .order_by("-created_on")
+        .order_by("-true_created_on")
         .filter(published=True)
     )
     context = {
@@ -66,7 +66,7 @@ def article_category_index(request):
 def article_category(request, category):
     articles = (
         Article.objects.filter(categories__name__contains=category)
-        .order_by("-created_on")
+        .order_by("-true_created_on")
         .filter(published=True)
     )
     context = {
@@ -94,8 +94,8 @@ def article_issues_index(request):
 
 def article_issue(request, vol, num):
     issue = Issue.objects.get(num=num, vol=vol)
-    articles = Article.objects.filter(issues__name__contains=issue.name).order_by(
-        "-created_on"
+    articles = Article.objects.filter(issue__name__contains=issue.name).order_by(
+        "-true_created_on"
     )
 
     context = {
