@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 def index(request):
-    rand_articles = Article.objects.all().filter(published=True).order_by("?")[0:3]
+    rand_articles = Article.objects.all().filter(published=True).order_by("?")[0:5]
     feat_articles = IndexPage.objects.all()[0]
     context = {
         "rand_articles": rand_articles,

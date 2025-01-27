@@ -17,6 +17,6 @@
     </p>
 
     {% load tag %}
-    {{article.body | create_md | safe | truncatewords_html:50}}
+    {{article.body | create_md | imgremove | safe | truncatewords_html:50}}
     <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
 </div>
