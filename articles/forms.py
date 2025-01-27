@@ -46,7 +46,7 @@ class ArticleAdminForm(forms.ModelForm):
             "body",
             "categories",
             "slug",
-            "issues",
+            "issue",
             "published",
             "created_on",
         )

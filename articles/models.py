@@ -85,7 +85,7 @@ class Article(models.Model):
     categories = models.ManyToManyField("Category", related_name="articles")
     # categories = models.ManyToManyField("Category", related_name="posts")
     slug = models.SlugField(primary_key=True)
-    issues = models.ForeignKey("Issue", related_name='articles', on_delete=models.CASCADE)
+    issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
 
     def __str__(self) -> str:

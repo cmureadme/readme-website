@@ -15,11 +15,11 @@
             </a>
         {% endfor %}
         •
-        <a href="{% url 'article_issue' article.issues.vol article.issues.num %}">
-            Vol {{ article.issues.vol }}, Issue {{ article.issues.num}}
+        <a href="{% url 'article_issue' article.issue.vol article.issue.num %}">
+            Vol {{ article.issue.vol }}, Issue {{ article.issue.num}}
         </a>
         •
-        {{article.issues.release_date|date:"DATE_FORMAT"}}
+        {{article.issue.release_date|date:"DATE_FORMAT"}}
     </p>
 
     {% load tag %}
