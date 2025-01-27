@@ -80,7 +80,7 @@ class Article(models.Model):
     authors = models.ManyToManyField("Author", related_name="articles")
     # authors = models.ManyToManyField("Author", related_name="posts")
     body = models.TextField()
-    created_on = models.DateTimeField()
+    created_on = models.DateField(blank=True, null=True, help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.")
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField("Category", related_name="articles")
     # categories = models.ManyToManyField("Category", related_name="posts")
