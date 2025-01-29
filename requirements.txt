@@ -8,5 +8,5 @@ pillow==10.4.0
 sqlparse==0.5.1
 typing_extensions==4.12.2
 wheel==0.41.2
-whitenoise==6.7.0
+whitenoise>=6.8
 python-dotenv==1.0.1

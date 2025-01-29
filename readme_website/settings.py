@@ -23,10 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-dorr)@&&^dz79b_do&7t83vgl903y8+_2qce7gipxr2@wsv=iw"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [".cmureadme.com", ".localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    ".localhost",
+    ".127.0.0.1",
+    ".cmureadme.com",
+]
 
+SESSION_COOKIE_SECURE = True # avoid transmitting the session cookie over HTTP accidentally
+CSRF_COOKIE_SECURE = True # avoid transmitting the CSRF cookie over HTTP accidentally
 
 # Application definition
 
@@ -43,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -129,6 +136,7 @@ STATIC_URL = "staticfiles/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+WHITENOISE_ROOT = BASE_DIR / "media"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
