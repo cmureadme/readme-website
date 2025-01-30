@@ -27,7 +27,10 @@
         <div id="container">
             <div id="wrapper">
                 <header>
-                    <div id="splash">Paid for by: JFC (the fucking guy himself, not the funding council)</div>
+                    <div id="splash"> Paid for: {% for paid_for in rand_paid_for %}
+                        {{paid_for.title}}  
+                    {% endfor %}
+                        </div>
     
                     <a href="/"><img src="{% static 'readme-site-header-blank.png' %}" alt="KGB Presents: readme"/></a>
                     
