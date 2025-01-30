@@ -108,6 +108,10 @@ header {
 
     position: relative;
 
+    font-family: 'Roboto';
+}
+
+nav {
     font-family: 'Special Elite';
 }
 
