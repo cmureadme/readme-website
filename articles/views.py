@@ -139,7 +139,5 @@ def article_detail(request, slug):
 def about_us(request):
     return render(request, "articles/about_us.html")
 
-def base(request):
-    rand_paid_for = PaidFor.objects.all().order_by("?")[0]
-    context = {"rand_paid_for": rand_paid_for}
-    return render(request, context)
+def paid_for(request):
+    return {"paid_for": PaidFor.objects.order_by("?")[0]}
