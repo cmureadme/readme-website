@@ -15,16 +15,21 @@
 
     <div>
         <h1>{{author.name}}</h1>
-        <p class="pronouns">
-        {% if author.pronouns.strip %}
-            {{author.pronouns}}
+        <p class="location">
+        {% if author.location.strip %}
+        &#128205; {{author.location}}
         {% else %}
-            missing&hellip;
+        &#128205; missing&hellip;
         {% endif %}
     </p>
 
         <p class="roles">{{author.roles}}</p>
         <p>{{author.major}}, {{author.year}}</p>
+        <p class="pronouns">
+            {% if author.pronouns.strip %}
+                {{author.pronouns}}
+            {% endif %}
+        </p>
     </div>
 </div>
 
@@ -33,7 +38,7 @@
 
     <p>{{author.bio}}</p>
 
-    <h2>Fun Fact:</h2>
+    <h2>Fun Fact</h2>
 
     <p>{{author.fact}}</p>
 

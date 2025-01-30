@@ -149,4 +149,7 @@ class Comment(models.Model):
     def __str__(self) -> str:
         return f"{self.author} on '{self.article}'"
 
-
+class PaidFor(models.Model):
+    title = models.CharField(max_length=225, help_text = "DONT add the words paid for: just add the gag bit thx <3")
+    def __str__(self) -> str:
+        return self.title

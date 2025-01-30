@@ -12,6 +12,7 @@ from articles.models import (
     Issue,
     Category,
     IndexPage,
+    PaidFor,
 )
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -137,3 +138,6 @@ def article_detail(request, slug):
 
 def about_us(request):
     return render(request, "articles/about_us.html")
+
+def paid_for(request):
+    return {"paid_for": PaidFor.objects.order_by("?")[0]}
