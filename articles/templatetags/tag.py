@@ -27,6 +27,12 @@ def replace_double_braces(arg, folder):
 def imgremove(arg):
     return re.sub(r'\{\{.*?\}\}', "", arg)
 
+
+def is_image_article(arg: str):
+    arg = arg.strip()
+    return arg.startswith("{{") and arg.endswith("}}")
+
 register.filter("create_md", create_md)
 register.filter("imgswitch", replace_double_braces)
 register.filter("imgremove", imgremove)
+register.simple_tag(is_image_article)

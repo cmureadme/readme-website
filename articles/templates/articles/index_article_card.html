@@ -17,6 +17,11 @@
     </p>
 
     {% load tag %}
-    {{article.body | create_md | imgremove | safe | truncatewords_html:50}}
+    {% is_image_article article.body as x %}
+    {% if x %}
+        {{article.body | create_md | imgswitch:"article_images/" | safe | truncatewords_html:50}}
+    {% else %}
+        {{article.body | create_md | imgremove | safe | truncatewords_html:50}}
+    {% endif %}
     <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
 </div>

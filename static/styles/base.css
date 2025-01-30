@@ -111,6 +111,10 @@ header {
     font-family: 'Roboto';
 }
 
+nav {
+    font-family: 'Special Elite';
+}
+
 header::after {
     content: '';
     display: block;
