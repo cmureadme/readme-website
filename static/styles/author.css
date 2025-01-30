@@ -30,6 +30,13 @@
     font-family: 'Special Elite';
 }
 
+#suspect .suspect-card p.location {
+    font-size: 14px;
+    margin-top: -4px;
+    margin-bottom: 12px;
+    font-family: 'Special Elite';
+}
+
 .suspect-card .roles {
     font-weight: bold;
 }
