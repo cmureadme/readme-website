@@ -1,7 +1,7 @@
 # blog/forms.py
 
 from django import forms
-from .models import Author, Category, Article, ArticleImage
+from .models import Author, Category, Article, ArticleImage, PaidFor
 from django.core.validators import validate_image_file_extension
 from django.utils.translation import gettext
 
@@ -67,3 +67,10 @@ class ArticleAdminForm(forms.ModelForm):
             image = ArticleImage(show=show, image=upload)
             image.save()
 
+
+class PaidForForm(forms.ModelForm):
+    class Meta:
+        model = PaidFor
+        fields = (
+            "title",
+        )
