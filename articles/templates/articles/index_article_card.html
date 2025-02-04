@@ -13,6 +13,10 @@
             </a>
         {% endfor %}
         •
+        <a href="{% url 'article_issue' article.issue.vol article.issue.num %}">
+            Vol {{article.issue.vol }}, Issue {{article.issue.num}}
+        </a>
+        •
         {{article.true_created_on|date:"DATE_FORMAT"}}
     </p>
 

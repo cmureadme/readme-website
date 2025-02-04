@@ -153,3 +153,10 @@ class PaidFor(models.Model):
     title = models.CharField(max_length=225, help_text = "DONT add the words paid for: just add the gag bit thx <3")
     def __str__(self) -> str:
         return self.title
+    
+class RejectedHeadline(models.Model):
+    title = models.CharField(max_length= 255)
+    issue = models.ForeignKey("Issue", related_name='articles_issue', on_delete = models.PROTECT)
+
+    def __str__(self) -> str:
+        return self.title

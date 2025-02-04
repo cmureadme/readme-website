@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from articles.models import Issue, Author, Category, Comment, Article, ArticleImage, SocialMediaLink, IndexPage, PaidFor
+from articles.models import Issue, Author, Category, Comment, Article, ArticleImage, SocialMediaLink, IndexPage, PaidFor, RejectedHeadline
 # from articles.models import Show, ShowPhoto
 from articles.forms import ArticleAdminForm, AuthorAdminForm
 
@@ -42,6 +42,10 @@ class IndexPageAdmin(admin.ModelAdmin):
 
 @admin.register(PaidFor)
 class PaidForAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(RejectedHeadline)
+class RejectedHeadlineAdmin(admin.ModelAdmin):
     pass
 
 # @admin.register(Show)

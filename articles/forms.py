@@ -1,7 +1,7 @@
 # blog/forms.py
 
 from django import forms
-from .models import Author, Category, Article, ArticleImage, PaidFor
+from .models import Author, Category, Article, ArticleImage, PaidFor, RejectedHeadline
 from django.core.validators import validate_image_file_extension
 from django.utils.translation import gettext
 
@@ -73,4 +73,12 @@ class PaidForForm(forms.ModelForm):
         model = PaidFor
         fields = (
             "title",
+        )
+
+class RejectedHeadlineForm(forms.ModelForm):
+    class Meta:
+        model = RejectedHeadline
+        fields = (
+            "title",
+            "issue",
         )
