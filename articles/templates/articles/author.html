@@ -15,21 +15,32 @@
 
     <div>
         <h1>{{author.name}}</h1>
-        <p class="location">
-        {% if author.location.strip %}
-        &#128205; {{author.location}}
-        {% else %}
-        &#128205; missing&hellip;
-        {% endif %}
-    </p>
+        <div class = "small-facts">
+            {% if author.location.strip and author.location.strip.lower != "left_empty"%}
+            &#128205; {{author.location}}
+            {% else %}
+            &#128205; missing&hellip;
+            {% endif %}
+            |
+            {% if author.pronouns.strip and author.pronouns.strip.lower != "left_empty" %}
+                Pronouns: {{author.pronouns}}
+            {% else %}
+                Pronouns: wouldn't you like to know&hellip;
+            {% endif %}
+            
+        </div>
+        <div class = "small-facts">
+            {% if author.email.strip and author.email.strip.lower != "left_empty"%}
+                Email: {{author.email}}
+            {% else %}
+                Email: don't&hellip;
+            {% endif %}
+        </div>
+        
 
         <p class="roles">{{author.roles}}</p>
         <p>{{author.major}}, {{author.year}}</p>
-        <p class="pronouns">
-            {% if author.pronouns.strip %}
-                {{author.pronouns}}
-            {% endif %}
-        </p>
+        
     </div>
 </div>
 

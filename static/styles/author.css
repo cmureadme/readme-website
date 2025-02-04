@@ -23,14 +23,14 @@
     margin-bottom: 0;
 }
 
-#suspect .suspect-card p.pronouns {
+#suspect .suspect-card .pronouns {
     font-size: 14px;
     margin-top: -4px;
     margin-bottom: 12px;
     font-family: 'Special Elite';
 }
 
-#suspect .suspect-card p.location {
+#suspect .suspect-card .location {
     font-size: 14px;
     margin-top: -4px;
     margin-bottom: 12px;
@@ -81,4 +81,13 @@
     #splash {
         display: none;
     }
+}
+
+.small-facts{
+    display: flex;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 16px;
+    margin-top: -4px;
+    margin-bottom: 12px;
 }
