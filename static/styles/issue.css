@@ -15,3 +15,14 @@
     font-style: italic;
     color: black;
 }
+
+.rejected-headlines {
+    text-align: center;
+    border: 5px;
+    border-color: black;
+}
+
+.rejected-headlines h3 {
+    font-family: 'Special Elite', cursive;
+    text-align: left;
+}

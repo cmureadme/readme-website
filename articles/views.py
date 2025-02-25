@@ -13,6 +13,7 @@ from articles.models import (
     Category,
     IndexPage,
     PaidFor,
+    RejectedHeadline
 )
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -141,3 +142,11 @@ def about_us(request):
 
 def paid_for(request):
     return {"paid_for": PaidFor.objects.order_by("?")[0]}
+
+def rejected_headline(request, vol, num):
+    issue = Issue.objects.get(num=num, vol=vol)
+    rejected_headlines = RejectedHeadline.objects.filter(issue__name__contains=issue.name).orderby("-true-created-on")
+
+    return {"rejected_headlines": rejected_headlines,
+            "i": issue,
+            "issue": issue.name}
