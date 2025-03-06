@@ -16,7 +16,11 @@
         {% endfor %}
         •
         {% with issue=largest.issue %}
-            Vol {{issue.vol}} Issue {{issue.num}}
-        {% endwith %}
+            <a href="{% url 'article_issue' issue.vol issue.num %}">
+                Vol {{issue.vol }}, Issue {{issue.num}}
+            </a>
+            {% endwith %}
+        •
+        {{largest.true_created_on|date:"DATE_FORMAT"}}
     </p>
 </div>
