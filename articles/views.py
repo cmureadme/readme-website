@@ -148,13 +148,4 @@ def about_us(request):
 def paid_for(request):
     return {"paid_for": PaidFor.objects.order_by("?")[0]}
 
-# def rejected_headline(request, vol, num):
-#     issue = Issue.objects.get(num=num, vol=vol)
-#     rejected_headlines = RejectedHeadline.objects.filter(issue__name__contains=issue.name).orderby("-true-created-on")
-
-#     context = {"rejected_headlines": rejected_headlines,
-#             "i": issue,
-#             "issue": issue.name}
-    
-#     return context
     
