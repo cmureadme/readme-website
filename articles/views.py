@@ -25,11 +25,13 @@ from django.conf import settings
 
 def index(request):
     rand_articles = Article.objects.all().filter(published=True).order_by("?")[0:5]
+    all_rand_rej_heads = RejectedHeadline.objects.all().order_by("?")
     feat_articles = IndexPage.objects.all()[0]
     context = {
         "rand_articles": rand_articles,
         "feat_articles": feat_articles,
         "MEDIA_URL": settings.MEDIA_URL,
+        "rej_heads": (all_rand_rej_heads if len(all_rand_rej_heads) < 20 else all_rand_rej_heads[:20])
     }
     return render(request, "articles/index.html", context)
 
