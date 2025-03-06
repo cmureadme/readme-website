@@ -135,10 +135,14 @@ class IndexPage(models.Model):
 
     # https://docs.djangoproject.com/en/5.1/ref/models/fields/#django.db.models.ForeignKey.related_name
     # set related_name to '+' to not create a backwards relation
+    name = models.CharField(max_length=255, blank=True)
     largest = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
     column = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
     article = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
     image = models.OneToOneField(Article, related_name="+", on_delete=models.PROTECT)
+
+    def __str__(self) -> str:
+        return self.name
 
 # TODO NOTE SEE ABOVE ABOUT HOW ERRORS NEED TO BE FIXED. Comment.post("Post") changed to Comment.article("Article")
 class Comment(models.Model):
