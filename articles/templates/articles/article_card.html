@@ -24,7 +24,7 @@
 
     {% load tag %}
     <p>
-        {{ article.body | slice:":400" | create_md | imgswitch:"article_images/" | safe | slice:":400" }}...
+        {{ article.body | create_md | imgswitch:"article_images/" | safe | truncatewords_html:50 }}...
     </p>
 </div>
 
