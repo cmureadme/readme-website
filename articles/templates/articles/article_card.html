@@ -24,7 +24,7 @@
 
     {% load tag %}
     <p>
-        {{ article.body | create_md | imgswitch:"article_images/" | safe | truncatewords_html:50 }}...
+        {{ article.body | create_md | imgswitch:"article_images/" | truncatewords_html:50 | safe }}...
     </p>
 </div>
 
