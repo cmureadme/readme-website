@@ -143,7 +143,15 @@ def article_detail(request, slug):
     return render(request, "articles/article_page.html", context)
 
 def about_us(request):
-    return render(request, "articles/about_us.html")
+    articles = Article.objects.count()
+    authors = Author.objects.count()
+    rejected_headlines = RejectedHeadline.objects.count()
+    context = {
+        "articles": articles,
+        "authors": authors,
+        "rejected_headlines": rejected_headlines,
+    }
+    return render(request, "articles/about_us.html", context)
 
 def paid_for(request):
     return {"paid_for": PaidFor.objects.order_by("?")[0]}
