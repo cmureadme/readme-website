@@ -156,4 +156,7 @@ def about_us(request):
 def paid_for(request):
     return {"paid_for": PaidFor.objects.order_by("?")[0]}
 
+def donate(request):
+    return render(request, "articles/donate.html")
+
     
