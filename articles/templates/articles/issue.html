@@ -17,9 +17,11 @@
 
     <div class = "rejected-headlines">
         <h3 id = "title">Rejected Headlines</h3>
-        {% for rejected_headline in rejected_headlines %}
-            {{rejected_headline.title}} <br>
-        {% endfor %}
+        <ul>
+            {% for rejected_headline in rejected_headlines %}
+                <li>{{rejected_headline.title}} </li>
+            {% endfor %}
+        </ul>
         <h3 id = "and-more">All this and more, not in this issue!</h3>
     </div>
     
