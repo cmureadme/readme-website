@@ -18,6 +18,8 @@ urlpatterns = [
 
     path("aboutus", views.about_us, name="about_us"),
 
+    path("donate", views.donate, name = "donate"),
+
     path("article/<str:slug>/", views.article_detail, name="article_detail"),
 
     path('login/', views.index, name='login'),
