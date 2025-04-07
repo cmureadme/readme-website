@@ -103,6 +103,8 @@ class Article(models.Model):
     # categories = models.ManyToManyField("Category", related_name="posts")
     slug = models.SlugField(primary_key=True)
     issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.CASCADE)
+    front_page = models.BooleanField(default=False, help_text="If this article was on the front page of the issue in which it was published")
+    featured = models.BooleanField(default=False, help_text="If we want this article to have a higher chance of being featured")
     published = models.BooleanField(default=False)
 
     def save(self, **kwargs):
