@@ -120,7 +120,7 @@ class Article(models.Model):
         super().save(**kwargs)  # Call the "real" save() method.
 
     def __str__(self) -> str:
-        return self.slug
+        return self.slug + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
 
 class ArticleImage(models.Model):
     # ForeignKey means many of these can be in an Article
