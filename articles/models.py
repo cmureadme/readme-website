@@ -46,7 +46,7 @@ class Author(models.Model):
 class SocialMediaLink(models.Model):
     link = models.CharField(max_length=255, verbose_name="link destination")
     text = models.CharField(max_length=255, verbose_name="link text", blank=True) #blank=True means optional
-    issues = models.ForeignKey("Author", related_name='misc_links', on_delete=models.CASCADE)
+    issues = models.ForeignKey("Author", related_name='misc_links', on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.link
@@ -102,7 +102,7 @@ class Article(models.Model):
     categories = models.ManyToManyField("Category", related_name="articles")
     # categories = models.ManyToManyField("Category", related_name="posts")
     slug = models.SlugField(primary_key=True)
-    issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.CASCADE)
+    issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.PROTECT)
     front_page = models.BooleanField(default=False, help_text="If this article was on the front page of the issue in which it was published")
     featured = models.BooleanField(default=False, help_text="If we want this article to have a higher chance of being featured")
     published = models.BooleanField(default=False)
@@ -123,7 +123,7 @@ class Article(models.Model):
 class ArticleImage(models.Model):
     # ForeignKey means many of these can be in an Article
     show = models.ForeignKey(
-        Article, on_delete=models.CASCADE, related_name="images"
+        Article, on_delete=models.PROTECT, related_name="images"
     )
     image = models.ImageField(upload_to="article_images/")
     alt_text = models.CharField(max_length=255, blank=True)
@@ -151,7 +151,7 @@ class Comment(models.Model):
     author = models.CharField(max_length=60)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    article = models.ForeignKey("Article", on_delete=models.CASCADE)
+    article = models.ForeignKey("Article", on_delete=models.PROTECT)
     def __str__(self) -> str:
         return f"{self.author} on '{self.article}'"
 

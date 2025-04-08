@@ -48,6 +48,8 @@ class ArticleAdminForm(forms.ModelForm):
             "slug",
             "issue",
             "published",
+            "front_page",
+            "featured",
             "created_on",
         )
     # photos = forms.FileField(
