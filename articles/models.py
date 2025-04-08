@@ -106,6 +106,8 @@ class Article(models.Model):
     front_page = models.BooleanField(default=False, help_text="If this article was on the front page of the issue in which it was published")
     featured = models.BooleanField(default=False, help_text="If we want this article to have a higher chance of being featured")
     published = models.BooleanField(default=False)
+    class Meta:
+        ordering = ["issue__vol", "issue__num","front_page", "featured", "slug"]
 
     def save(self, **kwargs):
         super().save(**kwargs)  # Call the "real" save() method.
