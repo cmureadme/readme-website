@@ -39,7 +39,18 @@
         
 
         <p class="roles">{{author.roles}}</p>
-        <p>{{author.major}}, {{author.year}}</p>
+        <p>
+            {% if author.major.strip.lower != "left_empty" %}
+                {{author.major}}, 
+            {% else %}
+                One of the subjects, 
+            {% endif %}
+            {% if author.year.strip.lower != "left_empty" %}
+                {{author.year}}
+            {% else %}
+                20??
+            {% endif %}
+        </p>
         
     </div>
 </div>
@@ -47,11 +58,23 @@
 <div>
     <h2>Bio</h2>
 
-    <p>{{author.bio}}</p>
+    <p>
+        {% if author.bio.strip.lower != "left_empty" %}
+            {{author.bio}}
+        {% else %}
+            Unknowable and Mysterious
+        {% endif %}
+    </p>
 
     <h2>Fun Fact</h2>
 
-    <p>{{author.fact}}</p>
+    <p>
+        {% if author.fact.strip.lower != "left_empty" %}
+            {{author.fact}}
+        {% else %}
+            Sad fact: this author has no fact.
+        {% endif %}
+    </p>
 
     <h2>Previous Work</h2>
     {% for article in articles %}
