@@ -107,7 +107,7 @@ class Article(models.Model):
     featured = models.BooleanField(default=False, help_text="If we want this article to have a higher chance of being featured")
     published = models.BooleanField(default=False)
     class Meta:
-        ordering = ["issue__vol", "issue__num","front_page", "featured", "slug"]
+        ordering = ["issue__vol", "issue__num","-front_page", "-featured", "slug"]
 
     def save(self, **kwargs):
         super().save(**kwargs)  # Call the "real" save() method.
@@ -167,7 +167,7 @@ class RejectedHeadline(models.Model):
     issue = models.ForeignKey("Issue", related_name='articles_issue', on_delete = models.PROTECT)
 
     class Meta:
-        ordering = ["issue__vol", "issue__num", "title"]
+        ordering = ["issue__vol", "issue__num"]
     
     def __str__(self) -> str:
         return self.title + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
