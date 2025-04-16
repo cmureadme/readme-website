@@ -166,5 +166,8 @@ class RejectedHeadline(models.Model):
     title = models.CharField(max_length= 255)
     issue = models.ForeignKey("Issue", related_name='articles_issue', on_delete = models.PROTECT)
 
+    class Meta:
+        ordering = ["issue__vol", "issue__num", "title"]
+    
     def __str__(self) -> str:
-        return self.title
+        return self.title + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
