@@ -99,6 +99,8 @@ def article_issues_index(request):
 def article_issue(request, vol, num):
     issue = Issue.objects.get(num=num, vol=vol)
     articles = Article.objects.filter(issue__name__contains=issue.name).order_by(
+        "front_page",
+        "featured",
         "-true_created_on"
     )
     rejected_headlines = RejectedHeadline.objects.filter(issue__name__contains=issue.name)
