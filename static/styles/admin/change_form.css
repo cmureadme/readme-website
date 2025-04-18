@@ -1,0 +1,7 @@
+.object-tools a.addlink:any-link {
+    background: var(--accent-dark);
+    background-image: url(/staticfiles/admin/img/tooltag-add.svg);
+    background-repeat: no-repeat;
+    background-position: right 7px center;
+    padding-right: 26px;
+}

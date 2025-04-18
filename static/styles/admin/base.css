@@ -3,7 +3,7 @@
     --main-font: 'Roboto';
     --primary-color: #121212;
     --accent: #da0000;
-    --accent-light: #f89494;
+    --accent-light: #f8adad;
     --accent-dark: #dd0000;
     --accent-secondary: #ffc;
     --background: #fafafa;
@@ -19,7 +19,6 @@ h1, h2, h3 {
 
 body {
     background-color: var(--background);
-    border-color: var(--background-darker);
     font-family: var(--main-font);
 }
 
@@ -108,38 +107,9 @@ div.breadcrumbs {
     background: var(--accent-dark);
 }
 
-.object-tools a.addlink {
-    background-image: url(/staticfiles/admin/img/tooltag-add.svg);
-    background-repeat: no-repeat;
-    background-position: right 7px center;
-    padding-right: 26px;
-}
 
 #changelist-filter {
     background-color: var(--background-darker);
     background: var(--background-darkest);
 }
 
-.sticky, #nav-sidebar.sticky {
-    background-color: var(--background);
-    border-right: 0px;
-}
-
-.toggle-nav-sidebar {
-    background-color: var(--background);
-    color: var(--accent-dark);
-}
-
-.toggle-nav-sidebar:hover {
-    background-color: var(--accent-light);
-}
-
-#nav-sidebar .current-model {
-    background: var(--accent-secondary);
-}
-
-#nav-filter, #nav-filter:hover {
-    border: 0px;
-    background-color: var(--background-darkest);
-    color: var(--accent-light);
-}
