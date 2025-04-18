@@ -39,7 +39,7 @@ class ArticleAdmin(admin.ModelAdmin):
     inlines = [ArticleImageInline]
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     search_fields = ["slug", "title"]
-    list_filter = ["categories", "issue"]
+    list_filter = ["categories", "issue__vol", "issue__num", "published", "front_page", "featured"]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
@@ -58,7 +58,7 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
     form = RejectedHeadlineForm
     list_display = ["title", "vol_issue"]
     search_fields = ["title"]
-    list_filter = ["issue"]
+    list_filter = ["issue__vol", "issue__num"]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
