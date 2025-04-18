@@ -23,10 +23,13 @@ class SocialMediaLinkInline(admin.TabularInline):
 class AuthorAdmin(admin.ModelAdmin):
     form = AuthorAdminForm
     inlines = [SocialMediaLinkInline]
+    list_display = ["name", "author_status"]
+    search_fields = ["name"]
+    list_filter = ["author_status"]
 
 @admin.register(Issue)
 class IssueAdmin(admin.ModelAdmin):
-    pass
+    model = Issue
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
@@ -51,7 +54,7 @@ class IndexPageAdmin(admin.ModelAdmin):
 
 @admin.register(PaidFor)
 class PaidForAdmin(admin.ModelAdmin):
-    pass
+    model = PaidFor
 
 @admin.register(RejectedHeadline)
 class RejectedHeadlineAdmin(admin.ModelAdmin):
