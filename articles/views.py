@@ -22,13 +22,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from django.conf import settings
+from django.db.models import Q
 
 def index(request):
-    rand_articles = Article.objects.all().filter(published=True).order_by("?")[0:5]
+    sidebar_articles = Article.objects.all().filter(published=True).order_by("?")[0:5]
     all_rand_rej_heads = RejectedHeadline.objects.all().order_by("?")
-    feat_articles = IndexPage.objects.all().order_by("?")[0]
+    latest_issue = Issue.objects.all().order_by("-vol", "-num")[0]
+    feat_articles = {
+        "largest": Article.objects.all().filter(Q(published=True) & Q(front_page=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False)).order_by("?")[0],
+        "column": Article.objects.all().filter(Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(issue__name__contains=latest_issue.name)).order_by("?")[0],
+        "article": Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name)).order_by("?")[0],
+        "image": Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False)).order_by("?")[0],
+    }
+    IndexPage.objects.all().order_by("?")[0]
     context = {
-        "rand_articles": rand_articles,
+        "sidebar_articles": sidebar_articles,
         "feat_articles": feat_articles,
         "MEDIA_URL": settings.MEDIA_URL,
         "rej_heads": (all_rand_rej_heads if len(all_rand_rej_heads) < 20 else all_rand_rej_heads[:20])
