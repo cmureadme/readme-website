@@ -1,7 +1,11 @@
 #content {
-    display: flex;
     padding: 24px;
     text-align: justify;
+}
+
+#main-content {
+    display: flex;
+    padding-bottom: 10px;
 }
 
 #main {
@@ -124,6 +128,26 @@ h2 a {
 #sidebar p {
     font-size: 14px;
 }
+
+#additional-content {
+    align-items: center;
+}
+
+#additional-content > div {
+    border-top: 1px solid #888;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 24px;
+}
+
+#additional-content > div > div {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: content-box;
+    width: 400px;
+    max-width: 30vw;
+}
+
 
 #ticker {
     position: fixed;
