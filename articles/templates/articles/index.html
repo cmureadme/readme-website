@@ -9,6 +9,7 @@
 
 {% block page-content %}
 
+<div id="main-content">
 <div id="main">
     {% include "./index_largest.html" with largest=feat_articles.largest %}
     
@@ -38,12 +39,29 @@
 </div>
 
 <div id="sidebar">
-    {% for article in rand_articles %}
+    {% for article in sidebar_articles %}
         {% include "./index_article_card.html" %}
     {% endfor %}
 
 </div>
+</div>
+
 {% endblock page-content %}
+
+{% block page-secondary-content %} 
+    <div id="additional-content">
+        <div>
+            {% for article in secondary_articles_one %}
+                {% include "./index_article_card.html" %}
+            {% endfor %}
+        </div>
+        <div>
+            {% for article in secondary_articles_two %}
+                {% include "./index_article_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock page-secondary-content %}
 
 {% block after-container-content %}
 <div id="ticker"><div>{% for rej_head in rej_heads %}{{ rej_head.title }} • {% endfor %}</div></div>
