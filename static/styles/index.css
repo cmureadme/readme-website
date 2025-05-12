@@ -111,6 +111,13 @@ p.byline a {
     margin-bottom: 24px;
 }
 
+#sidebar > div img{
+    width: auto;
+    height: auto;
+    max-width: 50%;
+    max-height: 50%;
+}
+
 h2 {
     font-weight: 900;
     font-size: 24px;
@@ -146,6 +153,14 @@ h2 a {
     box-sizing: content-box;
     width: 400px;
     max-width: 30vw;
+    max-height: 60vh;
+}
+
+#additional-content > div > div img {
+    width: auto;
+    height: auto;
+    max-width: 50%;
+    max-height: 50%;
 }
 
 
