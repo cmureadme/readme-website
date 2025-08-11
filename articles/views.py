@@ -40,7 +40,7 @@ def index(request):
         "article": Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=True)).order_by("?")[0],
         "image": Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False)).order_by("?")[0],
     }
-    IndexPage.objects.all().order_by("?")[0]
+    
     context = {
         "sidebar_articles": sidebar_articles,
         "secondary_articles_one": secondary_articles_one,
