@@ -1,0 +1,13 @@
+.page-header{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.main-content{
+    padding-bottom: 24px;
+}
+
+.questions ol {
+    list-style-type: decimal;
+}
