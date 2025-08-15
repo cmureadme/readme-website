@@ -27,7 +27,7 @@
 
 <div class = "questions">
     <h2>Have you ever:</h2>
-    <ol start="0">
+    <ol start="0" id="question-list">
         <li>
             <input type ="checkbox" id = "freebie" checked disabled>
             <label for="freebie"> Picked up a ReadMe magazine? </label>
@@ -40,5 +40,35 @@
         {% endfor %}
     </ol>
 </div>
+
+<div class="buttons">
+    <input type="button" class="button" id="submit" value="Calculate my score!">
+    <input type="button" class="button" id="reset" value="Reset Quiz">
+</div>
+
+<div id="score">
+    <h2>Your score is: <span id="user-score">1000000000</span>!</h2>
+</div>
+
+<script>
+    document.getElementById("submit").addEventListener("click", function() {
+        document.getElementById("score").style.display = "initial";
+        var questionList = document.getElementById("question-list");
+        var numChecked = 0;
+        for (var i = 1; i < questionList.children.length; i++) {
+            numChecked += questionList.children[i].children[0].checked ? 1 : 0;
+        }
+
+        document.getElementById("user-score").textContent = 100 - numChecked;
+    })
+
+    document.getElementById("reset").addEventListener("click", function() {
+        document.getElementById("score").style.display = "";
+        var questionList = document.getElementById("question-list");
+        for (var i = 1; i < questionList.children.length; i++) {
+            questionList.children[i].children[0].checked = false;
+        }
+    })
+</script>
 
 {% endblock page-content %}
