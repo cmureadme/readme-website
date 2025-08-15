@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/purity_test.css' %}">
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+<div class = "page-header">
+    <h1>CMU Purity Test</h1>
+</div>
+
+<div class = "main-content">
+    <p>
+        The CMU Purity Test is an opportunity for new students to track their maturation into fully-fledged CMU-ites. 
+        Take the time to see how far along you are, and reflect on what CMU still has to offer you. 
+        And unlike some tests, you can complete this one without risking life and limb - though we’ll certainly take a good swing at’cha. 
+        <br>
+        <br>
+        <b>MSG</b> is <b>M</b>ember of (desired) <b>S</b>ex and / or <b>G</b>ender. 
+        We’re very pro-flavor at this school.
+
+    </p>
+</div>
+
+<div class = "questions">
+    <h2>Have you ever:</h2>
+    <ol start="0" id="question-list">
+        <li>
+            <input type ="checkbox" id = "freebie" checked disabled>
+            <label for="freebie"> Picked up a ReadMe magazine? </label>
+        </li>
+        {% for item in items %}
+            <li>
+                <input type ="checkbox" id = {{ item }}>
+                <label for={{ item }}> {{item }} </label>
+            </li>
+        {% endfor %}
+    </ol>
+</div>
+
+<div class="buttons">
+    <input type="button" class="button" id="submit" value="Calculate my score!">
+    <input type="button" class="button" id="reset" value="Reset Quiz">
+</div>
+
+<div id="score">
+    <h2>Your score is: <span id="user-score">1000000000</span>!</h2>
+</div>
+
+<script>
+    document.getElementById("submit").addEventListener("click", function() {
+        document.getElementById("score").style.display = "initial";
+        var questionList = document.getElementById("question-list");
+        var numChecked = 0;
+        for (var i = 1; i < questionList.children.length; i++) {
+            numChecked += questionList.children[i].children[0].checked ? 1 : 0;
+        }
+
+        document.getElementById("user-score").textContent = 100 - numChecked;
+    })
+
+    document.getElementById("reset").addEventListener("click", function() {
+        document.getElementById("score").style.display = "";
+        var questionList = document.getElementById("question-list");
+        for (var i = 1; i < questionList.children.length; i++) {
+            questionList.children[i].children[0].checked = false;
+        }
+    })
+</script>
+
+{% endblock page-content %}

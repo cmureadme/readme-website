@@ -1,0 +1,45 @@
+.page-header{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.main-content{
+    padding-bottom: 24px;
+}
+
+.questions ol {
+    list-style-type: decimal;
+}
+
+li {
+    list-style-position: outside;
+}
+
+input[type="checkbox"] {
+    accent-color: red;
+}
+
+.buttons {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.buttons .button {
+    margin: 5px;
+    border-radius: 10px;
+    border-color: #888;
+    background-color: #DDD;
+}
+
+.buttons .button:hover {
+    background-color: #CCC;
+}
+
+#score {
+    display: none;
+}
+
+#user-score {
+    color: red;
+}
