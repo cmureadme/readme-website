@@ -9,6 +9,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "categories"
+        ordering = ["name"]
 
     def __str__(self) -> str:
         return self.name
@@ -159,6 +160,10 @@ class Comment(models.Model):
 
 class PaidFor(models.Model):
     title = models.CharField(max_length=225, help_text = "DONT add the words paid for: just add the gag bit thx <3")
+
+    class Meta:
+        ordering = ["title"]
+
     def __str__(self) -> str:
         return self.title
     

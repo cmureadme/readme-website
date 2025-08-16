@@ -34,8 +34,8 @@
         </li>
         {% for item in items %}
             <li>
-                <input type ="checkbox" id = {{ item }}>
-                <label for={{ item }}> {{item }} </label>
+                <input type ="checkbox" id = {{ forloop.counter }}>
+                <label for={{ forloop.counter }}> {{item }} </label>
             </li>
         {% endfor %}
     </ol>
@@ -48,6 +48,7 @@
 
 <div id="score">
     <h2>Your score is: <span id="user-score">1000000000</span>!</h2>
+    <span id="tagline">Text</span>
 </div>
 
 <script>
@@ -60,6 +61,33 @@
         }
 
         document.getElementById("user-score").textContent = 100 - numChecked;
+
+        switch(Math.floor(numChecked/10)) {
+            case 0:
+            case 1:
+                document.getElementById("tagline").textContent = "Rookie numbers go out and experience CMU";
+                break;
+            case 2:
+            case 3:
+                document.getElementById("tagline").textContent = "Good on you for getting out there and experiencing some of campus";
+                break;
+            case 4:
+            case 5:
+                document.getElementById("tagline").textContent = "Now your starting to live the good life";
+                break;
+            case 6:
+            case 7:
+                document.getElementById("tagline").textContent = "You're getting up there keep at it";
+            case 8:
+            case 9:
+                document.getElementById("tagline").textContent = "Deeply impressive what have you not done";
+                break;
+            case 10:
+                document.getElementById("tagline").textContent = "Congratulations do you want a cookie?";
+                break;
+            default:
+                break;
+        }
     })
 
     document.getElementById("reset").addEventListener("click", function() {

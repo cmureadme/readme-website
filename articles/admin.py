@@ -42,7 +42,7 @@ class ArticleAdmin(admin.ModelAdmin):
     inlines = [ArticleImageInline]
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     search_fields = ["slug", "title"]
-    list_filter = ["categories", "issue"]
+    list_filter = ["categories", "issue", "authors"]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
