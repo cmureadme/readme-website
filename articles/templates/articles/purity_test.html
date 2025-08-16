@@ -34,8 +34,8 @@
         </li>
         {% for item in items %}
             <li>
-                <input type ="checkbox" id = {{ item }}>
-                <label for={{ item }}> {{item }} </label>
+                <input type ="checkbox" id = {{ forloop.counter }}>
+                <label for={{ forloop.counter }}> {{item }} </label>
             </li>
         {% endfor %}
     </ol>
