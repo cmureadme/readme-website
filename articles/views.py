@@ -246,7 +246,7 @@ def purity_test(request):
         "Asked someone on campus out?",
         "Had an actual honest-to-god serious conversation about a relationship?",
         "Ever kissed someone, outside of family?",
-        "Ever kissed a non-MSG for the bit?",
+        "Ever kissed someone of a sex/gender your not attracted to for the bit?",
         "… No, no way in hell you have. I’m not even asking.",
         "Sexiled a roommate, or gotten sexiled?",
         "Come to regret how many new apps you now own on CMU’s behalf?",
