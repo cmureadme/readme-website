@@ -283,4 +283,15 @@ def purity_test(request):
     context = {"items": items}
     return render(request, "articles/purity_test.html", context)
 
+
+def stories(request):
+    articles = Article.objects.filter().order_by(
+        "-issue__vol",
+        "-issue__num",
+        "-front_page",
+        "-featured",
+        "-true_created_on"
+    )
+    context = {"articles": articles}
+    return render(request, "articles/stories.html", context)
     
