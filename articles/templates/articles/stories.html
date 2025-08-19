@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/stories.css' %}">
+<link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+
+<body>
+    {% for article in articles %}
+        {% include "./article_card.html" %}  
+    {% endfor %}
+
+</body>
+{% endblock page-content %}
