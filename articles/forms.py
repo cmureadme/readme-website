@@ -1,7 +1,7 @@
 # blog/forms.py
 
 from django import forms
-from .models import Author, Category, Article, ArticleImage, PaidFor, RejectedHeadline
+from .models import Author, Category, Article, ArticleImage, PaidFor, RejectedHeadline, Issue
 from django.core.validators import validate_image_file_extension
 from django.utils.translation import gettext
 
@@ -40,7 +40,7 @@ class AuthorAdminForm(forms.ModelForm):
 class ArticleAdminForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = (
+        fields = [
             "title",
             "authors",
             "body",
@@ -50,8 +50,9 @@ class ArticleAdminForm(forms.ModelForm):
             "published",
             "front_page",
             "featured",
-            "created_on",
-        )
+            "created_on"
+        ]
+
     # photos = forms.FileField(
     #     widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True}),
     #     label=gettext("Add photos"),
@@ -69,7 +70,6 @@ class ArticleAdminForm(forms.ModelForm):
             image = ArticleImage(show=show, image=upload)
             image.save()
 
-
 class PaidForForm(forms.ModelForm):
     class Meta:
         model = PaidFor
@@ -80,7 +80,7 @@ class PaidForForm(forms.ModelForm):
 class RejectedHeadlineForm(forms.ModelForm):
     class Meta:
         model = RejectedHeadline
-        fields = (
+        fields = [
             "title",
-            "issue",
-        )
+            "issue"
+        ]
