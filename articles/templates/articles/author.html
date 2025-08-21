@@ -60,7 +60,8 @@
 
     <p>
         {% if author.bio.strip.lower != "left_empty" %}
-            {{author.bio}}
+            {% load tag %}
+                {{ author.bio | create_md | safe }}
         {% else %}
             Unknowable and Mysterious
         {% endif %}
