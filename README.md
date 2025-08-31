@@ -14,7 +14,7 @@ git checkout dev  # use the /dev branch
 python3 -m venv venv  # create a virtual environment
 source venv/bin/activate  # activate the virtual environment
 pip install -r requirements.txt  # install libraries into the activated venv
-chown u+x ./data_populate.sh # make shell script to do data set up executable
+chmod u+x ./data_populate.sh # make shell script to do data set up executable
 ./data_populate.sh # run shell script to populate data
 python3 manage.py runserver  # start the server
 ```
