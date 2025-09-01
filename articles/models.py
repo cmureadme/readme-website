@@ -5,9 +5,8 @@ from django.utils.translation import gettext_lazy
 import datetime
 
 class Category(models.Model):
-    #id = models.AutoField(null=True, unique=True, primary_key=True)
-    name = models.CharField(max_length=30, unique=True)
-    
+    name = models.CharField(max_length=30, unique=True, primary_key=True)
+
     class Meta:
         verbose_name_plural = "categories"
         ordering = ["name"]
