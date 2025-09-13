@@ -27,6 +27,13 @@ from django.db.models import Q
 def index(request):
     latest_issue = Issue.objects.all().order_by("-vol", "-num")[0]
     second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
+
+    # Prevents front page from crashing if latest issue has very few articles
+    # ie Latest issue is in the proccess of being uploaded
+    if len(latest_issue) <= 5:
+        latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
+        second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[2]
+
     sidebar_articles = Article.objects.all().filter(Q(published=True) & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))).order_by("?")[0:5]
     secondary_articles = Article.objects.all().filter(Q(published=True)).order_by("?")
     secondary_articles_one = secondary_articles[0:3]
@@ -34,6 +41,8 @@ def index(request):
 
     all_rand_rej_heads = RejectedHeadline.objects.all().order_by("?")
     
+    
+
     feat_articles = {
         "largest": Article.objects.all().filter(Q(published=True) & Q(front_page=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False)).order_by("?")[0],
         "column": Article.objects.all().filter(Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=True)).order_by("?")[0],
