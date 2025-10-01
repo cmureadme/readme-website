@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+set -e
+
+python3 manage.py makemigrations
 python3 manage.py migrate  # create the blank database file
 python3 manage.py loaddata db_sample.json  # populate it with sample data
 

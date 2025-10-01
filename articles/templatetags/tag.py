@@ -32,6 +32,10 @@ def is_image_article(arg: str):
     arg = arg.strip()
     return arg.startswith("{{") and arg.endswith("}}")
 
+@register.filter
+def modulo(num, val):
+    return num % val
+
 register.filter("create_md", create_md)
 register.filter("imgswitch", replace_double_braces)
 register.filter("imgremove", imgremove)

@@ -27,13 +27,27 @@ from django.db.models import Q
 def index(request):
     latest_issue = Issue.objects.all().order_by("-vol", "-num")[0]
     second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
+
+    # Prevents front page from crashing if latest issue has very few articles
+    # ie Latest issue is in the proccess of being uploaded
+    if len(Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name))) <= 5:
+        latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
+        second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[2]
+
     sidebar_articles = Article.objects.all().filter(Q(published=True) & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))).order_by("?")[0:5]
     secondary_articles = Article.objects.all().filter(Q(published=True)).order_by("?")
-    secondary_articles_one = secondary_articles[0:3]
-    secondary_articles_two = secondary_articles[3:6]
+    num_secondary_articles = min((len(secondary_articles) // 3) * 3, 102)
+    secondary_articles = secondary_articles[0: num_secondary_articles]
+
+    # secondary_articles_list = []
+    # num_secondary_articles = min((len(secondary_articles) // 3) * 3, 102)
+    # for i in range(0, num_secondary_articles, 3):
+    #     secondary_articles_list.append(secondary_articles[i: i+3])
 
     all_rand_rej_heads = RejectedHeadline.objects.all().order_by("?")
     
+    
+
     feat_articles = {
         "largest": Article.objects.all().filter(Q(published=True) & Q(front_page=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False)).order_by("?")[0],
         "column": Article.objects.all().filter(Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=True)).order_by("?")[0],
@@ -43,8 +57,7 @@ def index(request):
     
     context = {
         "sidebar_articles": sidebar_articles,
-        "secondary_articles_one": secondary_articles_one,
-        "secondary_articles_two": secondary_articles_two,
+        "secondary_articles": secondary_articles,
         "feat_articles": feat_articles,
         "MEDIA_URL": settings.MEDIA_URL,
         "rej_heads": (all_rand_rej_heads if len(all_rand_rej_heads) < 20 else all_rand_rej_heads[:20])
