@@ -225,6 +225,22 @@
   }
 },
 {
+  "model": "articles.author", 
+  "pk": "Max Lee", 
+  "fields": {
+    "img": "author_images/man_bald.png", 
+    "bio": "bald", 
+    "roles": "Staffwriter", 
+    "pronouns": "He/Him", 
+    "major": "Computer Science", 
+    "year": "2029", 
+    "location": "37.93814999068428, -82.01588571805186", 
+    "fact": "is deathly allergic to Wean Hall", 
+    "email": "maxwe@cmu.edu", 
+    "author_status": "US"
+  }
+},
+{
   "model": "articles.author",
   "pk": "B",
   "fields": {
