@@ -24,6 +24,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.db.models import Q
 
+from random import shuffle
+
 def index(request):
     latest_issue = Issue.objects.all().order_by("-vol", "-num")[0]
     second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
@@ -39,14 +41,22 @@ def index(request):
     num_secondary_articles = min((len(secondary_articles) // 3) * 3, 102)
     secondary_articles = secondary_articles[0: num_secondary_articles]
 
-    # secondary_articles_list = []
-    # num_secondary_articles = min((len(secondary_articles) // 3) * 3, 102)
-    # for i in range(0, num_secondary_articles, 3):
-    #     secondary_articles_list.append(secondary_articles[i: i+3])
+    # Will pull from the best rejected headlines
+    feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=True)).order_by("?")
+    if len(feat_rej_heads) > 20:
+        feat_rej_heads = feat_rej_heads[:20]
+    else:
+        feat_rej_heads = feat_rej_heads[:]
 
-    all_rand_rej_heads = RejectedHeadline.objects.all().order_by("?")
+    # Will pull from non featured rejected headlines
+    non_feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=False)).order_by("?")
+    if len(non_feat_rej_heads) > 20:
+        non_feat_rej_heads = non_feat_rej_heads[:20]
+    else:
+        non_feat_rej_heads = non_feat_rej_heads[:]
     
-    
+    all_rej_heads = feat_rej_heads + non_feat_rej_heads
+    shuffle(all_rej_heads)
 
     feat_articles = {
         "largest": Article.objects.all().filter(Q(published=True) & Q(front_page=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False)).order_by("?")[0],
@@ -60,7 +70,7 @@ def index(request):
         "secondary_articles": secondary_articles,
         "feat_articles": feat_articles,
         "MEDIA_URL": settings.MEDIA_URL,
-        "rej_heads": (all_rand_rej_heads if len(all_rand_rej_heads) < 20 else all_rand_rej_heads[:20])
+        "rej_heads": all_rej_heads
     }
     return render(request, "articles/index.html", context)
 
@@ -177,10 +187,12 @@ def about_us(request):
     articles = Article.objects.count()
     authors = Author.objects.count()
     rejected_headlines = RejectedHeadline.objects.count()
+    issues = Issue.objects.count()
     context = {
         "articles": articles,
         "authors": authors,
         "rejected_headlines": rejected_headlines,
+        "issues": issues,
     }
     return render(request, "articles/about_us.html", context)
 

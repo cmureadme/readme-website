@@ -82,5 +82,6 @@ class RejectedHeadlineForm(forms.ModelForm):
         model = RejectedHeadline
         fields = [
             "title",
-            "issue"
+            "issue",
+            "featured"
         ]
