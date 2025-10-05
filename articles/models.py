@@ -169,6 +169,7 @@ class PaidFor(models.Model):
     
 class RejectedHeadline(models.Model):
     title = models.CharField(max_length= 255)
+    featured = models.BooleanField(default=False, help_text="If this rejected headline is really funny and we want it to have a high chance of being on the front page ticker")
     issue = models.ForeignKey("Issue", related_name='articles_issue', on_delete = models.PROTECT)
 
     class Meta:

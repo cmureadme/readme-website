@@ -59,7 +59,7 @@ class PaidForAdmin(admin.ModelAdmin):
 @admin.register(RejectedHeadline)
 class RejectedHeadlineAdmin(admin.ModelAdmin):
     form = RejectedHeadlineForm
-    list_display = ["title", "vol_issue"]
+    list_display = ["title", "vol_issue", "featured"]
     search_fields = ["title"]
     list_filter = ["issue"]
 
