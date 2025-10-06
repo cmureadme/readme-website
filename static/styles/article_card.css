@@ -19,6 +19,7 @@ h3 a {
 .byline {
     font-family: 'Roboto';
     font-size: 14px;
+    text-align: left;
 }
 
 .byline a {
