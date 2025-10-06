@@ -5,19 +5,6 @@ from .models import Author, Article, ArticleImage, PaidFor, RejectedHeadline, Is
 from django.core.validators import validate_image_file_extension
 from django.utils.translation import gettext
 
-class CommentForm(forms.Form):
-    author = forms.CharField(
-        max_length=60,
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Your Name"}
-        ),
-    )
-    body = forms.CharField(
-        widget=forms.Textarea(
-            attrs={"class": "form-control", "placeholder": "Leave a comment!"}
-        )
-    )
-
 
 class AuthorAdminForm(forms.ModelForm):
     class Meta:

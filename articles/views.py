@@ -2,12 +2,8 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect
 import markdown
-from articles.forms import (
-    CommentForm,
-)
 from articles.models import (
     Article,
-    Comment,
     Author,
     Issue,
     IndexPage,

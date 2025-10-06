@@ -37,7 +37,7 @@ class Author(models.Model):
 class SocialMediaLink(models.Model):
     link = models.CharField(max_length=255, verbose_name="link destination")
     text = models.CharField(max_length=255, verbose_name="link text", blank=True) #blank=True means optional
-    issues = models.ForeignKey("Author", related_name='misc_links', on_delete=models.PROTECT)
+    author = models.ForeignKey("Author", related_name='misc_links', on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.link
@@ -136,15 +136,6 @@ class IndexPage(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
-# TODO NOTE SEE ABOVE ABOUT HOW ERRORS NEED TO BE FIXED. Comment.post("Post") changed to Comment.article("Article")
-class Comment(models.Model):
-    author = models.CharField(max_length=60)
-    body = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    article = models.ForeignKey("Article", on_delete=models.PROTECT)
-    def __str__(self) -> str:
-        return f"{self.author} on '{self.article}'"
 
 class PaidFor(models.Model):
     title = models.CharField(max_length=225, help_text = "DONT add the words paid for: just add the gag bit thx <3")
