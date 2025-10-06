@@ -1,7 +1,7 @@
 # blog/forms.py
 
 from django import forms
-from .models import Author, Category, Article, ArticleImage, PaidFor, RejectedHeadline, Issue
+from .models import Author, Article, ArticleImage, PaidFor, RejectedHeadline, Issue
 from django.core.validators import validate_image_file_extension
 from django.utils.translation import gettext
 
@@ -44,7 +44,6 @@ class ArticleAdminForm(forms.ModelForm):
             "title",
             "authors",
             "body",
-            "categories",
             "slug",
             "issue",
             "published",

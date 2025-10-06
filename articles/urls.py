@@ -13,9 +13,6 @@ urlpatterns = [
     path("people", views.article_author_index, name="article_author_index"),
     path("people/<author>/", views.article_author, name="article_author"),
 
-    path("tags", views.article_category_index, name="article_category_index"),
-    path("tags/<category>/", views.article_category, name="article_category"),
-
     path("issues", views.article_issues_index, name="article_issues_index"),
     path("issues/<int:vol>/<int:num>", views.article_issue, name="article_issue"),
 

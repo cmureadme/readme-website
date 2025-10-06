@@ -2,14 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from articles.models import Issue, Author, Category, Comment, Article, ArticleImage, SocialMediaLink, IndexPage, PaidFor, RejectedHeadline
+from articles.models import Issue, Author, Comment, Article, ArticleImage, SocialMediaLink, IndexPage, PaidFor, RejectedHeadline
 # from articles.models import Show, ShowPhoto
 from articles.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -42,7 +37,7 @@ class ArticleAdmin(admin.ModelAdmin):
     inlines = [ArticleImageInline]
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     search_fields = ["slug", "title"]
-    list_filter = ["categories", "issue", "authors"]
+    list_filter = ["issue", "authors"]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
