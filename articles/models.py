@@ -4,16 +4,6 @@ from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy
 import datetime
 
-class Category(models.Model):
-    name = models.CharField(max_length=30, unique=True, primary_key=True)
-
-    class Meta:
-        verbose_name_plural = "categories"
-        ordering = ["name"]
-
-    def __str__(self) -> str:
-        return self.name
-
 class Author(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
     img = models.ImageField(upload_to="author_images/")
@@ -100,8 +90,6 @@ class Article(models.Model):
             "should prefer Article's date, falling back to Issue if it was NULL."
     )
     last_modified = models.DateTimeField(auto_now=True)
-    categories = models.ManyToManyField("Category", related_name="articles")
-    # categories = models.ManyToManyField("Category", related_name="posts")
     slug = models.SlugField(primary_key=True)
     issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.PROTECT)
     front_page = models.BooleanField(default=False, help_text="If this article was on the front page of the issue in which it was published")

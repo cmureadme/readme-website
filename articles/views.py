@@ -10,7 +10,6 @@ from articles.models import (
     Comment,
     Author,
     Issue,
-    Category,
     IndexPage,
     PaidFor,
     RejectedHeadline
@@ -96,28 +95,6 @@ def article_author(request, author):
         "articles": articles,
     }
     return render(request, "articles/author.html", context)
-
-
-def article_category_index(request):
-    categories = Category.objects.all().order_by("name")
-    context = {
-        "categories": categories,
-    }
-    return render(request, "articles/category_list.html", context)
-
-
-def article_category(request, category):
-    articles = (
-        Article.objects.filter(categories__name__contains=category)
-        .order_by("-true_created_on")
-        .filter(published=True)
-    )
-    context = {
-        "category": category,
-        "articles": articles,
-    }
-    return render(request, "articles/category.html", context)
-
 
 def article_issues_index(request):
     issues = Issue.objects.all().order_by("vol", "num")
