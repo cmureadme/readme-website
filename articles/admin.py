@@ -2,17 +2,13 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from articles.models import Issue, Author, Comment, Article, ArticleImage, SocialMediaLink, IndexPage, PaidFor, RejectedHeadline
+from articles.models import Issue, Author, Article, ArticleImage, SocialMediaLink, PaidFor, RejectedHeadline
 # from articles.models import Show, ShowPhoto
 from articles.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    pass 
-
 class SocialMediaLinkInline(admin.TabularInline):
     model = SocialMediaLink
-    extra = 0  # how many images will be prompted to be added by default
+    extra = 0  # how many links will be prompted to be added by default
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -42,10 +38,6 @@ class ArticleAdmin(admin.ModelAdmin):
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
-
-@admin.register(IndexPage)
-class IndexPageAdmin(admin.ModelAdmin):
-    pass
 
 @admin.register(PaidFor)
 class PaidForAdmin(admin.ModelAdmin):
