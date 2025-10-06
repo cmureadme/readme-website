@@ -6,7 +6,6 @@ from articles.models import (
     Article,
     Author,
     Issue,
-    IndexPage,
     PaidFor,
     RejectedHeadline
 )
