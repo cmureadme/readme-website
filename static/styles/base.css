@@ -47,6 +47,13 @@ p {
     text-wrap: pretty;
 }
 
+hr {
+    border: none;
+    height: 1px;
+    background-color: #888888;
+    margin: 12px;
+}
+
 /* a paragraph proceeded by another paragraph will have a top margin */
 p + p {
     margin-top: 0.5em;
