@@ -30,7 +30,7 @@ def index(request):
     while len(Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name))) <= 5:
         latest_issue = Issue.objects.all().order_by("-vol", "-num")[i]
         second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
-        i++
+        i += 1
 
     sidebar_articles = Article.objects.all().filter(Q(published=True) & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))).order_by("?")[0:5]
     secondary_articles = Article.objects.all().filter(Q(published=True)).order_by("?")

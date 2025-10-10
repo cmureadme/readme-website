@@ -3,10 +3,11 @@ import markdown
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy
 import datetime
+from django.templatetags.static import static
 
 class Author(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
-    img = models.ImageField(upload_to="author_images/")
+    img = models.ImageField(upload_to="author_images/", blank=True, null=True)
     bio = models.TextField()
     roles = models.CharField(max_length=1024)
     pronouns = models.CharField(max_length=255, blank=True)
@@ -16,6 +17,18 @@ class Author(models.Model):
     fact = models.CharField(max_length=255)
     email = models.CharField(max_length=255, blank=True)
 
+    # When you want to use the author image you do author.img_url now
+    @property
+    def img_url(self):
+        """
+        Returns either the uploaded image URL (media)
+        or a fallback static image URL.
+        """
+        try:
+            return self.img.url
+        except (ValueError, AttributeError):
+            return static("anon.png")
+    
     class AuthorStatus(models.TextChoices):
         USUAL_SUSPECT = "US", gettext_lazy("Usual Suspect")
         INDEPENDENT_CONTRACTOR = "IC", gettext_lazy("Independent Contractor")
