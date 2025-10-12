@@ -26,9 +26,11 @@ def index(request):
 
     # Prevents front page from crashing if latest issue has very few articles
     # ie Latest issue is in the proccess of being uploaded
-    if len(Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name))) <= 5:
-        latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
-        second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[2]
+    i = 1
+    while len(Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name))) <= 5:
+        latest_issue = Issue.objects.all().order_by("-vol", "-num")[i]
+        second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
+        i += 1
 
     sidebar_articles = Article.objects.all().filter(Q(published=True) & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))).order_by("?")[0:5]
     secondary_articles = Article.objects.all().filter(Q(published=True)).order_by("?")

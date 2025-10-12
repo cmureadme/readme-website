@@ -39,12 +39,6 @@ class ArticleAdminForm(forms.ModelForm):
             "created_on"
         ]
 
-    # photos = forms.FileField(
-    #     widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True}),
-    #     label=gettext("Add photos"),
-    #     required=False,
-    # )
-
     def clean_photos(self):
         """Make sure only images can be uploaded."""
         for upload in self.files.getlist("images"):
