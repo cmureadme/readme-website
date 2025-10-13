@@ -5,19 +5,22 @@ from django.utils.translation import gettext_lazy
 import datetime
 from django.templatetags.static import static
 
+CHARFIELD_MAX_LENGTH = 1024
+
 class Author(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
-    img = models.ImageField(upload_to="author_images/", blank=True, null=True)
-    bio = models.TextField()
-    roles = models.CharField(max_length=1024)
-    pronouns = models.CharField(max_length=255, blank=True)
-    major = models.CharField(max_length=255)
-    year = models.CharField(max_length=255)
-    location = models.CharField(max_length=255, blank=True)
-    fact = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=CHARFIELD_MAX_LENGTH, unique=True, primary_key=True)
+    img = models.ImageField(upload_to="author_images/", blank=True, null=True, help_text="Default image is set to the anon.png its better for everyone to have a pfp, but if you are waiting on someone to send one this is a good short term option")
+    bio = models.TextField(help_text="This uses markdown formating")
+    roles = models.CharField(max_length=CHARFIELD_MAX_LENGTH, default="Staffwriter", help_text="Defaults to Staffwriter, change this to Staff Artist if someone only makes images. Can also add exec roles for exec members or other funny roles if people want")
+    pronouns = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
+    major = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    year = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    location = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
+    fact = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    email = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
 
     # When you want to use the author image you do author.img_url now
+    # This allows us to easily make the anon.png image the default pfp while keeping it in the static folder
     @property
     def img_url(self):
         """
@@ -43,30 +46,23 @@ class Author(models.Model):
 
     class Meta:
         verbose_name_plural = "authors"
-        ordering = ["pk"]
+        ordering = ["name"]
     def __str__(self) -> str:
         return self.name
     
-class SocialMediaLink(models.Model):
-    link = models.CharField(max_length=255, verbose_name="link destination")
-    text = models.CharField(max_length=255, verbose_name="link text", blank=True) #blank=True means optional
-    author = models.ForeignKey("Author", related_name='misc_links', on_delete=models.PROTECT)
-
-    def __str__(self) -> str:
-        return self.link
-    
+ 
 def issue_upload_path(instance, _):
     return f"vol{instance.vol}/issue{instance.num}/CMUREADME_VOL{instance.vol}_ISSUE{instance.num}.pdf"
 
 class Issue(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
+    name = models.CharField(max_length=CHARFIELD_MAX_LENGTH, primary_key=True)
     vol = models.IntegerField(default=0)
     num = models.IntegerField(default=0)
     archive = models.FileField(
         upload_to=issue_upload_path,
         validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
     )
-    release_date = models.DateField(default=datetime.date.fromtimestamp(0))
+    release_date = models.DateField(default=datetime.date.today, help_text="Defaults to the current day, change this if the issue was not published the same day you are uploading")
     class Meta:
         verbose_name_plural = "issues"
         ordering = ["vol", "num", "name"]
@@ -89,11 +85,11 @@ class Issue(models.Model):
 
 # TODO NOTE THE related_name CHANGE FROM ARTICLES TO POSTS. THIS WILL CAUSE ERRORS. FIX THEM.
 class Article(models.Model):
-    title = models.CharField(max_length=225)
+    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
 
     authors = models.ManyToManyField("Author", related_name="articles")
     # authors = models.ManyToManyField("Author", related_name="posts")
-    body = models.TextField()
+    body = models.TextField(help_text="This uses markdown formating. If you want to have an image in an article you add one like this {{imagename.fileextension}}")
     created_on = models.DateField(blank=True, null=True, help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.")
     true_created_on = models.DateField(
         blank=True,
@@ -103,7 +99,7 @@ class Article(models.Model):
             "should prefer Article's date, falling back to Issue if it was NULL."
     )
     last_modified = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(primary_key=True)
+    slug = models.SlugField(primary_key=True, help_text="The slug is in the url like this: cmureadme.com/articles/slug use dashes as spaces example-slug-like-this")
     issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.PROTECT)
     front_page = models.BooleanField(default=False, help_text="If this article was on the front page of the issue in which it was published")
     featured = models.BooleanField(default=False, help_text="If we want this article to have a higher chance of being featured")
@@ -130,10 +126,10 @@ class ArticleImage(models.Model):
         Article, on_delete=models.PROTECT, related_name="images"
     )
     image = models.ImageField(upload_to="article_images/")
-    alt_text = models.CharField(max_length=255, blank=True)
+    alt_text = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
 
 class PaidFor(models.Model):
-    title = models.CharField(max_length=225, help_text = "DONT add the words paid for: just add the gag bit thx <3")
+    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH, help_text = "DONT add the words paid for by: just add the gag bit thx <3")
 
     class Meta:
         ordering = ["title"]
@@ -142,7 +138,7 @@ class PaidFor(models.Model):
         return self.title
     
 class RejectedHeadline(models.Model):
-    title = models.CharField(max_length= 255)
+    title = models.CharField(max_length= CHARFIELD_MAX_LENGTH)
     featured = models.BooleanField(default=False, help_text="If this rejected headline is really funny and we want it to have a high chance of being on the front page ticker")
     issue = models.ForeignKey("Issue", related_name='articles_issue', on_delete = models.PROTECT)
 

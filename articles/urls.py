@@ -21,7 +21,7 @@ urlpatterns = [
 
     path("donate", views.donate, name = "donate"),
 
-    path("article/<str:slug>/", views.article_detail, name="article_detail"),
+    path("article/<str:slug>/", views.article_page, name="article_page"),
 
     path('login/', views.index, name='login'),
     path('logout/', views.index, name='logout'),

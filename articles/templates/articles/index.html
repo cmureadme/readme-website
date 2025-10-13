@@ -30,7 +30,7 @@
             {% with imagearticle=feat_articles.image %}
             {% with image=imagearticle.images.first %}
             <div>
-                <a href="{% url 'article_detail' imagearticle.slug %}">
+                <a href="{% url 'article_page' imagearticle.slug %}">
                     <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
                 </a>
             </div>

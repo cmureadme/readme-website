@@ -1,6 +1,6 @@
 <div>
     <h2>
-        <a href="{% url 'article_detail' article.slug %}">
+        <a href="{% url 'article_page' article.slug %}">
             {{ article.title }}
         </a>
     </h2>
@@ -30,5 +30,5 @@
     {% else %}
         {{article.body | create_md | imgremove | truncatewords_html:50 | safe}}
     {% endif %}
-    <p><a href="{% url 'article_detail' article.slug %}">Read more</a></p>
+    <p><a href="{% url 'article_page' article.slug %}">Read more</a></p>
 </div>

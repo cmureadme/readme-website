@@ -81,9 +81,9 @@ def article_author_index(request):
 
 
 def article_author(request, author):
-    author = Author.objects.get(pk=author)
+    author = Author.objects.get(name=author)
     articles = (
-        Article.objects.filter(authors__pk=author)
+        Article.objects.filter(authors__name=author)
         .order_by("-true_created_on")
         .filter(published=True)
     )
@@ -129,30 +129,10 @@ def article_issue(request, vol, num):
 
 
 # TODO REMEMBER TO CHANGE POST TO ARTICLE
-def article_detail(request, slug):
-    article = Article.objects.get(pk=slug)
-    # comments = Comment.objects.filter(post=post)
-    # form = CommentForm()
-
-    # NOTE avoid double mding?
-    # md = markdown.Markdown(extensions=["fenced_code"])
-    # content = md.convert(article.body)
-
-    # if request.method == "POST":
-    #     form = CommentForm(request.POST)
-    #     if form.is_valid():
-    #         comment = Comment(
-    #             author=form.cleaned_data["author"],
-    #             body=form.cleaned_data["body"],
-    #             post=post,
-    #         )
-    #         comment.save()
-    #         return HttpResponseRedirect(request.path_info)
-
+def article_page(request, slug):
+    article = Article.objects.get(slug=slug)
     context = {
-        "article": article,
-        # "comments": comments,
-        # "form": CommentForm(),
+        "article": article
     }
 
     return render(request, "articles/article_page.html", context)
