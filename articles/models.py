@@ -6,7 +6,7 @@ import datetime
 from django.templatetags.static import static
 
 class Author(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
+    name = models.CharField(max_length=255, unique=True, primary_key=True)
     img = models.ImageField(upload_to="author_images/", blank=True, null=True)
     bio = models.TextField()
     roles = models.CharField(max_length=1024)
@@ -43,18 +43,11 @@ class Author(models.Model):
 
     class Meta:
         verbose_name_plural = "authors"
-        ordering = ["pk"]
+        ordering = ["name"]
     def __str__(self) -> str:
         return self.name
     
-class SocialMediaLink(models.Model):
-    link = models.CharField(max_length=255, verbose_name="link destination")
-    text = models.CharField(max_length=255, verbose_name="link text", blank=True) #blank=True means optional
-    author = models.ForeignKey("Author", related_name='misc_links', on_delete=models.PROTECT)
-
-    def __str__(self) -> str:
-        return self.link
-    
+ 
 def issue_upload_path(instance, _):
     return f"vol{instance.vol}/issue{instance.num}/CMUREADME_VOL{instance.vol}_ISSUE{instance.num}.pdf"
 

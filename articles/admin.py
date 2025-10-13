@@ -2,17 +2,12 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from articles.models import Issue, Author, Article, ArticleImage, SocialMediaLink, PaidFor, RejectedHeadline
+from articles.models import Issue, Author, Article, ArticleImage, PaidFor, RejectedHeadline
 from articles.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm
-
-class SocialMediaLinkInline(admin.TabularInline):
-    model = SocialMediaLink
-    extra = 0  # how many links will be prompted to be added by default
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     form = AuthorAdminForm
-    inlines = [SocialMediaLinkInline]
     list_display = ["name", "author_status"]
     search_fields = ["name"]
     list_filter = ["author_status"]

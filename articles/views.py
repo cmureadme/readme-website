@@ -81,9 +81,9 @@ def article_author_index(request):
 
 
 def article_author(request, author):
-    author = Author.objects.get(pk=author)
+    author = Author.objects.get(name=author)
     articles = (
-        Article.objects.filter(authors__pk=author)
+        Article.objects.filter(authors__name=author)
         .order_by("-true_created_on")
         .filter(published=True)
     )
