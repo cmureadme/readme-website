@@ -9,9 +9,9 @@ CHARFIELD_MAX_LENGTH = 1024
 
 class Author(models.Model):
     name = models.CharField(max_length=CHARFIELD_MAX_LENGTH, unique=True, primary_key=True)
-    img = models.ImageField(upload_to="author_images/", blank=True, null=True)
-    bio = models.TextField()
-    roles = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    img = models.ImageField(upload_to="author_images/", blank=True, null=True, help_text="Default image is set to the anon.png its better for everyone to have a pfp, but if you are waiting on someone to send one this is a good short term option")
+    bio = models.TextField(help_text="This uses markdown formating")
+    roles = models.CharField(max_length=CHARFIELD_MAX_LENGTH, default="Staffwriter", help_text="Defaults to Staffwriter, change this to Staff Artist if someone only makes images. Can also add exec roles for exec members or other funny roles if people want")
     pronouns = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
     major = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
     year = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
@@ -20,6 +20,7 @@ class Author(models.Model):
     email = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
 
     # When you want to use the author image you do author.img_url now
+    # This allows us to easily make the anon.png image the default pfp while keeping it in the static folder
     @property
     def img_url(self):
         """
@@ -61,7 +62,7 @@ class Issue(models.Model):
         upload_to=issue_upload_path,
         validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
     )
-    release_date = models.DateField(default=datetime.date.fromtimestamp(0))
+    release_date = models.DateField(default=datetime.date.today, help_text="Defaults to the current day, change this if the issue was not published the same day you are uploading")
     class Meta:
         verbose_name_plural = "issues"
         ordering = ["vol", "num", "name"]
@@ -88,7 +89,7 @@ class Article(models.Model):
 
     authors = models.ManyToManyField("Author", related_name="articles")
     # authors = models.ManyToManyField("Author", related_name="posts")
-    body = models.TextField()
+    body = models.TextField(help_text="This uses markdown formating. If you want to have an image in an article you add one like this {{imagename.fileextension}}")
     created_on = models.DateField(blank=True, null=True, help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.")
     true_created_on = models.DateField(
         blank=True,
@@ -98,7 +99,7 @@ class Article(models.Model):
             "should prefer Article's date, falling back to Issue if it was NULL."
     )
     last_modified = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(primary_key=True)
+    slug = models.SlugField(primary_key=True, help_text="The slug is in the url like this: cmureadme.com/articles/slug use dashes as spaces example-slug-like-this")
     issue = models.ForeignKey("Issue", related_name='articles', on_delete=models.PROTECT)
     front_page = models.BooleanField(default=False, help_text="If this article was on the front page of the issue in which it was published")
     featured = models.BooleanField(default=False, help_text="If we want this article to have a higher chance of being featured")
@@ -128,7 +129,7 @@ class ArticleImage(models.Model):
     alt_text = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
 
 class PaidFor(models.Model):
-    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH, help_text = "DONT add the words paid for: just add the gag bit thx <3")
+    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH, help_text = "DONT add the words paid for by: just add the gag bit thx <3")
 
     class Meta:
         ordering = ["title"]
