@@ -21,7 +21,13 @@
                         <h4><a href="{% url 'article_author' author.name %}">{{ author.name }}</a></h4>
                     </div>
                     <div class="author-bio">
-                        <b>{{ author.roles }}</b><br>{{ author.bio|truncatechars_html:100 | safe}}
+                        <b>{{ author.roles }}</b><br>
+                        {% if author.bio.strip.lower != "left_empty" %}
+                            {{ author.bio|truncatechars_html:100 | safe}}
+                        {% else %}
+                            Unknowable and Mysterious
+                        {% endif %}
+                        
                     </div>
                 </div>
             </li>
@@ -38,7 +44,13 @@
                         <h4><a href="{% url 'article_author' author.name %}">{{ author.name }}</a></h4>
                     </div>
                     <div class="author-bio">
-                        <b>{{ author.roles }}</b><br>{{ author.bio|truncatechars_html:100 | safe}}
+                        <b>{{ author.roles }}</b><br>
+                        {% if author.bio.strip.lower != "left_empty" %}
+                            {{ author.bio|truncatechars_html:100 | safe}}
+                        {% else %}
+                            Unknowable and Mysterious
+                        {% endif %}
+                        
                     </div>
                 </div>
             </li>
@@ -55,7 +67,13 @@
                         <h4><a href="{% url 'article_author' author.name %}">{{ author.name }}</a></h4>
                     </div>
                     <div class="author-bio">
-                        <b>{{ author.roles }}</b><br>{{ author.bio|truncatechars_html:100 | safe}}
+                        <b>{{ author.roles }}</b><br>
+                        {% if author.bio.strip.lower != "left_empty" %}
+                            {{ author.bio|truncatechars_html:100 | safe}}
+                        {% else %}
+                            Unknowable and Mysterious
+                        {% endif %}
+                        
                     </div>
                 </div>
             </li>
