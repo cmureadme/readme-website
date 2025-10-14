@@ -27,12 +27,19 @@ def replace_double_braces(arg, folder):
 def imgremove(arg):
     return re.sub(r'\{\{.*?\}\}', "", arg)
 
-
+# Check if an article is really just an image article
+# Image articles can have some caption, but for the article card we want to render them as just the image
 def is_image_article(arg: str):
-    arg = arg.strip()
-    return arg.startswith("{{") and arg.endswith("}}")
+    arg_striped = arg.strip()
+    if arg_striped.startswith("{{"):
+        if arg_striped.endswith("}}"):
+            return True
+        else:
+            return len(arg.split()) <= 50:
+    return False
 
 @register.filter
+# usage: num|modulo:val
 def modulo(num, val):
     return num % val
 
