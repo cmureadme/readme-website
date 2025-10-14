@@ -35,7 +35,7 @@ def is_image_article(arg: str):
         if arg_striped.endswith("}}"):
             return True
         else:
-            return len(arg.split()) <= 50:
+            return len(arg.split()) <= 50
     return False
 
 @register.filter
