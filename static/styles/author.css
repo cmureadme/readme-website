@@ -1,0 +1,93 @@
+.suspect-card {
+    display: flex;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #888;
+    font-family: 'Roboto';
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.suspect-card > img {
+    flex-shrink: 0; /* don't shrink this img's width */
+    width: 144px; /* set that width */
+    align-self: flex-start; /* set img's height to correct its aspect ratio, given our width */
+    /* border-radius: 50%; */
+}
+
+.suspect-card > div {
+    flex-grow: 1;
+}
+
+#suspect .suspect-card p {
+    margin-bottom: 0;
+}
+
+#suspect .suspect-card .pronouns {
+    font-size: 14px;
+    margin-top: -4px;
+    margin-bottom: 12px;
+    font-family: 'Special Elite';
+}
+
+#suspect .suspect-card .location {
+    font-size: 14px;
+    margin-top: -4px;
+    margin-bottom: 12px;
+    font-family: 'Special Elite';
+}
+
+.suspect-card .roles {
+    font-weight: bold;
+}
+
+#article img {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+#suspect h1 {
+    font-weight: 900;
+    font-size: 48px;
+    text-wrap: pretty;
+    line-height: 1.25;
+}
+
+#suspect h2 {
+    font-family: 'Roboto';
+    font-size: 24px;
+    text-wrap: pretty;
+}
+
+#suspect hr {
+    border-width: 0;
+    margin: 24px 0;
+    height: 1px;
+    background-color: #888;
+}
+
+#suspect p {
+    margin-bottom: 12px;
+}
+
+@media (max-width: 1200px) {
+    #wrapper {
+        width: 100%;
+        max-width: unset;
+    }
+}
+
+@media (max-width: 826px) {
+    #splash {
+        display: none;
+    }
+}
+
+.small-facts{
+    display: flex;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 16px;
+    margin-top: -4px;
+    margin-bottom: 12px;
+}

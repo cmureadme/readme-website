@@ -1,0 +1,192 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #888888;
+    margin: 12px;
+}
+
+/* a paragraph proceeded by another paragraph will have a top margin */
+p + p {
+    margin-top: 0.5em;
+}
+
+
+img {
+    display: block;
+}
+
+a {
+    color: #da0000;
+}
+
+/* a:visited {
+    color: #b5002a;
+} */
+
+/* **** */
+
+body {
+    background-color: #fafafa;
+    font-family: 'Crimson Text';
+}
+
+h1,
+h2 {
+    font-family: 'Special Elite';
+}
+
+p.byline {
+    font-family: 'Roboto';
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+#wrapper {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-bottom: 1px solid #121212;
+
+    padding-top: 12px;
+
+    position: relative;
+
+    font-family: 'Roboto';
+}
+
+nav {
+    font-family: 'Special Elite';
+}
+
+header::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    box-sizing: content-box;
+    border-top: 1px solid #121212;
+}
+
+#splash {
+    position: absolute;
+    top: 36px;
+    left: 24px;
+    max-width: 128px;
+    text-wrap: pretty;
+    font-size: 14px;
+    text-align: center;
+    font-style: italic;
+}
+
+header img {
+    height: 108px;
+}
+
+nav {
+    margin: 12px 0;
+}
+
+nav ul {
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+nav li {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+nav li.dropdown::after {
+    content: ' ⌄';
+    position: relative;
+    top: -4px;
+    color: #666;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+}
+
+#bar-subtext {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bolder;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#content {
+    width: 100%;
+}

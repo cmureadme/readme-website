@@ -1,0 +1,46 @@
+.title-block {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--background-dark);
+    border: 1px solid var(--secondary-dark);
+    margin-bottom: 20px;
+}
+.title-block h3 {
+    font-family: 'Special Elite', cursive;
+    font-size: 24px;
+    margin: 0;
+    padding: 10px;
+}
+.title-block em {
+    font-style: italic;
+    color: black;
+}
+
+.rejected-headlines {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: black;
+    border-style: solid;
+}
+
+.rejected-headlines h3 {
+    font-family: 'Special Elite', cursive;
+}
+
+.rejected-headlines #title {
+    text-align: left;
+}
+
+.rejected-headlines #and-more {
+    text-align: right;
+}
+
+.rejected-headlines ul {
+    list-style-type: disc;
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+}
