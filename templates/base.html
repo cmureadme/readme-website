@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>KGB Presents: Readme</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+
+        <link rel="icon" type="image/png" href="{% static 'readme_logo.png' %}" sizes="128x128" />
+        <link rel="icon" type="image/png" href="{% static 'readme_logo_32x32.png' %}" sizes="32x32" />
+
+        {% block head-content %}{% endblock head-content %}
+
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="wrapper">
+                <header>
+                    <div id="splash"> Paid for by: {{paid_for.title}}</div>
+    
+                    <a href="/"><img src="{% static 'readme-site-header-blank.png' %}" alt="KGB Presents: readme"/></a>
+                    
+                    <nav>
+                        <ul>
+                            <li><a class="nav-link" href='{% url "stories" %}'>Stories</a></li>
+                            <li><a class="nav-link" href='{% url "article_author_index" %}'>Staff</a></li>
+                            <li><a class="nav-link" href='{% url "article_issues_index" %}'>Issues</a></li>
+                            <li><a class="nav-link" href='{% url "games" %}'>Games</a></li>
+                            <li><a class="nav-link" href='{% url "about_us" %}'>About Us</a></li>
+                            <li><a class="nav-link" href='{% url "purity_test" %}'>CMU Purity Test</a></li>
+                            <li><a class="nav-link" href ='{% url "donate" %}'>Donate</a></li>
+                        </ul>
+                    </nav>
+                    
+                </header>
+                <div id = "bar-subtext">
+                    <div>Editor in Chief: Eshaan Joshi</div>
+                    <div>All the news unfit to print!</div> 
+                    <div>Pitch meetings Saturdays at 5:00 pm, Doherty Hall room 1211</div>
+                </div>
+                <div id="content">
+                    <div>
+                        {% block page-content %}{% endblock page-content %}
+                    </div>
+                    <div>
+                        {% block page-secondary-content %}{% endblock page-secondary-content %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block after-container-content %}{% endblock after-container-content %}
+    </body>
+</html>

@@ -1,0 +1,8 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="icon" type="image/png" href="{% static 'readme_logo.png' %}" sizes="128x128" />
+    <link rel="icon" type="image/png" href="{% static 'readme_logo_32x32.png' %}" sizes="32x32" />
+{% endblock %}
