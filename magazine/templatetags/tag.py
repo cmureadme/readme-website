@@ -10,6 +10,7 @@ def create_md(source):
     return markdown.Markdown(extensions=["fenced_code"]).convert(source)
 
 #TODO: Figure out if we need to change this function - lerbsen
+#It seems like the commented out part was the old one and the TODO was fixed???
 def add_img_folder(folder):
     def add_img(filename):
         #return f"<img src=\"/static/{folder}/{filename}\" width=500>"
