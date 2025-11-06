@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from django.contrib import admin
 from articles.models import Issue, Author, Article, ArticleImage, PaidFor, RejectedHeadline
-from articles.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm, PaidForForm
+from articles.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm, PaidForForm, IssueForm
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -16,6 +16,7 @@ class AuthorAdmin(admin.ModelAdmin):
 @admin.register(Issue)
 class IssueAdmin(admin.ModelAdmin):
     model = Issue
+    form = IssueForm
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage

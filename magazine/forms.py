@@ -63,3 +63,14 @@ class RejectedHeadlineForm(forms.ModelForm):
             "issue",
             "featured"
         )
+
+class IssueForm(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = (
+            "name",
+            "vol",
+            "num",
+            "archive",
+            "release_date"
+        )
