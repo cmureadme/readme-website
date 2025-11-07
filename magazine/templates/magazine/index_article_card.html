@@ -8,16 +8,16 @@
     <p class="byline">
         {% if article.authors.all|length > 2 %}
             By {% for author in article.authors.all %}
-                <a href="{% url 'article_author' author.name %}">
+                <a href="{% url 'author' author.name %}">
                     {% if forloop.last %} {{ author.name }}, {% else %} {{ author.name }} {% endif %}
                 </a>
             {% endfor %} &bull;
         {% elif article.authors.all|length == 2 %}
-            By <a href="{% url 'article_author' article.authors.all.0.name %}">{{ article.authors.all.0.name }}</a> & <a href="{% url 'article_author' article.authors.all.1.name %}">{{ article.authors.all.1.name }}</a> &bull;
+            By <a href="{% url 'author' article.authors.all.0.name %}">{{ article.authors.all.0.name }}</a> & <a href="{% url 'author' article.authors.all.1.name %}">{{ article.authors.all.1.name }}</a> &bull;
         {% elif article.authors.all|length == 1 %}
-            By <a href="{% url 'article_author' article.authors.all.0.name %}">{{ article.authors.all.0.name }}</a> &bull;
+            By <a href="{% url 'author' article.authors.all.0.name %}">{{ article.authors.all.0.name }}</a> &bull;
         {% endif %}
-        <a href="{% url 'article_issue' article.issue.vol article.issue.num %}">
+        <a href="{% url 'issue' article.issue.vol article.issue.num %}">
             Vol {{ article.issue.vol }}, Issue {{ article.issue.num}}
         </a> &bull;
         {{article.true_created_on|date:"DATE_FORMAT"}}
@@ -26,7 +26,11 @@
     {% load tag %}
     {% is_image_article article.body as x %}
     {% if x %}
-        {{article.body | create_md | imgswitch:"article_images/vol{{article.issue.vol}}issue{article.issue.num}/" | truncatewords_html:50 | safe}}
+        {% with vol=article.issue.vol|stringformat:"s" num=article.issue.num|stringformat:"s" %}
+            {% with folder_path="vol"|add:vol|add:"/issue"|add:num|add:"/" %}
+                {{ article.body|create_md|imgswitch:folder_path|safe }}
+            {% endwith %}
+        {% endwith %}
     {% else %}
         {{article.body | create_md | imgremove | truncatewords_html:50 | safe}}
     {% endif %}
