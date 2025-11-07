@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/article_page.css' %}">
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+<div id="article">
+    <h1>{{ article.title }}</h1>
+
+    <!-- <img src="" alt=""/> -->
+
+    <p class="byline">
+        {% if article.authors.all|length > 2 %}
+            By {% for author in article.authors.all %}
+                <a href="{% url 'article_author' author.name %}">
+                    {% if forloop.last %} {{ author.name }}, {% else %} {{ author.name }} {% endif %}
+                </a>
+            {% endfor %} &bull;
+        {% elif article.authors.all|length == 2 %}
+            By <a href="{% url 'article_author' article.authors.all.0.name %}">{{ article.authors.all.0.name }}</a> & <a href="{% url 'article_author' article.authors.all.1.name %}">{{ article.authors.all.1.name }}</a> &bull;
+        {% elif article.authors.all|length == 1 %}
+            By <a href="{% url 'article_author' article.authors.all.0.name %}">{{ article.authors.all.0.name }}</a> &bull;
+        {% endif %}
+        <a href="{% url 'article_issue' article.issue.vol article.issue.num %}">
+            Vol {{ article.issue.vol }}, Issue {{ article.issue.num}}
+        </a> &bull;
+        {{article.true_created_on|date:"DATE_FORMAT"}}
+    </p>
+
+    {% load tag %}
+    
+    {{ article.body|create_md|imgswitch:"article_images/vol{{article.issue.vol}}issue{article.issue.num}/" | safe }}
+</div>
+{% endblock page-content %}

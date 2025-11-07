@@ -1,0 +1,85 @@
+<!-- articles/templates/articles/category.html -->
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/author.css' %}">
+<link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+<div class="suspect-card">
+    <img src="{{author.img_url}}" alt="{{author.name}}"/>
+
+    <div>
+        <h1>{{author.name}}</h1>
+        <div class = "small-facts">
+            {% if author.location.strip and author.location.strip.lower != "left_empty"%}
+            &#128205; {{author.location}}
+            {% else %}
+            &#128205; missing&hellip;
+            {% endif %}
+            |
+            {% if author.pronouns.strip and author.pronouns.strip.lower != "left_empty" %}
+                Pronouns: {{author.pronouns}}
+            {% else %}
+                Pronouns: wouldn't you like to know&hellip;
+            {% endif %}
+            
+        </div>
+        <div class = "small-facts">
+            {% if author.email.strip and author.email.strip.lower != "left_empty"%}
+                Email: {{author.email}}
+            {% else %}
+                Email: don't&hellip;
+            {% endif %}
+        </div>
+        
+
+        <p class="roles">{{author.roles}}</p>
+        <p>
+            {% if author.major.strip.lower != "left_empty" %}
+                {{author.major}}, 
+            {% else %}
+                One of the subjects, 
+            {% endif %}
+            {% if author.year.strip.lower != "left_empty" %}
+                {{author.year}}
+            {% else %}
+                20??
+            {% endif %}
+        </p>
+        
+    </div>
+</div>
+
+<div>
+    <h2>Bio</h2>
+
+    <p>
+        {% if author.bio.strip.lower != "left_empty" %}
+            {% load tag %}
+                {{ author.bio | create_md | safe }}
+        {% else %}
+            Unknowable and Mysterious
+        {% endif %}
+    </p>
+
+    <h2>Fun Fact</h2>
+
+    <p>
+        {% if author.fact.strip.lower != "left_empty" %}
+            {{author.fact}}
+        {% else %}
+            Sad fact: this author has no fact.
+        {% endif %}
+    </p>
+
+    <h2>Previous Work</h2>
+    {% for article in articles %}
+        {% include "./article_card.html" %}  
+    {% endfor %}
+</div>
+{% endblock page-content %}

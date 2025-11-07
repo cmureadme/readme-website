@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/purity_test.css' %}">
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock head-content %}
+
+{% block page-content %}
+<div class = "page-header">
+    <h1>CMU Purity Test</h1>
+</div>
+
+<div class = "main-content">
+    <p>
+        The CMU Purity Test is an opportunity for new students to track their maturation into fully-fledged CMU-ites. 
+        Take the time to see how far along you are, and reflect on what CMU still has to offer you. 
+        And unlike some tests, you can complete this one without risking life and limb - though we’ll certainly take a good swing at’cha. 
+
+    </p>
+</div>
+
+<div class = "questions">
+    <h2>Have you ever:</h2>
+    <ol start="0" id="question-list">
+        <li>
+            <input type ="checkbox" id = "freebie" checked disabled>
+            <label for="freebie"> Picked up a ReadMe magazine? </label>
+        </li>
+        {% for item in items %}
+            <li>
+                <input type ="checkbox" id = {{ forloop.counter }}>
+                <label for={{ forloop.counter }}> {{item }} </label>
+            </li>
+        {% endfor %}
+    </ol>
+</div>
+
+<div class="buttons">
+    <input type="button" class="button" id="submit" value="Calculate my score!">
+    <input type="button" class="button" id="reset" value="Reset Quiz">
+</div>
+
+<div id="score">
+    <h2>Your score is: <span id="user-score">1000000000</span>!</h2>
+    <span id="tagline">Text</span>
+    <br>
+    Post a picture of your score on instagram and tag us @readme.news for a chance to win absolutely nothing.
+</div>
+
+<script>
+    document.getElementById("submit").addEventListener("click", function() {
+        document.getElementById("score").style.display = "initial";
+        var questionList = document.getElementById("question-list");
+        var numChecked = 0;
+        for (var i = 1; i < questionList.children.length; i++) {
+            numChecked += questionList.children[i].children[0].checked ? 1 : 0;
+        }
+
+        document.getElementById("user-score").textContent = 100 - numChecked;
+
+        switch(Math.floor(numChecked/10)) {
+            case 0:
+            case 1:
+                document.getElementById("tagline").textContent = "Rookie numbers go out and experience CMU";
+                break;
+            case 2:
+            case 3:
+                document.getElementById("tagline").textContent = "Good on you for getting out there and experiencing some of campus";
+                break;
+            case 4:
+            case 5:
+                document.getElementById("tagline").textContent = "Now your starting to live the good life";
+                break;
+            case 6:
+            case 7:
+                document.getElementById("tagline").textContent = "You're getting up there keep at it";
+            case 8:
+            case 9:
+                document.getElementById("tagline").textContent = "Deeply impressive what have you not done";
+                break;
+            case 10:
+                document.getElementById("tagline").textContent = "Congratulations do you want a cookie?";
+                break;
+            default:
+                break;
+        }
+    })
+
+    document.getElementById("reset").addEventListener("click", function() {
+        document.getElementById("score").style.display = "";
+        var questionList = document.getElementById("question-list");
+        for (var i = 1; i < questionList.children.length; i++) {
+            questionList.children[i].children[0].checked = false;
+        }
+    })
+</script>
+
+{% endblock page-content %}
