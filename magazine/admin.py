@@ -1,6 +1,6 @@
 from django.contrib import admin
-from articles.models import Issue, Author, Article, ArticleImage, PaidFor, RejectedHeadline
-from articles.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm, PaidForForm, IssueForm
+from magazine.models import Issue, Author, Article, ArticleImage, PaidFor, RejectedHeadline
+from magazine.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm, PaidForForm, IssueForm
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):

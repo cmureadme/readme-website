@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 import markdown
-from articles.models import Article, Author, Issue, PaidFor, RejectedHeadline
+from magazine.models import Article, Author, Issue, PaidFor, RejectedHeadline
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth import authenticate, login, logout
