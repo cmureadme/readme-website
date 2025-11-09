@@ -29,7 +29,7 @@
     {% load tag %}
     <p>
     {% with vol=article.issue.vol|stringformat:"s" num=article.issue.num|stringformat:"s" %}
-        {% with folder_path="vol"|add:vol|add:"/issue"|add:num|add:"/" %}
+        {% with folder_path="vol"|add:vol|add:"/issue"|add:num|add:"/images/" %}
             {{ article.body|create_md|imgswitch:folder_path|safe }}
         {% endwith %}
     {% endwith %}
