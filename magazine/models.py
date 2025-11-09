@@ -124,7 +124,7 @@ class Article(models.Model):
 
 # Django expects two arguments instance and filename
 def article_image_upload_path(instance, filename):
-    return f"vol{instance.show.issue.vol}/issue{instance.show.issue.num}/{filename}"
+    return f"vol{instance.show.issue.vol}/issue{instance.show.issue.num}/images/{filename}"
 
 class ArticleImage(models.Model):
     # ForeignKey means many of these can be in an Article
