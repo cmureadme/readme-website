@@ -32,6 +32,69 @@ class Author(models.Model):
             return self.img.url
         except (ValueError, AttributeError):
             return static("anon.png")
+
+    @property
+    # When you want to use the author bio you call author.bio_blurb
+    # This allows us to have a default bio if the author hasn't come up with one yet
+    def bio_blurb(self):
+        if self.bio.strip().lower() == "left_empty" or self.bio == '':
+            return "Unknowable and Mysterious"
+        else:
+            return self.bio
+
+    @property
+    # When you want to use the author fun fact you call author.fact_blurb
+    # This allows for a defualt fact for people
+    def fact_blurb(self):
+        if self.fact.strip().lower() == "left_empty" or self.fact == '':
+            return "Sad fact: this author has no fact."
+        else:
+            return self.fact
+
+    @property
+    # When you want to use the author pronouns you call author.pronoun_blurb
+    # This allows us to have defualt pronouns for people
+    def pronoun_blurb(self):
+        if self.pronouns.strip().lower() == "left_empty" or self.pronouns == '':
+            return "wouldn't you like to know\u2026"
+        else:
+            return self.pronouns
+
+    @property
+    # When you want to use the author location you call author.location_blurb
+    # This allows for a defualt location for people
+    def location_blurb(self):
+        if self.location.strip().lower() == "left_empty" or self.location == '':
+            return "missing\u2026"
+        else:
+            return self.location
+
+    @property
+    # When you want to use the author email you call author.email_blurb
+    # This allows for a defualt email for people
+    def email_blurb(self):
+        if self.email.strip().lower() == "left_empty" or self.email == '':
+            return "don't\u2026"
+        else:
+            return self.email
+    
+    @property
+    # When you want to use the author major you call author.major_blurb
+    # This allows for a defualt major for people
+    def major_blurb(self):
+        if self.major.strip().lower() == "left_empty" or self.major == '':
+            return "One of the subjects"
+        else:
+            return self.major
+
+    @property
+    # When you want to use the author's graduation year you call author.year_blurb
+    # This allows for a defualt grad year for people
+    def year_blurb(self):
+        if self.year.strip().lower() == "left_empty" or self.year == '':
+            return "20??"
+        else:
+            return self.year
     
     class AuthorStatus(models.TextChoices):
         USUAL_SUSPECT = "US", gettext_lazy("Usual Suspect")
