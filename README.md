@@ -12,3 +12,12 @@ The old database will not work with this new repo and you will not be able to de
 - secret keys
 
 Please make all of your changes on DEV and then pull request them to main :)
+
+# Getting started
+Follow the instructions on [the local docker image repo](https://github.com/cmureadme/website-docker-local)
+
+# Understanding the codebase
+We have [docs](https://cmureadme.github.io/readme-docs/) yipee!
+Please read them.
+If you have questions just ask in the discord server we are very nice.
+
