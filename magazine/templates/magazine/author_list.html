@@ -22,12 +22,7 @@
                     </div>
                     <div class="author-bio">
                         <b>{{ author.roles }}</b><br>
-                        {% if author.bio.strip.lower != "left_empty" %}
-                            {{ author.bio|truncatechars_html:100 | safe}}
-                        {% else %}
-                            Unknowable and Mysterious
-                        {% endif %}
-                        
+                        {{author.bio_blurb|truncatechars_html:100 | safe}}
                     </div>
                 </div>
             </li>
@@ -45,12 +40,7 @@
                     </div>
                     <div class="author-bio">
                         <b>{{ author.roles }}</b><br>
-                        {% if author.bio.strip.lower != "left_empty" %}
-                            {{ author.bio|truncatechars_html:100 | safe}}
-                        {% else %}
-                            Unknowable and Mysterious
-                        {% endif %}
-                        
+                        {{author.bio_blurb|truncatechars_html:100 | safe}}
                     </div>
                 </div>
             </li>
@@ -68,12 +58,7 @@
                     </div>
                     <div class="author-bio">
                         <b>{{ author.roles }}</b><br>
-                        {% if author.bio.strip.lower != "left_empty" %}
-                            {{ author.bio|truncatechars_html:100 | safe}}
-                        {% else %}
-                            Unknowable and Mysterious
-                        {% endif %}
-                        
+                            {{author.bio_blurb|truncatechars_html:100 | safe}}
                     </div>
                 </div>
             </li>

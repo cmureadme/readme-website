@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load tag %}
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/author.css' %}">
@@ -16,40 +17,14 @@
     <div>
         <h1>{{author.name}}</h1>
         <div class = "small-facts">
-            {% if author.location.strip and author.location.strip.lower != "left_empty"%}
-            &#128205; {{author.location}}
-            {% else %}
-            &#128205; missing&hellip;
-            {% endif %}
-            |
-            {% if author.pronouns.strip and author.pronouns.strip.lower != "left_empty" %}
-                Pronouns: {{author.pronouns}}
-            {% else %}
-                Pronouns: wouldn't you like to know&hellip;
-            {% endif %}
-            
+            &#128205; {{author.location_blurb}} | Pronouns: {{author.pronoun_blurb}}
         </div>
         <div class = "small-facts">
-            {% if author.email.strip and author.email.strip.lower != "left_empty"%}
-                Email: {{author.email}}
-            {% else %}
-                Email: don't&hellip;
-            {% endif %}
+            Email {{author.email_blurb}}
         </div>
-        
-
         <p class="roles">{{author.roles}}</p>
         <p>
-            {% if author.major.strip.lower != "left_empty" %}
-                {{author.major}}, 
-            {% else %}
-                One of the subjects, 
-            {% endif %}
-            {% if author.year.strip.lower != "left_empty" %}
-                {{author.year}}
-            {% else %}
-                20??
-            {% endif %}
+            {{author.major_blurb}}, {{author.year_blurb}}
         </p>
         
     </div>
@@ -59,22 +34,13 @@
     <h2>Bio</h2>
 
     <p>
-        {% if author.bio.strip.lower != "left_empty" %}
-            {% load tag %}
-                {{ author.bio | create_md | safe }}
-        {% else %}
-            Unknowable and Mysterious
-        {% endif %}
+        {{ author.bio_blurb | create_md | safe }}
     </p>
 
     <h2>Fun Fact</h2>
 
     <p>
-        {% if author.fact.strip.lower != "left_empty" %}
-            {{author.fact}}
-        {% else %}
-            Sad fact: this author has no fact.
-        {% endif %}
+        {{author.fact_blurb}}
     </p>
 
     <h2>Previous Work</h2>
