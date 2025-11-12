@@ -5,8 +5,3 @@ from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-# https://docs.djangoproject.com/en/5.2/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [
-    '.dev.cmureadme.com'
-]
