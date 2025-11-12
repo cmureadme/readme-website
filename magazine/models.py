@@ -1,5 +1,4 @@
 from django.db import models
-import markdown
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy
 import datetime
