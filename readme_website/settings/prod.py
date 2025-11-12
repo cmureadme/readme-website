@@ -7,3 +7,7 @@ from .host import *
 ALLOWED_HOSTS = [
     '.cmureadme.com'
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://cmureadme.com"
+]
