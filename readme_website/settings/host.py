@@ -7,7 +7,7 @@ from .base import *
 DEBUG = False
 
 # Copy all static files to /static with collectstatic
-STATIC_ROOT = "/static/"
+STATIC_ROOT = Path("/static/")
 STATICFILES_DIRS = [
     BASE_DIR / "static/"
 ]
