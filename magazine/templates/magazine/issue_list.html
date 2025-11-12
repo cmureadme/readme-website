@@ -1,5 +1,3 @@
-<!-- articles/templates/articles/index.html -->
-
 {% extends "base.html" %}
 
 {% load static %}
@@ -37,7 +35,6 @@
                             <h4 class="author-name">
                                 <a href="{% url 'issue' issue.vol issue.num %}" style="font-family: 'Special Elite', cursive;">{{ issue.name }}</a>
                             </h4>
-                            <!-- Add more information here if needed, like author-bio or other details -->
                         </div>
                     </div>
                     {% endfor %}

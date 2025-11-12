@@ -7,8 +7,6 @@
     </h3>
     
     <p class="byline">
-        <!-- byline. output such as Author 1 | Dr. Et Al. | Vol 0, Issue 0 -->
-        
         {% if article.authors.all|length > 2 %}
             By {% for author in article.authors.all %}
                 <a href="{% url 'author' author.name %}">

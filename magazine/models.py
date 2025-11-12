@@ -1,9 +1,9 @@
 from django.db import models
-import markdown
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy
 import datetime
 from django.templatetags.static import static
+from django.db.models.query import QuerySet
 
 CHARFIELD_MAX_LENGTH = 1024
 
