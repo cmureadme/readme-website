@@ -5,3 +5,9 @@ from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+# Copy all static files to /static with collectstatic
+STATIC_ROOT = "/static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static/"
+]
