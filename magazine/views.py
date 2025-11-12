@@ -1,5 +1,4 @@
 from django.http import HttpResponseRedirect
-import markdown
 from magazine.models import Article, Author, Issue, PaidFor, RejectedHeadline
 from django.shortcuts import render, redirect, get_object_or_404
 
