@@ -67,7 +67,7 @@ def author_list(request):
 
 
 def author(request, author):
-    author = Author.objects.get(name=author)
+    author = Author.objects.get(slug=author)
     articles = (
         Article.objects.filter(authors__name=author)
         .order_by("-true_created_on")

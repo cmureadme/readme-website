@@ -10,8 +10,8 @@ urlpatterns = [
 
     path("stories", views.stories, name="stories"),
 
-    path("people", views.author_list, name="author_list"),
-    path("people/<author>/", views.author, name="author"),
+    path("staff", views.author_list, name="author_list"),
+    path("staff/<author>/", views.author, name="author"),
 
     path("issues", views.issue_list, name="issue_list"),
     path("issues/<int:vol>/<int:num>", views.issue, name="issue"),

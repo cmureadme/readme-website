@@ -9,6 +9,7 @@ CHARFIELD_MAX_LENGTH = 1024
 
 class Author(models.Model):
     name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    slug = models.SlugField(unique=True)
     img = models.ImageField(upload_to="author_images/", blank=True, null=True, help_text="Default image is set to the anon.png its better for everyone to have a pfp, but if you are waiting on someone to send one this is a good short term option")
     bio = models.TextField(help_text="This uses markdown formating")
     roles = models.CharField(max_length=CHARFIELD_MAX_LENGTH, default="Staffwriter", help_text="Defaults to Staffwriter, change this to Staff Artist if someone only makes images. Can also add exec roles for exec members or other funny roles if people want")
