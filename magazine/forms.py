@@ -8,6 +8,7 @@ class AuthorAdminForm(forms.ModelForm):
         model = Author
         fields = (
             "name",
+            "slug",
             "img",
             "bio",
             "roles",
