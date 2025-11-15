@@ -26,10 +26,15 @@
 
     {% load tag %}
     <p>
-    {% with vol=article.issue.vol|stringformat:"s" num=article.issue.num|stringformat:"s" %}
-        {% with folder_path="vol"|add:vol|add:"/issue"|add:num|add:"/images/" %}
-            {{ article.body|create_md|imgswitch:folder_path|safe }}
+    {% is_image_article article.body as x %}
+    {% if x %}
+        {% with vol=article.issue.vol|stringformat:"s" num=article.issue.num|stringformat:"s" %}
+            {% with folder_path="vol"|add:vol|add:"/issue"|add:num|add:"/images/" %}
+                {{ article.body|create_md|imgswitch:folder_path|safe }}
+            {% endwith %}
         {% endwith %}
-    {% endwith %}
+    {% else %}
+        {{article.body | create_md | imgremove | truncatewords_html:50 | safe}}
+    {% endif %}
     </p>
 </div>
