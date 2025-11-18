@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block head-content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/404.css' %}">
+    <title>404: Page Not Found (Or Is It?) | REAdmE</title>
+{% endblock head-content %}
+
+{% block page-content %}
+    <h1>404</h1>
+    <h2>dumbass</h2>
+
+    <p>
+        You tried to <code>READ</code> <code>ME</code>, but this page has mysteriously vanished. Our top "investigative journalists" have a few theories:
+    </p>
+
+    <p>
+        1. REAdmE got deported.<br>
+        2. Gilgamesh tripped over the server cable again.<br>
+        3. The squirrels know too much.
+    </p>
+
+    <p>
+        While we launch a full-scale investigation (or just go get coffee), perhaps you can find what you're looking for elsewhere.
+    </p>
+
+    <div class="links">
+        <a href="/">Go to Homepage</a>
+        <a href="/issues">Read The Latest Issue</a>
+        <a href="https://www.cmu.edu/counseling/">Jump off the Pausch Bridge</a>
+    </div>
+
+
+{% endblock page-content %} 
