@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.conf import settings
 from django.db.models import Q
 
+from django.core.paginator import Paginator
+
 from random import shuffle
 
 def index(request):
@@ -257,6 +259,19 @@ def stories(request):
         "-featured",
         "-true_created_on"
     )
-    context = {"articles": articles}
+
+    page_num = request.GET.get('page', 1)
+    paginator = Paginator(articles, per_page=25)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    context = {"page_obj": page_obj}
     return render(request, "magazine/stories.html", context)
     

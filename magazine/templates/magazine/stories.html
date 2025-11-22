@@ -11,9 +11,10 @@
 {% block page-content %}
 
 <body>
-    {% for article in articles %}
+    {% for article in page_obj %}
         {% include "./article_card.html" %}  
     {% endfor %}
 
 </body>
+{% include "pagination.html" %}
 {% endblock page-content %}
