@@ -1,5 +1,9 @@
+{% load static %}
 
-{% comment %} When you use the card in another view make sure in that views head you include article_card.css {% endcomment %}
+
+{% block head-content %}
+    <link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
+{% endblock head-content %}
 
 <div class="article-card">
     <h3 class = "article-title">

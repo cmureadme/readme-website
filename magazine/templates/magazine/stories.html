@@ -4,16 +4,16 @@
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/stories.css' %}">
-<link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
 <link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
 {% endblock head-content %}
 
 {% block page-content %}
 
 <body>
-    {% for article in articles %}
+    {% for article in page_obj %}
         {% include "./article_card.html" %}  
     {% endfor %}
 
 </body>
+{% include "pagination.html" %}
 {% endblock page-content %}
