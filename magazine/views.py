@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.db.models import Q
 
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from random import shuffle
 
