@@ -8,32 +8,49 @@
 
 <div class="nav-bar">
   {% if page_obj.has_previous %}
-  <a href="?page={{ page_obj.previous_page_number }}">« Previous page</a>
+  <div class = "nav-item">
+    <a href="?page={{ page_obj.previous_page_number }}">« Back</a>
+  </div>
 
   {% if page_obj.number > 3 %}
+  <div class = "nav-item">
     <a href="?page=1">1</a>
+  </div>
     {% if page_obj.number > 4 %}
-      <span>...</span>
+      <div class = "nav-item">
+        <span>...</span>
+      </div>
     {% endif %}
   {% endif %}
 {% endif %}
 
 {% for num in page_obj.paginator.page_range %}
   {% if page_obj.number == num %}
+  <div class = "nav-item">
     <a href="?page={{ num }}">{{ num }}</a>
+  </div>
   {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-    <a href="?page={{ num }}">{{ num }}</a>
+    <div class = "nav-item">
+      <a href="?page={{ num }}">{{ num }}</a>
+    </div>
   {% endif %}
 {% endfor %}
 
 {% if page_obj.has_next %}
   {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
-    <span>...</span>
-    <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+    <div class = "nav-item">
+        <span>...</span>
+    </div>
+    <div class = "nav-item">
+      <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+    </div>
   {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+  <div class = "nav-item">
     <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+  </div>
   {% endif %}
-
-  <a href="?page={{ page_obj.next_page_number }}">Next Page »</a>
+  <div class = "nav-item">
+    <a href="?page={{ page_obj.next_page_number }}">Next »</a>
+  </div>
 {% endif %}
 </div>

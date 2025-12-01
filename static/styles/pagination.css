@@ -1,3 +1,15 @@
 .nav-bar{
+    display: flex;
+    justify-content: center;
     text-align: center;
+    gap: 10px; 
+}
+
+.nav-item{
+    border: 1px solid #da0000;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
