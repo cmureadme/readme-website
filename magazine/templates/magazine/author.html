@@ -42,8 +42,9 @@
     </p>
 
     <h2>Previous Work</h2>
-    {% for article in articles %}
+    {% for article in page_obj %}
         {% include "./article_card.html" %}  
     {% endfor %}
 </div>
+{% include "pagination.html" %}
 {% endblock page-content %}

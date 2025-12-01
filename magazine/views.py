@@ -72,12 +72,27 @@ def author(request, author):
     author = Author.objects.get(slug=author)
     articles = (
         Article.objects.filter(authors__name=author)
-        .order_by("-true_created_on")
+        .order_by(
+            "-issue__vol",
+            "-issue__num",
+            "-true_created_on")
         .filter(published=True)
     )
+    page_num = request.GET.get('page', 1)
+    paginator = Paginator(articles, per_page=5)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+    
     context = {
         "author": author,
-        "articles": articles,
+        "page_obj": page_obj,
     }
     return render(request, "magazine/author.html", context)
 
