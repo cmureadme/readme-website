@@ -10,7 +10,7 @@
     <p class="byline">
         By
         {% for author in largest.authors.all %}
-            <a href="{% url 'author' author.root_slug %}">
+            <a href="{% url 'author' author.slug %}">
                 {{ author.name }}
             </a>
         {% endfor %}

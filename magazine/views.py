@@ -1,5 +1,6 @@
 from magazine.models import Article, Author, Issue, PaidFor, RejectedHeadline
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from django.conf import settings
 from django.db.models import Q
@@ -70,6 +71,10 @@ def author_list(request):
 
 def author(request, author):
     author = Author.objects.get(slug=author)
+
+    if author.root_slug != author.slug:
+        return redirect(reverse("author", args=[author.root_slug]))
+    
     articles = (
         [article for article in Article.objects.order_by(
             "-issue__vol",
