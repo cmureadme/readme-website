@@ -20,6 +20,7 @@ class Author(models.Model):
     fact = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
     email = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
     last_modified = models.DateTimeField(auto_now=True)
+    alias_of = models.ForeignKey("Author", related_name="aliases", on_delete=models.PROTECT, null=True)
 
     # When you want to use the author image you do author.img_url now
     # This allows us to easily make the anon.png image the default pfp while keeping it in the static folder
@@ -96,6 +97,20 @@ class Author(models.Model):
             return "20??"
         else:
             return self.year
+        
+    @property
+    # Follow alias_of until root author is found, then return that slug
+    def root_slug(self):
+        visited = set()
+        curr = self
+
+        while curr.alias_of != None:
+            visited.add(curr.slug)
+            if curr.alias_of.slug in visited:
+                return curr.alias_of.slug # Found a cycle
+            curr = curr.alias_of
+
+        return curr.slug
     
     class AuthorStatus(models.TextChoices):
         USUAL_SUSPECT = "US", gettext_lazy("Usual Suspect")

@@ -61,9 +61,9 @@ def index(request):
 
 def author_list(request):
     context = {
-        "usual_suspects": Author.objects.filter(author_status="US"),
-        "independent_contractors": Author.objects.filter(author_status="IC"),
-        "escapees": Author.objects.filter(author_status="EE"),
+        "usual_suspects": Author.objects.filter(author_status="US", alias_of=None),
+        "independent_contractors": Author.objects.filter(author_status="IC", alias_of=None),
+        "escapees": Author.objects.filter(author_status="EE", alias_of=None),
     }
     return render(request, "magazine/author_list.html", context)
 
