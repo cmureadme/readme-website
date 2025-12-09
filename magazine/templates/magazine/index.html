@@ -63,7 +63,7 @@
 {% endblock page-secondary-content %}
 
 {% block after-container-content %}
-<div id="ticker"><div>{% for rej_head in rej_heads %}{{ rej_head.title }} • {% endfor %}{% for rej_head in rej_heads %}{{ rej_head.title }}{% if not forloop.last %} • {% endif %}{% endfor %}</div></div>
+<div id="ticker"><div>{% for rej_head in rej_heads %}{{ rej_head.title|trim_rh }} • {% endfor %}{% for rej_head in rej_heads %}{{ rej_head.title }}{% if not forloop.last %} • {% endif %}{% endfor %}</div></div>
 
 <!-- Make sure this runs after font has loaded!!! -->
 <script>
