@@ -71,12 +71,11 @@ def author_list(request):
 def author(request, author):
     author = Author.objects.get(slug=author)
     articles = (
-        Article.objects.filter(authors__name=author)
-        .order_by(
+        [article for article in Article.objects.order_by(
             "-issue__vol",
             "-issue__num",
-            "-true_created_on")
-        .filter(published=True)
+            "-true_created_on"
+        ).filter(published=True) if any(article_author.root_slug == author.slug for article_author in article.authors.all())]
     )
     page_num = request.GET.get('page', 1)
     paginator = Paginator(articles, per_page=5)
