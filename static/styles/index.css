@@ -211,25 +211,12 @@ h2 a {
     }
 }
 
-@media (max-width: 1200px) {
-    #wrapper {
-        width: 100%;
-        max-width: unset;
-    }
-}
-
 @media (max-width: 960px) {
     #main {
         padding-right: 0;
     }
 
     #sidebar {
-        display: none;
-    }
-}
-
-@media (max-width: 826px) {
-    #splash {
         display: none;
     }
 }

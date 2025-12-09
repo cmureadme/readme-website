@@ -47,6 +47,10 @@ p {
     text-wrap: pretty;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
 hr {
     border: none;
     height: 1px;
@@ -96,11 +100,26 @@ p.byline {
 }
 
 #wrapper {
-    width: 1200px;
+    width: 1248px;
+    padding: 0 24px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+/* @media (max-width: 1248px) {
+    #bar-subtext {
+        padding: 0 24px;
+    }
+}
+
+@media (max-width: 1296px) {
+    #wrapper {
+        width: 100%;
+        max-width: unset;
+    }
+} */
 
 header {
     width: 100%;
@@ -142,12 +161,27 @@ header::after {
     font-style: italic;
 }
 
+@media (max-width: 826px) {
+    #splash {
+        display: none;
+    }
+}
+
+header > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 header img {
-    height: 108px;
+    max-height: 108px;
+    max-width: 50%;
 }
 
 nav {
     margin: 12px 0;
+    max-width: 100%;
 }
 
 nav ul {
@@ -155,12 +189,16 @@ nav ul {
 
     display: flex;
     justify-content: center;
-    gap: 24px;
+    column-gap: 16px;
+    row-gap: 8px;
+    flex-wrap: wrap;
 }
 
 nav li {
     font-size: 18px;
     cursor: pointer;
+    line-height: 1;
+    padding: 4px;
 }
 
 nav li.dropdown::after {
@@ -176,17 +214,56 @@ nav a {
 }
 
 #bar-subtext {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-weight: bolder;
-    font-family: "Courier New", monospace;
-    font-size: 12px;
+    padding: 0 24px;
+    padding-top: 8px;
+    font-weight: bold;
+    font-family: "Courier Prime", "Courier New", monospace;
+    font-size: 14px;
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+}
+
+#bar-subtext .left, #bar-subtext .right {
+    flex: 1 0 0;
+}
+
+#bar-subtext .center {
+    padding: 0 16px;
+    text-align: center;
+}
+
+#bar-subtext .right {
+    text-align: right;
 }
 
 #content {
     width: 100%;
+}
+
+@media (max-width: 960px) {
+    #bar-subtext {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 840px) {
+    /* #bar-subtext {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #bar-subtext > div {
+        text-align: center;
+        padding: 0 16px;
+    } */
+
+    #bar-subtext .left, #bar-subtext .right {
+        display: none;
+    }
+
+    #bar-subtext .center {
+        flex-grow: 1;
+    }
 }
