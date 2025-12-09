@@ -1,5 +1,7 @@
 from magazine.models import Article, Author, Issue, PaidFor, RejectedHeadline
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import Http404
 
 from django.conf import settings
 from django.db.models import Q
@@ -69,7 +71,14 @@ def author_list(request):
 
 
 def author(request, author):
-    author = Author.objects.get(slug=author)
+    try:
+        author = Author.objects.get(slug=author)
+    except Author.DoesNotExist:
+        raise Http404
+
+    if author.root_slug != author.slug:
+        return redirect(reverse("author", args=[author.root_slug]))
+    
     articles = (
         [article for article in Article.objects.order_by(
             "-issue__vol",
@@ -113,7 +122,11 @@ def issue_list(request):
 
 
 def issue(request, vol, num):
-    issue = Issue.objects.get(num=num, vol=vol)
+    try:
+        issue = Issue.objects.get(num=num, vol=vol)
+    except Issue.DoesNotExist:
+        raise Http404
+    
     articles = Article.objects.filter(issue__name__contains=issue.name).order_by(
         "-front_page",
         "-featured",
@@ -132,7 +145,11 @@ def issue(request, vol, num):
 
 
 def article_page(request, slug):
-    article = Article.objects.get(slug=slug)
+    try:
+        article = Article.objects.get(slug=slug)
+    except Article.DoesNotExist:
+        raise Http404
+    
     context = {
         "article": article
     }
