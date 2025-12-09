@@ -42,3 +42,15 @@
     {% endif %}
     <p><a href="{% url 'article_page' article.slug %}">Read more</a></p>
 </div>
+
+<!--
+
+    THE RTOSH PLAN:
+
+    1. Fix markdown vs. imgswitch issue in tags
+    2. Create separate mechanism for image-only articles
+    3. Add image dimensions to articleimages model
+    4. Improve image rendering (load images on demand, show properly-sized light gray placeholder until then)
+    5. Improve rendering of image-only articles in all places they're shown (index cards [large, sidebar, and main], stories/staff cards, article page)
+
+-->
