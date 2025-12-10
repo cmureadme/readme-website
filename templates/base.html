@@ -21,14 +21,13 @@
         <link rel="icon" type="image/png" href="{% static 'readme_logo_32x32.png' %}" sizes="32x32" />
 
         {% block head-content %}{% endblock head-content %}
-
     </head>
 
     <body>
-        <div id="container">
-            <div id="wrapper">
+        <div class="body-cont base">
+            <div class="wrapper">
                 <header>
-                    <div id="splash"> Paid for by: {{paid_for.title}}</div>
+                    <div class="splash">Paid for by: {{paid_for.title}}</div>
     
                     <a href="/"><img src="{% static 'readme-site-header-blank.png' %}" alt="KGB Presents: readme"/></a>
                     
@@ -42,24 +41,18 @@
                             <li><a class="nav-link" href ='{% url "donate" %}'>Donate</a></li>
                         </ul>
                     </nav>
-                    
                 </header>
-                <div id = "bar-subtext">
+
+                <div class="bar-subtext">
                     <div class="left">Editor-in-Chief: Eshaan Joshi</div>
                     <div class="center">All the news unfit to print!</div> 
                     <div class="right">Pitch meetings Sat 5:00 pm, DH-1211</div>
                 </div>
-                <div id="content">
-                    <div>
-                        {% block page-content %}{% endblock page-content %}
-                    </div>
-                    <div>
-                        {% block page-secondary-content %}{% endblock page-secondary-content %}
-                    </div>
-                </div>
+
+                {% block cont %}{% endblock cont %}
             </div>
         </div>
 
-        {% block after-container-content %}{% endblock after-container-content %}
+        {% block body-suffix %}{% endblock body-suffix %}
     </body>
 </html>

@@ -7,63 +7,62 @@
 <link rel="stylesheet" href="{% static 'styles/index.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
-
-<div id="main-content">
-<div id="main">
-    {% include "./index_largest.html" with largest=feat_articles.largest %}
-    
-    <hr>
-
-    <div class="module-1">
-        <div class="module-column">
-            {% include "./index_article_card.html" with article=feat_articles.column %}
-        </div>
-
-        <div class="module-wide">
-            {% include "./index_article_card.html" with article=feat_articles.article %}
-
+{% block cont %}
+<div class="cont index">
+    <div class="front-page">
+        <div class="main">
+            {% include "./index_largest.html" with largest=feat_articles.largest %}
+        
             <hr>
-            
-            {% with imagearticle=feat_articles.image %}
-            {% with image=imagearticle.images.first %}
-            <div>
-                <a href="{% url 'article_page' imagearticle.slug %}">
-                    <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
-                </a>
+
+            <div class="module-1">
+                <div class="module-column">
+                    {% include "./index_article_card.html" with article=feat_articles.column %}
+                </div>
+
+                <div class="module-wide">
+                    {% include "./index_article_card.html" with article=feat_articles.article %}
+
+                    <hr>
+                
+                    {% with imagearticle=feat_articles.image %}
+                    {% with image=imagearticle.images.first %}
+                    <div>
+                        <a href="{% url 'article_page' imagearticle.slug %}">
+                            <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
+                        </a>
+                    </div>
+                    {% endwith %}
+                    {% endwith %}
+                </div>
             </div>
-            {% endwith %}
-            {% endwith %}
+        </div>
+
+        <div class="sidebar">
+            {% for article in sidebar_articles %}
+                {% include "./index_article_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        <div class="addl-cont">
+                {% for article in secondary_articles %}
+                    {% if forloop.counter0|modulo:3 == 0 %}
+                        <div>
+                    {% endif %}
+                            {% include "./index_article_card.html" %}
+                    {% if forloop.counter0|modulo:3 == 2 %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                    
         </div>
     </div>
 </div>
+{% endblock cont %}
 
-<div id="sidebar">
-    {% for article in sidebar_articles %}
-        {% include "./index_article_card.html" %}
-    {% endfor %}
-
-</div>
-</div>
-
-{% endblock page-content %}
-
-{% block page-secondary-content %} 
-    <div id="additional-content">
-            {% for article in secondary_articles %}
-                {% if forloop.counter0|modulo:3 == 0 %}
-                    <div>
-                {% endif %}
-                        {% include "./index_article_card.html" %}
-                {% if forloop.counter0|modulo:3 == 2 %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-                
-    </div>
-{% endblock page-secondary-content %}
-
-{% block after-container-content %}
+{% block body-suffix %}
 <div id="ticker"><div>{% for rej_head in rej_heads %}{{ rej_head.title|trim_rh }} • {% endfor %}{% for rej_head in rej_heads %}{{ rej_head.title }}{% if not forloop.last %} • {% endif %}{% endfor %}</div></div>
 
 <!-- Make sure this runs after font has loaded!!! -->
@@ -73,4 +72,4 @@
         ticker.firstChild.style.animationDuration = (ticker.offsetWidth / 200) + "s";
     }
 </script>
-{% endblock after-container-content %}
+{% endblock body-suffix %}
