@@ -1,22 +1,22 @@
-.title-block {
+.cont.issue .title-block {
     text-align: center;
     padding: 20px;
     background-color: var(--background-dark);
     border: 1px solid var(--secondary-dark);
     margin-bottom: 20px;
 }
-.title-block h3 {
+.cont.issue .title-block h3 {
     font-family: 'Special Elite', cursive;
     font-size: 24px;
     margin: 0;
     padding: 10px;
 }
-.title-block em {
+.cont.issue .title-block em {
     font-style: italic;
     color: black;
 }
 
-.rejected-headlines {
+.cont.issue .rejected-headlines {
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: left;
@@ -26,19 +26,19 @@
     border-style: solid;
 }
 
-.rejected-headlines h3 {
+.cont.issue .rejected-headlines h3 {
     font-family: 'Special Elite', cursive;
 }
 
-.rejected-headlines #title {
+.cont.issue .rejected-headlines #title {
     text-align: left;
 }
 
-.rejected-headlines #and-more {
+.cont.issue .rejected-headlines #and-more {
     text-align: right;
 }
 
-.rejected-headlines ul {
+.cont.issue .rejected-headlines ul {
     list-style-type: disc;
     margin: 0;
     padding: 0;

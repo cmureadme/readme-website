@@ -1,4 +1,4 @@
-.container {
+.cont.issue-list {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,12 +8,12 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .author-container {
+    .cont.issue-list .author-container {
         width: 100%;
     }
 }
 
-.author-item {
+.cont.issue-list .author-item {
     background-color: var(--background);
     list-style: none;
     text-align: center;
@@ -24,8 +24,8 @@
     justify-content: flex-start;
 }
 
-.author-square-header,
-.author-header {
+.cont.issue-list .author-square-header,
+.cont.issue-list .author-header {
     background-color: var(--background);
     border-radius: 8px;
     list-style: none;
@@ -37,7 +37,7 @@
     padding-bottom: 24px;
 }
 
-.author-item2 {
+.cont.issue-list .author-item2 {
     background-color: var(--background);
     list-style: none;
     text-align: center;
@@ -45,7 +45,7 @@
     padding: 10px;
 }
 
-.collapsible-btn {
+.cont.issue-list .collapsible-btn {
     background-color: var(--background-dark);
     color: #333;
     padding: 15px;
@@ -64,11 +64,11 @@
     align-items: center;
 }
 
-.collapsible-btn:hover {
+.cont.issue-list .collapsible-btn:hover {
     background-color: #aaa;
 }
 
-.collapsible-content {
+.cont.issue-list .collapsible-content {
     display: none;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
@@ -76,11 +76,11 @@
     font-family: 'Special Elite', cursive;
 }
 
-.author-item .collapsible-content {
+.cont.issue-list .author-item .collapsible-content {
     margin-top: 10px;
 }
 
-.issue-square {
+.cont.issue-list .issue-square {
     width: 100px;
     height: 100px;
     background-color: var(--background-dark);
@@ -96,40 +96,40 @@
     flex-shrink: 0;
 }
 
-.issue-text {
+.cont.issue-list .issue-text {
     font-size: 16px;
     font-weight: bold;
     line-height: 1.2;
 }
 
-.author-info {
+.cont.issue-list .author-info {
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
-.author-name {
+.cont.issue-list .author-name {
     font-size: 20px;
     font-weight: 700;
     margin: 0 0 5px;
 }
 
-.author-name a {
+.cont.issue-list .author-name a {
     text-decoration: none;
     color: #333;
 }
 
-.author-name a:hover {
+.cont.issue-list .author-name a:hover {
     text-decoration: underline;
 }
 
-.author-bio {
+.cont.issue-list .author-bio {
     font-size: 16px;
     color: #555;
     margin: 0;
 }
 
-.author-list {
+.cont.issue-list .author-list {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,7 +141,7 @@
     padding: 0;
 }
 
-.arrow {
+.cont.issue-list .arrow {
     margin-left: auto;
     color: var(--secondary-dark);
     width: 18px;
@@ -149,14 +149,14 @@
     transition: transform 0.2s;
 }
 
-.arrow-down {
+.cont.issue-list .arrow-down {
     transform: rotate(0deg);
 }
 
-.arrow-up {
+.cont.issue-list .arrow-up {
     transform: rotate(180deg);
 }
 
-.a {
+.cont.issue-list .a {
     font-family: 'Special Elite', cursive;
 }

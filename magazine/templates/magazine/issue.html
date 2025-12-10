@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
@@ -6,12 +6,10 @@
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/issue.css' %}">
-<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
-
-<body>
+{% block wrapper-cont %}
+<div class="cont issue">
     <div class="title-block">
         <h3>Vol {{ i.vol }}, Issue {{ i.num }}:<em> {{ issue }}</em></h3>
     </div>
@@ -29,5 +27,5 @@
     {% for article in articles %}
         {% include "./article_card.html" %}  
     {% endfor %}
-</body>
-{% endblock page-content %}
+</div>
+{% endblock wrapper-cont %}
