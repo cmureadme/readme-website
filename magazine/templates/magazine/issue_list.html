@@ -13,7 +13,11 @@
     <div>
         {% regroup issues by vol as vol_issues %}
         {% for vol_issue in vol_issues reversed %}
+        {% if forloop.first %}
+        <details open>
+        {% else %}
         <details>
+        {% endif %}
             <summary>Vol {{ vol_issue.grouper }}</summary>
 
             <div>
