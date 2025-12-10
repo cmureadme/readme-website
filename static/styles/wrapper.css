@@ -1,5 +1,9 @@
-#content {
-    width: 816px;
-    padding: 48px;
-    font-size: 18px;
+.inner-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.cont {
+    width: calc(720px + var(--wide-padding));
+    max-width: 100%;
 }

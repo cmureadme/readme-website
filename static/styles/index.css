@@ -2,19 +2,6 @@
     text-align: justify;
 }
 
-.cont.index h1, .cont.index h2 {
-    font-family: var(--title-font-stack);
-}
-
-.cont.index h2 {
-    font-weight: 900;
-    font-size: 24px;
-    text-wrap: pretty;
-    line-height: 1.25;
-    margin-bottom: 2px;
-    text-align: left;
-}
-
 .cont.index .front-page {
     display: flex;
     margin-bottom: 24px;
@@ -32,18 +19,7 @@
 }
 
 .cont.index .main h1 {
-    text-transform: uppercase;
-    font-weight: 900;
-    font-size: 42px;
-    text-align: center;
-    text-wrap: pretty;
-    line-height: 1.25;
     margin-bottom: 12px;
-}
-
-.cont.index h1 a, .cont.index h2 a {
-    color: unset;
-    text-decoration: unset;
 }
 
 .cont.index .main > div > p.byline {
@@ -52,7 +28,7 @@
 
 .cont.index p.byline a {
     color: unset;
-    text-decoration: unset;
+    text-decoration: none;
     font-weight: bold;
 }
 

@@ -61,7 +61,7 @@ img {
     --background-color: #fafafa;
     --font-color: #000000;
     --accent-color: #da0000;
-    --dark-accent-color: #b5002a; /* 990024 */
+    --dark-accent-color: #990024;
 
     --display-font-stack: 'Special Elite';
     --serif-font-stack: 'Crimson Text';
@@ -83,11 +83,36 @@ body {
     line-height: var(--line-height);
 }
 
-a {
-    color: var(--accent-color);
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--title-font-stack);
+    line-height: 1.25;
+    text-wrap: pretty;
+    text-align: left;
 }
 
-a:visited {
+h1 {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 42px;
+    text-align: center;
+}
+
+h2 {
+    font-weight: 900;
+    font-size: 24px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+p a, a.styled {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+p a:visited, a.styled:visited {
     color: var(--dark-accent-color);
 }
 
@@ -193,8 +218,6 @@ a:visited {
 }
 
 .body-cont.base header nav a {
-    color: black;
-    text-decoration: none;
     padding: 4px;
 }
 
@@ -224,7 +247,6 @@ a:visited {
 }
 
 .body-cont.base .cont {
-    width: 100%;
     padding: var(--wide-padding);
 }
 
