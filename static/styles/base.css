@@ -65,7 +65,7 @@ img {
 
     --display-font-stack: 'Special Elite';
     --serif-font-stack: 'Crimson Text';
-    --sans-serif-font-stack: 'Roboto';
+    --sans-font-stack: 'Roboto';
     --mono-font-stack: 'Courier Prime', monospace;
 
     --title-font-stack: var(--display-font-stack);
