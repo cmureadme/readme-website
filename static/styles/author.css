@@ -1,5 +1,6 @@
 .cont.staff .staff-card {
     display: flex;
+    align-items: start;
     gap: 24px;
     padding-bottom: 24px;
     border-bottom: 1px solid #888;
@@ -13,7 +14,6 @@
     height: 144px;
     object-fit: cover;
     object-position: center;
-    align-self: flex-start;
     flex-shrink: 0;
     border-radius: 50%;
 }
@@ -36,7 +36,7 @@
     font-size: 14px;
     margin-top: -4px;
     margin-bottom: 12px;
-    font-family: 'Special Elite';
+    font-family: var(--display-font-stack);
 }
 
 .cont.staff .staff-card .roles {
@@ -59,4 +59,16 @@
 
 .cont.staff p {
     margin-bottom: 12px;
+}
+
+@media (max-width: 560px) {
+    .cont.staff .staff-card {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .cont.staff .staff-card h1 {
+        text-align: center;
+    }
 }
