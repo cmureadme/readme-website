@@ -3,6 +3,8 @@
 {% load static %}
 {% load tag %}
 
+{% block title %}{{ author.name }} - Readme{% endblock title %}
+
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/author.css' %}">
 <link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">

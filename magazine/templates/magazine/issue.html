@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block title %}Vol {{ i.vol }}, Issue {{ i.num }}: {{ issue }} - Readme{% endblock title %}
+
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/issue.css' %}">
 <link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
