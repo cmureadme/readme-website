@@ -1,27 +1,32 @@
-.page-header{
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.cont.about-us {
+    text-align: justify;
 }
 
-.sub-header{
-    text-align: center;
-    padding-top: 10px;
+.cont.about-us h1 {
+    margin-bottom: 12px;
 }
 
-.links{
-    text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
-
+.cont.about-us p {
+    margin-bottom: 6px;
 }
 
-.email{
-    text-align: center;
+.cont.about-us .top-cont {
+    margin-bottom: 24px;
 }
 
-.numbers{
-    text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
+.cont.about-us .sub-cont {
+    margin-bottom: 12px;
+}
+
+.cont.about-us .img-cont {
+    display: flex;
+    justify-content: center;
+}
+
+.cont.about-us img {
+    width: 50%;
+}
+
+.cont.about-us ul {
+    list-style-type: initial;
 }

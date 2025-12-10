@@ -1,33 +1,27 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
+{% block title %}Donate - Readme{% endblock title %}
+
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/donate.css' %}">
-<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
-<div class = "page-header">
-    <h1>Donate</h1>
+{% block wrapper-cont %}
+<div class="cont donate">
+    <div class="top-cont">
+        <h1>Donate</h1>
+
+        <p>Hey, we're readme, an up-and-coming comedy and satire publication here at Carnegie Mellon University. We're run by a gang of hooligans, idiots, and the occasional actual comedian, and we were hoping you'd find it in your heart do donate to us. Readme is a shoestring operation, and we run this entire thing on a combination of student print quota, campus printing, and around $75 an issue to write, edit, print, and distribute across campus. Even a couple of dollars makes a huge difference, and we'd love to have your support in keeping CMU students well entertained.</p>
+
+        <p>Best,</p>
+
+        <p>Eshaan Joshi, Editor-in-Chief</p>
+    </div>
+
+    <div class="sub-cont">
+        <a class="donate-link styled" href='https://commerce.cashnet.com/CMU231?cname=35'>SIT Donation Link</a>
+    </div>
 </div>
-
-<div class = "main-content">
-    <p>
-        Hey, we're readme, an up-and-coming comedy and satire publication here at Carnegie Mellon University. 
-        We're run by a gang of hooligans, idiots, and the occasional actual comedian, and we were hoping you'd find it in your heart do donate to us. 
-        Readme is a shoestring operation, and we run this entire thing on a combination of student print quota, campus printing, and around $75 an issue to write, edit, print, and distribute across campus. 
-        Even a couple of dollars makes a huge difference, and we'd love to have your support in keeping CMU students well entertained.
-        <br>
-        Best,
-        <br>
-        Eshaan Joshi, Editor-in-Chief
-
-    </p>
-</div>
-
-<div class = "links">
-    <a class="nav-link" href='https://commerce.cashnet.com/CMU231?cname=35'>SIT Donation Link</a>
-</div>
-
-{% endblock page-content %}
+{% endblock wrapper-cont %}

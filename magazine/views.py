@@ -24,7 +24,7 @@ def index(request):
 
     sidebar_articles = Article.objects.all().filter(Q(published=True) & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))).order_by("?")[0:5]
     secondary_articles = Article.objects.all().filter(Q(published=True)).order_by("?")
-    num_secondary_articles = min((len(secondary_articles) // 3) * 3, 102)
+    num_secondary_articles = min((len(secondary_articles) // 3) * 3, 24)
     secondary_articles = secondary_articles[0: num_secondary_articles]
 
     # Will pull from the best rejected headlines
@@ -136,8 +136,7 @@ def issue(request, vol, num):
 
 
     context = {
-        "i": issue,
-        "issue": issue.name,
+        "issue": issue,
         "articles": articles,
         "rejected_headlines": rejected_headlines
     }

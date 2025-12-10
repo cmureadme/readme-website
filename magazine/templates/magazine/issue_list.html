@@ -1,62 +1,43 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
+
+{% block title %}Issues - Readme{% endblock title %}
 
 {% block head-content %}<link rel="stylesheet" href="{% static 'styles/issue_list.css' %}">{% endblock head-content %}
 
-{% block page-content %}
-{% load static %}
-<body>
-    <div class="container">
-        <div class="author-header">
-            <h1>Our Greatest Hits</h1>
-        </div>
-        <ul class="author-list">
-            {% regroup issues by vol as vol_issues %}
-            {% for vol_issue in vol_issues %}
-            <li class="author-item2">
-                <div class="collapsible-btn" onclick="toggleVolume(this)">
-                    Vol {{ vol_issue.grouper }}
-                    <svg class="arrow arrow-down" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </div>
-                <div class="collapsible-content">
-                    {% for issue in vol_issue.list %}
-                    <div class="author-item">
-                        <div class="issue-square">
-                            <div class="issue-text">
-                                Issue {{ issue.num }}<br>
-                                <a href="{{issue.archive.url}}">pdf</a>
+{% block wrapper-cont %}
+<div class="cont issue-list">
+    <h1>Issues Archive</h1>
 
-                            </div>
-                        </div>
-                        <div class="author-info">
-                            <h4 class="author-name">
-                                <a href="{% url 'issue' issue.vol issue.num %}" style="font-family: 'Special Elite', cursive;">{{ issue.name }}</a>
-                            </h4>
+    <div>
+        {% regroup issues by vol as vol_issues %}
+        {% for vol_issue in vol_issues reversed %}
+        {% if forloop.first %}
+        <details open>
+        {% else %}
+        <details>
+        {% endif %}
+            <summary>Vol {{ vol_issue.grouper }}</summary>
+
+            <div>
+                {% for issue in vol_issue.list reversed %}
+                <div class="issue-item">
+                    <div class="issue-square">
+                        <div>
+                            <p>Issue {{ issue.num }}</p>
+                            <p><a href="{{issue.archive.url}}">pdf</a></p>
                         </div>
                     </div>
-                    {% endfor %}
+
+                    <div class="issue-info">
+                        <a href="{% url 'issue' issue.vol issue.num %}" style="font-family: 'Special Elite', cursive;">{{ issue.name }}</a>
+                    </div>
                 </div>
-            </li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </div>
+        </details>
+        {% endfor %}
     </div>
-    <script>
-        function toggleVolume(button) {
-            var content = button.nextElementSibling;
-            var arrow = button.querySelector('.arrow');
-            if (content.style.display === "block") {
-                content.style.display = "none";
-                arrow.classList.remove('arrow-up');
-                arrow.classList.add('arrow-down');
-            } else {
-                content.style.display = "block";
-                arrow.classList.remove('arrow-down');
-                arrow.classList.add('arrow-up');
-            }
-        }
-    </script>
-</body>
-{% endblock page-content %}
+</div>
+{% endblock wrapper-cont %}

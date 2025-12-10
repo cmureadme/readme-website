@@ -1,19 +1,20 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
+{% block title %}Stories - Readme{% endblock title %}
+
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/stories.css' %}">
-<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+<link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
+{% block wrapper-cont %}
+<div class="cont stories">
+{% for article in page_obj %}
+    {% include "./article_card.html" %}  
+{% endfor %}
 
-<body>
-    {% for article in page_obj %}
-        {% include "./article_card.html" %}  
-    {% endfor %}
-
-</body>
 {% include "pagination.html" %}
-{% endblock page-content %}
+</div>
+{% endblock wrapper-cont %}

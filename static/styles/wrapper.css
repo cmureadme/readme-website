@@ -1,5 +1,10 @@
-#content {
-    width: 720px;
-    padding: 48px;
-    font-size: 18px;
+.inner-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.cont {
+    width: calc(720px + 2 * var(--wide-padding));
+    max-width: 100%;
 }

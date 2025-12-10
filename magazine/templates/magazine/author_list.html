@@ -1,69 +1,67 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
+
+{% block title %}Staff - Readme{% endblock title %}
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/author_list.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
-<body>
-    <div class="container">
-        <div class="author-grid">
-            <div class="author-card special-author shadow">
-                <h3><em>Our Usual Suspects</em></h3>
-            </div>
-            {% for author in usual_suspects %}
-            <li class="author-card">
-                <img src="{{ author.img_url }}" alt="Author Image">
-                <div class="author-info">
-                    <div class="author-name">
-                        <h4><a href="{% url 'author' author.slug %}">{{ author.name }}</a></h4>
-                    </div>
-                    <div class="author-bio">
-                        <b>{{ author.roles }}</b><br>
-                        {{author.bio_blurb|truncatechars_html:100 | safe}}
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
+{% block wrapper-cont %}
+<div class="cont staff-list">
+    <h1>Our Usual Suspects</h1>
 
-            <div class="author-card special-author shadow">
-                <h3><em>Independent Contractors</em></h3>
-            </div>
-            {% for author in independent_contractors %}
-            <li class="author-card">
-                <img src="{{ author.img_url }}" alt="Author Image">
-                <div class="author-info">
-                    <div class="author-name">
-                        <h4><a href="{% url 'author' author.slug %}">{{ author.name }}</a></h4>
-                    </div>
-                    <div class="author-bio">
-                        <b>{{ author.roles }}</b><br>
-                        {{author.bio_blurb|truncatechars_html:100 | safe}}
-                    </div>
+    <div class="cards-cont">
+        {% for author in usual_suspects %}
+        <a class="author-card" href="{% url 'author' author.slug %}">
+            <img src="{{ author.img_url }}" alt="{{ author.name }}">
+            <div class="author-info">
+                <h4 class="author-name">{{ author.name }}</h4>
+
+                <div class="author-bio">
+                    <p><b>{{ author.roles }}</b></p>
+                    <p>{{author.bio|truncatechars_html:100 | safe}}</p>
                 </div>
-            </li>
-            {% endfor %}
-            
-            <div class="author-card special-author shadow">
-                <h3><em>Escapees</em></h3>
             </div>
-            {% for author in escapees %}
-            <li class="author-card">
-                <img src="{{ author.img_url }}" alt="Author Image">
-                <div class="author-info">
-                    <div class="author-name">
-                        <h4><a href="{% url 'author' author.slug %}">{{ author.name }}</a></h4>
-                    </div>
-                    <div class="author-bio">
-                        <b>{{ author.roles }}</b><br>
-                            {{author.bio_blurb|truncatechars_html:100 | safe}}
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
-        </div>
+        </a>
+        {% endfor %}
     </div>
-</body>
-{% endblock page-content %}
+
+    <h2>Contractors</h2>
+
+    <div class="cards-cont">
+        {% for author in independent_contractors %}
+        <a class="author-card" href="{% url 'author' author.slug %}">
+            <img src="{{ author.img_url }}" alt="{{ author.name }}">
+            <div class="author-info">
+                <h4 class="author-name">{{ author.name }}</h4>
+                
+                <div class="author-bio">
+                    <p><b>{{ author.roles }}</b></p>
+                    <p>{{author.bio|truncatechars_html:100 | safe}}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    
+    <h2>Defectors</h2>
+
+    <div class="cards-cont">
+        {% for author in escapees %}
+        <a class="author-card" href="{% url 'author' author.slug %}">
+            <img src="{{ author.img_url }}" alt="{{ author.name }}">
+            <div class="author-info">
+                <h4 class="author-name">{{ author.name }}</h4>
+
+                <div class="author-bio">
+                    <p><b>{{ author.roles }}</b></p>
+                    <p>{{author.bio|truncatechars_html:100 | safe}}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock wrapper-cont %}

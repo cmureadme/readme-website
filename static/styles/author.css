@@ -1,93 +1,74 @@
-.suspect-card {
+.cont.staff .staff-card {
     display: flex;
+    align-items: start;
     gap: 24px;
     padding-bottom: 24px;
-    border-bottom: 1px solid #888;
-    font-family: 'Roboto';
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--sans-font-stack);
     font-size: 16px;
     margin-bottom: 24px;
 }
 
-.suspect-card > img {
-    flex-shrink: 0; /* don't shrink this img's width */
-    width: 144px; /* set that width */
-    align-self: flex-start; /* set img's height to correct its aspect ratio, given our width */
-    /* border-radius: 50%; */
+.cont.staff .staff-card > img {
+    width: 144px;
+    height: 144px;
+    object-fit: cover;
+    object-position: center;
+    flex-shrink: 0;
+    border-radius: 50%;
 }
 
-.suspect-card > div {
+.cont.staff .staff-card > div {
     flex-grow: 1;
 }
 
-#suspect .suspect-card p {
-    margin-bottom: 0;
+.cont.staff .staff-card p {
+    margin: 0;
 }
 
-#suspect .suspect-card .pronouns {
+.cont.staff .staff-card h1 {
+    text-transform: unset;
+    font-size: 48px;
+    text-align: left;
+}
+
+.cont.staff .staff-card p.pronouns {
     font-size: 14px;
     margin-top: -4px;
     margin-bottom: 12px;
-    font-family: 'Special Elite';
+    font-family: var(--display-font-stack);
 }
 
-#suspect .suspect-card .location {
-    font-size: 14px;
-    margin-top: -4px;
-    margin-bottom: 12px;
-    font-family: 'Special Elite';
-}
-
-.suspect-card .roles {
+.cont.staff .staff-card .roles {
     font-weight: bold;
 }
 
-#article img {
-    width: 100%;
+.cont.staff h2 {
+    font-family: var(--sans-font-stack);
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.cont.staff .margin-bottom {
     margin-bottom: 12px;
 }
 
-#suspect h1 {
-    font-weight: 900;
-    font-size: 48px;
-    text-wrap: pretty;
-    line-height: 1.25;
-}
-
-#suspect h2 {
-    font-family: 'Roboto';
-    font-size: 24px;
-    text-wrap: pretty;
-}
-
-#suspect hr {
-    border-width: 0;
+.cont.staff hr {
     margin: 24px 0;
-    height: 1px;
-    background-color: #888;
 }
 
-#suspect p {
+.cont.staff p {
     margin-bottom: 12px;
 }
 
-@media (max-width: 1200px) {
-    #wrapper {
-        width: 100%;
-        max-width: unset;
+@media (max-width: 560px) {
+    .cont.staff .staff-card {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
-}
-
-@media (max-width: 826px) {
-    #splash {
-        display: none;
+    .cont.staff .staff-card h1 {
+        text-align: center;
     }
-}
-
-.small-facts{
-    display: flex;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 16px;
-    margin-top: -4px;
-    margin-bottom: 12px;
 }

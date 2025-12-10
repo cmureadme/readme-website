@@ -1,31 +1,32 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
+{% block title %}Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.name }} - Readme{% endblock title %}
+
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/issue.css' %}">
-<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+<link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
+{% block wrapper-cont %}
+<div class="cont issue">
+    <h2>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.name }} (<a class="styled" href="{{ issue.archive.url }}">PDF</a>)</h2>
 
-<body>
-    <div class="title-block">
-        <h3>Vol {{ i.vol }}, Issue {{ i.num }}:<em> {{ issue }}</em></h3>
-    </div>
+    <div class="rejected-headlines">
+        <h3 class="top">Rejected Headlines</h3>
 
-    <div class = "rejected-headlines">
-        <h3 id = "title">Rejected Headlines</h3>
         <ul>
             {% for rejected_headline in rejected_headlines %}
                 <li>{{rejected_headline.title}} </li>
             {% endfor %}
         </ul>
-        <h3 id = "and-more">All this and more, not in this issue!</h3>
+
+        <h3 class="bottom">All this and more, not in this issue!</h3>
     </div>
     
     {% for article in articles %}
         {% include "./article_card.html" %}  
     {% endfor %}
-</body>
-{% endblock page-content %}
+</div>
+{% endblock wrapper-cont %}

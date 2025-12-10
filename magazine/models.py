@@ -11,13 +11,13 @@ class Author(models.Model):
     name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
     slug = models.SlugField(unique=True)
     img = models.ImageField(upload_to="author_images/", blank=True, null=True, help_text="Default image is set to the anon.png its better for everyone to have a pfp, but if you are waiting on someone to send one this is a good short term option")
-    bio = models.TextField(help_text="This uses markdown formating")
-    roles = models.CharField(max_length=CHARFIELD_MAX_LENGTH, default="Staffwriter", help_text="Defaults to Staffwriter, change this to Staff Artist if someone only makes images. Can also add exec roles for exec members or other funny roles if people want")
+    bio = models.TextField(help_text="This uses markdown formating", blank=True)
+    roles = models.CharField(max_length=CHARFIELD_MAX_LENGTH, default="Staffwriter", help_text="Defaults to Staffwriter, change this to Staff Artist if someone only makes images. Can also add exec roles for exec members or other funny roles if people want", blank=True)
     pronouns = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
-    major = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
-    year = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    major = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
+    year = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
     location = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
-    fact = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    fact = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
     email = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
     last_modified = models.DateTimeField(auto_now=True)
     alias_of = models.ForeignKey("Author", related_name="aliases", on_delete=models.PROTECT, null=True)
@@ -34,69 +34,6 @@ class Author(models.Model):
             return self.img.url
         except (ValueError, AttributeError):
             return static("anon.png")
-
-    @property
-    # When you want to use the author bio you call author.bio_blurb
-    # This allows us to have a default bio if the author hasn't come up with one yet
-    def bio_blurb(self):
-        if self.bio.strip().lower() == "left_empty" or self.bio == '':
-            return "Unknowable and Mysterious"
-        else:
-            return self.bio
-
-    @property
-    # When you want to use the author fun fact you call author.fact_blurb
-    # This allows for a defualt fact for people
-    def fact_blurb(self):
-        if self.fact.strip().lower() == "left_empty" or self.fact == '':
-            return "Sad fact: this author has no fact."
-        else:
-            return self.fact
-
-    @property
-    # When you want to use the author pronouns you call author.pronoun_blurb
-    # This allows us to have defualt pronouns for people
-    def pronoun_blurb(self):
-        if self.pronouns.strip().lower() == "left_empty" or self.pronouns == '':
-            return "wouldn't you like to know\u2026"
-        else:
-            return self.pronouns
-
-    @property
-    # When you want to use the author location you call author.location_blurb
-    # This allows for a defualt location for people
-    def location_blurb(self):
-        if self.location.strip().lower() == "left_empty" or self.location == '':
-            return "missing\u2026"
-        else:
-            return self.location
-
-    @property
-    # When you want to use the author email you call author.email_blurb
-    # This allows for a defualt email for people
-    def email_blurb(self):
-        if self.email.strip().lower() == "left_empty" or self.email == '':
-            return "don't\u2026"
-        else:
-            return self.email
-    
-    @property
-    # When you want to use the author major you call author.major_blurb
-    # This allows for a defualt major for people
-    def major_blurb(self):
-        if self.major.strip().lower() == "left_empty" or self.major == '':
-            return "One of the subjects"
-        else:
-            return self.major
-
-    @property
-    # When you want to use the author's graduation year you call author.year_blurb
-    # This allows for a defualt grad year for people
-    def year_blurb(self):
-        if self.year.strip().lower() == "left_empty" or self.year == '':
-            return "20??"
-        else:
-            return self.year
         
     @property
     # Follow alias_of until root author is found, then return that slug

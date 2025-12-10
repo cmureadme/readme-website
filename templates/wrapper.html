@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block wrapper-styles %}
+<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
+{% endblock wrapper-styles %}
+
+{% block cont %}
+<div class="inner-wrapper">
+    {% block wrapper-cont %}{% endblock wrapper-cont %}
+</div>
+{% endblock cont %}
