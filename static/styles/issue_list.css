@@ -1,162 +1,57 @@
-.cont.issue-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-    margin: auto;
+.cont.issue-list h1 {
+    margin-bottom: 12px;
 }
 
-@media only screen and (max-width: 600px) {
-    .cont.issue-list .author-container {
-        width: 100%;
-    }
-}
-
-.cont.issue-list .author-item {
-    background-color: var(--background);
-    list-style: none;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.cont.issue-list .author-square-header,
-.cont.issue-list .author-header {
-    background-color: var(--background);
+.cont.issue-list details {
+    border: 1px solid #444444;
+    padding: 0;
     border-radius: 8px;
-    list-style: none;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
-}
-
-.cont.issue-list .author-item2 {
-    background-color: var(--background);
-    list-style: none;
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-}
-
-.cont.issue-list .collapsible-btn {
-    background-color: var(--background-dark);
-    color: #333;
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    border-color: var(--secondary-dark);
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 8px;
+    margin-bottom: 12px;
+    font-family: var(--display-font-stack);
     font-size: 18px;
-    font-weight: bold;
-    font-family: 'Special Elite', cursive;
-    width: 100%;
+}
+
+.cont.issue-list summary {
+    cursor: pointer;
+    padding: 12px;
+    padding-left: 18px;
+}
+
+.cont.issue-list details:open summary {
+    border-bottom: 1px solid #444444;
+}
+
+.cont.issue-list details > div {
+    padding: 12px;
+}
+
+.cont.issue-list .issue-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.cont.issue-list .collapsible-btn:hover {
-    background-color: #aaa;
-}
-
-.cont.issue-list .collapsible-content {
-    display: none;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    border-radius: 0 0 8px 8px;
-    font-family: 'Special Elite', cursive;
-}
-
-.cont.issue-list .author-item .collapsible-content {
-    margin-top: 10px;
+.cont.issue-list .issue-item:not(:last-child) {
+    margin-bottom: 12px;
 }
 
 .cont.issue-list .issue-square {
     width: 100px;
     height: 100px;
-    background-color: var(--background-dark);
-    border-color: var(--secondary-dark);
-    border-style: solid;
-    border-width: 1px;
+    border: 1px solid #444444;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
     flex-shrink: 0;
 }
 
-.cont.issue-list .issue-text {
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.2;
-}
-
-.cont.issue-list .author-info {
+.cont.issue-list .issue-info {
+    flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.cont.issue-list .author-name {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 5px;
-}
-
-.cont.issue-list .author-name a {
-    text-decoration: none;
-    color: #333;
-}
-
-.cont.issue-list .author-name a:hover {
-    text-decoration: underline;
-}
-
-.cont.issue-list .author-bio {
-    font-size: 16px;
-    color: #555;
-    margin: 0;
-}
-
-.cont.issue-list .author-list {
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: var(--background);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 0;
-}
-
-.cont.issue-list .arrow {
-    margin-left: auto;
-    color: var(--secondary-dark);
-    width: 18px;
-    height: 18px;
-    transition: transform 0.2s;
-}
-
-.cont.issue-list .arrow-down {
-    transform: rotate(0deg);
-}
-
-.cont.issue-list .arrow-up {
-    transform: rotate(180deg);
-}
-
-.cont.issue-list .a {
-    font-family: 'Special Elite', cursive;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    text-decoration: underline;
+    text-wrap: balance;
 }
