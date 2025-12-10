@@ -1,9 +1,5 @@
 {% load static %}
 
-{% block head-content %}
-    <link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
-{% endblock head-content %}
-
 <div class="article-card">
     <h3 class = "article-title">
         <a href="{% url 'article_page' article.slug %}">{{ article.title }}</a>
