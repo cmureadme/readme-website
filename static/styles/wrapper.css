@@ -5,6 +5,6 @@
 }
 
 .cont {
-    width: calc(720px + var(--wide-padding));
+    width: calc(720px + 2 * var(--wide-padding));
     max-width: 100%;
 }

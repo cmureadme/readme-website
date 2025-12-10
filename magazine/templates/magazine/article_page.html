@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
@@ -6,11 +6,10 @@
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/article_page.css' %}">
-<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
-<div id="article">
+{% block wrapper-cont %}
+<div class="cont article">
     <h1>{{ article.title }}</h1>
     <p class="byline">
         {% if article.authors.all|length > 2 %}
@@ -38,4 +37,4 @@
         {% endwith %}
     {% endwith %}
 </div>
-{% endblock page-content %}
+{% endblock wrapper-cont %}
