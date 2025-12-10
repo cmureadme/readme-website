@@ -28,7 +28,7 @@
     margin-bottom: 12px;
 }
 
-h1 a {
+h1 a, h1 a:visited {
     color: black;
     text-decoration: none;
 }
@@ -127,7 +127,7 @@ h2 {
     text-align: left;
 }
 
-h2 a {
+h2 a, h2 a:visited {
     color: black;
     text-decoration: none;
 }
