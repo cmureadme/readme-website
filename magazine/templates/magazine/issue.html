@@ -10,7 +10,7 @@
 
 {% block wrapper-cont %}
 <div class="cont issue">
-    <h2>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.name }}</h2>
+    <h2>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.name }} (<a class="styled" href="{{ issue.archive.url }}">PDF</a>)</h2>
 
     <div class="rejected-headlines">
         <h3 class="top">Rejected Headlines</h3>
