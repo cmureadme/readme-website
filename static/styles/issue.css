@@ -1,45 +1,26 @@
-.cont.issue .title-block {
+.cont.issue h2 {
     text-align: center;
-    padding: 20px;
-    background-color: var(--background-dark);
-    border: 1px solid var(--secondary-dark);
-    margin-bottom: 20px;
-}
-.cont.issue .title-block h3 {
-    font-family: 'Special Elite', cursive;
-    font-size: 24px;
-    margin: 0;
-    padding: 10px;
-}
-.cont.issue .title-block em {
-    font-style: italic;
-    color: black;
+    margin-bottom: 12px;
 }
 
 .cont.issue .rejected-headlines {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 12px;
     text-align: left;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-color: black;
-    border-style: solid;
+    border: 1px solid var(--dark-border-color);
+    margin-bottom: 12px;
 }
 
-.cont.issue .rejected-headlines h3 {
-    font-family: 'Special Elite', cursive;
+.cont.issue .rejected-headlines h3.top {
+    margin-bottom: 6px;
 }
 
-.cont.issue .rejected-headlines #title {
-    text-align: left;
-}
-
-.cont.issue .rejected-headlines #and-more {
+.cont.issue .rejected-headlines h3.bottom {
+    margin-top: 9px;
     text-align: right;
 }
 
 .cont.issue .rejected-headlines ul {
-    list-style-type: disc;
+    list-style-type: initial;
     margin: 0;
     padding: 0;
     list-style-position: inside;

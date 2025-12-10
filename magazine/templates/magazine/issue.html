@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Vol {{ i.vol }}, Issue {{ i.num }}: {{ issue }} - Readme{% endblock title %}
+{% block title %}Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.name }} - Readme{% endblock title %}
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/issue.css' %}">
@@ -10,18 +10,18 @@
 
 {% block wrapper-cont %}
 <div class="cont issue">
-    <div class="title-block">
-        <h3>Vol {{ i.vol }}, Issue {{ i.num }}:<em> {{ issue }}</em></h3>
-    </div>
+    <h2>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.name }}</h2>
 
-    <div class = "rejected-headlines">
-        <h3 id = "title">Rejected Headlines</h3>
+    <div class="rejected-headlines">
+        <h3 class="top">Rejected Headlines</h3>
+
         <ul>
             {% for rejected_headline in rejected_headlines %}
                 <li>{{rejected_headline.title}} </li>
             {% endfor %}
         </ul>
-        <h3 id = "and-more">All this and more, not in this issue!</h3>
+
+        <h3 class="bottom">All this and more, not in this issue!</h3>
     </div>
     
     {% for article in articles %}

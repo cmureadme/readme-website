@@ -136,8 +136,7 @@ def issue(request, vol, num):
 
 
     context = {
-        "i": issue,
-        "issue": issue.name,
+        "issue": issue,
         "articles": articles,
         "rejected_headlines": rejected_headlines
     }

@@ -3,7 +3,7 @@
 }
 
 .cont.issue-list details {
-    border: 1px solid #444444;
+    border: 1px solid var(--dark-border-color);
     padding: 0;
     border-radius: 8px;
     margin-bottom: 12px;
@@ -18,7 +18,7 @@
 }
 
 .cont.issue-list details:open summary {
-    border-bottom: 1px solid #444444;
+    border-bottom: 1px solid var(--dark-border-color);
 }
 
 .cont.issue-list details > div {
@@ -36,7 +36,7 @@
 .cont.issue-list .issue-square {
     width: 100px;
     height: 100px;
-    border: 1px solid #444444;
+    border: 1px solid var(--dark-border-color);
     display: flex;
     align-items: center;
     justify-content: center;

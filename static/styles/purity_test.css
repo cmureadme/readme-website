@@ -26,12 +26,12 @@
 .cont.purity-test .buttons .button {
     margin: 5px;
     border-radius: 10px;
-    border-color: #888;
-    background-color: #DDD;
+    border-color: var(--border-color);
+    background-color: #dddddd;
 }
 
 .cont.purity-test .buttons .button:hover {
-    background-color: #ccc;
+    background-color: #cccccc;
 }
 
 .cont.purity-test #score {

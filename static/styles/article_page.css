@@ -27,7 +27,7 @@
     border-width: 0;
     margin: 24px 0;
     height: 1px;
-    background-color: #888;
+    background-color: var(--border-color);
 }
 
 .cont.article p {
