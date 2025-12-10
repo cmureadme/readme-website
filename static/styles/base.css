@@ -58,12 +58,6 @@ hr {
     margin: 12px;
 }
 
-/* a paragraph proceeded by another paragraph will have a top margin */
-p + p {
-    margin-top: 0.5em;
-}
-
-
 img {
     display: block;
 }
@@ -198,7 +192,6 @@ nav li {
     font-size: 18px;
     cursor: pointer;
     line-height: 1;
-    padding: 4px;
 }
 
 nav li.dropdown::after {
@@ -211,6 +204,7 @@ nav li.dropdown::after {
 nav a, nav a:visited {
     color: black;
     text-decoration: none;
+    padding: 4px;
 }
 
 #bar-subtext {
