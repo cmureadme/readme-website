@@ -1,45 +1,43 @@
-.page-header{
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.cont.purity-test h1 {
+    margin-bottom: 12px;
 }
 
-.main-content{
+.cont.purity-test .main-content{
     padding-bottom: 24px;
 }
 
-.questions ol {
+.cont.purity-test .questions ol {
     list-style-type: decimal;
 }
 
-li {
+.cont.purity-test li {
     list-style-position: outside;
 }
 
-input[type="checkbox"] {
-    accent-color: red;
+.cont.purity-test input[type="checkbox"] {
+    accent-color: var(--accent-color);
 }
 
-.buttons {
+.cont.purity-test .buttons {
     padding-top: 24px;
     padding-bottom: 24px;
 }
 
-.buttons .button {
+.cont.purity-test .buttons .button {
     margin: 5px;
     border-radius: 10px;
     border-color: #888;
     background-color: #DDD;
 }
 
-.buttons .button:hover {
-    background-color: #CCC;
+.cont.purity-test .buttons .button:hover {
+    background-color: #ccc;
 }
 
-#score {
+.cont.purity-test #score {
     display: none;
 }
 
-#user-score {
-    color: red;
+.cont.purity-test #user-score {
+    color: var(--accent-color);
 }

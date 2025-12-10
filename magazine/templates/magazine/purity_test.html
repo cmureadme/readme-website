@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
@@ -6,51 +6,52 @@
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/purity_test.css' %}">
-<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
-<div class = "page-header">
+{% block wrapper-cont %}
+<div class="cont purity-test">
     <h1>CMU Purity Test</h1>
-</div>
 
-<div class = "main-content">
-    <p>
-        The CMU Purity Test is an opportunity for new students to track their maturation into fully-fledged CMU-ites. 
-        Take the time to see how far along you are, and reflect on what CMU still has to offer you. 
-        And unlike some tests, you can complete this one without risking life and limb - though we’ll certainly take a good swing at’cha. 
+    <div class = "main-content">
+        <p>
+            The CMU Purity Test is an opportunity for new students to track their maturation into fully-fledged CMU-ites. 
+            Take the time to see how far along you are, and reflect on what CMU still has to offer you. 
+            And unlike some tests, you can complete this one without risking life and limb - though we’ll certainly take a good swing at’cha. 
 
-    </p>
-</div>
+        </p>
+    </div>
 
-<div class = "questions">
-    <h2>Have you ever:</h2>
-    <ol start="0" id="question-list">
-        <li>
-            <input type ="checkbox" id = "freebie" checked disabled>
-            <label for="freebie"> Picked up a ReadMe magazine? </label>
-        </li>
-        {% for item in items %}
+    <div class = "questions">
+        <h2>Have you ever:</h2>
+        <ol start="0" id="question-list">
             <li>
-                <input type ="checkbox" id = {{ forloop.counter }}>
-                <label for={{ forloop.counter }}> {{item }} </label>
+                <input type ="checkbox" id = "freebie" checked disabled>
+                <label for="freebie"> Picked up a ReadMe magazine? </label>
             </li>
-        {% endfor %}
-    </ol>
-</div>
+            {% for item in items %}
+                <li>
+                    <input type ="checkbox" id = {{ forloop.counter }}>
+                    <label for={{ forloop.counter }}> {{item }} </label>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
 
-<div class="buttons">
-    <input type="button" class="button" id="submit" value="Calculate my score!">
-    <input type="button" class="button" id="reset" value="Reset Quiz">
-</div>
+    <div class="buttons">
+        <input type="button" class="button" id="submit" value="Calculate my score!">
+        <input type="button" class="button" id="reset" value="Reset Quiz">
+    </div>
 
-<div id="score">
-    <h2>Your score is: <span id="user-score">1000000000</span>!</h2>
-    <span id="tagline">Text</span>
-    <br>
-    Post a picture of your score on instagram and tag us @readme.news for a chance to win absolutely nothing.
+    <div id="score">
+        <h2>Your score is: <span id="user-score">1000000000</span>!</h2>
+        <span id="tagline">Text</span>
+        <br>
+        Post a picture of your score on instagram and tag us @readme.news for a chance to win absolutely nothing.
+    </div>
 </div>
+{% endblock wrapper-cont %}
 
+{% block body-suffix %}
 <script>
     document.getElementById("submit").addEventListener("click", function() {
         document.getElementById("score").style.display = "initial";
@@ -98,5 +99,4 @@
         }
     })
 </script>
-
-{% endblock page-content %}
+{% endblock body-suffix %}
