@@ -60,26 +60,6 @@
 
 .cont.staff-list .special-author {
     grid-column: 1 / -1;
-    /* Span across all columns */
-    padding: 20px;
-    margin-bottom: 20px;
-    /* Space below the card */
-}
-
-@media (max-width: 640px) {
-    .cont.staff-list .author-card {
-        padding: 15px;
-    }
-
-    .cont.staff-list .author-name {
-        font-size: 18px;
-    }
-
-    .cont.staff-list .author-bio {
-        font-size: 13px;
-    }
-
-    .cont.staff-list .special-author {
-        padding: 15px;
-    }
+    padding: 18px;
+    margin-bottom: 18px;
 }

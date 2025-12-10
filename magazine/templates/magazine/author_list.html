@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 
@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{% static 'styles/author_list.css' %}">
 {% endblock head-content %}
 
-{% block cont %}
+{% block wrapper-cont %}
 <div class="cont staff-list">
     <h1>Our Usual Suspects</h1>
 
@@ -64,4 +64,4 @@
         {% endfor %}
     </div>
 </div>
-{% endblock cont %}
+{% endblock wrapper-cont %}
