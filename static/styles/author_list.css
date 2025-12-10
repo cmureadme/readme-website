@@ -1,40 +1,61 @@
-.cont.staff-list {
+.cont.staff-list h1 {
+    margin-bottom: 12px;
+}
+
+.cont.staff-list h2 {
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 33px;
+}
+
+.cont.staff-list .cards-cont {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     max-width: 800px;
     width: 100%;
+    margin-bottom: 48px;
 }
 
 .cont.staff-list .author-card {
-    background-color: var(--background);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    list-style: none;
+    text-wrap: balance;
 }
 
 .cont.staff-list .author-card img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 15px;
+    width: 96px;
+    height: 96px;
     object-fit: cover;
-    margin: auto;
+    object-position: center;
+    border-radius: 50%;
+    margin-bottom: 12px;
 }
 
-.cont.staff-list .author-name {
+.cont.staff-list h4.author-name {
     font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
+    text-align: inherit;
+    margin-bottom: 12px;
+}
+
+.cards-cont .author-info {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .cont.staff-list .author-bio {
     font-size: 14px;
-    color: var(--border-color);
-    line-height: 1.4;
-    margin-bottom: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 }
 
 .cont.staff-list .special-author {
