@@ -10,3 +10,30 @@
     padding-right: 5px;
 
 }
+
+.cont.donate {
+    text-align: justify;
+}
+
+.cont.donate h1 {
+    margin-bottom: 12px;
+}
+
+.cont.donate p {
+    margin-bottom: 6px;
+}
+
+.cont.donate .top-cont {
+    margin-bottom: 24px;
+}
+
+.cont.donate .sub-cont {
+    margin-bottom: 12px;
+}
+
+.cont.donate .donate-link {
+    display: block;
+    text-align: center;
+    font-weight: 900;
+    font-size: 24px;
+}
