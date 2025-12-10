@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "wrapper.html" %}
 
 {% load static %}
 {% load tag %}
@@ -7,66 +7,67 @@
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/author.css' %}">
-<link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
 {% endblock head-content %}
 
-{% block page-content %}
-<div class="staff-card">
-    <img src="{{author.img_url}}" alt="{{author.name}}"/>
+{% block cont %}
+<div class="cont staff">
+    <div class="staff-card">
+        <img src="{{author.img_url}}" alt="{{author.name}}"/>
+
+        <div>
+            <h1>{{author.name}}</h1>
+            <p class="pronouns">{{author.pronouns}}</p>
+
+            <p class="roles">{{author.roles}}</p>
+            {% if author.major == "" %}
+            {% if author.year != "" %}
+            <p>Class of {{author.year}}</p>
+            {% endif %}
+            {% else %}
+            {% if author.year == "" %}
+            <p>{{author.major}}</p>
+            {% else %}
+            <p>{{author.major}}, {{author.year}}</p>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
 
     <div>
-        <h1>{{author.name}}</h1>
-        <p class="pronouns">{{author.pronouns}}</p>
+        <h2>Bio</h2>
 
-        <p class="roles">{{author.roles}}</p>
-        {% if author.major == "" %}
-        {% if author.year != "" %}
-        <p>Class of {{author.year}}</p>
-        {% endif %}
+        {% if author.bio != "" %}
+        {{ author.bio|create_md|safe }}
         {% else %}
-        {% if author.year == "" %}
-        <p>{{author.major}}</p>
-        {% else %}
-        <p>{{author.major}}, {{author.year}}</p>
+        <p>Unknowable and mysterious.</p>
         {% endif %}
+
+        {% if author.fact != "" %}
+        <h2>Fun fact</h2>
+
+        <p>{{ author.fact }}</p>
+        {% endif %}
+
+        {% if author.location != "" %}
+        <h2>Location</h2>
+
+        <p>{{ author.location }}</p>
+        {% endif %}
+
+        {% if author.email != "" %}
+        <h2>Contact</h2>
+
+        <p>{{ author.email }}</p>
+        {% endif %}
+
+        {% if page_obj|length != 0 %}
+        <h2 class="margin-bottom">Latest</h2>
+
+        {% for article in page_obj %}
+            {% include "./article_card.html" %}  
+        {% endfor %}
         {% endif %}
     </div>
+    {% include "pagination.html" %}
 </div>
-
-<div>
-    <h2>Bio</h2>
-
-    {% if author.bio != "" %}
-    {{ author.bio|create_md|safe }}
-    {% else %}
-    <p>Unknowable and mysterious.</p>
-    {% endif %}
-
-    {% if author.fact != "" %}
-    <h2>Fun fact</h2>
-
-    <p>{{ author.fact }}</p>
-    {% endif %}
-
-    {% if author.location != "" %}
-    <h2>Location</h2>
-
-    <p>{{ author.location }}</p>
-    {% endif %}
-
-    {% if author.email != "" %}
-    <h2>Contact</h2>
-
-    <p>{{ author.email }}</p>
-    {% endif %}
-
-    {% if page_obj|length != 0 %}
-    <h2 class="margin-bottom">Latest</h2>
-
-    {% for article in page_obj %}
-        {% include "./article_card.html" %}  
-    {% endfor %}
-    {% endif %}
-</div>
-{% include "pagination.html" %}
-{% endblock page-content %}
+{% endblock cont %}

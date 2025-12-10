@@ -1,11 +1,4 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.author-grid {
+.cont.staff-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -13,7 +6,7 @@
     width: 100%;
 }
 
-.author-card {
+.cont.staff-list .author-card {
     background-color: var(--background);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -22,7 +15,7 @@
     list-style: none;
 }
 
-.author-card img {
+.cont.staff-list .author-card img {
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -31,20 +24,20 @@
     margin: auto;
 }
 
-.author-name {
+.cont.staff-list .author-name {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 10px;
 }
 
-.author-bio {
+.cont.staff-list .author-bio {
     font-size: 14px;
     color: #555;
     line-height: 1.4;
     margin-bottom: 0;
 }
 
-.special-author {
+.cont.staff-list .special-author {
     grid-column: 1 / -1;
     /* Span across all columns */
     padding: 20px;
@@ -52,25 +45,20 @@
     /* Space below the card */
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
-
-    .author-card {
+@media (max-width: 640px) {
+    .cont.staff-list .author-card {
         padding: 15px;
     }
 
-    .author-name {
+    .cont.staff-list .author-name {
         font-size: 18px;
     }
 
-    .author-bio {
+    .cont.staff-list .author-bio {
         font-size: 13px;
     }
 
-    .special-author {
+    .cont.staff-list .special-author {
         padding: 15px;
     }
 }

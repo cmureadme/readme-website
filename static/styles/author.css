@@ -1,4 +1,4 @@
-.staff-card {
+.cont.staff .staff-card {
     display: flex;
     gap: 24px;
     padding-bottom: 24px;
@@ -8,7 +8,7 @@
     margin-bottom: 24px;
 }
 
-.staff-card > img {
+.cont.staff .staff-card > img {
     width: 144px;
     height: 144px;
     object-fit: cover;
@@ -18,62 +18,45 @@
     border-radius: 50%;
 }
 
-.staff-card > div {
+.cont.staff .staff-card > div {
     flex-grow: 1;
 }
 
-.staff-card p {
+.cont.staff .staff-card p {
     margin: 0;
 }
 
-.staff-card h1 {
-    font-family: 'Special Elite';
-    font-weight: 900;
+.cont.staff .staff-card h1 {
+    text-transform: unset;
     font-size: 48px;
-    text-wrap: pretty;
-    line-height: 1.25;
+    text-align: left;
 }
 
-.staff-card p.pronouns {
+.cont.staff .staff-card p.pronouns {
     font-size: 14px;
     margin-top: -4px;
     margin-bottom: 12px;
     font-family: 'Special Elite';
 }
 
-/* #suspect .staff-card .location {
-    font-size: 14px;
-    margin-top: -4px;
-    margin-bottom: 12px;
-    font-family: 'Special Elite';
-} */
-
-.staff-card .roles {
+.cont.staff .staff-card .roles {
     font-weight: bold;
 }
 
-h2 {
-    font-family: 'Roboto';
-    font-size: 24px;
-    text-wrap: pretty;
+.cont.staff h2 {
+    font-family: var(--sans-font-stack);
+    font-weight: bold;
+    margin-bottom: 2px;
 }
 
-.margin-bottom {
+.cont.staff .margin-bottom {
     margin-bottom: 12px;
 }
 
-hr {
-    border-width: 0;
+.cont.staff hr {
     margin: 24px 0;
-    height: 1px;
-    background-color: #888;
 }
 
-p {
-    margin-bottom: 12px;
-}
-
-#article img {
-    width: 100%;
+.cont.staff p {
     margin-bottom: 12px;
 }
