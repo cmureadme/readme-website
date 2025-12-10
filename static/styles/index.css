@@ -138,7 +138,7 @@
     background-color: #121212;
     color: #ffffff;
     font-weight: 500;
-    font-family: 'Roboto';
+    font-family: var(--sans-font-stack);
 }
 
 #ticker > div {
