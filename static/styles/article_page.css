@@ -1,48 +1,35 @@
-#article img {
+.cont.article {
+    font-size: 18px;
+}
+
+.cont.article img {
     width: 100%;
     margin-bottom: 12px;
 }
 
-#article h1 {
-    text-transform: uppercase;
-    font-weight: 900;
+.cont.article h1 {
     font-size: 60px;
-    text-align: center;
-    text-wrap: pretty;
-    line-height: 1.25;
     margin-bottom: 12px;
 }
 
-#article p.byline {
+.cont.article p.byline {
     text-align: center;
+    font-family: var(--byline-font-stack);
 }
 
-p.byline a {
+.cont.article p.byline a {
     color: inherit;
     text-decoration: none;
     font-weight: bold;
 }
 
-#article hr {
+.cont.article hr {
     border-width: 0;
     margin: 24px 0;
     height: 1px;
     background-color: #888;
 }
 
-#article p {
+.cont.article p {
     margin-bottom: 12px;
-}
-
-@media (max-width: 1200px) {
-    #wrapper {
-        width: 100%;
-        max-width: unset;
-    }
-}
-
-@media (max-width: 826px) {
-    #splash {
-        display: none;
-    }
 }

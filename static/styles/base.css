@@ -69,6 +69,7 @@ img {
     --mono-font-stack: 'Courier Prime', monospace;
 
     --title-font-stack: var(--display-font-stack);
+    --byline-font-stack: var(--sans-font-stack);
     --body-font-stack: var(--serif-font-stack);
 
     --line-height: 1.5;
@@ -219,6 +220,7 @@ p a:visited, a.styled:visited {
 
 .body-cont.base header nav a {
     padding: 4px;
+    display: block;
 }
 
 .body-cont.base .bar-subtext {
@@ -230,7 +232,6 @@ p a:visited, a.styled:visited {
     width: 100%;
     display: flex;
     flex-direction: row;
-    line-height: 1;
 }
 
 .body-cont.base .bar-subtext .left, .body-cont.base .bar-subtext .right {
@@ -247,7 +248,7 @@ p a:visited, a.styled:visited {
 }
 
 .body-cont.base .cont {
-    padding: var(--wide-padding);
+    padding: calc(2 * var(--wide-padding)) var(--wide-padding);
 }
 
 @media (max-width: 960px) {

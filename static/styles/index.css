@@ -1,5 +1,6 @@
 .cont.index {
     text-align: justify;
+    padding: var(--wide-padding) !important;
 }
 
 .cont.index .front-page {
