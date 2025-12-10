@@ -52,7 +52,9 @@
                         <div>
                     {% endif %}
                             {% include "./index_article_card.html" %}
-                    {% if forloop.counter0|modulo:3 == 2 %}
+                    {% if forloop.counter0|modulo:3 != 2 %}
+                            <div class="divider"></div>
+                    {% else %}
                         </div>
                     {% endif %}
                 {% endfor %}
