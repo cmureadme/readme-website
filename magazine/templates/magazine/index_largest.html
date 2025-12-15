@@ -7,20 +7,5 @@
         </a>
     </h1>
     
-    <p class="byline">
-        By
-        {% for author in largest.authors.all %}
-            <a href="{% url 'author' author.slug %}">
-                {{ author.name }}
-            </a>
-        {% endfor %}
-        •
-        {% with issue=largest.issue %}
-            <a href="{% url 'issue' issue.vol issue.num %}">
-                Vol {{issue.vol }}, Issue {{issue.num}}
-            </a>
-            {% endwith %}
-        •
-        {{largest.true_created_on|date:"DATE_FORMAT"}}
-    </p>
+    {% include "./byline.html" with article=largest %}
 </div>
