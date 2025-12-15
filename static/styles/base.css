@@ -130,8 +130,6 @@ hr {
 .body-cont.base {
     display: flex;
     justify-content: center;
-    height: 100vh;
-    overflow-y: scroll;
 }
 
 .body-cont.base > .wrapper {

@@ -1,6 +1,7 @@
 .cont.index {
     text-align: justify;
     padding: var(--wide-padding) !important;
+    padding-bottom: calc(var(--wide-padding) + 32px) !important;
 }
 
 .cont.index .front-page {
@@ -114,6 +115,10 @@
     padding-bottom: 24px;
 }
 
+.cont.index .addl-cont > div:last-child {
+    padding-bottom: 0;
+}
+
 .cont.index .addl-cont > div > div:not(.divider) {
     flex: 1 0 0;
 }
@@ -221,5 +226,9 @@
 
     .cont.index .addl-cont > div > div:not(.divider) {
         margin-bottom: 24px;
+    }
+
+    .cont.index .addl-cont > div:last-child > div:last-child {
+        margin-bottom: 0;
     }
 }
