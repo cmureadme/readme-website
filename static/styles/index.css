@@ -28,6 +28,10 @@
     text-align: center;
 }
 
+.cont.index p.byline {
+    font-family: var(--byline-font-stack);
+}
+
 .cont.index p.byline a {
     color: unset;
     text-decoration: none;
