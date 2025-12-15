@@ -1,6 +1,7 @@
 .cont.index {
     text-align: justify;
     padding: var(--wide-padding) !important;
+    padding-bottom: calc(var(--wide-padding) + 32px) !important;
 }
 
 .cont.index .front-page {
@@ -27,10 +28,29 @@
     text-align: center;
 }
 
-.cont.index p.byline a {
+.cont.index .index-article-card h2 {
+    margin-bottom: 2px;
+}
+
+.cont.index .index-article-card p {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.cont.index .index-article-card p.byline {
+    font-family: var(--byline-font-stack);
+    margin-bottom: 12px;
+}
+
+.cont.index .index-article-card p.byline a {
     color: unset;
     text-decoration: none;
     font-weight: bold;
+}
+
+.cont.index .index-article-card img {
+    width: 50%;
+    margin-left: 25%;
 }
 
 .cont.index .main hr {
@@ -59,15 +79,6 @@
     }
 }
 
-.cont.index .module-1 > div p.byline {
-    margin-bottom: 12px;
-}
-
-.cont.index .module-1 > div p {
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
 .cont.index .module-1 .module-wide {
     padding-left: 24px;
     flex-grow: 1;
@@ -90,28 +101,16 @@
     margin-bottom: var(--wide-padding);
 }
 
-.cont.index .sidebar > div img {
-    width: auto;
-    height: auto;
-    max-width: 50%;
-    max-height: 50%;
-}
-
-.cont.index .sidebar p.byline {
-    margin-bottom: 12px;
-}
-
-.cont.index .sidebar p {
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
 .cont.index .addl-cont > div {
     border-top: 1px solid var(--border-color);
     display: flex;
     gap: 24px;
     padding-top: 24px;
     padding-bottom: 24px;
+}
+
+.cont.index .addl-cont > div:last-child {
+    padding-bottom: 0;
 }
 
 .cont.index .addl-cont > div > div:not(.divider) {
@@ -121,13 +120,6 @@
 .cont.index .addl-cont > div > div.divider {
     width: 1px;
     background-color: var(--border-color);
-}
-
-.cont.index .addl-cont > div > div img {
-    width: auto;
-    height: auto;
-    max-width: 50%;
-    max-height: 50%;
 }
 
 #ticker {
@@ -221,5 +213,9 @@
 
     .cont.index .addl-cont > div > div:not(.divider) {
         margin-bottom: 24px;
+    }
+
+    .cont.index .addl-cont > div:last-child > div:last-child {
+        margin-bottom: 0;
     }
 }

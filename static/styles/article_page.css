@@ -33,3 +33,7 @@
 .cont.article p {
     margin-bottom: 12px;
 }
+
+.cont.article p:last-child {
+    margin-bottom: 0;
+}

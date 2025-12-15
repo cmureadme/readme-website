@@ -1,13 +1,29 @@
 .article-card {
-    border-radius: 8px;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    list-style: none;
-    margin-bottom: 2em;
+    display: block;
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    margin-bottom: 12px;
+}
+
+.article-card h2 {
+    margin-bottom: 2px;
+}
+
+.article-card p {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.article-card p:last-child {
+    margin-bottom: 0;
 }
 
 .article-card p.byline {
     font-family: var(--byline-font-stack);
-    font-size: 14px;
-    text-align: left;
+    margin-bottom: 12px;
+}
+
+.article-card img {
+    width: 50%;
+    margin-left: 25%;
 }

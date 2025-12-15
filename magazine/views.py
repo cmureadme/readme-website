@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import Http404
 
 from django.conf import settings
-from django.db.models import Q
+from django.db.models import Q, Max
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -305,3 +305,5 @@ def stories(request):
     context = {"page_obj": page_obj}
     return render(request, "magazine/stories.html", context)
     
+def random(request):
+    return redirect(reverse("article_page", args=[Article.objects.order_by("?").first().slug]))

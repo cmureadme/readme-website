@@ -21,11 +21,6 @@ select {
     font: inherit;
 }
 
-ol,
-ul {
-    list-style: none;
-}
-
 blockquote,
 q {
     quotes: none;
@@ -83,7 +78,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--title-font-stack);
     line-height: 1.25;
-    text-wrap: pretty;
+    text-wrap: balance;
     text-align: left;
 }
 
@@ -130,8 +125,6 @@ hr {
 .body-cont.base {
     display: flex;
     justify-content: center;
-    height: 100vh;
-    overflow-y: scroll;
 }
 
 .body-cont.base > .wrapper {
@@ -211,6 +204,8 @@ hr {
     column-gap: 16px;
     row-gap: 8px;
     flex-wrap: wrap;
+
+    list-style: none;
 }
 
 .body-cont.base header nav li {
