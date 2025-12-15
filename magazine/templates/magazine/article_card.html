@@ -1,9 +1,7 @@
 {% load static %}
 
 <div class="article-card">
-    <h3 class = "article-title">
-        <a href="{% url 'article_page' article.slug %}">{{ article.title }}</a>
-    </h3>
+    <a href="{% url 'article_page' article.slug %}"><h3 class="article-title">{{ article.title }}</h3></a>
     
     <p class="byline">
         {% if article.authors.all|length > 2 %}
@@ -32,6 +30,6 @@
             {% endwith %}
         {% endwith %}
     {% else %}
-        {{article.body | create_md | imgremove | truncatewords_html:50 | safe}}
+        {{article.body | create_md | imgremove | truncatewords_html:100 | safe}}
     {% endif %}
 </div>

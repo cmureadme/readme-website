@@ -1,4 +1,5 @@
 .article-card {
+    display: block;
     border: 1px solid var(--border-color);
     padding: 24px;
     margin-bottom: 12px;
@@ -20,12 +21,6 @@
 .article-card p.byline {
     font-family: var(--byline-font-stack);
     margin-bottom: 12px;
-}
-
-.article-card p.byline a {
-    color: unset;
-    text-decoration: none;
-    font-weight: bold;
 }
 
 .article-card img {
