@@ -15,18 +15,26 @@
 }
 
 .cont.about-us .sub-cont {
-    margin-bottom: 12px;
+    margin-bottom: 24px;
 }
 
 .cont.about-us .img-cont {
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
 .cont.about-us img {
-    width: 50%;
+    width: 33.33%;
+    margin-left: 12px;
 }
 
 .cont.about-us ul {
     list-style-type: initial;
+}
+
+.cont.about-us .donate-link {
+    display: block;
+    text-align: center;
+    font-weight: 900;
+    font-size: 24px;
 }
