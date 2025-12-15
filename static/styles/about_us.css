@@ -11,11 +11,11 @@
 }
 
 .cont.about-us .top-cont {
-    margin-bottom: 24px;
+    margin-bottom: 48px;
 }
 
-.cont.about-us .sub-cont {
-    margin-bottom: 24px;
+.cont.about-us .sub-cont:not(:last-child) {
+    margin-bottom: 48px;
 }
 
 .cont.about-us .img-cont {
