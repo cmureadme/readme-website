@@ -20,8 +20,5 @@
 }
 
 .cont.issue .rejected-headlines ul {
-    list-style-type: initial;
-    margin: 0;
-    padding: 0;
-    list-style-position: inside;
+    padding-left: 24px;
 }
