@@ -106,8 +106,7 @@ class Issue(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
 
-    authors = models.ManyToManyField("Author", related_name="articles", blank=True)
-    anon_authors = models.IntegerField(null=True)
+    authors = models.ManyToManyField("Author", related_name="articles")
     body = models.TextField(help_text="This uses markdown formating. If you want to have an image in an article you add one like this {{imagename.fileextension}}")
     created_on = models.DateField(blank=True, null=True, help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.")
     true_created_on = models.DateField(

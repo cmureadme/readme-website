@@ -28,7 +28,6 @@ class ArticleAdminForm(forms.ModelForm):
         fields = (
             "title",
             "authors",
-            "anon_authors",
             "body",
             "slug",
             "issue",
