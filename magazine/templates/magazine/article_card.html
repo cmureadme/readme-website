@@ -24,7 +24,6 @@
     </p>
 
     {% load tag %}
-    <p>
     {% is_image_article article.body as x %}
     {% if x %}
         {% with vol=article.issue.vol|stringformat:"s" num=article.issue.num|stringformat:"s" %}
@@ -35,5 +34,4 @@
     {% else %}
         {{article.body | create_md | imgremove | truncatewords_html:50 | safe}}
     {% endif %}
-    </p>
 </div>

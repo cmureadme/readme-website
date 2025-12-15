@@ -15,7 +15,7 @@ def add_img_folder(folder):
     def add_img(filename):
         #return f"<img src=\"/static/{folder}/{filename}\" width=500>"
         # TODO EXPLICIT STATIC USED ie not static django tag
-        return f"<img src=\"{settings.MEDIA_URL}{folder}{filename}\" style=\"width: 50%; margin-left: 25%; height: auto;\"><br>\n\n"
+        return f"<img src=\"{settings.MEDIA_URL}{folder}{filename}\"/>\n\n"
     return add_img
 
 @register.filter(name = "imgswitch")
