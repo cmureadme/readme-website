@@ -1,5 +1,5 @@
 from django import forms
-from .models import Author, Article, ArticleImage, PaidFor, RejectedHeadline, Issue
+from .models import Author, Article, ArticleImage, ImageGag, PaidFor, RejectedHeadline, Issue
 from django.core.validators import validate_image_file_extension
 
 
@@ -48,6 +48,24 @@ class ArticleAdminForm(forms.ModelForm):
         for upload in self.files.getlist("images"):
             image = ArticleImage(show=show, image=upload)
             image.save()
+
+
+class ImageGagAdminForm(forms.ModelForm):
+    class Meta:
+        model = ImageGag
+        fields = (
+            "artists",
+            "anon_artists",
+            "image",
+            "alt_text",
+            "caption",
+            "slug",
+            "issue",
+            "published",
+            "front_page",
+            "featured",
+            "created_on",
+        )
 
 
 class PaidForForm(forms.ModelForm):

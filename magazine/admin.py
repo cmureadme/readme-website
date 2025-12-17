@@ -4,12 +4,14 @@ from magazine.models import (
     Author,
     Article,
     ArticleImage,
+    ImageGag,
     PaidFor,
     RejectedHeadline,
 )
 from magazine.forms import (
     ArticleAdminForm,
     AuthorAdminForm,
+    ImageGagAdminForm,
     RejectedHeadlineForm,
     PaidForForm,
     IssueForm,
@@ -48,6 +50,12 @@ class ArticleAdmin(admin.ModelAdmin):
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
+
+
+@admin.register(ImageGag)
+class ImageGagAdmin(admin.ModelAdmin):
+    model = ImageGag
+    form = ImageGagAdminForm
 
 
 @admin.register(PaidFor)

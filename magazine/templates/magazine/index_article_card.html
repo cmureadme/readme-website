@@ -10,12 +10,8 @@
     {% include "./byline.html" %}
 
     {% load tag %}
-    {% is_image_article article.body as x %}
-    {% if x %}
-        {{ article.body_html|safe }}
-    {% else %}
-        {{article.body_html|truncatewords_html:50|safe}}
-    {% endif %}
+    {{article.body_html|truncatewords_html:50|safe}}
+    
     <p><a href="{% url 'article_page' article.slug %}">Read more</a></p>
 </div>
 

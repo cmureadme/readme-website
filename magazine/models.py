@@ -244,6 +244,62 @@ class ArticleImage(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
 
 
+# Django expects two arguments instance and filename
+def image_gag_upload_path(instance, filename):
+    return image_path_fragment(instance.issue, filename)
+
+
+class ImageGag(models.Model):
+    artists = models.ManyToManyField("Author", related_name="image_gags", blank=True)
+    anon_artists = models.IntegerField(default=0)
+    image = models.ImageField(upload_to=image_gag_upload_path)
+    alt_text = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
+    caption = models.TextField(blank=True)
+    created_on = models.DateField(
+        blank=True,
+        null=True,
+        help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.",
+    )
+    true_created_on = models.DateField(
+        blank=True,
+        null=True,
+        help_text="field hidden from admin panel. "
+        "can be updated when this Article or its corresponding Issue is updated. "
+        "should prefer Article's date, falling back to Issue if it was NULL.",
+    )
+    last_modified = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(
+        unique=True,
+        help_text="The slug is in the url like this: cmureadme.com/articles/slug use dashes as spaces example-slug-like-this",
+    )
+    issue = models.ForeignKey("Issue", related_name="image_gags", on_delete=models.PROTECT)
+    front_page = models.BooleanField(
+        default=False,
+        help_text="If this article was on the front page of the issue in which it was published",
+    )
+    featured = models.BooleanField(
+        default=False,
+        help_text="If we want this article to have a higher chance of being featured",
+    )
+    published = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
+
+    def save(self, **kwargs):
+        super().save(**kwargs)  # Call the "real" save() method.
+        if self.created_on is not None:
+            self.true_created_on = self.created_on
+            print("setting true to self")
+        else:
+            self.true_created_on = self.issue.release_date
+            print("setting true to issue")
+        super().save(**kwargs)  # Call the "real" save() method.
+
+    def __str__(self) -> str:
+        return self.slug + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
+
+
 class PaidFor(models.Model):
     title = models.CharField(
         max_length=CHARFIELD_MAX_LENGTH,
