@@ -158,11 +158,7 @@ class Migration(migrations.Migration):
                     "archive",
                     models.FileField(
                         upload_to=magazine.models.issue_upload_path,
-                        validators=[
-                            django.core.validators.FileExtensionValidator(
-                                allowed_extensions=["pdf"]
-                            )
-                        ],
+                        validators=[django.core.validators.FileExtensionValidator(allowed_extensions=["pdf"])],
                     ),
                 ),
                 (
@@ -218,9 +214,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "image",
-                    models.ImageField(
-                        upload_to=magazine.models.article_image_upload_path
-                    ),
+                    models.ImageField(upload_to=magazine.models.article_image_upload_path),
                 ),
                 ("alt_text", models.CharField(blank=True, max_length=1024)),
                 ("last_modified", models.DateTimeField(auto_now=True)),

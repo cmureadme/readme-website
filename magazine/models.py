@@ -31,9 +31,7 @@ class Author(models.Model):
     fact = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
     email = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
     last_modified = models.DateTimeField(auto_now=True)
-    alias_of = models.ForeignKey(
-        "Author", related_name="aliases", on_delete=models.PROTECT, null=True
-    )
+    alias_of = models.ForeignKey("Author", related_name="aliases", on_delete=models.PROTECT, null=True)
 
     # When you want to use the author image you do author.img_url now
     # This allows us to easily make the anon.png image the default pfp while keeping it in the static folder
@@ -114,9 +112,7 @@ class Issue(models.Model):
 
     def archive_path(self):
         """self's issue pdf, if one exists, shall live at {{self.archive_path()}}"""
-        return (
-            f"vol{self.vol}/issue{self.num}/CMUREADME_VOL{self.vol}_ISSUE{self.num}.pdf"
-        )
+        return f"vol{self.vol}/issue{self.num}/CMUREADME_VOL{self.vol}_ISSUE{self.num}.pdf"
 
     def save(self, **kwargs):
         super().save(**kwargs)  # Call the "real" save() method.
@@ -154,9 +150,7 @@ class Article(models.Model):
         unique=True,
         help_text="The slug is in the url like this: cmureadme.com/articles/slug use dashes as spaces example-slug-like-this",
     )
-    issue = models.ForeignKey(
-        "Issue", related_name="articles", on_delete=models.PROTECT
-    )
+    issue = models.ForeignKey("Issue", related_name="articles", on_delete=models.PROTECT)
     front_page = models.BooleanField(
         default=False,
         help_text="If this article was on the front page of the issue in which it was published",
@@ -186,9 +180,7 @@ class Article(models.Model):
 
 # Django expects two arguments instance and filename
 def article_image_upload_path(instance, filename):
-    return (
-        f"vol{instance.show.issue.vol}/issue{instance.show.issue.num}/images/{filename}"
-    )
+    return f"vol{instance.show.issue.vol}/issue{instance.show.issue.num}/images/{filename}"
 
 
 class ArticleImage(models.Model):
@@ -219,9 +211,7 @@ class RejectedHeadline(models.Model):
         default=False,
         help_text="If this rejected headline is really funny and we want it to have a high chance of being on the front page ticker",
     )
-    issue = models.ForeignKey(
-        "Issue", related_name="articles_issue", on_delete=models.PROTECT
-    )
+    issue = models.ForeignKey("Issue", related_name="articles_issue", on_delete=models.PROTECT)
     last_modified = models.DateTimeField(auto_now=True)
 
     class Meta:

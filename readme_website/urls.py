@@ -31,9 +31,7 @@ urlpatterns = [
             "https://givenow.cmu.edu/schools/CarnegieMellonUniversity/giving-cmu-day-2025/pages/student-organizations/kgb"
         ),
     ),
-    path(
-        "discord", lambda request: HttpResponseRedirect("https://discord.gg/8eR4C3wuty")
-    ),
+    path("discord", lambda request: HttpResponseRedirect("https://discord.gg/8eR4C3wuty")),
     path(
         "instagram",
         lambda request: HttpResponseRedirect("https://www.instagram.com/readme.news/"),

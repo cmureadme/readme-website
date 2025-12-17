@@ -53,9 +53,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="author",
             name="bio",
-            field=models.TextField(
-                blank=True, help_text="This uses markdown formating"
-            ),
+            field=models.TextField(blank=True, help_text="This uses markdown formating"),
         ),
         migrations.AlterField(
             model_name="author",
@@ -82,7 +80,5 @@ class Migration(migrations.Migration):
             name="year",
             field=models.CharField(blank=True, max_length=1024),
         ),
-        migrations.RunPython(
-            code=blankify_left_empties, reverse_code=left_emptyify_blanks
-        ),
+        migrations.RunPython(code=blankify_left_empties, reverse_code=left_emptyify_blanks),
     ]

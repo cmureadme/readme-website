@@ -6,9 +6,7 @@ from . import views
 urlpatterns = [
     path(
         "podcasts/artificial-intelligence-for-real-this-time",
-        lambda request: HttpResponseRedirect(
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        ),
+        lambda request: HttpResponseRedirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ"),
     ),
     path("", views.index, name="index"),
     path("stories", views.stories, name="stories"),

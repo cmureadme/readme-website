@@ -17,8 +17,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="article",
             name="authors",
-            field=models.ManyToManyField(
-                blank=True, related_name="articles", to="magazine.author"
-            ),
+            field=models.ManyToManyField(blank=True, related_name="articles", to="magazine.author"),
         ),
     ]

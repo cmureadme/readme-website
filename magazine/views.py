@@ -18,14 +18,7 @@ def index(request):
     # Prevents front page from crashing if latest issue has very few articles
     # ie Latest issue is in the proccess of being uploaded
     i = 1
-    while (
-        len(
-            Article.objects.all().filter(
-                Q(published=True) & Q(issue__name__contains=latest_issue.name)
-            )
-        )
-        <= 5
-    ):
+    while len(Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name))) <= 5:
         latest_issue = Issue.objects.all().order_by("-vol", "-num")[i]
         second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
         i += 1
@@ -34,10 +27,7 @@ def index(request):
         Article.objects.all()
         .filter(
             Q(published=True)
-            & (
-                Q(issue__name__contains=latest_issue.name)
-                | Q(issue__name__contains=second_latest_issue.name)
-            )
+            & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))
         )
         .order_by("?")[0:5]
     )
@@ -46,18 +36,14 @@ def index(request):
     secondary_articles = secondary_articles[0:num_secondary_articles]
 
     # Will pull from the best rejected headlines
-    feat_rej_heads = (
-        RejectedHeadline.objects.all().filter(Q(featured=True)).order_by("?")
-    )
+    feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=True)).order_by("?")
     if len(feat_rej_heads) > 20:
         feat_rej_heads = feat_rej_heads[:20]
     else:
         feat_rej_heads = feat_rej_heads[:]
 
     # Will pull from non featured rejected headlines
-    non_feat_rej_heads = (
-        RejectedHeadline.objects.all().filter(Q(featured=False)).order_by("?")
-    )
+    non_feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=False)).order_by("?")
     if len(non_feat_rej_heads) > 20:
         non_feat_rej_heads = non_feat_rej_heads[:20]
     else:
@@ -84,18 +70,10 @@ def index(request):
         )
         .order_by("?")[0],
         "article": Article.objects.all()
-        .filter(
-            Q(published=True)
-            & Q(issue__name__contains=latest_issue.name)
-            & Q(images__isnull=True)
-        )
+        .filter(Q(published=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=True))
         .order_by("?")[0],
         "image": Article.objects.all()
-        .filter(
-            Q(published=True)
-            & Q(issue__name__contains=latest_issue.name)
-            & Q(images__isnull=False)
-        )
+        .filter(Q(published=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False))
         .order_by("?")[0],
     }
 
@@ -112,9 +90,7 @@ def index(request):
 def author_list(request):
     context = {
         "usual_suspects": Author.objects.filter(author_status="US", alias_of=None),
-        "independent_contractors": Author.objects.filter(
-            author_status="IC", alias_of=None
-        ),
+        "independent_contractors": Author.objects.filter(author_status="IC", alias_of=None),
         "escapees": Author.objects.filter(author_status="EE", alias_of=None),
     }
     return render(request, "magazine/author_list.html", context)
@@ -131,13 +107,8 @@ def author(request, author):
 
     articles = [
         article
-        for article in Article.objects.order_by(
-            "-issue__vol", "-issue__num", "-true_created_on"
-        ).filter(published=True)
-        if any(
-            article_author.root_slug == author.slug
-            for article_author in article.authors.all()
-        )
+        for article in Article.objects.order_by("-issue__vol", "-issue__num", "-true_created_on").filter(published=True)
+        if any(article_author.root_slug == author.slug for article_author in article.authors.all())
     ]
     page_num = request.GET.get("page", 1)
     paginator = Paginator(articles, per_page=5)
@@ -184,9 +155,7 @@ def issue(request, vol, num):
     articles = Article.objects.filter(issue__name__contains=issue.name).order_by(
         "-front_page", "-featured", "-true_created_on"
     )
-    rejected_headlines = RejectedHeadline.objects.filter(
-        issue__name__contains=issue.name
-    )
+    rejected_headlines = RejectedHeadline.objects.filter(issue__name__contains=issue.name)
 
     context = {
         "issue": issue,
@@ -358,6 +327,4 @@ def stories(request):
 
 
 def random(request):
-    return redirect(
-        reverse("article_page", args=[Article.objects.order_by("?").first().slug])
-    )
+    return redirect(reverse("article_page", args=[Article.objects.order_by("?").first().slug]))
