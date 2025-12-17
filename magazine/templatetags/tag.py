@@ -6,7 +6,6 @@ register = template.Library()
 
 @register.filter
 def create_md(source):
-    #return source
     return markdown.Markdown(extensions=["fenced_code"]).convert(source)
 
 #TODO: Figure out if we need to change this function - lerbsen
