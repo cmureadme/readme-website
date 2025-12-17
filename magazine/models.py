@@ -28,7 +28,12 @@ class ImageURLTreeprocessor(Treeprocessor):
     def run(self, root):
         for img in root.iter("img"):
             if "src" in img.attrib:
-                img.attrib["src"] = self.extension.getConfig("img_src_to_uri")(img.attrib["src"])
+                path = self.extension.getConfig("img_src_to_uri")(img.attrib["src"])
+
+                img.attrib["src"] = settings.MEDIA_URL + path
+
+                if "alt" not in img.attrib or img.attrib["alt"] == "":
+                    img.attrib["alt"] = ArticleImage.objects.filter(image__exact=path).get().alt_text
 
 
 image_url_extension = ImageURLExtension()
@@ -77,7 +82,7 @@ class Author(models.Model):
 
     def bio_html(self):
         def img_src_to_uri(src: str):
-            return settings.MEDIA_URL + "author_images/" + src
+            return "author_images/" + src
 
         image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
 
@@ -202,7 +207,7 @@ class Article(models.Model):
 
     def body_html(self, images: bool = True):
         def img_src_to_uri(src: str):
-            return settings.MEDIA_URL + image_path_fragment(self.issue, src)
+            return image_path_fragment(self.issue, src)
 
         image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
 
