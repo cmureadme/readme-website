@@ -21,6 +21,7 @@
 .article-card p.byline {
     font-family: var(--byline-font-stack);
     margin-bottom: 12px;
+    text-align: left;
 }
 
 .article-card img {

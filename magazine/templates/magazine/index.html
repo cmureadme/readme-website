@@ -18,7 +18,7 @@
 
             <div class="module-1">
                 <div class="module-column">
-                    {% include "./index_article_card.html" with article=feat_articles.column %}
+                    {% include "./index_article_card.html" with article=feat_articles.column centered=True %}
                 </div>
 
                 <div class="module-wide">
@@ -28,7 +28,7 @@
                 
                     {% with imagearticle=feat_articles.image %}
                     {% with image=imagearticle.images.first %}
-                    <div>
+                    <div class="fucked-image">
                         <a href="{% url 'article_page' imagearticle.slug %}">
                             <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
                         </a>
