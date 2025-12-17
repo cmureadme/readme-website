@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp lint.sh .git/hooks/pre-commit
+ln -s ../../lint.sh .git/hooks/pre-commit
