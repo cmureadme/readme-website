@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="index-article-card">
+<div class="index-article-card{% if centered %} centered{% endif %}">
     <h2>
         <a href="{% url 'article_page' article.slug %}">
             {{ article.title }}
