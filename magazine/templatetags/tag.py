@@ -1,38 +1,6 @@
-import markdown
 from django import template
-from django.conf import settings
-import re
 
 register = template.Library()
-
-
-@register.filter
-def create_md(source):
-    return markdown.Markdown(extensions=["fenced_code"]).convert(source)
-
-
-# TODO: Figure out if we need to change this function - lerbsen
-# It seems like the commented out part was the old one and the TODO was fixed???
-def add_img_folder(folder):
-    def add_img(filename):
-        # return f"<img src=\"/static/{folder}/{filename}\" width=500>"
-        # TODO EXPLICIT STATIC USED ie not static django tag
-        return f'<img src="{settings.MEDIA_URL}{folder}{filename}"/>\n\n'
-
-    return add_img
-
-
-@register.filter(name="imgswitch")
-def replace_double_braces(arg, folder):
-    pattern = r"\{\{([^}]*)\}\}"
-    replace = add_img_folder(folder)
-    modified_text = re.sub(pattern, lambda x: replace(x.group(1)), arg)
-    return modified_text
-
-
-@register.filter
-def imgremove(arg):
-    return re.sub(r"\{\{.*?\}\}", "", arg)
 
 
 # Check if an article is really just an image article

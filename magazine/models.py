@@ -4,6 +4,35 @@ from django.utils.translation import gettext_lazy
 import datetime
 from django.templatetags.static import static
 from django.db.models.query import QuerySet
+from django.conf import settings
+
+import markdown
+from markdown.treeprocessors import Treeprocessor
+
+
+class ImageURLExtension(markdown.extensions.Extension):
+    def __init__(self, **kwargs):
+        self.config = {"img_src_to_uri": ["", ""]}
+        super(ImageURLExtension, self).__init__(**kwargs)
+
+    def extendMarkdown(self, md: markdown.Markdown):
+        md.registerExtension(self)
+
+        md.treeprocessors.register(ImageURLTreeprocessor(self), "image_url", -10)
+
+
+class ImageURLTreeprocessor(Treeprocessor):
+    def __init__(self, extension: ImageURLExtension):
+        self.extension: ImageURLExtension = extension
+
+    def run(self, root):
+        for img in root.iter("img"):
+            if "src" in img.attrib:
+                img.attrib["src"] = self.extension.getConfig("img_src_to_uri")(img.attrib["src"])
+
+
+image_url_extension = ImageURLExtension()
+md = markdown.Markdown(extensions=["fenced_code", image_url_extension])
 
 CHARFIELD_MAX_LENGTH = 1024
 
@@ -46,7 +75,14 @@ class Author(models.Model):
         except (ValueError, AttributeError):
             return static("anon.png")
 
-    @property
+    def bio_html(self):
+        def img_src_to_uri(src: str):
+            return settings.MEDIA_URL + "author_images/" + src
+
+        image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
+
+        return md.convert(self.bio)
+
     # Follow alias_of until root author is found, then return that slug
     def root_slug(self):
         visited = set()
@@ -164,6 +200,14 @@ class Article(models.Model):
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
 
+    def body_html(self, images: bool = True):
+        def img_src_to_uri(src: str):
+            return settings.MEDIA_URL + image_path_fragment(self.issue, src)
+
+        image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
+
+        return md.convert(self.body)
+
     def save(self, **kwargs):
         super().save(**kwargs)  # Call the "real" save() method.
         if self.created_on is not None:
@@ -178,9 +222,13 @@ class Article(models.Model):
         return self.slug + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
 
 
+def image_path_fragment(issue, filename):
+    return f"vol{issue.vol}/issue{issue.num}/images/{filename}"
+
+
 # Django expects two arguments instance and filename
 def article_image_upload_path(instance, filename):
-    return f"vol{instance.show.issue.vol}/issue{instance.show.issue.num}/images/{filename}"
+    return image_path_fragment(instance.show.issue, filename)
 
 
 class ArticleImage(models.Model):

@@ -12,13 +12,9 @@
     {% load tag %}
     {% is_image_article article.body as x %}
     {% if x %}
-        {% with vol=article.issue.vol|stringformat:"s" num=article.issue.num|stringformat:"s" %}
-            {% with folder_path="vol"|add:vol|add:"/issue"|add:num|add:"/images/" %}
-                {{ article.body|create_md|imgswitch:folder_path|safe }}
-            {% endwith %}
-        {% endwith %}
+        {{ article.body_html|safe }}
     {% else %}
-        {{article.body | create_md | imgremove | truncatewords_html:50 | safe}}
+        {{article.body_html|truncatewords_html:50|safe}}
     {% endif %}
     <p><a href="{% url 'article_page' article.slug %}">Read more</a></p>
 </div>

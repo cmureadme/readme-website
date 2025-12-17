@@ -38,7 +38,7 @@
         <h2>Bio</h2>
 
         {% if author.bio != "" %}
-        {{ author.bio|create_md|safe }}
+        {{ author.bio_html|safe }}
         {% else %}
         <p>Unknowable and mysterious.</p>
         {% endif %}
