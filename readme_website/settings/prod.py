@@ -4,10 +4,6 @@
 from .host import *
 
 # https://docs.djangoproject.com/en/5.2/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [
-    '.cmureadme.com'
-]
+ALLOWED_HOSTS = [".cmureadme.com"]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://cmureadme.com"
-]
+CSRF_TRUSTED_ORIGINS = ["https://cmureadme.com"]

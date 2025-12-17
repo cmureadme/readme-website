@@ -1,6 +1,20 @@
 from django.contrib import admin
-from magazine.models import Issue, Author, Article, ArticleImage, PaidFor, RejectedHeadline
-from magazine.forms import ArticleAdminForm, AuthorAdminForm, RejectedHeadlineForm, PaidForForm, IssueForm
+from magazine.models import (
+    Issue,
+    Author,
+    Article,
+    ArticleImage,
+    PaidFor,
+    RejectedHeadline,
+)
+from magazine.forms import (
+    ArticleAdminForm,
+    AuthorAdminForm,
+    RejectedHeadlineForm,
+    PaidForForm,
+    IssueForm,
+)
+
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -10,10 +24,12 @@ class AuthorAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     list_filter = ["author_status"]
 
+
 @admin.register(Issue)
 class IssueAdmin(admin.ModelAdmin):
     model = Issue
     form = IssueForm
+
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
@@ -33,10 +49,12 @@ class ArticleAdmin(admin.ModelAdmin):
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
 
+
 @admin.register(PaidFor)
 class PaidForAdmin(admin.ModelAdmin):
     model = PaidFor
     form = PaidForForm
+
 
 @admin.register(RejectedHeadline)
 class RejectedHeadlineAdmin(admin.ModelAdmin):

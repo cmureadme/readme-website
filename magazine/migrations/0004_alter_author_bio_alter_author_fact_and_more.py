@@ -3,6 +3,7 @@
 from django.apps.registry import Apps
 from django.db import migrations, models
 
+
 def blankify_left_empties(apps: Apps, schema_editor):
     Author = apps.get_model("magazine", "Author")
 
@@ -21,8 +22,9 @@ def blankify_left_empties(apps: Apps, schema_editor):
             obj.major = ""
         if obj.year.strip().lower() == "left_empty":
             obj.year = ""
-        
+
         obj.save()
+
 
 def left_emptyify_blanks(apps: Apps, schema_editor):
     Author = apps.get_model("magazine", "Author")
@@ -38,43 +40,49 @@ def left_emptyify_blanks(apps: Apps, schema_editor):
             obj.roles = "Staffwriter"
         if obj.year == "":
             obj.year = "left_empty"
-        
+
         obj.save()
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [
-        ('magazine', '0003_author_alias_of'),
+        ("magazine", "0003_author_alias_of"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='author',
-            name='bio',
-            field=models.TextField(blank=True, help_text='This uses markdown formating'),
+            model_name="author",
+            name="bio",
+            field=models.TextField(
+                blank=True, help_text="This uses markdown formating"
+            ),
         ),
         migrations.AlterField(
-            model_name='author',
-            name='fact',
+            model_name="author",
+            name="fact",
             field=models.CharField(blank=True, max_length=1024),
         ),
         migrations.AlterField(
-            model_name='author',
-            name='major',
+            model_name="author",
+            name="major",
             field=models.CharField(blank=True, max_length=1024),
         ),
         migrations.AlterField(
-            model_name='author',
-            name='roles',
-            field=models.CharField(blank=True, default='Staffwriter', help_text='Defaults to Staffwriter, change this to Staff Artist if someone only makes images. Can also add exec roles for exec members or other funny roles if people want', max_length=1024),
+            model_name="author",
+            name="roles",
+            field=models.CharField(
+                blank=True,
+                default="Staffwriter",
+                help_text="Defaults to Staffwriter, change this to Staff Artist if someone only makes images. Can also add exec roles for exec members or other funny roles if people want",
+                max_length=1024,
+            ),
         ),
         migrations.AlterField(
-            model_name='author',
-            name='year',
+            model_name="author",
+            name="year",
             field=models.CharField(blank=True, max_length=1024),
         ),
         migrations.RunPython(
-            code=blankify_left_empties,
-            reverse_code=left_emptyify_blanks
-        )
+            code=blankify_left_empties, reverse_code=left_emptyify_blanks
+        ),
     ]
