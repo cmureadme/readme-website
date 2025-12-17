@@ -33,7 +33,12 @@ class ImageURLTreeprocessor(Treeprocessor):
                 img.attrib["src"] = settings.MEDIA_URL + path
 
                 if "alt" not in img.attrib or img.attrib["alt"] == "":
-                    img.attrib["alt"] = ArticleImage.objects.filter(image__exact=path).get().alt_text
+                    try:
+                        img.attrib["alt"] = ArticleImage.objects.filter(image__exact=path).get().alt_text
+                    except ArticleImage.DoesNotExist:
+                        pass
+                    except ArticleImage.MultipleObjectsReturned:
+                        pass
 
 
 image_url_extension = ImageURLExtension()
@@ -210,6 +215,8 @@ class Article(models.Model):
             return image_path_fragment(self.issue, src)
 
         image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
+
+        print(md.convert(self.body))
 
         return md.convert(self.body)
 
