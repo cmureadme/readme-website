@@ -1,0 +1,22 @@
+.cont.image-gag .img-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont.image-gag .img-cont img {
+    max-width: 100%;
+    margin-bottom: 6px;
+}
+
+.cont.image-gag p.byline {
+    text-align: center;
+    font-family: var(--byline-font-stack);
+    margin-top: 12px;
+}
+
+.cont.image-gag p.byline a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}

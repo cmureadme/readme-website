@@ -286,6 +286,14 @@ class ImageGag(models.Model):
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
 
+    def caption_html(self):
+        def img_src_to_uri(src: str):
+            return image_path_fragment(self.issue, src)
+
+        image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
+
+        return md.convert(self.caption)
+
     def save(self, **kwargs):
         super().save(**kwargs)  # Call the "real" save() method.
         if self.created_on is not None:

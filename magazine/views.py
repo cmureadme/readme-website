@@ -1,4 +1,4 @@
-from magazine.models import Article, Author, Issue, PaidFor, RejectedHeadline
+from magazine.models import Article, ImageGag, Author, Issue, PaidFor, RejectedHeadline
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404
@@ -180,6 +180,17 @@ def article_page(request, slug):
     context = {"article": article}
 
     return render(request, "magazine/article_page.html", context)
+
+
+def image_gag(request, slug):
+    try:
+        image_gag = ImageGag.objects.get(slug=slug)
+    except ImageGag.DoesNotExist:
+        raise Http404
+
+    context = {"image_gag": image_gag}
+
+    return render(request, "magazine/image_gag.html", context)
 
 
 def about_us(request):
