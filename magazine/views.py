@@ -10,6 +10,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from random import shuffle
 
+import json
+
+purity_test_items_file = "./purity_test_items.json"
+with open(purity_test_items_file) as json_file:
+    purity_test_items = json.load(json_file)
+
 
 def index(request):
     latest_issue = Issue.objects.all().order_by("-vol", "-num")[0]
@@ -199,109 +205,7 @@ def donate(request):
 
 
 def purity_test(request):
-    items = [
-        "Fully forgotten about Core@CMU (or whatever it is these days)?",
-        "Taken a CMU course? (Congrats!)",
-        "Gotten lost on the way to class?",
-        "Gone to Mellon Institute for a class?",
-        "Taken a student-taught course?",
-        "Taken a class at 8:00 AM or earlier?",
-        "Taken a class at 6:00 PM or later?",
-        "Gotten waitlisted for an essential course to your major?",
-        "Gotten waitlisted to a weirdly popular stuco?",
-        "Gotten humbled by an entry level course?",
-        "Gotten humbled by a famous CMU CS course?",
-        "Overloaded on units?",
-        "Dropped a course?",
-        "Considered an additional major?",
-        "Be forced to no longer consider an additional major?",
-        "Change your major?",
-        "Turned in an assignment > 48 hours before its due date?",
-        "Turned in an assignment > 7 days after its due date?",
-        "Pulled an all-nighter for an assignment?",
-        "Used generative AI, specifically for first year writing?",
-        "Gotten an honest-to-god AIV?",
-        "Gotten away with what really could have been an AIV?",
-        "Calculated the exact final grade you need to get an A?",
-        "… and then gotten it? (you beautiful bastard, you!)",
-        "Gotten lost in Doherty hall?",
-        "Discovered levels below B in Doherty?",
-        "Escaped Doherty only to get lost in Wean?",
-        "Struggled to find where Newell-Simon is?",
-        "Noticed the blue tape in the floor of doorways across Wean, Doherty, and Scott?",
-        "Gone to a single-person study alcove in Hunt or Sorrells?",
-        "Literally not been able to find a single empty single-person alcove in Hunt or Sorrells?",
-        "Been disquieted by the gentle slope of Baker Hall?",
-        "Spotted a curious trapdoor?",
-        "Been woken up by your dorm neighbors?",
-        "Gotten locked out of your room?",
-        "Contracted a mysterious month-long illness?",
-        "Contracted, again, a similar mysterious illness?",
-        "Discovered our meal block black market?",
-        "Made a few bucks selling a block to an upperclassmen?",
-        "Bought a block off of a freshman?",
-        "Been obligated to block an upperclassman out of the goodness of your heart?",
-        "Negotiated a sweet free meal off of a freshman?",
-        "Gone to Schatz to eat alone?",
-        "Gotten food poisoning from Stack’d, Wild Blue, or Schatz?",
-        "Considered a visit to CAPS?",
-        "Seen inside the magnificent dirty swimming pool known as Donner?",
-        "Wistfully imagined how much better another dorm building would be?",
-        "Joined a buggy org?",
-        "Rushed a fraternity or sorority?",
-        "Dropped out of any of the above within a week?",
-        "Woken up before the sun’s risen for Saturday morning rolls?",
-        "Discovered that our school has a football team?",
-        "Felt proud of already knowing that our school has a football team, marching band, and some attending parents who watch?",
-        "Seen a Scotch and Soda production?",
-        "Seen one of the actual drama productions from the insane drama school we happen to be grafted onto?",
-        "Painted a fence?",
-        "Struggled to wash fence paint off of yourself for days afterwards?",
-        "Visited our dungeon robotics workshop?",
-        "Developed a campus crush?",
-        "… on someone you just made eye contact with during O-Week?",
-        "… on an above-average looking TA?",
-        "… on your Orientation staff or RA staff?",
-        "… on a graduate student?",
-        "Considered becoming a TA, joining O-Staff, or entering some other organization such that someone would develop this campus crush on you?",
-        "Asked someone on campus out?",
-        "Had an actual honest-to-god serious conversation about a relationship?",
-        "Ever kissed someone, outside of family?",
-        "Ever kissed someone of a sex/gender your not attracted to for the bit?",
-        "… No, no way in hell you have. I’m not even asking.",
-        "Sexiled a roommate, or gotten sexiled?",
-        "Come to regret how many new apps you now own on CMU’s behalf?",
-        "Had MobileID inconveniently need re-authentication at the worst time?",
-        "Noticed that you can swipe down on the Duo top-of-the-screen authentication popup to accept it without opening Duo itself?",
-        "Opened CSAcademy?",
-        "Gotten on CMU Sidechat?",
-        "Submitted to CMU Missed Connections?",
-        "Been a recipient of a missed connection?",
-        "Made a LinkedIn profile? (Free if you already own one, nerd)",
-        "Used LinkedIn to start comparing yourself to the achievements of your old HS colleagues?",
-        "Had to explain CMU’s existence to somebody?",
-        "Given up on defending CMU to somebody?",
-        "Gone out to Flagstaff Hill and enjoyed the view?",
-        "Gotten on a PRT bus?",
-        "Accepted that Transit is the superior app for getting PRT bus information?",
-        "Gotten into a local exhibit or museum for free with your student card?",
-        "Visited the Ikea?",
-        "… and felt a unique way about the shark plushies?",
-        "Visited Cathy?",
-        "Interacted with a Pitt student?",
-        "… without giving away what school you’re from?",
-        "Attended a college party?",
-        "… and lost memory of part of it?",
-        "… and had to carry a friend home after?",
-        "Come out the other side an entirely different gender?",
-        "Considered working for any of the most hilariously inhuman industries on earth?",
-        "Had your heart broken by someone that was completely not worth it in hindsight?",
-        "Disappointed your parents out here?",
-        "Felt imposter syndrome being at this school?",
-        "Taken a deep breath and remembered that it will all turn out alright?",
-        "Experienced such majestic joy with a ReadMe magazine that you already can’t wait for our next issue?",
-    ]
-    context = {"items": items}
+    context = {"items": purity_test_items}
     return render(request, "magazine/purity_test.html", context)
 
 
