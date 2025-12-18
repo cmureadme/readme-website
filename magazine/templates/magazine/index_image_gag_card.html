@@ -1,0 +1,9 @@
+{% load static %}
+
+<div class="index-image-gag-card">
+    <a class="img-cont" href="{% url 'image_gag' image_gag.slug %}">
+        <img alt="{{ image_gag.alt_text }}" src="{{ image_gag.image.url }}"/>
+    </a>
+    
+    {% include "./caption_byline.html" %}
+</div>

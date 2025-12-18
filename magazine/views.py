@@ -8,7 +8,8 @@ from django.db.models import Q
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from random import shuffle
+import random
+from math import floor
 
 import json
 
@@ -29,17 +30,56 @@ def index(request):
         second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
         i += 1
 
-    sidebar_articles = (
-        Article.objects.all()
-        .filter(
-            Q(published=True)
-            & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))
-        )
-        .order_by("?")[0:5]
+    sidebar_articles_pool = Article.objects.all().filter(
+        Q(published=True)
+        & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))
     )
-    secondary_articles = Article.objects.all().filter(Q(published=True)).order_by("?")
-    num_secondary_articles = min((len(secondary_articles) // 3) * 3, 24)
-    secondary_articles = secondary_articles[0:num_secondary_articles]
+    sidebar_image_gags_pool = ImageGag.objects.all().filter(
+        Q(published=True)
+        & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))
+    )
+
+    sidebar_articles_pool_count = sidebar_articles_pool.count()
+    sidebar_image_gags_pool_count = sidebar_image_gags_pool.count()
+
+    sidebar_num_items = min(5, sidebar_articles_pool_count + sidebar_image_gags_pool_count)
+    s_rand = random.random()
+    sidebar_num_image_gags = max(
+        min(
+            floor((3 * s_rand**3 - 4 * s_rand**2 + 2 * s_rand) * (sidebar_num_items + 1)), sidebar_image_gags_pool_count
+        ),
+        sidebar_num_items - sidebar_articles_pool_count,
+    )
+    sidebar_num_articles = sidebar_num_items - sidebar_num_image_gags
+
+    sidebar_types = ["article"] * sidebar_num_articles + ["image_gag"] * sidebar_num_image_gags
+    random.shuffle(sidebar_types)
+
+    sidebar_articles = [*sidebar_articles_pool.order_by("?")[0:sidebar_num_articles]]
+    sidebar_image_gags = [*sidebar_image_gags_pool.order_by("?")[0:sidebar_num_image_gags]]
+
+    secondary_articles_pool = Article.objects.filter(Q(published=True))
+    secondary_image_gags_pool = ImageGag.objects.filter(Q(published=True))
+
+    secondary_articles_pool_count = secondary_articles_pool.count()
+    secondary_image_gags_pool_count = secondary_image_gags_pool.count()
+
+    secondary_num_items = min(24, sidebar_articles_pool_count + sidebar_image_gags_pool_count)
+    n_rand = random.random()
+    secondary_num_image_gags = max(
+        min(
+            floor((3 * n_rand**3 - 4 * n_rand**2 + 2 * n_rand) * (secondary_num_items + 1)),
+            secondary_image_gags_pool_count,
+        ),
+        secondary_num_items - secondary_articles_pool_count,
+    )
+    secondary_num_articles = secondary_num_items - secondary_num_image_gags
+
+    secondary_types = ["article"] * secondary_num_articles + ["image_gag"] * secondary_num_image_gags
+    random.shuffle(secondary_types)
+
+    secondary_articles = [*secondary_articles_pool.order_by("?")[0:secondary_num_articles]]
+    secondary_image_gags = [*secondary_image_gags_pool.order_by("?")[0:secondary_num_image_gags]]
 
     # Will pull from the best rejected headlines
     feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=True)).order_by("?")
@@ -56,7 +96,7 @@ def index(request):
         non_feat_rej_heads = non_feat_rej_heads[:]
 
     all_rej_heads = feat_rej_heads + non_feat_rej_heads
-    shuffle(all_rej_heads)
+    random.shuffle(all_rej_heads)
 
     feat_articles = {
         "largest": Article.objects.all()
@@ -84,8 +124,12 @@ def index(request):
     }
 
     context = {
+        "sidebar_types": sidebar_types,
         "sidebar_articles": sidebar_articles,
+        "sidebar_image_gags": sidebar_image_gags,
+        "secondary_types": secondary_types,
         "secondary_articles": secondary_articles,
+        "secondary_image_gags": secondary_image_gags,
         "feat_articles": feat_articles,
         "MEDIA_URL": settings.MEDIA_URL,
         "rej_heads": all_rej_heads,
@@ -237,5 +281,5 @@ def stories(request):
     return render(request, "magazine/stories.html", context)
 
 
-def random(request):
+def random_article(request):
     return redirect(reverse("article_page", args=[Article.objects.order_by("?").first().slug]))
