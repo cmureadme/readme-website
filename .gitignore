@@ -1,6 +1,8 @@
 db.sqlite3
 media/
 
+.vscode/
+
 # DO NOT TOUCH BELOW THIS POINT :-)
 # -- GitHub's Python.gitignore --
 
