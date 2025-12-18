@@ -6,16 +6,28 @@
 
 .cont.image-gag .img-cont img {
     max-width: 100%;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
 }
 
-.cont.image-gag p.byline {
+.cont.image-gag .caption-byline {
     text-align: center;
-    font-family: var(--byline-font-stack);
-    margin-top: 12px;
+    font-size: 18px;
 }
 
-.cont.image-gag p.byline a {
+.cont.image-gag .caption-byline p {
+    font-size: inherit;
+}
+
+.cont.image-gag .caption p:last-child {
+    display: inline;
+}
+
+.cont.image-gag span.byline {
+    font-family: var(--byline-font-stack);
+    font-size: 16px;
+}
+
+.cont.image-gag span.byline a {
     color: inherit;
     text-decoration: none;
     font-weight: bold;
