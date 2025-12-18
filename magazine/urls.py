@@ -18,5 +18,5 @@ urlpatterns = [
     path("aboutus", views.about_us, name="about_us"),
     path("random", views.random, name="random"),
     path("article/<str:slug>/", views.article_page, name="article_page"),
-    path("image_gag/<str:slug>/", views.image_gag, name="image_gag"),
+    path("image/<str:slug>/", views.image_gag, name="image_gag"),
 ]
