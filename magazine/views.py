@@ -211,10 +211,6 @@ def paid_for(request):
     return {"paid_for": PaidFor.objects.order_by("?")[0]}
 
 
-def donate(request):
-    return render(request, "magazine/donate.html")
-
-
 def purity_test(request):
     context = {"items": purity_test_items}
     return render(request, "magazine/purity_test.html", context)

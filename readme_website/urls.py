@@ -36,6 +36,7 @@ urlpatterns = [
         "instagram",
         lambda request: HttpResponseRedirect("https://www.instagram.com/readme.news/"),
     ),
+    path("donate", lambda request: HttpResponseRedirect("https://commerce.cashnet.com/CMU231?cname=35")),
     path("404", lambda request: render(request, "404.html")),
 ]
 
