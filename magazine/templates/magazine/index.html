@@ -5,7 +5,6 @@
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/index.css' %}">
-<link rel="stylesheet" href="{% static 'styles/article_card.css' %}">
 {% endblock head-content %}
 
 {% block cont %}
@@ -40,19 +39,27 @@
         </div>
 
         <div class="sidebar">
-            {% for article in sidebar_articles %}
-                {% include "./index_article_card.html" %}
+            {% for item in sidebar_types %}
+                {% if item == "article" %}
+                    {% include "./index_article_card.html" with article=sidebar_articles.pop %}
+                {% elif item == "image_gag" %}
+                    {% include "./index_image_gag_card.html" with image_gag=sidebar_image_gags.pop %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>
 
     <div>
         <div class="addl-cont">
-                {% for article in secondary_articles %}
+                {% for item in secondary_types %}
                     {% if forloop.counter0|modulo:3 == 0 %}
                         <div>
                     {% endif %}
-                            {% include "./index_article_card.html" %}
+                    {% if item == "article" %}
+                            {% include "./index_article_card.html" with article=secondary_articles.pop %}
+                    {% elif item == "image_gag" %}
+                            {% include "./index_image_gag_card.html" with image_gag=secondary_image_gags.pop %}
+                    {% endif %}
                     {% if forloop.counter0|modulo:3 != 2 %}
                             <div class="divider"></div>
                     {% else %}
@@ -66,9 +73,9 @@
 {% endblock cont %}
 
 {% block body-suffix %}
-<div id="ticker"><div>{% for rej_head in rej_heads %}{{ rej_head.title|trim_rh }} • {% endfor %}{% for rej_head in rej_heads %}{{ rej_head.title }}{% if not forloop.last %} • {% endif %}{% endfor %}</div></div>
+<div id="ticker"><div>{% for rej_head in rej_heads %}{{ rej_head.title|trim_rh }} &bull; {% endfor %}{% for rej_head in rej_heads %}{{ rej_head.title }}{% if not forloop.last %} &bull; {% endif %}{% endfor %}</div></div>
 
-<!-- Make sure this runs after font has loaded!!! -->
+<!-- TODO: Make sure this runs after font has loaded!!! -->
 <script>
     {
         const ticker = document.getElementById("ticker");

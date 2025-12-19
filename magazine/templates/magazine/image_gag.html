@@ -1,0 +1,19 @@
+{% extends "wrapper.html" %}
+
+{% load static %}
+
+{% block title %}{{ image_gag.alt_text|default:"Image" }} - Readme{% endblock title %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/image_gag.css' %}">
+{% endblock head-content %}
+
+{% block wrapper-cont %}
+<div class="cont image-gag">
+    <div class="img-cont">
+        <img alt="{{ image_gag.alt_text }}" src="{{ image_gag.image.url }}"/>
+    </div>
+
+    {% include "./caption_byline.html" %}
+</div>
+{% endblock wrapper-cont %}

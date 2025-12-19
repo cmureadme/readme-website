@@ -5,15 +5,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('magazine', '0002_author_slug'),
+        ("magazine", "0002_author_slug"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='author',
-            name='alias_of',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='aliases', to='magazine.author'),
+            model_name="author",
+            name="alias_of",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="aliases",
+                to="magazine.author",
+            ),
         ),
     ]

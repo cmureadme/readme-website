@@ -57,6 +57,42 @@
     margin-left: 25%;
 }
 
+.cont.index .index-image-gag-card .img-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont.index .index-image-gag-card .img-cont img {
+    max-width: 100%;
+    margin-bottom: 12px;
+}
+
+.cont.index .index-image-gag-card .caption-byline {
+    text-align: center;
+    font-size: 14px;
+    padding: 0 12px;
+}
+
+.cont.index .index-image-gag-card .caption-byline p {
+    font-size: inherit;
+}
+
+.cont.index .index-image-gag-card .caption p:last-child {
+    display: inline;
+}
+
+.cont.index .index-image-gag-card span.byline {
+    font-family: var(--byline-font-stack);
+    font-size: 14px;
+}
+
+.cont.index .index-image-gag-card span.byline a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .cont.index .fucked-image {
     display: flex;
     justify-content: center;

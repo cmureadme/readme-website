@@ -1,5 +1,5 @@
 from django import forms
-from .models import Author, Article, ArticleImage, PaidFor, RejectedHeadline, Issue
+from .models import Author, Article, ArticleImage, ImageGag, PaidFor, RejectedHeadline, Issue
 from django.core.validators import validate_image_file_extension
 
 
@@ -35,7 +35,7 @@ class ArticleAdminForm(forms.ModelForm):
             "published",
             "front_page",
             "featured",
-            "created_on"
+            "created_on",
         )
 
     def clean_photos(self):
@@ -49,29 +49,38 @@ class ArticleAdminForm(forms.ModelForm):
             image = ArticleImage(show=show, image=upload)
             image.save()
 
+
+class ImageGagAdminForm(forms.ModelForm):
+    class Meta:
+        model = ImageGag
+        fields = (
+            "artists",
+            "anon_artists",
+            "image",
+            "alt_text",
+            "caption",
+            "slug",
+            "issue",
+            "published",
+            "front_page",
+            "featured",
+            "created_on",
+        )
+
+
 class PaidForForm(forms.ModelForm):
     class Meta:
         model = PaidFor
-        fields = (
-            "title",
-        )
+        fields = ("title",)
+
 
 class RejectedHeadlineForm(forms.ModelForm):
     class Meta:
         model = RejectedHeadline
-        fields = (
-            "title",
-            "issue",
-            "featured"
-        )
+        fields = ("title", "issue", "featured")
+
 
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = (
-            "name",
-            "vol",
-            "num",
-            "archive",
-            "release_date"
-        )
+        fields = ("name", "vol", "num", "archive", "release_date")

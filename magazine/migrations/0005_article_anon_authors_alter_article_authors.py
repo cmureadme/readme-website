@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('magazine', '0004_alter_author_bio_alter_author_fact_and_more'),
+        ("magazine", "0004_alter_author_bio_alter_author_fact_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='article',
-            name='anon_authors',
+            model_name="article",
+            name="anon_authors",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='article',
-            name='authors',
-            field=models.ManyToManyField(blank=True, related_name='articles', to='magazine.author'),
+            model_name="article",
+            name="authors",
+            field=models.ManyToManyField(blank=True, related_name="articles", to="magazine.author"),
         ),
     ]

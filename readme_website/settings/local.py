@@ -9,6 +9,4 @@ DEBUG = True
 # https://docs.djangoproject.com/en/5.2/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static/"
-]
+STATICFILES_DIRS = [BASE_DIR / "static/"]

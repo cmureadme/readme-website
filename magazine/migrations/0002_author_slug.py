@@ -4,46 +4,49 @@ from django.db import migrations, models
 from django.apps.registry import Apps
 import re
 
+
 def choose_slugs(apps: Apps, schema_editor):
     Author = apps.get_model("magazine", "Author")
 
     slugs = set()
-    
+
     for obj in Author.objects.all():
-        slug = re.sub('[^a-zA-Z0-9]+', '-', re.sub('(^[^a-zA-Z0-9]+)|([^a-zA-Z0-9]+$)', '', obj.name)).lower()
+        slug = re.sub(
+            "[^a-zA-Z0-9]+",
+            "-",
+            re.sub("(^[^a-zA-Z0-9]+)|([^a-zA-Z0-9]+$)", "", obj.name),
+        ).lower()
 
         while slug in slugs:
-            slug += '-'
+            slug += "-"
 
         obj.slug = slug
 
         obj.save()
 
+
 def unchoose_slugs(apps: Apps, schema_editor):
     Author = apps.get_model("magazine", "Author")
-    
+
     for obj in Author.objects:
         obj.slug = None
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [
-        ('magazine', '0001_initial'),
+        ("magazine", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='author',
-            name='slug',
+            model_name="author",
+            name="slug",
             field=models.SlugField(null=True, unique=True),
         ),
-        migrations.RunPython(
-            code=choose_slugs,
-            reverse_code=unchoose_slugs
-        ),
+        migrations.RunPython(code=choose_slugs, reverse_code=unchoose_slugs),
         migrations.AlterField(
-            model_name='author',
-            name='slug',
+            model_name="author",
+            name="slug",
             field=models.SlugField(unique=True),
-        )
+        ),
     ]

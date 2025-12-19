@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
@@ -22,13 +23,21 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('magazine.urls')),
-
-    path("givingday", lambda request: HttpResponseRedirect("https://givenow.cmu.edu/schools/CarnegieMellonUniversity/giving-cmu-day-2025/pages/student-organizations/kgb")),
+    path("admin/", admin.site.urls),
+    path("", include("magazine.urls")),
+    path(
+        "givingday",
+        lambda request: HttpResponseRedirect(
+            "https://givenow.cmu.edu/schools/CarnegieMellonUniversity/giving-cmu-day-2025/pages/student-organizations/kgb"
+        ),
+    ),
     path("discord", lambda request: HttpResponseRedirect("https://discord.gg/8eR4C3wuty")),
-    path("instagram", lambda request: HttpResponseRedirect("https://www.instagram.com/readme.news/")),
-    path("404", lambda request: render(request, "404.html"))
+    path(
+        "instagram",
+        lambda request: HttpResponseRedirect("https://www.instagram.com/readme.news/"),
+    ),
+    path("donate", lambda request: HttpResponseRedirect("https://commerce.cashnet.com/CMU231?cname=35")),
+    path("404", lambda request: render(request, "404.html")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
