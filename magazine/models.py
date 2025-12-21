@@ -139,7 +139,7 @@ class Issue(models.Model):
     archive = models.FileField(
         upload_to=issue_upload_path,
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
-        help_text="Upload the pdf here. Don't worry about naming it, the file gets auto renamed on upload."
+        help_text="Upload the pdf here. Don't worry about naming it, the file gets auto renamed on upload.",
     )
     release_date = models.DateField(
         default=datetime.date.today,
@@ -247,8 +247,15 @@ def article_image_upload_path(instance, filename):
 class ArticleImage(models.Model):
     # ForeignKey means many of these can be in an Article
     show = models.ForeignKey(Article, on_delete=models.PROTECT, related_name="images")
-    image = models.ImageField(upload_to=article_image_upload_path, help_text="Upload the image here. Name it something useful since you have to type out it's exact name when you embed it in the article body.")
-    alt_text = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True, help_text="This is what screen readers and other accessability tools use. Include a description of what's going on in the image.")
+    image = models.ImageField(
+        upload_to=article_image_upload_path,
+        help_text="Upload the image here. Name it something useful since you have to type out it's exact name when you embed it in the article body.",
+    )
+    alt_text = models.CharField(
+        max_length=CHARFIELD_MAX_LENGTH,
+        blank=True,
+        help_text="This is what screen readers and other accessability tools use. Include a description of what's going on in the image.",
+    )
     last_modified = models.DateTimeField(auto_now=True)
 
 
@@ -261,7 +268,11 @@ class ImageGag(models.Model):
     artists = models.ManyToManyField("Author", related_name="image_gags", blank=True)
     anon_artists = models.IntegerField(default=0)
     image = models.ImageField(upload_to=image_gag_upload_path)
-    alt_text = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True, help_text="This is what screen readers and other accessability tools use. Include a description of what's going on in the image.")
+    alt_text = models.CharField(
+        max_length=CHARFIELD_MAX_LENGTH,
+        blank=True,
+        help_text="This is what screen readers and other accessability tools use. Include a description of what's going on in the image.",
+    )
     caption = models.TextField(blank=True, help_text="This uses markdown formatting.")
     created_on = models.DateField(
         blank=True,
