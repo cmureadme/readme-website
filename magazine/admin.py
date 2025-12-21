@@ -56,6 +56,13 @@ class ArticleAdmin(admin.ModelAdmin):
 class ImageGagAdmin(admin.ModelAdmin):
     model = ImageGag
     form = ImageGagAdminForm
+    list_display = ["slug", "vol_issue", "published", "front_page", "featured"]
+    search_fields = ["slug"]
+    list_filter = ["issue", "artists"]
+
+    @admin.display(description="Vol, Issue")
+    def vol_issue(self, obj):
+        return f"{obj.issue.vol}.{obj.issue.num}"
 
 
 @admin.register(PaidFor)
