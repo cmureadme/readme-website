@@ -9,7 +9,6 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import random
-from math import floor
 
 import json
 
@@ -43,14 +42,19 @@ def index(request):
     sidebar_image_gags_pool_count = sidebar_image_gags_pool.count()
 
     sidebar_num_items = min(5, sidebar_articles_pool_count + sidebar_image_gags_pool_count)
-    s_rand = random.random()
-    sidebar_num_image_gags = max(
-        min(
-            floor((3 * s_rand**3 - 4 * s_rand**2 + 2 * s_rand) * (sidebar_num_items + 1)), sidebar_image_gags_pool_count
-        ),
-        sidebar_num_items - sidebar_articles_pool_count,
-    )
-    sidebar_num_articles = sidebar_num_items - sidebar_num_image_gags
+
+    sidebar_num_articles = 0
+    sidebar_num_image_gags = 0
+
+    print(sidebar_articles_pool_count, sidebar_image_gags_pool_count)
+
+    for i in range(sidebar_num_items):
+        rand = random.random()
+
+        if (rand * float(sidebar_articles_pool_count + sidebar_image_gags_pool_count - i) < sidebar_articles_pool_count - sidebar_num_articles):
+            sidebar_num_articles += 1
+        else:
+            sidebar_num_image_gags += 1
 
     sidebar_types = ["article"] * sidebar_num_articles + ["image_gag"] * sidebar_num_image_gags
     random.shuffle(sidebar_types)
@@ -65,15 +69,22 @@ def index(request):
     secondary_image_gags_pool_count = secondary_image_gags_pool.count()
 
     secondary_num_items = min(24, sidebar_articles_pool_count + sidebar_image_gags_pool_count)
-    n_rand = random.random()
-    secondary_num_image_gags = max(
-        min(
-            floor((3 * n_rand**3 - 4 * n_rand**2 + 2 * n_rand) * (secondary_num_items + 1)),
-            secondary_image_gags_pool_count,
-        ),
-        secondary_num_items - secondary_articles_pool_count,
-    )
-    secondary_num_articles = secondary_num_items - secondary_num_image_gags
+
+    secondary_num_articles = 0
+    secondary_num_image_gags = 0
+
+    print(secondary_articles_pool_count, secondary_image_gags_pool_count)
+
+    for i in range(secondary_num_items):
+        rand = random.random()
+
+        if (
+            rand * float(secondary_articles_pool_count + secondary_image_gags_pool_count - i)
+            < secondary_articles_pool_count - secondary_num_articles
+        ):
+            secondary_num_articles += 1
+        else:
+            secondary_num_image_gags += 1
 
     secondary_types = ["article"] * secondary_num_articles + ["image_gag"] * secondary_num_image_gags
     random.shuffle(secondary_types)
@@ -161,7 +172,7 @@ def author(request, author):
         if any(article_author.root_slug() == author.slug for article_author in article.authors.all())
     ]
     page_num = request.GET.get("page", 1)
-    paginator = Paginator(articles, per_page=5)
+    paginator = Paginator(articles, per_page=10)
 
     try:
         page_obj = paginator.page(page_num)

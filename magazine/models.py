@@ -216,8 +216,6 @@ class Article(models.Model):
 
         image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
 
-        print(md.convert(self.body))
-
         return md.convert(self.body)
 
     def save(self, **kwargs):
