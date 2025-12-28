@@ -139,6 +139,7 @@ class Issue(models.Model):
     archive = models.FileField(
         upload_to=issue_upload_path,
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
+        help_text="Upload the pdf here. Don't worry about naming it, the file gets auto renamed on upload.",
     )
     release_date = models.DateField(
         default=datetime.date.today,
@@ -177,7 +178,7 @@ class Article(models.Model):
     authors = models.ManyToManyField("Author", related_name="articles", blank=True)
     anon_authors = models.IntegerField(default=0)
     body = models.TextField(
-        help_text="This uses markdown formating. If you want to have an image in an article you add one like this {{imagename.fileextension}}"
+        help_text="This uses markdown formatting. If you want to have an image in an article you add one like this ![](imagename.fileextension)"
     )
     created_on = models.DateField(
         blank=True,
@@ -244,8 +245,15 @@ def article_image_upload_path(instance, filename):
 class ArticleImage(models.Model):
     # ForeignKey means many of these can be in an Article
     show = models.ForeignKey(Article, on_delete=models.PROTECT, related_name="images")
-    image = models.ImageField(upload_to=article_image_upload_path)
-    alt_text = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
+    image = models.ImageField(
+        upload_to=article_image_upload_path,
+        help_text="Upload the image here. Name it something useful since you have to type out it's exact name when you embed it in the article body.",
+    )
+    alt_text = models.CharField(
+        max_length=CHARFIELD_MAX_LENGTH,
+        blank=True,
+        help_text="This is what screen readers and other accessability tools use. Include a description of what's going on in the image.",
+    )
     last_modified = models.DateTimeField(auto_now=True)
 
 
@@ -258,12 +266,16 @@ class ImageGag(models.Model):
     artists = models.ManyToManyField("Author", related_name="image_gags", blank=True)
     anon_artists = models.IntegerField(default=0)
     image = models.ImageField(upload_to=image_gag_upload_path)
-    alt_text = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
-    caption = models.TextField(blank=True)
+    alt_text = models.CharField(
+        max_length=CHARFIELD_MAX_LENGTH,
+        blank=True,
+        help_text="This is what screen readers and other accessability tools use. Include a description of what's going on in the image.",
+    )
+    caption = models.TextField(blank=True, help_text="This uses markdown formatting.")
     created_on = models.DateField(
         blank=True,
         null=True,
-        help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.",
+        help_text="The date for an image defaults to its issue's date. You can also set it here to override this default.",
     )
     true_created_on = models.DateField(
         blank=True,
@@ -275,7 +287,7 @@ class ImageGag(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     slug = models.SlugField(
         unique=True,
-        help_text="The slug is in the url like this: cmureadme.com/articles/slug use dashes as spaces example-slug-like-this",
+        help_text="The slug is in the url like this: cmureadme.com/image/slug use dashes as spaces example-slug-like-this",
     )
     issue = models.ForeignKey("Issue", related_name="image_gags", on_delete=models.PROTECT)
     front_page = models.BooleanField(
