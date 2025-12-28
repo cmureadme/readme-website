@@ -172,18 +172,13 @@ class Issue(models.Model):
                 article.save()
 
 
-class Article(models.Model):
-    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+class AbstractArticleLike(models.Model):
+    issue = None
 
-    authors = models.ManyToManyField("Author", related_name="articles", blank=True)
-    anon_authors = models.IntegerField(default=0)
-    body = models.TextField(
-        help_text="This uses markdown formatting. If you want to have an image in an article you add one like this ![](imagename.fileextension)"
-    )
     created_on = models.DateField(
         blank=True,
         null=True,
-        help_text="The date for an article defaults to its issue's date. You can also set it here to override this default.",
+        help_text="Defaults to the issue date. You can set it here to override this default.",
     )
     true_created_on = models.DateField(
         blank=True,
@@ -193,20 +188,52 @@ class Article(models.Model):
         "should prefer Article's date, falling back to Issue if it was NULL.",
     )
     last_modified = models.DateTimeField(auto_now=True)
+
+    featured = models.BooleanField(
+        default=False,
+        help_text="If we want this to have a higher chance of being featured",
+    )
+    published = models.BooleanField(default=True)
+
+    card_template = None
+    index_card_template = None
+
+    class Meta:
+        abstract = True
+
+    def save(self, **kwargs):
+        super().save(**kwargs)  # Call the "real" save() method.
+        if self.created_on is not None:
+            self.true_created_on = self.created_on
+        else:
+            self.true_created_on = self.issue.release_date
+        super().save(**kwargs)  # Call the "real" save() method.
+
+
+class Article(AbstractArticleLike):
+    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+
+    authors = models.ManyToManyField("Author", related_name="articles", blank=True)
+    anon_authors = models.IntegerField(default=0)
+
+    body = models.TextField(
+        help_text="This uses markdown formatting. If you want to have an image in an article you add one like this ![](imagename.fileextension)"
+    )
+
     slug = models.SlugField(
         unique=True,
         help_text="The slug is in the url like this: cmureadme.com/articles/slug use dashes as spaces example-slug-like-this",
     )
+
     issue = models.ForeignKey("Issue", related_name="articles", on_delete=models.PROTECT)
+
     front_page = models.BooleanField(
         default=False,
         help_text="If this article was on the front page of the issue in which it was published",
     )
-    featured = models.BooleanField(
-        default=False,
-        help_text="If we want this article to have a higher chance of being featured",
-    )
-    published = models.BooleanField(default=True)
+
+    card_template = "./article_card.html"
+    index_card_template = "./index_article_card.html"
 
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
@@ -218,16 +245,6 @@ class Article(models.Model):
         image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
 
         return md.convert(self.body)
-
-    def save(self, **kwargs):
-        super().save(**kwargs)  # Call the "real" save() method.
-        if self.created_on is not None:
-            self.true_created_on = self.created_on
-            print("setting true to self")
-        else:
-            self.true_created_on = self.issue.release_date
-            print("setting true to issue")
-        super().save(**kwargs)  # Call the "real" save() method.
 
     def __str__(self) -> str:
         return self.slug + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
@@ -262,9 +279,10 @@ def image_gag_upload_path(instance, filename):
     return image_path_fragment(instance.issue, filename)
 
 
-class ImageGag(models.Model):
+class ImageGag(AbstractArticleLike):
     artists = models.ManyToManyField("Author", related_name="image_gags", blank=True)
     anon_artists = models.IntegerField(default=0)
+
     image = models.ImageField(upload_to=image_gag_upload_path)
     alt_text = models.CharField(
         max_length=CHARFIELD_MAX_LENGTH,
@@ -272,33 +290,21 @@ class ImageGag(models.Model):
         help_text="This is what screen readers and other accessability tools use. Include a description of what's going on in the image.",
     )
     caption = models.TextField(blank=True, help_text="This uses markdown formatting.")
-    created_on = models.DateField(
-        blank=True,
-        null=True,
-        help_text="The date for an image defaults to its issue's date. You can also set it here to override this default.",
-    )
-    true_created_on = models.DateField(
-        blank=True,
-        null=True,
-        help_text="field hidden from admin panel. "
-        "can be updated when this Article or its corresponding Issue is updated. "
-        "should prefer Article's date, falling back to Issue if it was NULL.",
-    )
-    last_modified = models.DateTimeField(auto_now=True)
+
     slug = models.SlugField(
         unique=True,
         help_text="The slug is in the url like this: cmureadme.com/image/slug use dashes as spaces example-slug-like-this",
     )
+
     issue = models.ForeignKey("Issue", related_name="image_gags", on_delete=models.PROTECT)
+
     front_page = models.BooleanField(
         default=False,
-        help_text="If this article was on the front page of the issue in which it was published",
+        help_text="If this image gag was on the front page of the issue in which it was published",
     )
-    featured = models.BooleanField(
-        default=False,
-        help_text="If we want this article to have a higher chance of being featured",
-    )
-    published = models.BooleanField(default=True)
+
+    card_template = "./image_gag_card.html"
+    index_card_template = "./index_image_gag_card.html"
 
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
@@ -310,16 +316,6 @@ class ImageGag(models.Model):
         image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
 
         return md.convert(self.caption)
-
-    def save(self, **kwargs):
-        super().save(**kwargs)  # Call the "real" save() method.
-        if self.created_on is not None:
-            self.true_created_on = self.created_on
-            print("setting true to self")
-        else:
-            self.true_created_on = self.issue.release_date
-            print("setting true to issue")
-        super().save(**kwargs)  # Call the "real" save() method.
 
     def __str__(self) -> str:
         return self.slug + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"

@@ -46,8 +46,6 @@ def index(request):
     sidebar_num_articles = 0
     sidebar_num_image_gags = 0
 
-    print(sidebar_articles_pool_count, sidebar_image_gags_pool_count)
-
     for i in range(sidebar_num_items):
         rand = random.random()
 
@@ -59,11 +57,11 @@ def index(request):
         else:
             sidebar_num_image_gags += 1
 
-    sidebar_types = ["article"] * sidebar_num_articles + ["image_gag"] * sidebar_num_image_gags
-    random.shuffle(sidebar_types)
-
     sidebar_articles = [*sidebar_articles_pool.order_by("?")[0:sidebar_num_articles]]
     sidebar_image_gags = [*sidebar_image_gags_pool.order_by("?")[0:sidebar_num_image_gags]]
+
+    sidebar = sidebar_articles + sidebar_image_gags
+    random.shuffle(sidebar)
 
     secondary_articles_pool = Article.objects.filter(Q(published=True))
     secondary_image_gags_pool = ImageGag.objects.filter(Q(published=True))
@@ -76,8 +74,6 @@ def index(request):
     secondary_num_articles = 0
     secondary_num_image_gags = 0
 
-    print(secondary_articles_pool_count, secondary_image_gags_pool_count)
-
     for i in range(secondary_num_items):
         rand = random.random()
 
@@ -89,11 +85,11 @@ def index(request):
         else:
             secondary_num_image_gags += 1
 
-    secondary_types = ["article"] * secondary_num_articles + ["image_gag"] * secondary_num_image_gags
-    random.shuffle(secondary_types)
-
     secondary_articles = [*secondary_articles_pool.order_by("?")[0:secondary_num_articles]]
     secondary_image_gags = [*secondary_image_gags_pool.order_by("?")[0:secondary_num_image_gags]]
+
+    secondary = secondary_articles + secondary_image_gags
+    random.shuffle(secondary)
 
     # Will pull from the best rejected headlines
     feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=True)).order_by("?")
@@ -138,12 +134,8 @@ def index(request):
     }
 
     context = {
-        "sidebar_types": sidebar_types,
-        "sidebar_articles": sidebar_articles,
-        "sidebar_image_gags": sidebar_image_gags,
-        "secondary_types": secondary_types,
-        "secondary_articles": secondary_articles,
-        "secondary_image_gags": secondary_image_gags,
+        "sidebar": sidebar,
+        "secondary": secondary,
         "feat_articles": feat_articles,
         "MEDIA_URL": settings.MEDIA_URL,
         "rej_heads": all_rej_heads,

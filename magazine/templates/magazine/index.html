@@ -39,34 +39,25 @@
         </div>
 
         <div class="sidebar">
-            {% for item in sidebar_types %}
-                {% if item == "article" %}
-                    {% include "./index_article_card.html" with article=sidebar_articles.pop %}
-                {% elif item == "image_gag" %}
-                    {% include "./index_image_gag_card.html" with image_gag=sidebar_image_gags.pop %}
-                {% endif %}
+            {% for article in sidebar %}
+                {% include article.index_card_template with image_gag=article %}
             {% endfor %}
         </div>
     </div>
 
     <div>
         <div class="addl-cont">
-                {% for item in secondary_types %}
-                    {% if forloop.counter0|modulo:3 == 0 %}
-                        <div>
-                    {% endif %}
-                    {% if item == "article" %}
-                            {% include "./index_article_card.html" with article=secondary_articles.pop %}
-                    {% elif item == "image_gag" %}
-                            {% include "./index_image_gag_card.html" with image_gag=secondary_image_gags.pop %}
-                    {% endif %}
-                    {% if forloop.counter0|modulo:3 != 2 %}
-                            <div class="divider"></div>
-                    {% else %}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-                    
+            {% for article in secondary %}
+                {% if forloop.counter0|modulo:3 == 0 %}
+                    <div>
+                {% endif %}
+                        {% include article.index_card_template with image_gag=article %}
+                {% if forloop.counter0|modulo:3 != 2 %}
+                        <div class="divider"></div>
+                {% else %}
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </div>
