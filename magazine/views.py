@@ -51,7 +51,10 @@ def index(request):
     for i in range(sidebar_num_items):
         rand = random.random()
 
-        if (rand * float(sidebar_articles_pool_count + sidebar_image_gags_pool_count - i) < sidebar_articles_pool_count - sidebar_num_articles):
+        if (
+            rand * float(sidebar_articles_pool_count + sidebar_image_gags_pool_count - i)
+            < sidebar_articles_pool_count - sidebar_num_articles
+        ):
             sidebar_num_articles += 1
         else:
             sidebar_num_image_gags += 1
