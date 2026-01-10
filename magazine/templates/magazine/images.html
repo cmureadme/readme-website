@@ -1,0 +1,20 @@
+{% extends "wrapper.html" %}
+
+{% load static %}
+
+{% block title %}Images - Readme{% endblock title %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/images.css' %}">
+<link rel="stylesheet" href="{% static 'styles/cards.css' %}">
+{% endblock head-content %}
+
+{% block wrapper-cont %}
+<div class="cont images">
+{% for image_gag in page_obj %}
+    {% include "./image_gag_card.html" %}  
+{% endfor %}
+
+{% include "pagination.html" %}
+</div>
+{% endblock wrapper-cont %}

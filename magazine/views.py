@@ -289,3 +289,24 @@ def stories(request):
 
 def random_article(request):
     return redirect(reverse("article_page", args=[Article.objects.order_by("?").first().slug]))
+
+# Returns all images chronologically
+def images(request):
+    image_gags = ImageGag.objects.filter().order_by(
+        "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
+    )
+
+    page_num = request.GET.get("page", 1)
+    paginator = Paginator(image_gags, per_page=25)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    context = {"page_obj": page_obj}
+    return render(request, "magazine/images.html", context)

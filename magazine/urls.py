@@ -19,4 +19,5 @@ urlpatterns = [
     path("random", views.random_article, name="random"),
     path("article/<str:slug>/", views.article_page, name="article_page"),
     path("image/<str:slug>/", views.image_gag, name="image_gag"),
+    path("image", views.images, name="images"),
 ]
