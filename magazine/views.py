@@ -95,19 +95,18 @@ def index(request):
 
     # Will pull from the best rejected headlines
     feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=True)).order_by("?")
-    if len(feat_rej_heads) > 20:
-        feat_rej_heads = feat_rej_heads[:20]
+    if len(feat_rej_heads) > 10:
+        feat_rej_heads = feat_rej_heads[:10]
     else:
         feat_rej_heads = feat_rej_heads[:]
 
     # Will pull from non featured rejected headlines
-    non_feat_rej_heads = RejectedHeadline.objects.all().filter(Q(featured=False)).order_by("?")
-    if len(non_feat_rej_heads) > 20:
-        non_feat_rej_heads = non_feat_rej_heads[:20]
+    all_rej_heads = feat_rej_heads + [*RejectedHeadline.objects.all().filter(Q(featured=False)).order_by("?")]
+    if len(all_rej_heads) > 20:
+        all_rej_heads = all_rej_heads[:20]
     else:
-        non_feat_rej_heads = non_feat_rej_heads[:]
+        all_rej_heads = all_rej_heads[:]
 
-    all_rej_heads = feat_rej_heads + non_feat_rej_heads
     random.shuffle(all_rej_heads)
 
     feat_articles = {
