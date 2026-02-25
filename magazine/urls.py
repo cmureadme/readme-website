@@ -17,6 +17,7 @@ urlpatterns = [
     path("cmupuritytest", views.purity_test, name="purity_test"),
     path("aboutus", views.about_us, name="about_us"),
     path("random", views.random_article, name="random"),
-    path("article/<str:slug>/", views.article_page, name="article_page"),
+    path("article/<str:slug>/", views.article, name="article"),
     path("image/<str:slug>/", views.image_gag, name="image_gag"),
+    path("image", views.images, name="images"),
 ]

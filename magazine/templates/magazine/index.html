@@ -17,18 +17,18 @@
 
             <div class="module-1">
                 <div class="module-column">
-                    {% include "./index_article_card.html" with article=feat_articles.column centered=True %}
+                    {% include "./index_article_card.html" with piece=feat_articles.column centered=True %}
                 </div>
 
                 <div class="module-wide">
-                    {% include "./index_article_card.html" with article=feat_articles.article %}
+                    {% include "./index_article_card.html" with piece=feat_articles.article %}
 
                     <hr>
                 
                     {% with imagearticle=feat_articles.image %}
                     {% with image=imagearticle.images.first %}
                     <div class="fucked-image">
-                        <a href="{% url 'article_page' imagearticle.slug %}">
+                        <a href="{% url 'article' imagearticle.slug %}">
                             <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
                         </a>
                     </div>
@@ -39,34 +39,25 @@
         </div>
 
         <div class="sidebar">
-            {% for item in sidebar_types %}
-                {% if item == "article" %}
-                    {% include "./index_article_card.html" with article=sidebar_articles.pop %}
-                {% elif item == "image_gag" %}
-                    {% include "./index_image_gag_card.html" with image_gag=sidebar_image_gags.pop %}
-                {% endif %}
+            {% for piece in sidebar %}
+                {% include piece.index_card_template %}
             {% endfor %}
         </div>
     </div>
 
     <div>
         <div class="addl-cont">
-                {% for item in secondary_types %}
-                    {% if forloop.counter0|modulo:3 == 0 %}
-                        <div>
-                    {% endif %}
-                    {% if item == "article" %}
-                            {% include "./index_article_card.html" with article=secondary_articles.pop %}
-                    {% elif item == "image_gag" %}
-                            {% include "./index_image_gag_card.html" with image_gag=secondary_image_gags.pop %}
-                    {% endif %}
-                    {% if forloop.counter0|modulo:3 != 2 %}
-                            <div class="divider"></div>
-                    {% else %}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-                    
+            {% for piece in secondary %}
+                {% if forloop.counter0|modulo:3 == 0 %}
+                    <div>
+                {% endif %}
+                        {% include piece.index_card_template %}
+                {% if forloop.counter0|modulo:3 != 2 %}
+                        <div class="divider"></div>
+                {% else %}
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </div>

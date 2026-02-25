@@ -2,17 +2,16 @@
 
 {% load static %}
 
-{% block title %}Stories - Readme{% endblock title %}
+{% block title %}Images - Readme{% endblock title %}
 
 {% block head-content %}
-<link rel="stylesheet" href="{% static 'styles/stories.css' %}">
 <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
 {% endblock head-content %}
 
 {% block wrapper-cont %}
-<div class="cont stories">
-{% for piece in pieces %}
-    {% include piece.card_template %}  
+<div class="cont images">
+{% for piece in image_gags %}
+    {% include "./image_gag_card.html" %}  
 {% endfor %}
 
 {% include "pagination.html" %}

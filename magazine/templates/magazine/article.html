@@ -5,14 +5,14 @@
 {% block title %}{{ article.title }} - Readme{% endblock title %}
 
 {% block head-content %}
-<link rel="stylesheet" href="{% static 'styles/article_page.css' %}">
+<link rel="stylesheet" href="{% static 'styles/article.css' %}">
 {% endblock head-content %}
 
 {% block wrapper-cont %}
 <div class="cont article">
     <h1>{{ article.title }}</h1>
     
-    {% include "./byline.html" %}
+    {% include "./article_byline.html" %}
 
     {% load tag %}
     
