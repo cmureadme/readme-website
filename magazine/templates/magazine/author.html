@@ -65,7 +65,7 @@
         <h2 class="margin-bottom">Latest</h2>
 
         {% for article in page_obj %}
-            {% include "./article_card.html" %}  
+            {% include article.card_template with image_gag=article %}  
         {% endfor %}
         {% endif %}
     </div>
