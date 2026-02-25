@@ -212,6 +212,7 @@ def author(request, author):
     context = {
         "author": author,
         "page_obj": page_obj,
+        "pieces": page_obj,
     }
     return render(request, "magazine/author.html", context)
 
@@ -281,13 +282,13 @@ def issue(request, vol, num):
 
     context = {
         "issue": issue,
-        "articles": pieces,
+        "pieces": pieces,
         "rejected_headlines": rejected_headlines,
     }
     return render(request, "magazine/issue.html", context)
 
 
-def article_page(request, slug):
+def article(request, slug):
     try:
         article = Article.objects.get(slug=slug)
     except Article.DoesNotExist:
@@ -295,7 +296,7 @@ def article_page(request, slug):
 
     context = {"article": article}
 
-    return render(request, "magazine/article_page.html", context)
+    return render(request, "magazine/article.html", context)
 
 
 def image_gag(request, slug):
@@ -310,12 +311,12 @@ def image_gag(request, slug):
 
 
 def about_us(request):
-    articles = Article.objects.count()
+    pieces = Article.objects.count() + ImageGag.objects.count()
     authors = Author.objects.count()
     rejected_headlines = RejectedHeadline.objects.count()
     issues = Issue.objects.count()
     context = {
-        "articles": articles,
+        "pieces": pieces,
         "authors": authors,
         "rejected_headlines": rejected_headlines,
         "issues": issues,
@@ -388,12 +389,15 @@ def stories(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"page_obj": page_obj}
+    context = {
+        "page_obj": page_obj,
+        "pieces": page_obj
+    }
     return render(request, "magazine/stories.html", context)
 
 
 def random_article(request):
-    return redirect(reverse("article_page", args=[Article.objects.order_by("?").first().slug]))
+    return redirect(reverse("article", args=[Article.objects.order_by("?").first().slug]))
 
 
 # Returns all images chronologically
@@ -414,5 +418,21 @@ def images(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"page_obj": page_obj}
+    context = {
+        "page_obj": page_obj,
+        "image_gags": page_obj
+    }
     return render(request, "magazine/images.html", context)
+
+
+# <!--
+
+#     THE RTOSH PLAN:
+
+#     1. Fix markdown vs. imgswitch issue in tags [partially done, should do something to separate image IDs from their slugs if that makes sense]
+#     2. Create separate mechanism for image-only articles [done]
+#     3. Add image dimensions to articleimages model
+#     4. Improve image rendering (load images on demand, show properly-sized light gray placeholder until then)
+#     5. Improve rendering of image-only articles in all places they're shown (index cards [large, sidebar, and main], stories/staff cards, article page) [done]
+
+# -->

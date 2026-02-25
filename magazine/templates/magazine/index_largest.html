@@ -2,10 +2,10 @@
     <img src="{{MEDIA_URL}}{{largest.images.first.image}}"/>
 
     <h1>
-        <a href="{% url 'article_page' largest.slug %}">
+        <a href="{% url 'article' largest.slug %}">
             {{ largest.title }}
         </a>
     </h1>
     
-    {% include "./byline.html" with article=largest %}
+    {% include "./article_byline.html" with article=largest %}
 </div>
