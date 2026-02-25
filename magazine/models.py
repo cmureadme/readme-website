@@ -172,7 +172,9 @@ class Issue(models.Model):
                 article.save()
 
 
-class AbstractArticleLike(models.Model):
+class Piece(models.Model):
+    # slug = models.SlugField(...)
+
     issue = None
 
     created_on = models.DateField(
@@ -189,6 +191,7 @@ class AbstractArticleLike(models.Model):
     )
     last_modified = models.DateTimeField(auto_now=True)
 
+    # front_page = models.BooleanField(...)
     featured = models.BooleanField(
         default=False,
         help_text="If we want this to have a higher chance of being featured",
@@ -197,6 +200,8 @@ class AbstractArticleLike(models.Model):
 
     card_template = None
     index_card_template = None
+
+    # def makers() -> QuerySet[Author]: ...
 
     class Meta:
         abstract = True
@@ -210,7 +215,7 @@ class AbstractArticleLike(models.Model):
         super().save(**kwargs)  # Call the "real" save() method.
 
 
-class Article(AbstractArticleLike):
+class Article(Piece):
     title = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
 
     authors = models.ManyToManyField("Author", related_name="articles", blank=True)
@@ -237,6 +242,9 @@ class Article(AbstractArticleLike):
 
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
+    
+    def makers(self):
+        return self.authors.all()
 
     def body_html(self, images: bool = True):
         def img_src_to_uri(src: str):
@@ -279,7 +287,7 @@ def image_gag_upload_path(instance, filename):
     return image_path_fragment(instance.issue, filename)
 
 
-class ImageGag(AbstractArticleLike):
+class ImageGag(Piece):
     artists = models.ManyToManyField("Author", related_name="image_gags", blank=True)
     anon_artists = models.IntegerField(default=0)
 
@@ -308,6 +316,9 @@ class ImageGag(AbstractArticleLike):
 
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
+
+    def makers(self):
+        return self.artists.all()
 
     def caption_html(self):
         def img_src_to_uri(src: str):

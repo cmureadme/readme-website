@@ -1,16 +1,18 @@
-from magazine.models import Article, ImageGag, Author, Issue, PaidFor, RejectedHeadline
+from magazine.models import Article, ImageGag, Author, Issue, PaidFor, Piece, RejectedHeadline
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404
 
 from django.conf import settings
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import random
 
 import json
+
+from enum import Enum
 
 purity_test_items_file = "./purity_test_items.json"
 with open(purity_test_items_file) as json_file:
@@ -161,41 +163,15 @@ def author(request, author):
     if author.root_slug() != author.slug:
         return redirect(reverse("author", args=[author.root_slug()]))
 
-    articles = [
-        article
-        for article in Article.objects.order_by("-issue__vol", "-issue__num", "-true_created_on").filter(published=True)
-        if any(article_author.root_slug() == author.slug for article_author in article.authors.all())
-    ]
-    image_gags = [
-        image_gag
-        for image_gag in ImageGag.objects.order_by("-issue__vol", "-issue__num", "-true_created_on").filter(
-            published=True
+    pieces = [
+        piece
+        for piece in order_pieces(
+            Article.objects,
+            ImageGag.objects,
+            [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
         )
-        if any(image_gag_author.root_slug() == author.slug for image_gag_author in image_gag.artists.all())
+        if any(maker.root_slug() == author.slug for maker in piece.makers())
     ]
-
-    pieces = []
-    i = 0
-    j = 0
-    while i < len(articles) and j < len(image_gags):
-        print(i, j, articles[i].slug, image_gags[j].slug, articles[i].issue, image_gags[j].issue)
-        if articles[i].issue.vol > image_gags[j].issue.vol or (
-            articles[i].issue.vol == image_gags[j].issue.vol
-            and (
-                articles[i].issue.num > image_gags[j].issue.num
-                or (
-                    articles[i].issue.num == image_gags[j].issue.num
-                    and articles[i].true_created_on > image_gags[j].true_created_on
-                )
-            )
-        ):
-            pieces.append(articles[i])
-            i += 1
-        else:
-            pieces.append(image_gags[j])
-            j += 1
-    pieces += articles[i:]
-    pieces += image_gags[j:]
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=10)
@@ -240,43 +216,15 @@ def issue(request, vol, num):
     except Issue.DoesNotExist:
         raise Http404
 
-    articles = [
-        *Article.objects.filter(issue__name__contains=issue.name).order_by(
-            "-front_page", "-featured", "-true_created_on"
-        )
-    ]
-    image_gags = [
-        *ImageGag.objects.filter(issue__name__contains=issue.name).order_by(
-            "-front_page", "-featured", "-true_created_on"
-        )
-    ]
-
-    pieces = []
-    i = 0
-    j = 0
-    while i < len(articles) and j < len(image_gags):
-        if (
-            articles[i].front_page
-            and not image_gags[j].front_page
-            or (
-                articles[i].front_page == image_gags[j].front_page
-                and (
-                    articles[i].featured
-                    and not image_gags[j].featured
-                    or (
-                        articles[i].featured == image_gags[j].featured
-                        and articles[i].true_created_on > image_gags[j].true_created_on
-                    )
-                )
-            )
-        ):
-            pieces.append(articles[i])
-            i += 1
-        else:
-            pieces.append(image_gags[j])
-            j += 1
-    pieces += articles[i:]
-    image_gags += image_gags[j:]
+    pieces = order_pieces(
+        Article.objects.filter(issue__name__contains=issue.name),
+        ImageGag.objects.filter(issue__name__contains=issue.name),
+        [
+            PieceOrdering.FRONT_PAGE_FIRST,
+            PieceOrdering.FEATURED_FIRST,
+            PieceOrdering.SLUG_ASC,
+        ],
+    )
 
     rejected_headlines = RejectedHeadline.objects.filter(issue__name__contains=issue.name)
 
@@ -334,48 +282,17 @@ def purity_test(request):
 
 
 def stories(request):
-    articles = [
-        *Article.objects.filter().order_by("-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on")
-    ]
-    image_gags = [
-        *ImageGag.objects.filter().order_by(
-            "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
-        )
-    ]
-
-    pieces = []
-    i = 0
-    j = 0
-    while i < len(articles) and j < len(image_gags):
-        if articles[i].issue.vol > image_gags[j].issue.vol or (
-            articles[i].issue.vol == image_gags[j].issue.vol
-            and (
-                articles[i].issue.num > image_gags[j].issue.num
-                or (
-                    articles[i].issue.num == image_gags[j].issue.num
-                    and articles[i].front_page
-                    and not image_gags[j].front_page
-                    or (
-                        articles[i].front_page == image_gags[j].front_page
-                        and (
-                            articles[i].featured
-                            and not image_gags[j].featured
-                            or (
-                                articles[i].featured == image_gags[j].featured
-                                and articles[i].true_created_on > image_gags[j].true_created_on
-                            )
-                        )
-                    )
-                )
-            )
-        ):
-            pieces.append(articles[i])
-            i += 1
-        else:
-            pieces.append(image_gags[j])
-            j += 1
-    pieces += articles[i:]
-    image_gags += image_gags[j:]
+    pieces = order_pieces(
+        Article.objects,
+        ImageGag.objects,
+        [
+            PieceOrdering.ISSUE_DESC,
+            PieceOrdering.TRUE_CREATED_ON_DESC,
+            PieceOrdering.FRONT_PAGE_FIRST,
+            PieceOrdering.FEATURED_FIRST,
+            PieceOrdering.SLUG_ASC,
+        ],
+    )
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=25)
@@ -389,10 +306,7 @@ def stories(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {
-        "page_obj": page_obj,
-        "pieces": page_obj
-    }
+    context = {"page_obj": page_obj, "pieces": page_obj}
     return render(request, "magazine/stories.html", context)
 
 
@@ -418,11 +332,86 @@ def images(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {
-        "page_obj": page_obj,
-        "image_gags": page_obj
-    }
+    context = {"page_obj": page_obj, "image_gags": page_obj}
     return render(request, "magazine/images.html", context)
+
+
+class PieceOrdering(Enum):
+    ISSUE_DESC = 0
+    FRONT_PAGE_FIRST = 1
+    FEATURED_FIRST = 2
+    TRUE_CREATED_ON_DESC = 3
+    SLUG_ASC = 4
+
+
+def order_pieces(
+    articles: QuerySet[Article], image_gags: QuerySet[ImageGag], ordering: list[PieceOrdering]
+) -> list[Piece]:
+    def pieces_lt(p: Piece, q: Piece, ordering: list[PieceOrdering]) -> bool:
+        for ord in ordering:
+            match ord:
+                case PieceOrdering.ISSUE_DESC:
+                    if p.issue.vol < q.issue.vol:
+                        return False
+                    elif p.issue.vol > q.issue.vol:
+                        return True
+                    else:
+                        if p.issue.num < q.issue.num:
+                            return False
+                        elif p.issue.num > q.issue.num:
+                            return True
+                case PieceOrdering.FRONT_PAGE_FIRST:
+                    if p.front_page != q.front_page:
+                        return p.front_page
+                case PieceOrdering.FEATURED_FIRST:
+                    if p.featured != q.featured:
+                        return p.featured
+                case PieceOrdering.TRUE_CREATED_ON_DESC:
+                    if p.true_created_on < q.true_created_on:
+                        return False
+                    elif p.true_created_on > q.true_created_on:
+                        return True
+                case PieceOrdering.SLUG_ASC:
+                    if p.slug < q.slug:
+                        return True
+                    elif p.slug > q.slug:
+                        return True
+
+        return False
+
+    qs_ordering = []
+
+    for ord in ordering:
+        match ord:
+            case PieceOrdering.ISSUE_DESC:
+                qs_ordering.append("-issue__vol")
+                qs_ordering.append("-issue__num")
+            case PieceOrdering.FRONT_PAGE_FIRST:
+                qs_ordering.append("-front_page")
+            case PieceOrdering.FEATURED_FIRST:
+                qs_ordering.append("-featured")
+            case PieceOrdering.TRUE_CREATED_ON_DESC:
+                qs_ordering.append("-true_created_on")
+            case PieceOrdering.SLUG_ASC:
+                qs_ordering.append("slug")
+
+    articles = [*articles.order_by(*qs_ordering)]
+    image_gags = [*image_gags.order_by(*qs_ordering)]
+
+    pieces = []
+    i = 0
+    j = 0
+    while i < len(articles) and j < len(image_gags):
+        if pieces_lt(articles[i], image_gags[j], ordering):
+            pieces.append(articles[i])
+            i += 1
+        else:
+            pieces.append(image_gags[j])
+            j += 1
+    pieces += articles[i:]
+    image_gags += image_gags[j:]
+
+    return pieces
 
 
 # <!--
