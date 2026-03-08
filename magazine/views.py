@@ -26,18 +26,18 @@ def index(request):
     # Prevents front page from crashing if latest issue has very few articles
     # ie Latest issue is in the proccess of being uploaded
     i = 1
-    while len(Article.objects.all().filter(Q(published=True) & Q(issue__name__contains=latest_issue.name))) <= 5:
+    while len(Article.objects.all().filter(Q(published=True) & Q(issue=latest_issue))) <= 5:
         latest_issue = Issue.objects.all().order_by("-vol", "-num")[i]
         second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
         i += 1
 
     sidebar_articles_pool = Article.objects.all().filter(
         Q(published=True)
-        & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))
+        & (Q(issue__name=latest_issue) | Q(issue=second_latest_issue))
     )
     sidebar_image_gags_pool = ImageGag.objects.all().filter(
         Q(published=True)
-        & (Q(issue__name__contains=latest_issue.name) | Q(issue__name__contains=second_latest_issue.name))
+        & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
     )
 
     sidebar_articles_pool_count = sidebar_articles_pool.count()
@@ -114,7 +114,7 @@ def index(request):
         .filter(
             Q(published=True)
             & Q(front_page=True)
-            & Q(issue__name__contains=latest_issue.name)
+            & Q(issue=latest_issue)
             & Q(images__isnull=False)
         )
         .order_by("?")[0],
@@ -122,15 +122,15 @@ def index(request):
         .filter(
             Q(published=True)
             & (Q(front_page=True) | Q(featured=True))
-            & Q(issue__name__contains=latest_issue.name)
+            & Q(issue=latest_issue)
             & Q(images__isnull=True)
         )
         .order_by("?")[0],
         "article": Article.objects.all()
-        .filter(Q(published=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=True))
+        .filter(Q(published=True) & Q(issue=latest_issue) & Q(images__isnull=True))
         .order_by("?")[0],
         "image": Article.objects.all()
-        .filter(Q(published=True) & Q(issue__name__contains=latest_issue.name) & Q(images__isnull=False))
+        .filter(Q(published=True) & Q(issue=latest_issue) & Q(images__isnull=False))
         .order_by("?")[0],
     }
 
@@ -216,8 +216,8 @@ def issue(request, vol, num):
         raise Http404
 
     pieces = order_pieces(
-        Article.objects.filter(issue__name__contains=issue.name),
-        ImageGag.objects.filter(issue__name__contains=issue.name),
+        Article.objects.filter(issue=issue),
+        ImageGag.objects.filter(issue=issue),
         [
             PieceOrdering.FRONT_PAGE_FIRST,
             PieceOrdering.FEATURED_FIRST,
@@ -225,7 +225,7 @@ def issue(request, vol, num):
         ],
     )
 
-    rejected_headlines = RejectedHeadline.objects.filter(issue__name__contains=issue.name)
+    rejected_headlines = RejectedHeadline.objects.filter(issue=issue)
 
     context = {
         "issue": issue,
@@ -374,7 +374,7 @@ def order_pieces(
                     if p.slug < q.slug:
                         return True
                     elif p.slug > q.slug:
-                        return True
+                        return False
 
         return False
 
@@ -408,7 +408,7 @@ def order_pieces(
             pieces.append(image_gags[j])
             j += 1
     pieces += articles[i:]
-    image_gags += image_gags[j:]
+    pieces += image_gags[j:]
 
     return pieces
 
