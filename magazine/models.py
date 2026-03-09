@@ -133,7 +133,7 @@ def issue_upload_path(instance, _):
 
 
 class Issue(models.Model):
-    short_name = models.CharField(max_length=CHARFIELD_MAX_LENGTH, null=True)
+    short_name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
     long_name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
     vol = models.IntegerField(default=0)
     num = models.IntegerField(default=0)

@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.long_name }} - Readme{% endblock title %}
+{% block title %}Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.short_name }} - Readme{% endblock title %}
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/issue.css' %}">
@@ -11,7 +11,8 @@
 
 {% block wrapper-cont %}
 <div class="cont issue">
-    <h2>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.long_name }} (<a class="styled" href="{{ issue.archive.url }}">PDF</a>)</h2>
+    <h2>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.short_name }} (<a class="styled" href="{{ issue.archive.url }}">PDF</a>)</h2>
+    <p class="issue-subtitle">{{ issue.long_name }}</p>
 
     <div class="rejected-headlines">
         <h3 class="top">Rejected Headlines</h3>

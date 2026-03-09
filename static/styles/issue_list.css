@@ -7,14 +7,13 @@
     padding: 0;
     border-radius: 8px;
     margin-bottom: 12px;
-    font-family: var(--display-font-stack);
-    font-size: 18px;
 }
 
 .cont.issue-list summary {
     cursor: pointer;
     padding: 12px;
     padding-left: 18px;
+    font-family: var(--display-font-stack);
 }
 
 .cont.issue-list details:open summary {
@@ -42,6 +41,8 @@
     justify-content: center;
     text-align: center;
     flex-shrink: 0;
+    font-family: var(--display-font-stack);
+    font-size: 18px;
 }
 
 .cont.issue-list .issue-info {
@@ -49,9 +50,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.cont.issue-list .issue-info > div {
+    padding: 12px;
     text-align: center;
-    font-weight: 700;
-    font-size: 20px;
+}
+
+.cont.issue-list .issue-info h2 {
     text-decoration: underline;
-    text-wrap: balance;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 4px;
+    text-align: inherit;
+}
+
+.cont.issue-list .issue-info p {
+    font-size: 14px;
+    font-family: var(--sans-font-stack);
+    line-height: 1.25;
 }

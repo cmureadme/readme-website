@@ -1,6 +1,14 @@
 .cont.issue h2 {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
+}
+
+.cont.issue p.issue-subtitle {
+    text-align: center;
+    margin-bottom: 24px;
+    font-family: var(--sans-font-stack);
+    font-size: 14px;
+    line-height: 1.25;
 }
 
 .cont.issue .rejected-headlines {
