@@ -9,6 +9,7 @@
     font-family: var(--sans-font-stack);
     font-size: 14px;
     line-height: 1.25;
+    font-style: italic;
 }
 
 .cont.issue .rejected-headlines {
