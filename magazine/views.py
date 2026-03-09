@@ -33,7 +33,7 @@ def index(request):
 
     sidebar_articles_pool = Article.objects.all().filter(
         Q(published=True)
-        & (Q(issue__name=latest_issue) | Q(issue=second_latest_issue))
+        & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
     )
     sidebar_image_gags_pool = ImageGag.objects.all().filter(
         Q(published=True)
