@@ -1,0 +1,10 @@
+{% load static %}
+
+<a class="issue-card" href="{% url 'issue' issue.vol issue.num %}">
+    <div class="issue-card-cont">
+        <h3>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.short_name }}</h3>
+        <p class="date">{{ issue.release_date }}</p>
+
+        <p class="issue-subtitle">{{ issue.long_name }}</p>
+    </div>
+</a>

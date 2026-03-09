@@ -74,3 +74,79 @@
 .image-gag-card img {
     max-height: 40vh;
 }
+
+.staff-card::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 6px 0;
+}
+
+.staff-card:last-child::after {
+    display: none;
+}
+
+.staff-card-cont {
+    display: flex;
+    gap: 18px;
+    padding: 18px;
+}
+
+.staff-card-cont:hover {
+    background-color: #f0f0f0;
+}
+
+.staff-card-cont h3 {
+    font-size: 18px;
+}
+
+.staff-card-cont img {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    object-position: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.staff-card-cont .staff-card-roles-and-academics {
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-family: var(--sans-font-stack);
+}
+
+.issue-card::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 6px 0;
+}
+
+.issue-card:last-child::after {
+    display: none;
+}
+
+.issue-card-cont {
+    padding: 18px;
+}
+
+.issue-card-cont:hover {
+    background-color: #f0f0f0;
+}
+
+.issue-card-cont .date {
+    font-family: var(--sans-font-stack);
+    color: #666666;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.issue-card-cont .issue-subtitle {
+    font-family: var(--sans-font-stack);
+    line-height: 1.25;
+    font-size: 14px;
+}

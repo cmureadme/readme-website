@@ -1,4 +1,4 @@
-.cont.staff .staff-card {
+.cont.staff .staff-info-card {
     display: flex;
     align-items: start;
     gap: 24px;
@@ -9,7 +9,7 @@
     margin-bottom: 24px;
 }
 
-.cont.staff .staff-card > img {
+.cont.staff .staff-info-card > img {
     width: 144px;
     height: 144px;
     object-fit: cover;
@@ -18,28 +18,28 @@
     border-radius: 50%;
 }
 
-.cont.staff .staff-card > div {
+.cont.staff .staff-info-card > div {
     flex-grow: 1;
 }
 
-.cont.staff .staff-card p {
+.cont.staff .staff-info-card p {
     margin: 0;
 }
 
-.cont.staff .staff-card h1 {
+.cont.staff .staff-info-card h1 {
     text-transform: unset;
     font-size: 48px;
     text-align: left;
 }
 
-.cont.staff .staff-card p.pronouns {
+.cont.staff .staff-info-card p.pronouns {
     font-size: 14px;
     margin-top: -4px;
     margin-bottom: 12px;
     font-family: var(--display-font-stack);
 }
 
-.cont.staff .staff-card .roles {
+.cont.staff .staff-info-card .roles {
     font-weight: bold;
 }
 
@@ -62,13 +62,13 @@
 }
 
 @media (max-width: 560px) {
-    .cont.staff .staff-card {
+    .cont.staff .staff-info-card {
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
     }
-    .cont.staff .staff-card h1 {
+    .cont.staff .staff-info-card h1 {
         text-align: center;
     }
 }

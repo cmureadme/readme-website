@@ -335,6 +335,35 @@ def images(request):
     return render(request, "magazine/images.html", context)
 
 
+def search(request):
+    query = request.GET.get("q", "")
+
+    if query == "":
+        staff = []
+        issues = []
+        pieces = []
+    else:
+        staff = Author.objects.filter(name__contains=query)
+        issues = Issue.objects.filter(long_name__contains=query)
+        pieces = order_pieces(
+            Article.objects.filter(body__contains=query),
+            ImageGag.objects.filter(alt_text__contains=query),
+            [
+                PieceOrdering.SLUG_ASC
+            ]
+        )
+
+    context = {
+        "query": query,
+        "count": len(staff) + len(issues) + len(pieces),
+        "staff": staff[:20],
+        "issues": issues[:20],
+        "pieces": pieces[:50]
+    }
+
+    return render(request, "magazine/search.html", context)
+
+
 class PieceOrdering(Enum):
     ISSUE_DESC = 0
     FRONT_PAGE_FIRST = 1

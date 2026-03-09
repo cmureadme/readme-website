@@ -1,0 +1,14 @@
+{% load static %}
+
+<a class="staff-card" href="{% url 'author' author.slug %}">
+    <div class="staff-card-cont">
+        <img src="{{ author.img_url }}" alt="{{ author.name }}"/>
+
+        <div>
+            <h3 class="">{{ author.name }}</h3>
+            <p class="staff-card-roles-and-academics"><b>{{ author.roles }}</b>{% if author.major == "" %}{% if author.year != "" %} &bull; <span>Class of {{ author.year }}</span>{% endif %}{% else %}{% if author.year == "" %} &bull; <span>{{ author.major }}</span>{% else %} &bull; <span>{{ author.major }}, {{ author.year }}</span>{% endif %}{% endif %}</p>
+
+            <p class="staff-card-bio">{{ author.bio_html|truncatewords_html:50|safe }}</p>
+        </div>
+    </div>
+</a>

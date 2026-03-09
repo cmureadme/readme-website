@@ -1,0 +1,43 @@
+.cont.search h1 {
+    text-align: center;
+    font-size: 24px;
+    text-transform: unset;
+    margin-bottom: 24px;
+}
+
+.cont.search h2 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-family: var(--sans-font-stack);
+}
+
+.cont.search .staff-list {
+    margin-bottom: 12px;
+}
+
+.cont.search .issues-list {
+    margin-bottom: 12px;
+}
+
+.cont.search .article-card, .cont.search .image-gag-card {
+    border: none;
+    padding: 18px;
+    margin-bottom: 0;
+}
+
+.cont.search .card-outer::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 6px 0;
+}
+
+.cont.search .card-outer:last-child:after {
+    display: none;
+}
+
+.cont.search .article-card:hover, .cont.search .image-gag-card:hover {
+    background-color: #f0f0f0;
+}

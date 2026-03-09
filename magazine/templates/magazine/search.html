@@ -1,0 +1,50 @@
+{% extends "wrapper.html" %}
+
+{% load static %}
+
+{% block title %}"{{ query }}" - Readme{% endblock title %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/search.css' %}">
+<link rel="stylesheet" href="{% static 'styles/cards.css' %}">
+{% endblock head-content %}
+
+{% block wrapper-cont %}
+<div class="cont search">
+    <h1>{{ count }} results for "{{ query }}"</h1>
+
+    {% if staff|length > 0 %}
+    <h2>Staff:</h2>
+
+    <div class="staff-list">
+    {% for author in staff %}
+    {% include "./staff_card.html" %}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if issues|length > 0 %}
+    <h2>Issues:</h2>
+
+    <div class="issues-list">
+    {% for issue in issues %}
+    {% include "./issue_card.html" %}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if count > pieces|length %}
+    <h2>Stories:</h2>
+    {% endif %}
+
+    {% if pieces|length > 0 %}
+    <div class="pieces-list">
+    {% for piece in pieces %}
+    <div class="card-outer">
+        {% include piece.card_template %}
+    </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock wrapper-cont %}
