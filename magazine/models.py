@@ -153,7 +153,7 @@ class Issue(models.Model):
         ordering = ["vol", "num", "short_name"]
 
     def __str__(self):
-        return f"Vol {self.vol}, Issue {self.num}, '{self.name}'"
+        return f"Vol {self.vol}, Issue {self.num}, '{self.short_name}'"
 
     def fold(self):
         return f"{self.vol}-{self.num}"
