@@ -133,7 +133,8 @@ def issue_upload_path(instance, _):
 
 
 class Issue(models.Model):
-    name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
+    short_name = models.CharField(max_length=CHARFIELD_MAX_LENGTH, null=True)
+    long_name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
     vol = models.IntegerField(default=0)
     num = models.IntegerField(default=0)
     archive = models.FileField(
@@ -149,7 +150,7 @@ class Issue(models.Model):
 
     class Meta:
         verbose_name_plural = "issues"
-        ordering = ["vol", "num", "name"]
+        ordering = ["vol", "num", "short_name"]
 
     def __str__(self):
         return f"Vol {self.vol}, Issue {self.num}, '{self.name}'"
