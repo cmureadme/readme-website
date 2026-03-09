@@ -31,7 +31,13 @@ class AuthorAdmin(admin.ModelAdmin):
 class IssueAdmin(admin.ModelAdmin):
     model = Issue
     form = IssueForm
+    list_display = ["short_name", "long_name", "vol_issue"]
+    search_fields = ["short_name", "long_name"]
+    list_filter = ["vol"]
 
+    @admin.display(description="Vol, Issue")
+    def vol_issue(self, obj):
+        return f"{obj.vol}.{obj.num}"
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
@@ -69,6 +75,7 @@ class ImageGagAdmin(admin.ModelAdmin):
 class PaidForAdmin(admin.ModelAdmin):
     model = PaidFor
     form = PaidForForm
+    search_fields = ["title"]
 
 
 @admin.register(RejectedHeadline)
