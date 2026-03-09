@@ -30,9 +30,12 @@
                         </div>
                     </div>
 
-                    <div class="issue-info">
-                        <a href="{% url 'issue' issue.vol issue.num %}" style="font-family: 'Special Elite', cursive;">{{ issue.long_name }}</a>
-                    </div>
+                    <a href="{% url 'issue' issue.vol issue.num %}" class="issue-info">
+                        <div>
+                            <h2>{{ issue.short_name }}</h2>
+                            <p>{{ issue.long_name}}</p>
+                        </div>
+                    </a>
                 </div>
                 {% endfor %}
             </div>
