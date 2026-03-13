@@ -146,6 +146,9 @@ class Issue(models.Model):
         default=datetime.date.today,
         help_text="Defaults to the current day, change this if the issue was not published the same day you are uploading",
     )
+    paid_for = models.ForeignKey("PaidFor", related_name="paid_for", null=True, on_delete=models.PROTECT)
+    free = models.CharField(max_length=CHARFIELD_MAX_LENGTH, null=True, help_text="This is what goes before : Free")
+    three_dollars = models.CharField(max_length=CHARFIELD_MAX_LENGTH, null=True, help_text="This is what goes before : $3")
     last_modified = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -243,7 +246,7 @@ class Article(Piece):
 
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
-    
+
     def makers(self):
         return self.authors.all()
 

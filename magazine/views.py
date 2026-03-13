@@ -32,12 +32,10 @@ def index(request):
         i += 1
 
     sidebar_articles_pool = Article.objects.all().filter(
-        Q(published=True)
-        & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
+        Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
     )
     sidebar_image_gags_pool = ImageGag.objects.all().filter(
-        Q(published=True)
-        & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
+        Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
     )
 
     sidebar_articles_pool_count = sidebar_articles_pool.count()
@@ -111,19 +109,11 @@ def index(request):
 
     feat_articles = {
         "largest": Article.objects.all()
-        .filter(
-            Q(published=True)
-            & Q(front_page=True)
-            & Q(issue=latest_issue)
-            & Q(images__isnull=False)
-        )
+        .filter(Q(published=True) & Q(front_page=True) & Q(issue=latest_issue) & Q(images__isnull=False))
         .order_by("?")[0],
         "column": Article.objects.all()
         .filter(
-            Q(published=True)
-            & (Q(front_page=True) | Q(featured=True))
-            & Q(issue=latest_issue)
-            & Q(images__isnull=True)
+            Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(issue=latest_issue) & Q(images__isnull=True)
         )
         .order_by("?")[0],
         "article": Article.objects.all()

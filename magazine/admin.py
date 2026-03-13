@@ -18,6 +18,36 @@ from magazine.forms import (
 )
 
 
+@admin.action(description="Make piece(s) published")
+def make_published(modelAdmin, request, queryset):
+    queryset.update(published=True)
+
+
+@admin.action(description="Make piece(s) not published")
+def un_publish(modelAdmin, request, queryset):
+    queryset.update(published=False)
+
+
+@admin.action(description="Make piece(s) featured")
+def make_featured(modelAdmin, request, queryset):
+    queryset.update(featured=True)
+
+
+@admin.action(description="Make piece(s) not featured")
+def un_feature(modelAdmin, request, queryset):
+    queryset.update(featured=False)
+
+
+@admin.action(description="Make piece(s) front page")
+def make_front_page(modelAdmin, request, queryset):
+    queryset.update(front_page=True)
+
+
+@admin.action(description="Make piece(s) not front page")
+def un_front_page(modelAdmin, request, queryset):
+    queryset.update(front_page=False)
+
+
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     model = Author
@@ -39,6 +69,7 @@ class IssueAdmin(admin.ModelAdmin):
     def vol_issue(self, obj):
         return f"{obj.vol}.{obj.num}"
 
+
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
     extra = 0  # how many images will be prompted to be added by default
@@ -50,8 +81,10 @@ class ArticleAdmin(admin.ModelAdmin):
     form = ArticleAdminForm
     inlines = [ArticleImageInline]
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
+    list_editable = ["published", "front_page", "featured"]
     search_fields = ["slug", "title"]
     list_filter = ["issue", "authors"]
+    actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
@@ -63,8 +96,10 @@ class ImageGagAdmin(admin.ModelAdmin):
     model = ImageGag
     form = ImageGagAdminForm
     list_display = ["slug", "vol_issue", "published", "front_page", "featured"]
+    list_editable = ["published", "front_page", "featured"]
     search_fields = ["slug"]
     list_filter = ["issue", "artists"]
+    actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
@@ -83,6 +118,7 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
     model = RejectedHeadline
     form = RejectedHeadlineForm
     list_display = ["title", "vol_issue", "featured"]
+    list_editable = ["featured"]
     search_fields = ["title"]
     list_filter = ["issue"]
 

@@ -4,24 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('magazine', '0009_alter_article_created_on_alter_article_featured_and_more'),
+        ("magazine", "0009_alter_article_created_on_alter_article_featured_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='issue',
-            options={'ordering': ['vol', 'num', 'short_name'], 'verbose_name_plural': 'issues'},
+            name="issue",
+            options={"ordering": ["vol", "num", "short_name"], "verbose_name_plural": "issues"},
         ),
         migrations.RenameField(
-            model_name='issue',
-            old_name='name',
-            new_name='long_name',
+            model_name="issue",
+            old_name="name",
+            new_name="long_name",
         ),
         migrations.AddField(
-            model_name='issue',
-            name='short_name',
+            model_name="issue",
+            name="short_name",
             field=models.CharField(max_length=1024, null=True),
             preserve_default=False,
         ),

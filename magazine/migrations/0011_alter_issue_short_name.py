@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('magazine', '0010_alter_issue_options_rename_name_issue_long_name_and_more'),
+        ("magazine", "0010_alter_issue_options_rename_name_issue_long_name_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='issue',
-            name='short_name',
+            model_name="issue",
+            name="short_name",
             field=models.CharField(max_length=1024),
         ),
     ]
