@@ -17,25 +17,31 @@ from magazine.forms import (
     IssueForm,
 )
 
+
 @admin.action(description="Make piece(s) published")
 def make_published(modelAdmin, request, queryset):
     queryset.update(published=True)
+
 
 @admin.action(description="Make piece(s) not published")
 def un_publish(modelAdmin, request, queryset):
     queryset.update(published=False)
 
+
 @admin.action(description="Make piece(s) featured")
 def make_featured(modelAdmin, request, queryset):
     queryset.update(featured=True)
+
 
 @admin.action(description="Make piece(s) not featured")
 def un_feature(modelAdmin, request, queryset):
     queryset.update(featured=False)
 
+
 @admin.action(description="Make piece(s) front page")
 def make_front_page(modelAdmin, request, queryset):
     queryset.update(front_page=True)
+
 
 @admin.action(description="Make piece(s) not front page")
 def un_front_page(modelAdmin, request, queryset):
@@ -62,6 +68,7 @@ class IssueAdmin(admin.ModelAdmin):
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
         return f"{obj.vol}.{obj.num}"
+
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
