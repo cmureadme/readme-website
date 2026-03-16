@@ -2,9 +2,10 @@
 
 {% load static %}
 
-{% block wrapper-styles %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/wrapper.css' %}">
-{% endblock wrapper-styles %}
+{% endblock styles %}
 
 {% block cont %}
 <div class="inner-wrapper">

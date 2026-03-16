@@ -5,10 +5,11 @@
 
 {% block title %}{{ author.name }} - Readme{% endblock title %}
 
-{% block head-content %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/author.css' %}">
 <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
-{% endblock head-content %}
+{% endblock styles %}
 
 {% block cont %}
 <div class="cont staff">

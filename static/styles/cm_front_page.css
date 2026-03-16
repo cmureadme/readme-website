@@ -1,0 +1,8 @@
+.body-cont.base {
+    width: 100%;
+    height: 100%;
+}
+
+#ticker {
+    position: absolute;
+}

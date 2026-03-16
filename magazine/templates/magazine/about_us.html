@@ -4,9 +4,10 @@
 
 {% block title %}About Us - Readme{% endblock title %}
 
-{% block head-content %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/about_us.css' %}">
-{% endblock head-content %}
+{% endblock styles %}
 
 {% block wrapper-cont %}
 <div class="cont about-us">

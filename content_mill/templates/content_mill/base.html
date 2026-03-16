@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block content_mill_title %}The Content Mill - Readme{% endblock content_mill_title %}</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+        <link rel="stylesheet" href="{% static 'styles/content_mill.css' %}">
+
+        <link rel="icon" type="image/png" href="{% static 'readme_logo.png' %}" sizes="128x128" />
+        <link rel="icon" type="image/png" href="{% static 'readme_logo_32x32.png' %}" sizes="32x32" />
+    </head>
+
+    <body>
+        <script>
+            function setTime() {
+                const timestamp = document.getElementById("timestamp");
+                const now = new Date();
+
+                timestamp.textContent = now.toLocaleDateString("en-US", {
+                    timeZone: "America/New_York",
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                }).replace(/[^\w ]/g, "") + " \u2022 " + now.toLocaleTimeString("en-US", {
+                    timeZone: "America/New_York",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false
+                });
+            }
+
+            setInterval(setTime, 500);
+            setTime();
+        </script>
+    </body>
+</html>

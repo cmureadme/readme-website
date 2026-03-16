@@ -4,9 +4,10 @@
 
 {% block title %}404: Page Not Found (Or Is It?) - Readme{% endblock title %}
 
-{% block head-content %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/404.css' %}">
-{% endblock head-content %}
+{% endblock styles %}
 
 {% block wrapper-cont %}
 <div class="cont not-found">

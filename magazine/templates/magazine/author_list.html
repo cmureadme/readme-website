@@ -4,9 +4,10 @@
 
 {% block title %}Staff - Readme{% endblock title %}
 
-{% block head-content %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/author_list.css' %}">
-{% endblock head-content %}
+{% endblock styles %}
 
 {% block wrapper-cont %}
 <div class="cont staff-list">

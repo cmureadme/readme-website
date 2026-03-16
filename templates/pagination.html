@@ -2,9 +2,10 @@
 {% load static %}
 
 
-{% block head-content %}
-    <link rel="stylesheet" href="{% static 'styles/pagination.css' %}">
-{% endblock head-content %}
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'styles/pagination.css' %}">
+{% endblock styles %}
 
 <div class="nav-bar">
   {% if page_obj.has_previous %}

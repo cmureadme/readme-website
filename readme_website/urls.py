@@ -25,6 +25,7 @@ from django.shortcuts import render
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("magazine.urls")),
+    path("", include("content_mill.urls")),
     path("discord", lambda request: HttpResponseRedirect("https://discord.gg/8eR4C3wuty")),
     path(
         "instagram",

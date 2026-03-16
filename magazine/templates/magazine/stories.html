@@ -4,10 +4,11 @@
 
 {% block title %}Stories - Readme{% endblock title %}
 
-{% block head-content %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/stories.css' %}">
 <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
-{% endblock head-content %}
+{% endblock styles %}
 
 {% block wrapper-cont %}
 <div class="cont stories">

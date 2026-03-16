@@ -3,9 +3,10 @@
 {% load static %}
 {% load tag %}
 
-{% block head-content %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/index.css' %}">
-{% endblock head-content %}
+{% endblock styles %}
 
 {% block cont %}
 <div class="cont index">
@@ -63,7 +64,7 @@
 </div>
 {% endblock cont %}
 
-{% block body-suffix %}
+{% block body_suffix %}
 <div id="ticker"><div>{% for rej_head in rej_heads %}{{ rej_head.title|trim_rh }} &bull; {% endfor %}{% for rej_head in rej_heads %}{{ rej_head.title }}{% if not forloop.last %} &bull; {% endif %}{% endfor %}</div></div>
 
 <!-- TODO: Make sure this runs after font has loaded!!! -->
@@ -73,4 +74,4 @@
         ticker.firstChild.style.animationDuration = (ticker.offsetWidth / 200) + "s";
     }
 </script>
-{% endblock body-suffix %}
+{% endblock body_suffix %}

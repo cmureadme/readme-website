@@ -4,9 +4,10 @@
 
 {% block title %}{{ image_gag.alt_text|default:"Image" }} - Readme{% endblock title %}
 
-{% block head-content %}
+{% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'styles/image_gag.css' %}">
-{% endblock head-content %}
+{% endblock styles %}
 
 {% block wrapper-cont %}
 <div class="cont image-gag">

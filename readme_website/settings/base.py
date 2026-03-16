@@ -34,6 +34,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 INSTALLED_APPS = [
     "magazine.apps.MagazineConfig",
+    "content_mill.apps.ContentMillConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

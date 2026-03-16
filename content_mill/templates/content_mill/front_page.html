@@ -1,0 +1,16 @@
+{% extends "magazine/index.html" %}
+
+{% load static %}
+{% load tag %}
+
+{% block title %}The Content Mill - Readme{% endblock title %}
+
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'styles/cm.css' %}">
+<link rel="stylesheet" href="{% static 'styles/cm_front_page.css' %}">
+{% endblock styles %}
+
+{% block body %}
+{% include "./body.html" with content_mill_cont=block.super %}
+{% endblock body %}
