@@ -19,7 +19,7 @@ with open(purity_test_items_file) as json_file:
     purity_test_items = json.load(json_file)
 
 
-def index_context():
+def index(request, render_fn=render):
     latest_issue = Issue.objects.all().order_by("-vol", "-num")[0]
     second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
 
@@ -124,7 +124,7 @@ def index_context():
         .order_by("?")[0],
     }
 
-    return {
+    context = {
         "sidebar": sidebar,
         "secondary": secondary,
         "feat_articles": feat_articles,
@@ -132,23 +132,52 @@ def index_context():
         "rej_heads": all_rej_heads,
     }
 
-
-def index(request):
-    return render(request, "magazine/index.html", index_context())
+    return render_fn(request, "magazine/index.html", context)
 
 
-def author_list(request):
+def stories(request, render_fn=render):
+    pieces = order_pieces(
+        Article.objects,
+        ImageGag.objects,
+        [
+            PieceOrdering.ISSUE_DESC,
+            PieceOrdering.TRUE_CREATED_ON_DESC,
+            PieceOrdering.FRONT_PAGE_FIRST,
+            PieceOrdering.FEATURED_FIRST,
+            PieceOrdering.SLUG_ASC,
+        ],
+    )
+
+    page_num = request.GET.get("page", 1)
+    paginator = Paginator(pieces, per_page=25)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    context = {"page_obj": page_obj, "pieces": page_obj}
+
+    return render_fn(request, "magazine/stories.html", context)
+
+
+def author_list(request, render_fn=render):
     context = {
         "usual_suspects": Author.objects.filter(author_status="US", alias_of=None),
         "independent_contractors": Author.objects.filter(author_status="IC", alias_of=None),
         "escapees": Author.objects.filter(author_status="EE", alias_of=None),
     }
-    return render(request, "magazine/author_list.html", context)
+
+    return render_fn(request, "magazine/author_list.html", context)
 
 
-def author(request, author):
+def author(request, slug, render_fn=render):
     try:
-        author = Author.objects.get(slug=author)
+        author = Author.objects.get(slug=slug)
     except Author.DoesNotExist:
         raise Http404
 
@@ -182,10 +211,10 @@ def author(request, author):
         "page_obj": page_obj,
         "pieces": page_obj,
     }
-    return render(request, "magazine/author.html", context)
+    return render_fn(request, "magazine/author.html", context)
 
 
-def issue_list(request):
+def issue_list(request, render_fn=render):
     issues = Issue.objects.all().order_by("vol", "num")
     issues_by_volume = {}
 
@@ -199,10 +228,10 @@ def issue_list(request):
         "issues": issues,
         "issues_by_volume": issues_by_volume,
     }
-    return render(request, "magazine/issue_list.html", context)
+    return render_fn(request, "magazine/issue_list.html", context)
 
 
-def issue(request, vol, num):
+def issue(request, vol, num, render_fn=render):
     try:
         issue = Issue.objects.get(num=num, vol=vol)
     except Issue.DoesNotExist:
@@ -225,32 +254,15 @@ def issue(request, vol, num):
         "pieces": pieces,
         "rejected_headlines": rejected_headlines,
     }
-    return render(request, "magazine/issue.html", context)
+    return render_fn(request, "magazine/issue.html", context)
 
 
-def article(request, slug):
-    try:
-        article = Article.objects.get(slug=slug)
-    except Article.DoesNotExist:
-        raise Http404
-
-    context = {"article": article}
-
-    return render(request, "magazine/article.html", context)
+def purity_test(request, render_fn=render):
+    context = {"items": purity_test_items}
+    return render_fn(request, "magazine/purity_test.html", context)
 
 
-def image_gag(request, slug):
-    try:
-        image_gag = ImageGag.objects.get(slug=slug)
-    except ImageGag.DoesNotExist:
-        raise Http404
-
-    context = {"image_gag": image_gag}
-
-    return render(request, "magazine/image_gag.html", context)
-
-
-def about_us(request):
+def about_us(request, render_fn=render):
     pieces = Article.objects.count() + ImageGag.objects.count()
     authors = Author.objects.count()
     rejected_headlines = RejectedHeadline.objects.count()
@@ -261,53 +273,36 @@ def about_us(request):
         "rejected_headlines": rejected_headlines,
         "issues": issues,
     }
-    return render(request, "magazine/about_us.html", context)
-
-
-def paid_for(request):
-    return {"paid_for": PaidFor.objects.order_by("?")[0]}
-
-
-def purity_test(request):
-    context = {"items": purity_test_items}
-    return render(request, "magazine/purity_test.html", context)
-
-
-def stories(request):
-    pieces = order_pieces(
-        Article.objects,
-        ImageGag.objects,
-        [
-            PieceOrdering.ISSUE_DESC,
-            PieceOrdering.TRUE_CREATED_ON_DESC,
-            PieceOrdering.FRONT_PAGE_FIRST,
-            PieceOrdering.FEATURED_FIRST,
-            PieceOrdering.SLUG_ASC,
-        ],
-    )
-
-    page_num = request.GET.get("page", 1)
-    paginator = Paginator(pieces, per_page=25)
-
-    try:
-        page_obj = paginator.page(page_num)
-    except PageNotAnInteger:
-        # if page is not an integer, deliver the first page
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        # if the page is out of range, deliver the last page
-        page_obj = paginator.page(paginator.num_pages)
-
-    context = {"page_obj": page_obj, "pieces": page_obj}
-    return render(request, "magazine/stories.html", context)
+    return render_fn(request, "magazine/about_us.html", context)
 
 
 def random_article(request):
     return redirect(reverse("article", args=[Article.objects.order_by("?").first().slug]))
 
 
-# Returns all images chronologically
-def images(request):
+def article(request, slug, render_fn=render):
+    try:
+        article = Article.objects.get(slug=slug)
+    except Article.DoesNotExist:
+        raise Http404
+
+    context = {"article": article}
+
+    return render_fn(request, "magazine/article.html", context)
+
+
+def image_gag(request, slug, render_fn=render):
+    try:
+        image_gag = ImageGag.objects.get(slug=slug)
+    except ImageGag.DoesNotExist:
+        raise Http404
+
+    context = {"image_gag": image_gag}
+
+    return render_fn(request, "magazine/image_gag.html", context)
+
+
+def images(request, render_fn=render):
     image_gags = ImageGag.objects.filter().order_by(
         "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
     )
@@ -325,7 +320,11 @@ def images(request):
         page_obj = paginator.page(paginator.num_pages)
 
     context = {"page_obj": page_obj, "image_gags": page_obj}
-    return render(request, "magazine/images.html", context)
+    return render_fn(request, "magazine/images.html", context)
+
+
+def paid_for(request):
+    return {"paid_for": PaidFor.objects.order_by("?")[0]}
 
 
 class PieceOrdering(Enum):

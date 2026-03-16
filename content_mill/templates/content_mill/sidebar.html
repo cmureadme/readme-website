@@ -1,0 +1,133 @@
+{% load static %}
+{% load tag %}
+
+<div class="sidebar">
+    <div class="img-cont">
+        <img src="{% static 'readme-site-header-blank.png' %}" alt="KGB Presents: readme">
+    </div>
+
+    <hr>
+
+    <div class="header">
+        <h1>The Content Mill</h1>
+        <p class="timestamp" id="timestamp"></p>
+    </div>
+
+    <div class="link-group">
+        <h2>Public Site</h2>
+
+        <ul>
+            <li><a href="{% url 'public_index' %}">Front Page</a></li>
+            <li><a href="{% url 'public_stories' %}">Stories</a></li>
+            <li><a href="{% url 'public_author_list' %}">Staff</a></li>
+            <li><a href="{% url 'public_author' cm__user_slug %}">Your Bio</a></li>
+            <li><a href="{% url 'public_issue_list' %}">Issues</a></li>
+            <li><a href="{% url 'public_issue' cm__curr_issue_vol cm__curr_issue_num %}">Current Issue</a></li>
+            <li><a href="{% url 'public_about_us' %}">About Us</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Site info</h2>
+
+        <ul>
+            <li><a href="">Site map</a></li>
+            <li><a href="">Anal(ytics)</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Stories</h2>
+
+        <ul>
+            <li><a href="">Create Story</a></li>
+            <li><a href="">Stories</a></li>
+            <li><a href="">Your Stories</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Staff</h2>
+
+        <ul>
+            <li><a href="">Create Staff</a></li>
+            <li><a href="">Staff</a></li>
+            <li><a href="">Your Staff</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Issues</h2>
+
+        <ul>
+            <li><a href="">Create Issue</a></li>
+            <li><a href="">Issues</a></li>
+            <li><a href="">Current Issue</a></li>
+            <li><a href="">Last Issue</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Rejected Headlines</h2>
+
+        <ul>
+            <li><a href="">Create RH</a></li>
+            <li><a href="">RHs</a></li>
+            <li><a href="">Your RHs</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Other</h2>
+
+        <ul>
+            <li><a href="">Paid-For Gags</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Printing</h2>
+
+        <ul>
+            <li><a href="">Tools</a></li>
+            <li><a href="">PDFs</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Hosting</h2>
+
+        <ul>
+            <li><a href="">Production</a></li>
+            <li><a href="">Staging</a></li>
+            <li><a href="">Backups</a></li>
+            <li><a href="">Top</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>MOTD (Internal)</h2>
+
+        <ul>
+            <li><a href="">Set MOTD</a></li>
+            <li><a href="">Historical MOTDs</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>Users (Internal)</h2>
+
+        <ul>
+            <li><a href="">Users</a></li>
+        </ul>
+    </div>
+
+    <div class="link-group">
+        <h2>You</h2>
+
+        <ul>
+            <li><a href="">Your User</a></li>
+            <li><a href="">Log Out</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,11 +1,4 @@
-{% comment %} Easy pagination template. Very reusable very epic {% endcomment %}
 {% load static %}
-
-
-{% block styles %}
-{{ block.super }}
-<link rel="stylesheet" href="{% static 'styles/pagination.css' %}">
-{% endblock styles %}
 
 <div class="nav-bar">
   {% if page_obj.has_previous %}

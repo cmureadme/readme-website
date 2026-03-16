@@ -1,0 +1,47 @@
+{% extends cm__template_name %}
+
+{% load static %}
+{% load tag %}
+
+{% block title %}The Content Mill - Readme{% endblock title %}
+
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'styles/cm.css' %}">
+<link rel="stylesheet" href="{% static 'styles/cm_public.css' %}">
+{% endblock styles %}
+
+{% block body %}
+<div class="body-cont content-mill">
+    {% include "./sidebar.html" %}
+    
+    <div class="cont">
+        <div class="cont-scroll">
+            {{ block.super }}
+        </div>
+    </div>
+</div>
+
+<script>
+    function setTime() {
+        const timestamp = document.getElementById("timestamp");
+        const now = new Date();
+
+        timestamp.textContent = now.toLocaleDateString("en-US", {
+            timeZone: "America/New_York",
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        }).replace(/[^\w ]/g, "") + " \u2022 " + now.toLocaleTimeString("en-US", {
+            timeZone: "America/New_York",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+        });
+    }
+
+    setInterval(setTime, 500);
+    setTime();
+</script>
+{% endblock body %}
