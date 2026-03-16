@@ -87,6 +87,39 @@
     color: #888888;
 }
 
+.cont.cm-create-story .input #writers-found {
+    border: 1px solid #888888;
+    border-top: none;
+    padding: 6px;
+    background-color: #ffffff;
+}
+
+.cont.cm-create-story .input #writers-found .writer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.cont.cm-create-story .input #writers-found .writer:hover {
+    background-color: #e8e8e8;
+}
+
+.cont.cm-create-story .input #writers-found .writer img {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.cont.cm-create-story .input #writers-found .writer .slug {
+    font-family: var(--mono-font-stack);
+    color: #666666;
+    font-size: 10px;
+}
+
 .cont.cm-create-story .output {
     font-family: var(--body-font-stack);
 }

@@ -52,6 +52,20 @@
                 <h2>Writers:</h2>
 
                 <input type="search" id="find-writer">
+
+                <div id="writers-found">
+                    <div class="writer">
+                        <img src="/media/author_images/tyan.png">
+
+                        <p>"Roan Tysh" <span class="slug">(roan-tysh)</span></p>
+                    </div>
+
+                    <div class="writer">
+                        <img src="/media/author_images/acpfp.png">
+
+                        <p>Air Conditioner <span class="slug">(air-conditioner)</span></p>
+                    </div>
+                </div>
             </div>
 
             <div class="group">
@@ -85,6 +99,7 @@
 {% endblock cont %}
 
 {% block scripts %}
+{{ author_records|json_script:"authors" }}
 {{ used_slugs|json_script:"used-slugs" }}
 <script src="{% static 'js/create_story.js' %}"></script>
 {% endblock scripts %}

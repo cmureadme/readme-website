@@ -73,13 +73,16 @@ def public_images(request):
 
 
 def create_story(request):
+    authors = Author.objects.order_by("name").all()
+
     context = {
         **cm_context(request),
         "used_slugs": [
             *(article.slug for article in Article.objects.all()),
             *(image_gag.slug for image_gag in ImageGag.objects.all()),
         ],
-        "authors": Author.objects.order_by("name").all(),
+        "authors": authors,
+        "author_records": [{ "slug": author.slug, "name": author.name, "img_url": author.img_url } for author in authors],
         "issues": Issue.objects.order_by("-vol", "-num").all(),
         "article": Article.objects.first(),
     }

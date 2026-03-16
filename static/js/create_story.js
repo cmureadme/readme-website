@@ -10,6 +10,7 @@ const titleH1 = document.getElementById("title");
 const bodyDiv = document.getElementById("body");
 
 const usedSlugs = new Set(JSON.parse(document.getElementById("used-slugs").textContent));
+const authors = JSON.parse(document.getElementById("authors").textContent);
 
 function onUpdateTitle() {
     const title = titleInput.value.replace(/\s+/g, " ").trim();
@@ -53,3 +54,10 @@ function onUpdateBody() {
 
 bodyInput.addEventListener("input", onUpdateBody);
 onUpdateBody();
+
+function onUpdateFindWriters() {
+    const query = findWriterInput.textContent.trim();
+}
+
+findWriterInput.addEventListener("input", onUpdateFindWriters);
+onUpdateFindWriters();
