@@ -1,0 +1,103 @@
+.cont.cm-create-story {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.cont.cm-create-story > .input, .cont.cm-create-story > .output {
+    flex-shrink: 0;
+    flex-basis: 0;
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: scroll;
+    padding: 0 24px;
+}
+
+.cont.cm-create-story .input {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.cont.cm-create-story > .spacer {
+    width: 1px;
+    background-color: #888888;
+    height: 100%;
+    transform: translateZ(1px); /* hack to force pixel alignment */
+    will-change: transform;
+}
+
+.cont.cm-create-story .input .group {
+    margin-bottom: 24px;
+}
+
+.cont.cm-create-story .input .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.cont.cm-create-story .input .grow textarea {
+    resize: none;
+    overflow: hidden;
+}
+
+.cont.cm-create-story .input .checkbox label {
+    font-weight: normal;
+    margin: 0;
+    line-height: 1;
+}
+
+.cont.cm-create-story .input label, .cont.cm-create-story .input h2 {
+    display: block;
+    font: inherit;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.cont.cm-create-story .input input[type=text], .cont.cm-create-story .input input[type=search], .cont.cm-create-story .input textarea, .cont.cm-create-story .input select, .cont.cm-create-story .input .grow::after {
+    width: 100%;
+}
+
+.cont.cm-create-story .input input[type=text], .cont.cm-create-story .input input[type=search], .cont.cm-create-story .input input[type=number], .cont.cm-create-story .input textarea, .cont.cm-create-story .input .grow::after {
+    border: 1px solid #888888;
+    padding: 4px;
+}
+
+.cont.cm-create-story .input .grow {
+    display: grid;
+}
+
+.cont.cm-create-story .input .grow > * {
+    display: block;
+}
+
+.cont.cm-create-story .input .grow::after {
+    content: attr(data-copy) " ";
+    
+    white-space: pre-wrap;
+    visibility: hidden;
+}
+
+.cont.cm-create-story .input textarea, .cont.cm-create-story .input .grow::after {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.cont.cm-create-story .input input::placeholder {
+    color: #888888;
+}
+
+.cont.cm-create-story .output {
+    font-family: var(--body-font-stack);
+}
+
+.cont.cm-create-story .output > .inner-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.cont.cm-create-story .output .cont {
+    width: calc(720px + 2 * var(--wide-padding));
+    max-width: 100%;
+    padding: 48px 0;
+}

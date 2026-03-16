@@ -9,7 +9,7 @@
     <hr>
 
     <div class="header">
-        <h1>The Content Mill</h1>
+        <h1><a href="{% url 'cm_index' %}">The Content Mill</a></h1>
         <p class="timestamp" id="timestamp"></p>
     </div>
 
@@ -17,13 +17,13 @@
         <h2>Public Site</h2>
 
         <ul>
-            <li><a href="{% url 'public_index' %}">Front Page</a></li>
-            <li><a href="{% url 'public_stories' %}">Stories</a></li>
-            <li><a href="{% url 'public_author_list' %}">Staff</a></li>
-            <li><a href="{% url 'public_author' cm__user_slug %}">Your Bio</a></li>
-            <li><a href="{% url 'public_issue_list' %}">Issues</a></li>
-            <li><a href="{% url 'public_issue' cm__curr_issue_vol cm__curr_issue_num %}">Current Issue</a></li>
-            <li><a href="{% url 'public_about_us' %}">About Us</a></li>
+            <li><a href="{% url 'cm_public_index' %}">Front Page</a></li>
+            <li><a href="{% url 'cm_public_stories' %}">Stories</a></li>
+            <li><a href="{% url 'cm_public_author_list' %}">Staff</a></li>
+            <li><a href="{% url 'cm_public_author' cm__user_slug %}">Your Bio</a></li>
+            <li><a href="{% url 'cm_public_issue_list' %}">Issues</a></li>
+            <li><a href="{% url 'cm_public_issue' cm__curr_issue_vol cm__curr_issue_num %}">Current Issue</a></li>
+            <li><a href="{% url 'cm_public_about_us' %}">About Us</a></li>
         </ul>
     </div>
 
@@ -42,7 +42,6 @@
         <ul>
             <li><a href="">Create Story</a></li>
             <li><a href="">Stories</a></li>
-            <li><a href="">Your Stories</a></li>
         </ul>
     </div>
 
@@ -52,7 +51,6 @@
         <ul>
             <li><a href="">Create Staff</a></li>
             <li><a href="">Staff</a></li>
-            <li><a href="">Your Staff</a></li>
         </ul>
     </div>
 
@@ -73,7 +71,6 @@
         <ul>
             <li><a href="">Create RH</a></li>
             <li><a href="">RHs</a></li>
-            <li><a href="">Your RHs</a></li>
         </ul>
     </div>
 

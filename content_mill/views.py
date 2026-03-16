@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from magazine.models import Article, ImageGag
 from magazine.views import index, stories, author_list, author, issue_list, issue, purity_test, about_us, article, image_gag, images
 
 
@@ -69,3 +70,13 @@ def public_image_gag(request, slug):
 
 def public_images(request):
     return images(request, cm_render)
+
+
+def create_story(request):
+    context = {
+        **cm_context(request),
+        "used_slugs": [*(article.slug for article in Article.objects.all()), *(image_gag.slug for image_gag in ImageGag.objects.all())],
+        "article": Article.objects.first()
+    }
+
+    return render(request, "content_mill/create_story.html", context)

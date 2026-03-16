@@ -1,0 +1,12 @@
+{% load static %}
+{% load tag %}
+
+<div class="cont article">
+    <h1 id="title">{{ article.title }}</h1>
+    
+    {% include "./article_byline.html" %}
+
+    <div id="body">
+        {{ article.body_html|safe }}
+    </div>
+</div>

@@ -1,10 +1,20 @@
-.body-cont.base {
+.body-cont.content-mill > .cont.cm-public {
+    position: relative;
+    overflow-x: hidden;
+}
+
+.body-cont.content-mill > .cont.cm-public > .cont-scroll {
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.body-cont.content-mill > .cont.cm-public .body-cont.base {
     width: 100%;
     height: 100%;
 
     font-family: var(--body-font-stack);
 }
 
-#ticker {
+.body-cont.content-mill > .cont.cm-public #ticker {
     position: absolute;
 }

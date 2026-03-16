@@ -1,5 +1,15 @@
 {% extends "content_mill/base.html" %}
 
+{% load static %}
+{% load tag %}
+
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'styles/cm_index.css' %}">
+{% endblock styles %}
+
 {% block cont %}
-<p class="nothing">[Nothing to show]</p>
+<div class="cont cm-index">
+    <p class="nothing">[Nothing to show]</p>
+</div>
 {% endblock cont %}

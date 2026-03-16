@@ -10,13 +10,5 @@
 {% endblock styles %}
 
 {% block wrapper-cont %}
-<div class="cont article">
-    <h1>{{ article.title }}</h1>
-    
-    {% include "./article_byline.html" %}
-
-    {% load tag %}
-    
-    {{ article.body_html|safe }}
-</div>
+{% include "./article-cont.html" %}
 {% endblock wrapper-cont %}

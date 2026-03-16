@@ -24,15 +24,10 @@
     </head>
 
     <body>
-        {% block body %}
         <div class="body-cont content-mill">
             {% include "./sidebar.html" %}
             
-            <div class="cont">
-                <div class="cont-scroll">
-                    {% block cont %}{% endblock cont %}
-                </div>
-            </div>
+            {% block cont %}{% endblock cont %}
         </div>
 
         <script>
@@ -57,6 +52,7 @@
             setInterval(setTime, 500);
             setTime();
         </script>
-        {% endblock body %}
+
+        {% block scripts %}{% endblock scripts %}
     </body>
 </html>

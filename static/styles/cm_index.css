@@ -1,0 +1,11 @@
+.body-cont.content-mill > .cont.cm-index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-cont.content-mill > .cont.cm-index .nothing {
+    font-family: var(--mono-font-stack);
+    color: #888888;
+    font-size: 14px;
+}
