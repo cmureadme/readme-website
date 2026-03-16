@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from magazine.models import Article, ImageGag
+from magazine.models import Article, Author, ImageGag, Issue
 from magazine.views import index, stories, author_list, author, issue_list, issue, purity_test, about_us, article, image_gag, images
 
 
@@ -75,8 +75,13 @@ def public_images(request):
 def create_story(request):
     context = {
         **cm_context(request),
-        "used_slugs": [*(article.slug for article in Article.objects.all()), *(image_gag.slug for image_gag in ImageGag.objects.all())],
-        "article": Article.objects.first()
+        "used_slugs": [
+            *(article.slug for article in Article.objects.all()),
+            *(image_gag.slug for image_gag in ImageGag.objects.all()),
+        ],
+        "authors": Author.objects.order_by("name").all(),
+        "issues": Issue.objects.order_by("-vol", "-num").all(),
+        "article": Article.objects.first(),
     }
 
     return render(request, "content_mill/create_story.html", context)

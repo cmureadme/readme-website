@@ -38,8 +38,9 @@
                 <div class="group">
                     <label for="writers">Writers:</label>
                     <select multiple id="writers" name="authors">
-                        <option>"Roan Tysh"</option>
-                        <option>Allyn</option>
+                        {% for author in authors %}
+                        <option>{{ author.name }}</option>
+                        {% endfor %}
                     </select>
 
                     <label for="anon_writers">Anonymous writers:</label>
@@ -65,7 +66,9 @@
                 <label for="issue">Issue:</label>
                 <select id="issue" name="issue">
                     <option selected>---</option>
-                    <option>Vol 5 Issue 5</option>
+                    {% for issue in issues %}
+                    <option>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.short_name }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </form>
