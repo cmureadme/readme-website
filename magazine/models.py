@@ -243,7 +243,7 @@ class Article(Piece):
 
     class Meta:
         ordering = ["issue__vol", "issue__num", "-front_page", "-featured", "slug"]
-    
+
     def makers(self):
         return self.authors.all()
 

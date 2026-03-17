@@ -39,6 +39,7 @@ class IssueAdmin(admin.ModelAdmin):
     def vol_issue(self, obj):
         return f"{obj.vol}.{obj.num}"
 
+
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
     extra = 0  # how many images will be prompted to be added by default

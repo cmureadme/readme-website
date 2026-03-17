@@ -87,6 +87,37 @@
     color: #888888;
 }
 
+.cont.cm-create-story .input #writers {
+    display: flex;
+    gap: 4px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.cont.cm-create-story .input #writers li {
+    background-color: #ffffff;
+    padding: 4px 6px;
+    border: 1px solid #888888;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.cont.cm-create-story .input #writers li img {
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.cont.cm-create-story .input #writers li p {
+    font-size: 14px;
+}
+
+.cont.cm-create-story .input #writers li .x {
+    color: #888888;
+}
+
 .cont.cm-create-story .input #writers-found {
     border: 1px solid #888888;
     border-top: none;
@@ -99,7 +130,6 @@
     gap: 8px;
     align-items: center;
     font-size: 14px;
-    cursor: pointer;
     padding: 2px;
 }
 
@@ -118,6 +148,19 @@
     font-family: var(--mono-font-stack);
     color: #666666;
     font-size: 10px;
+}
+
+.cont.cm-create-story .input #writers-found .writer .slug::before {
+    content: "(";
+}
+
+.cont.cm-create-story .input #writers-found .writer .slug::after {
+    content: ")";
+}
+
+.cont.cm-create-story .input #writers-found .other {
+    color: #666666;
+    font-size: 14px;
 }
 
 .cont.cm-create-story .output {

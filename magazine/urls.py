@@ -23,7 +23,9 @@ urlpatterns = [
     path("image/", views.images, name="images"),
     # Redirects for old URIs (do not delete!)
     path("issues/", lambda request: redirect(views.issue_list, permanent=True)),
-    path("issues/<int:vol>/<int:num>", lambda request, vol, num: redirect(views.issue, permanent=True, vol=vol, num=num)),
+    path(
+        "issues/<int:vol>/<int:num>", lambda request, vol, num: redirect(views.issue, permanent=True, vol=vol, num=num)
+    ),
     path("cmupuritytest/", lambda request: redirect(views.purity_test, permanent=True)),
-    path("aboutus/", lambda request: redirect(views.about_us, permanent=True))
+    path("aboutus/", lambda request: redirect(views.about_us, permanent=True)),
 ]

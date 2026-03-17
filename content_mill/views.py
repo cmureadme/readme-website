@@ -1,31 +1,35 @@
 from django.shortcuts import render
 
 from magazine.models import Article, Author, ImageGag, Issue
-from magazine.views import index, stories, author_list, author, issue_list, issue, purity_test, about_us, article, image_gag, images
+from magazine.views import (
+    index,
+    stories,
+    author_list,
+    author,
+    issue_list,
+    issue,
+    purity_test,
+    about_us,
+    article,
+    image_gag,
+    images,
+)
 
 
 def cm_context(request):
-    return {
-        "cm__user_slug": "roan-tysh",
-        "cm__curr_issue_vol": 5,
-        "cm__curr_issue_num": 5
-    }
+    return {"cm__user_slug": "roan-tysh", "cm__curr_issue_vol": 5, "cm__curr_issue_num": 5}
 
 
 def content_mill(request):
-    context = {
-        **cm_context(request)
-    }
+    context = {**cm_context(request)}
 
     return render(request, "content_mill/index.html", context)
 
 
 def cm_render(request, template_name, context, *args, **kw_args):
-    return render(request, "content_mill/public.html", {
-        "cm__template_name": template_name,
-        **cm_context(request),
-        **context
-    })
+    return render(
+        request, "content_mill/public.html", {"cm__template_name": template_name, **cm_context(request), **context}
+    )
 
 
 def public_index(request):
@@ -75,6 +79,30 @@ def public_images(request):
 def create_story(request):
     authors = Author.objects.order_by("name").all()
 
+    author_records = []
+    for author_obj in authors:
+        last_article = author_obj.articles.order_by("-true_created_on").first()
+        last_image_gag = author_obj.image_gags.order_by("-true_created_on").first()
+
+        last_published = (
+            (None if last_image_gag is None else last_image_gag.true_created_on)
+            if last_article is None
+            else (
+                last_article.true_created_on
+                if last_image_gag is None
+                else max(last_article.true_created_on, last_image_gag.true_created_on)
+            )
+        )
+
+        author_records.append(
+            {
+                "slug": author_obj.slug,
+                "name": author_obj.name,
+                "img_url": author_obj.img_url,
+                "last_published": last_published,
+            }
+        )
+
     context = {
         **cm_context(request),
         "used_slugs": [
@@ -82,7 +110,7 @@ def create_story(request):
             *(image_gag.slug for image_gag in ImageGag.objects.all()),
         ],
         "authors": authors,
-        "author_records": [{ "slug": author.slug, "name": author.name, "img_url": author.img_url } for author in authors],
+        "author_records": author_records,
         "issues": Issue.objects.order_by("-vol", "-num").all(),
         "article": Article.objects.first(),
     }

@@ -16,6 +16,5 @@ urlpatterns = [
     path("content-mill/public/article/<str:slug>/", views.public_article, name="cm_public_article"),
     path("content-mill/public/image/<str:slug>/", views.public_image_gag, name="cm_public_image_gag"),
     path("content-mill/public/image/", views.public_images, name="cm_public_images"),
-
-    path("content-mill/create-story/", views.create_story, name="cm_create_story")
+    path("content-mill/create-story/", views.create_story, name="cm_create_story"),
 ]

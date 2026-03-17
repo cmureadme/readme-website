@@ -36,8 +36,8 @@
 
             <noscript>
                 <div class="group">
-                    <label for="writers">Writers:</label>
-                    <select multiple id="writers" name="authors">
+                    <label for="writers-select">Writers:</label>
+                    <select multiple id="writers-select" name="authors">
                         {% for author in authors %}
                         <option>{{ author.name }}</option>
                         {% endfor %}
@@ -51,21 +51,12 @@
             <div class="group">
                 <h2>Writers:</h2>
 
+                <ul id="writers">
+                </ul>
+
                 <input type="search" id="find-writer">
 
-                <div id="writers-found">
-                    <div class="writer">
-                        <img src="/media/author_images/tyan.png">
-
-                        <p>"Roan Tysh" <span class="slug">(roan-tysh)</span></p>
-                    </div>
-
-                    <div class="writer">
-                        <img src="/media/author_images/acpfp.png">
-
-                        <p>Air Conditioner <span class="slug">(air-conditioner)</span></p>
-                    </div>
-                </div>
+                <div id="writers-found"></div>
             </div>
 
             <div class="group">
