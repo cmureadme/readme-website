@@ -4,15 +4,24 @@ const slugInput = document.getElementById("slug");
 const slugCustomInput = document.getElementById("slug");
 const findWriterInput = document.getElementById("find-writer");
 const writersFoundDiv = document.getElementById("writers-found");
+const writersHiddenInput = document.getElementById("writers-hidden");
+const anonWritersHiddenInput = document.getElementById("anon-writers-hidden");
 const writersUl = document.getElementById("writers");
+const addAnonBtn = document.getElementById("add-anon");
 const bodyInput = document.getElementById("body-input");
 const issueInput = document.getElementById("issue");
+const creationDateInput = document.getElementById("creation-date");
 
 const titleH1 = document.getElementById("title");
+const articleWrapper = document.getElementById("article-wrapper");
+const authorsSpan = articleWrapper.getElementsByClassName("authors")[0];
+const issueSpan = articleWrapper.getElementsByClassName("issue")[0];
+const dateSpan = articleWrapper.getElementsByClassName("date")[0];
 const bodyDiv = document.getElementById("body");
 
 const usedSlugs = new Set(JSON.parse(document.getElementById("used-slugs").textContent));
 const authors = JSON.parse(document.getElementById("authors").textContent).map(a => ({ ...a, last_published: new Date(a.last_published) }));
+const issues = JSON.parse(document.getElementById("issues").textContent).map(a => ({ ...a, date: new Date(a.date) }));
 
 function onUpdateTitle() {
     const title = titleInput.value.replace(/\s+/g, " ").trim();
@@ -57,6 +66,68 @@ function onUpdateBody() {
 bodyInput.addEventListener("input", onUpdateBody);
 onUpdateBody();
 
+function onUpdateWriters() {
+    const writers = writersHiddenInput.value == "" ? [] : writersHiddenInput.value.split(",");
+    const anonWriters = Number(anonWritersHiddenInput.value);
+
+    while (authorsSpan.firstChild) authorsSpan.removeChild(authorsSpan.firstChild);
+
+    function buildWriterLink(slug) {
+        const author = authors.find(a => a.slug == slug);
+
+        const link = document.createElement("a");
+        link.href = author.url;
+        link.textContent = author.name;
+
+        return link;
+    }
+
+    if (anonWriters == 0) {
+        if (writers.length > 2) {
+            authorsSpan.appendChild(document.createTextNode("By "));
+
+            for (let i = 0; i < writers.length; i++) {
+                if (i != 0) {
+                    authorsSpan.appendChild(document.createTextNode(", "));
+                }
+
+                authorsSpan.appendChild(buildWriterLink(writers[i]));
+            }
+
+            authorsSpan.appendChild(document.createTextNode(" \u2022 "));
+        } else if (writers.length == 2) {
+            authorsSpan.appendChild(document.createTextNode("By "));
+            authorsSpan.appendChild(buildWriterLink(writers[0]));
+            authorsSpan.appendChild(document.createTextNode(" & "));
+            authorsSpan.appendChild(buildWriterLink(writers[1]));
+            authorsSpan.appendChild(document.createTextNode(" \u2022 "));
+        } else if (writers.length == 1) {
+            authorsSpan.appendChild(document.createTextNode("By "));
+            authorsSpan.appendChild(buildWriterLink(writers[0]));
+            authorsSpan.appendChild(document.createTextNode(" \u2022 "));
+        }
+    } else {
+        const anonString = anonWriters == 1 ? "Anonymous" : anonWriters + " anonymous writers";
+
+        if (writers.length > 1) {
+            authorsSpan.appendChild(document.createTextNode("By "));
+
+            for (let i = 0; i < writers.length; i++) {
+                authorsSpan.appendChild(buildWriterLink(writers[i]));
+                authorsSpan.appendChild(document.createTextNode(", "));
+            }
+
+            authorsSpan.appendChild(document.createTextNode(anonString + " \u2022 "));
+        } else if (writers.length == 1) {
+            authorsSpan.appendChild(document.createTextNode("By "));
+            authorsSpan.appendChild(buildWriterLink(writers[0]));
+            authorsSpan.appendChild(document.createTextNode(" & " + anonString + " \u2022 "));
+        } else {
+            authorsSpan.appendChild(document.createTextNode("By " + anonString + " \u2022 "));
+        }
+    }
+}
+
 function onUpdateFindWriters() {
     const query = findWriterInput.value.trim().normalize("NFKD").toLowerCase();
 
@@ -70,7 +141,10 @@ function onUpdateFindWriters() {
     const scores = [];
 
     if (query != "") {
+        const skipWriters = new Set(writersHiddenInput.value.split(","));
         for (const author of authors) {
+            if (skipWriters.has(author.slug)) continue;
+
             const name = author.name.trim().normalize("NFKD").toLowerCase();
 
             const nameIndex = name.indexOf(query);
@@ -136,6 +210,17 @@ function onUpdateFindWriters() {
                 writerChipA.href = "javascript:void(0)";
                 writerChipA.addEventListener("click", function() {
                     writersUl.removeChild(writerChipA);
+                    
+                    const selectedWriters = writersHiddenInput.value.split(",");
+                    const index = selectedWriters.indexOf(author.slug);
+                    
+                    if (index != -1) {
+                        selectedWriters.splice(selectedWriters.indexOf(author.slug), 1);
+                    }
+
+                    writersHiddenInput.value = selectedWriters.join(",");
+
+                    onUpdateWriters();
                 });
 
                 const writerChip = document.createElement("li");
@@ -156,7 +241,11 @@ function onUpdateFindWriters() {
 
                 writerChipA.appendChild(writerChip);
 
-                writersUl.appendChild(writerChipA);
+                writersUl.insertBefore(writerChipA, addAnonBtn.parentNode);
+
+                writersHiddenInput.value += (writersHiddenInput.value == "" ? "" : ",") + author.slug;
+
+                onUpdateWriters();
 
                 onUpdateFindWriters();
                 findWriterInput.focus();
@@ -195,4 +284,79 @@ function onUpdateFindWriters() {
 findWriterInput.addEventListener("input", onUpdateFindWriters);
 findWriterInput.addEventListener("focus", onUpdateFindWriters);
 findWriterInput.addEventListener("blur", onUpdateFindWriters);
+writersHiddenInput.value = "";
+anonWritersHiddenInput.value = "0";
 onUpdateFindWriters();
+onUpdateWriters();
+
+addAnonBtn.addEventListener("click", function() {
+    const writerChipA = document.createElement("a");
+    writerChipA.href = "javascript:void(0)";
+    writerChipA.addEventListener("click", function () {
+        writersUl.removeChild(writerChipA);
+
+        anonWritersHiddenInput.value = Math.max(Number(anonWritersHiddenInput.value) - 1, 0);
+
+        onUpdateWriters();
+    });
+
+    const writerChip = document.createElement("li");
+    writerChip.className = "anon";
+
+    const name = document.createElement("p");
+    name.textContent = "Anonymous";
+    writerChip.appendChild(name);
+
+    const x = document.createElement("span");
+    x.className = "x";
+    x.textContent = "\xd7";
+    writerChip.appendChild(x);
+
+    writerChipA.appendChild(writerChip);
+
+    writersUl.insertBefore(writerChipA, addAnonBtn.parentNode);
+
+    anonWritersHiddenInput.value = Number(anonWritersHiddenInput.value) + 1;
+
+    onUpdateWriters();
+});
+
+function onUpdateIssueOrDate() {
+    const issueId = issueInput.options[issueInput.selectedIndex].value;
+    const creationDate = creationDateInput.value;
+
+    while (issueSpan.firstChild) issueSpan.removeChild(issueSpan.firstChild);
+    while (dateSpan.firstChild) dateSpan.removeChild(dateSpan.firstChild);
+
+    function dateToString(date) {
+        return [
+            "January", "February", "March",
+            "April", "May", "June",
+            "July", "August", "September",
+            "October", "November", "December"
+        ][date.getUTCMonth()] + " " + date.getUTCDate() + ", " + date.getUTCFullYear();
+    }
+
+    if (issueId == "") {
+        issueSpan.appendChild(document.createTextNode("(No issue)"));
+
+        if (creationDate == "") {
+            dateSpan.appendChild(document.createTextNode("(No creation date)"));
+        } else {
+            dateSpan.appendChild(document.createTextNode(dateToString(new Date(creationDate))));
+        }
+    } else {
+        const issue = issues.find(i => i.vol + "." + i.num == issueId);
+
+        const link = document.createElement("a");
+        link.href = issue.url;
+        link.textContent = "Vol " + issueId.split(".").join(", Issue ");
+        issueSpan.appendChild(link);
+
+        dateSpan.appendChild(document.createTextNode(dateToString(creationDate == "" ? issue.date : new Date(creationDate))));
+    }
+}
+
+issueInput.addEventListener("input", onUpdateIssueOrDate);
+creationDateInput.addEventListener("input", onUpdateIssueOrDate);
+onUpdateIssueOrDate();

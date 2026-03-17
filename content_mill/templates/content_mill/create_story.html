@@ -37,14 +37,14 @@
             <noscript>
                 <div class="group">
                     <label for="writers-select">Writers:</label>
-                    <select multiple id="writers-select" name="authors">
+                    <select multiple id="writers-select" name="writers-nojs">
                         {% for author in authors %}
                         <option>{{ author.name }}</option>
                         {% endfor %}
                     </select>
 
-                    <label for="anon_writers">Anonymous writers:</label>
-                    <input type="number" min="0" id="anon_writers" name="anon_writers">
+                    <label for="anon-writers">Anonymous writers:</label>
+                    <input type="number" min="0" id="anon-writers" name="anon-writers-nojs">
                 </div>
             </noscript>
 
@@ -52,11 +52,15 @@
                 <h2>Writers:</h2>
 
                 <ul id="writers">
+                    <li class="add-btn"><input type="button" id="add-anon" value="+ Add anonymous writer"></li>
                 </ul>
 
-                <input type="search" id="find-writer">
+                <input type="search" id="find-writer" placeholder="Find by name or slug...">
 
                 <div id="writers-found"></div>
+
+                <input type="hidden" id="writers-hidden" name="writers-js" value=""/>
+                <input type="hidden" id="anon-writers-hidden" name="anon-writers-js" value="0"/>
             </div>
 
             <div class="group">
@@ -70,11 +74,16 @@
             <div class="group">
                 <label for="issue">Issue:</label>
                 <select id="issue" name="issue">
-                    <option selected>---</option>
+                    <option value="" selected>---</option>
                     {% for issue in issues %}
-                    <option>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.short_name }}</option>
+                    <option value="{{ issue.vol }}.{{ issue.num }}">Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.short_name }}</option>
                     {% endfor %}
                 </select>
+            </div>
+
+            <div class="group">
+                <label for="creation-date">Creation date:</label>
+                <input type="date" id="creation-date" name="creation-date">
             </div>
         </form>
     </div>
@@ -82,7 +91,7 @@
     <div class="spacer"></div>
 
     <div class="output">
-        <div class="inner-wrapper">
+        <div class="inner-wrapper" id="article-wrapper">
             {% include "magazine/article_cont.html" %}
         </div>
     </div>
@@ -90,7 +99,8 @@
 {% endblock cont %}
 
 {% block scripts %}
-{{ author_records|json_script:"authors" }}
 {{ used_slugs|json_script:"used-slugs" }}
+{{ author_records|json_script:"authors" }}
+{{ issue_records|json_script:"issues" }}
 <script src="{% static 'js/create_story.js' %}"></script>
 {% endblock scripts %}

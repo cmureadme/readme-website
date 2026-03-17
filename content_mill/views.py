@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse
 
 from magazine.models import Article, Author, ImageGag, Issue
 from magazine.views import (
@@ -100,8 +101,11 @@ def create_story(request):
                 "name": author_obj.name,
                 "img_url": author_obj.img_url,
                 "last_published": last_published,
+                "url": reverse("author", args=[author_obj.slug])
             }
         )
+    
+    issues = Issue.objects.order_by("-vol", "-num").all()
 
     context = {
         **cm_context(request),
@@ -111,7 +115,8 @@ def create_story(request):
         ],
         "authors": authors,
         "author_records": author_records,
-        "issues": Issue.objects.order_by("-vol", "-num").all(),
+        "issues": issues,
+        "issue_records": [{ "vol": issue.vol, "num": issue.num, "url": reverse("issue", args=[issue.vol, issue.num]), "date": issue.release_date } for issue in issues],
         "article": Article.objects.first(),
     }
 
