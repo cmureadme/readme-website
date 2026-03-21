@@ -83,4 +83,14 @@ class RejectedHeadlineForm(forms.ModelForm):
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ("short_name", "long_name", "vol", "num", "archive", "paid_for", "free", "three_dollars", "release_date")
+        fields = (
+            "short_name",
+            "long_name",
+            "vol",
+            "num",
+            "archive",
+            "paid_for",
+            "free",
+            "three_dollars",
+            "release_date",
+        )
