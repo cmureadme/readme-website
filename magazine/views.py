@@ -31,6 +31,11 @@ def index(request):
         second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
         i += 1
 
+    # incase for some reason we uploaded the lastest issues before we finished uploading the second latest issue
+    while len(Article.objects.all().filter(Q(published=True) & Q(issue=second_latest_issue))) <= 5:
+        second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
+        i += 1
+
     sidebar_articles_pool = Article.objects.all().filter(
         Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
     )
