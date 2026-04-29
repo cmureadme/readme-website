@@ -121,6 +121,7 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
     list_editable = ["featured"]
     search_fields = ["title"]
     list_filter = ["issue"]
+    actions = [make_featured, un_feature]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
