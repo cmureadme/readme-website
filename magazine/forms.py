@@ -38,6 +38,23 @@ class ArticleAdminForm(forms.ModelForm):
             "created_on",
         )
 
+    def clean(self):
+        # In forms stage to have access to the authors many to many relationship
+        cleaned_data = super().clean()
+        authors = cleaned_data.get('authors')
+        anon_authors = cleaned_data.get('anon_authors', 0)
+        
+        # Check if at least one author or anonymous author is provided
+        if (not authors or authors.count() == 0) and anon_authors <= 0:
+            raise forms.ValidationError(
+                "Need to include at least one author or set anonymous authors to a number greater than 0."
+            )
+        if anon_authors < 0:
+            raise forms.ValidationError(
+                "Can't have negative anonymous authors"
+            )
+        return cleaned_data
+
     def clean_photos(self):
         """Make sure only images can be uploaded."""
         for upload in self.files.getlist("images"):
@@ -66,6 +83,23 @@ class ImageGagAdminForm(forms.ModelForm):
             "featured",
             "created_on",
         )
+
+    def clean(self):
+        # In forms stage to have access to the authors many to many relationship
+        cleaned_data = super().clean()
+        authors = cleaned_data.get('authors')
+        anon_authors = cleaned_data.get('anon_authors', 0)
+        
+        # Check if at least one author or anonymous author is provided
+        if (not authors or authors.count() == 0) and anon_authors <= 0:
+            raise forms.ValidationError(
+                "Need to include at least one author or set anonymous authors to a number greater than 0."
+            )
+        if anon_authors < 0:
+            raise forms.ValidationError(
+                "Can't have negative anonymous authors"
+            )
+        return cleaned_data
 
 
 class PaidForForm(forms.ModelForm):
