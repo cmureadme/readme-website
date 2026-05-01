@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy
 import datetime
 from django.templatetags.static import static

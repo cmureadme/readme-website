@@ -47,6 +47,18 @@ def make_front_page(modelAdmin, request, queryset):
 def un_front_page(modelAdmin, request, queryset):
     queryset.update(front_page=False)
 
+@admin.action(description="Make author(s) usual suspect")
+def make_us(modelAdmin, request, queryset):
+    queryset.update(author_status="US")
+
+@admin.action(description="Make author(s) independent contractor")
+def make_ic(modelAdmin, request, queryset):
+    queryset.update(author_status="IC")
+
+@admin.action(description="Make author(s) escapee")
+def make_ee(modelAdmin, request, queryset):
+    queryset.update(author_status="EE")
+
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -55,6 +67,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ["name", "author_status"]
     search_fields = ["name"]
     list_filter = ["author_status"]
+    actions = [make_us, make_ic, make_ee]
 
 
 @admin.register(Issue)
