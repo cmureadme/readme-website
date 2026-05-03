@@ -1,5 +1,5 @@
 from django import forms
-from .models import Author, Article, ArticleImage, ImageGag, PaidFor, RejectedHeadline, Issue
+from .models import Author, Article, ArticleImage, ImageGag, PaidFor, RejectedHeadline, Issue, AuthorAdminPermission
 from django.core.validators import validate_image_file_extension
 
 
@@ -41,18 +41,16 @@ class ArticleAdminForm(forms.ModelForm):
     def clean(self):
         # In forms stage to have access to the authors many to many relationship
         cleaned_data = super().clean()
-        authors = cleaned_data.get('authors')
-        anon_authors = cleaned_data.get('anon_authors', 0)
-        
+        authors = cleaned_data.get("authors")
+        anon_authors = cleaned_data.get("anon_authors", 0)
+
         # Check if at least one author or anonymous author is provided
         if (not authors or authors.count() == 0) and anon_authors <= 0:
             raise forms.ValidationError(
                 "Need to include at least one author or set anonymous authors to a number greater than 0."
             )
         if anon_authors < 0:
-            raise forms.ValidationError(
-                "Can't have negative anonymous authors"
-            )
+            raise forms.ValidationError("Can't have negative anonymous authors")
         return cleaned_data
 
     def clean_photos(self):
@@ -85,20 +83,18 @@ class ImageGagAdminForm(forms.ModelForm):
         )
 
     def clean(self):
-        # In forms stage to have access to the authors many to many relationship
+        # In forms stage to have access to the artists many to many relationship
         cleaned_data = super().clean()
-        authors = cleaned_data.get('authors')
-        anon_authors = cleaned_data.get('anon_authors', 0)
-        
-        # Check if at least one author or anonymous author is provided
-        if (not authors or authors.count() == 0) and anon_authors <= 0:
+        artists = cleaned_data.get("artists")
+        anon_artists = cleaned_data.get("anon_artists", 0)
+
+        # Check if at least one artist or anonymous artist is provided
+        if (not artists or artists.count() == 0) and anon_artists <= 0:
             raise forms.ValidationError(
-                "Need to include at least one author or set anonymous authors to a number greater than 0."
+                "Need to include at least one artist or set anonymous artists to a number greater than 0."
             )
-        if anon_authors < 0:
-            raise forms.ValidationError(
-                "Can't have negative anonymous authors"
-            )
+        if anon_artists < 0:
+            raise forms.ValidationError("Can't have negative anonymous artists")
         return cleaned_data
 
 
@@ -128,3 +124,8 @@ class IssueForm(forms.ModelForm):
             "three_dollars",
             "release_date",
         )
+
+class AuthorAdminPermissionForm(forms.ModelForm):
+    class Meta:
+        model = AuthorAdminPermission
+        fields = ("admin_user", "author_profiles")

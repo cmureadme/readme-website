@@ -7,6 +7,7 @@ from magazine.models import (
     ImageGag,
     PaidFor,
     RejectedHeadline,
+    AuthorAdminPermission
 )
 from magazine.forms import (
     ArticleAdminForm,
@@ -15,8 +16,10 @@ from magazine.forms import (
     RejectedHeadlineForm,
     PaidForForm,
     IssueForm,
+    AuthorAdminPermissionForm
 )
 
+from django.db.models import Q, QuerySet
 
 @admin.action(description="Make piece(s) published")
 def make_published(modelAdmin, request, queryset):
@@ -48,6 +51,21 @@ def un_front_page(modelAdmin, request, queryset):
     queryset.update(front_page=False)
 
 
+@admin.action(description="Make author(s) usual suspect")
+def make_us(modelAdmin, request, queryset):
+    queryset.update(author_status="US")
+
+
+@admin.action(description="Make author(s) independent contractor")
+def make_ic(modelAdmin, request, queryset):
+    queryset.update(author_status="IC")
+
+
+@admin.action(description="Make author(s) escapee")
+def make_ee(modelAdmin, request, queryset):
+    queryset.update(author_status="EE")
+
+
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     model = Author
@@ -55,6 +73,47 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ["name", "author_status"]
     search_fields = ["name"]
     list_filter = ["author_status"]
+    actions = [make_us, make_ic, make_ee]
+
+    # Will only show authors you're allowed to edit
+    # This is for the overall list of objects, but doesn't stop URL tampering
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        try:
+            allowed = request.user.authoradminpermission.author_profiles.all()
+            return qs.filter(pk__in=allowed)
+        except:
+            return qs.none()
+
+    # These two functions stop url tampering
+
+    # Will only let you edit authors you have perms to
+    def has_change_permissions(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+
+        try:
+            return obj in request.user.authoradminpermission.author_profiles.all()
+        except:
+            return False
+    
+    def has_view_permissions(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+
+        try:
+            return obj in request.user.authoradminpermission.author_profiles.all()
+        except:
+            return False
+
+    # Explicitly prevents non superusers from deleting authors
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
 
 
 @admin.register(Issue)
@@ -126,3 +185,8 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
+
+@admin.register(AuthorAdminPermission)
+class AuthorAdminPermissionAdmin(admin.ModelAdmin):
+    model = AuthorAdminPermission
+    form = AuthorAdminPermissionForm

@@ -1,11 +1,11 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy
 import datetime
 from django.templatetags.static import static
 from django.db.models.query import QuerySet
 from django.conf import settings
+from django.contrib.auth.models import User
 
 import markdown
 from markdown.treeprocessors import Treeprocessor
@@ -367,3 +367,10 @@ class RejectedHeadline(models.Model):
 
     def __str__(self) -> str:
         return self.title + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
+
+class AuthorAdminPermission(models.Model):
+    admin_user = models.OneToOneField(User, on_delete=models.PROTECT)
+    author_profiles = models.ManyToManyField(Author)
+
+    def __str__(self):
+        return self.admin_user.username + "_perms"
