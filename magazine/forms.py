@@ -1,5 +1,5 @@
 from django import forms
-from .models import Author, Article, ArticleImage, ImageGag, PaidFor, RejectedHeadline, Issue
+from .models import Author, Article, ArticleImage, ImageGag, PaidFor, RejectedHeadline, Issue, AuthorAdminPermission
 from django.core.validators import validate_image_file_extension
 
 
@@ -124,3 +124,8 @@ class IssueForm(forms.ModelForm):
             "three_dollars",
             "release_date",
         )
+
+class AuthorAdminPermissionForm(forms.ModelForm):
+    class Meta:
+        model = AuthorAdminPermission
+        fields = ("admin_user", "author_profiles")
