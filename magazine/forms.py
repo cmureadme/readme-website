@@ -125,6 +125,7 @@ class IssueForm(forms.ModelForm):
             "release_date",
         )
 
+
 class AuthorAdminPermissionForm(forms.ModelForm):
     class Meta:
         model = AuthorAdminPermission

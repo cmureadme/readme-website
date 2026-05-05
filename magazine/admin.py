@@ -7,7 +7,7 @@ from magazine.models import (
     ImageGag,
     PaidFor,
     RejectedHeadline,
-    AuthorAdminPermission
+    AuthorAdminPermission,
 )
 from magazine.forms import (
     ArticleAdminForm,
@@ -16,10 +16,9 @@ from magazine.forms import (
     RejectedHeadlineForm,
     PaidForForm,
     IssueForm,
-    AuthorAdminPermissionForm
+    AuthorAdminPermissionForm,
 )
 
-from django.db.models import Q, QuerySet
 
 @admin.action(description="Make piece(s) published")
 def make_published(modelAdmin, request, queryset):
@@ -84,7 +83,7 @@ class AuthorAdmin(admin.ModelAdmin):
         try:
             allowed = request.user.authoradminpermission.author_profiles.all()
             return qs.filter(pk__in=allowed)
-        except:
+        except request.user.authoradminpermissions.RelatedObjectDoesNotExist:
             return qs.none()
 
     # These two functions stop url tampering
@@ -96,16 +95,16 @@ class AuthorAdmin(admin.ModelAdmin):
 
         try:
             return obj in request.user.authoradminpermission.author_profiles.all()
-        except:
+        except request.user.authoradminpermissions.RelatedObjectDoesNotExist:
             return False
-    
+
     def has_view_permissions(self, request, obj=None):
         if request.user.is_superuser:
             return True
 
         try:
             return obj in request.user.authoradminpermission.author_profiles.all()
-        except:
+        except request.user.authoradminpermissions.RelatedObjectDoesNotExist:
             return False
 
     # Explicitly prevents non superusers from deleting authors
@@ -149,6 +148,12 @@ class ArticleAdmin(admin.ModelAdmin):
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
 
+    # Custom ordering of drop down menus
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "issue":
+            kwargs["queryset"] = Issue.objects.order_by("-vol", "-num", "short_name")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(ImageGag)
 class ImageGagAdmin(admin.ModelAdmin):
@@ -163,6 +168,12 @@ class ImageGagAdmin(admin.ModelAdmin):
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
+
+    # Custom ordering of drop down menus
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "issue":
+            kwargs["queryset"] = Issue.objects.order_by("-vol", "-num", "short_name")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(PaidFor)
@@ -185,6 +196,13 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
+
+    # Custom ordering of drop down menus
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "issue":
+            kwargs["queryset"] = Issue.objects.order_by("-vol", "-num", "short_name")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(AuthorAdminPermission)
 class AuthorAdminPermissionAdmin(admin.ModelAdmin):

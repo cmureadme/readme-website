@@ -368,6 +368,7 @@ class RejectedHeadline(models.Model):
     def __str__(self) -> str:
         return self.title + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"
 
+
 class AuthorAdminPermission(models.Model):
     admin_user = models.OneToOneField(User, on_delete=models.PROTECT)
     author_profiles = models.ManyToManyField(Author)
