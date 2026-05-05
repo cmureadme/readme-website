@@ -154,6 +154,11 @@ class ArticleAdmin(admin.ModelAdmin):
             kwargs["queryset"] = Issue.objects.order_by("-vol", "-num", "short_name")
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.related_model == Author:
+            kwargs["queryset"] = Author.objects.ordered_by_status()
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+
 
 @admin.register(ImageGag)
 class ImageGagAdmin(admin.ModelAdmin):
@@ -174,6 +179,11 @@ class ImageGagAdmin(admin.ModelAdmin):
         if db_field.name == "issue":
             kwargs["queryset"] = Issue.objects.order_by("-vol", "-num", "short_name")
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.related_model == Author:
+            kwargs["queryset"] = Author.objects.ordered_by_status()
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
 @admin.register(PaidFor)
@@ -208,3 +218,8 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
 class AuthorAdminPermissionAdmin(admin.ModelAdmin):
     model = AuthorAdminPermission
     form = AuthorAdminPermissionForm
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.related_model == Author:
+            kwargs["queryset"] = Author.objects.ordered_by_status()
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
