@@ -6,19 +6,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('magazine', '0013_issue_free_issue_three_dollars'),
+        ("magazine", "0013_issue_free_issue_three_dollars"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AuthorAdminPermission',
+            name="AuthorAdminPermission",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('admin_user', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
-                ('author_profiles', models.ManyToManyField(to='magazine.author')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "admin_user",
+                    models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL),
+                ),
+                ("author_profiles", models.ManyToManyField(to="magazine.author")),
             ],
         ),
     ]
