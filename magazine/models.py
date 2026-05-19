@@ -48,6 +48,7 @@ md = markdown.Markdown(extensions=["fenced_code", image_url_extension])
 
 CHARFIELD_MAX_LENGTH = 1024
 
+
 # Custom queryset based on the author status
 # For use in many to many relationships
 class AuthorQuerySet(models.QuerySet):
@@ -61,7 +62,6 @@ class AuthorQuerySet(models.QuerySet):
                 output_field=IntegerField(),
             )
         ).order_by("status_order", "name")
-
 
 
 class Author(models.Model):

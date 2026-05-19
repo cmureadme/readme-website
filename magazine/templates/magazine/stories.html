@@ -11,7 +11,8 @@
 
 {% block wrapper-cont %}
 <div class="cont stories">
-{% for piece in pieces %}
+{% include "search_bar.html" %} 
+{% for piece in page_obj %}
     {% include piece.card_template %}  
 {% endfor %}
 

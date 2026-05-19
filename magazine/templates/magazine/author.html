@@ -61,10 +61,11 @@
         <p>{{ author.email }}</p>
         {% endif %}
 
-        {% if pieces|length != 0 %}
+        {% if page_obj|length != 0 %}
         <h2 class="margin-bottom">Latest</h2>
 
-        {% for piece in pieces %}
+        {% include "search_bar.html" %} 
+        {% for piece in page_obj %}
             {% include piece.card_template %}  
         {% endfor %}
         {% endif %}
