@@ -14,6 +14,8 @@ import json
 
 from enum import Enum
 
+import re
+
 purity_test_items_file = "./purity_test_items.json"
 with open(purity_test_items_file) as json_file:
     purity_test_items = json.load(json_file)
@@ -162,8 +164,15 @@ def author(request, author):
         pieces = [
             piece
             for piece in order_pieces(
-                Article.objects.filter(Q(published=True)| Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)),
-                ImageGag.objects.filter(Q(published=True) | Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)),
+                Article.objects.filter(
+                    Q(published=True) & Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
+                ),
+                ImageGag.objects.filter(
+                    Q(published=True)
+                    | Q(slug__icontains=query)
+                    | Q(alt_text__icontains=query)
+                    | Q(caption__icontains=query)
+                ),
                 [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
             )
             if any(maker.root_slug() == author.slug for maker in piece.makers())
@@ -224,8 +233,8 @@ def issue(request, vol, num):
         raise Http404
 
     pieces = order_pieces(
-        Article.objects.filter(Q(published=True) | Q(issue=issue)),
-        ImageGag.objects.filter(Q(published=True) | Q(issue=issue)),
+        Article.objects.filter(Q(published=True) & Q(issue=issue)),
+        ImageGag.objects.filter(Q(published=True) & Q(issue=issue)),
         [
             PieceOrdering.FRONT_PAGE_FIRST,
             PieceOrdering.FEATURED_FIRST,
@@ -280,7 +289,19 @@ def about_us(request):
 
 
 def paid_for(request):
-    return {"paid_for": PaidFor.objects.order_by("?")[0]}
+
+    # Checks to see if you are on the issue specific page and then gives the paid for for that specific issue
+    issue_pattern = re.compile(r".*issues/(?P<vol>\d+)/(?P<num>\d+)")
+    url = request.path
+
+    m = issue_pattern.match(url)
+    if m:
+        vol = int(m.group("vol"))
+        num = int(m.group("num"))
+
+        return {"paid_for": Issue.objects.get(vol=vol, num=num).paid_for}
+    else:
+        return {"paid_for": PaidFor.objects.order_by("?")[0]}
 
 
 def purity_test(request):
@@ -292,8 +313,15 @@ def stories(request):
     query = request.GET.get("q")
     if query:
         pieces = order_pieces(
-            Article.objects.filter(Q(published=True) | Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)),
-            ImageGag.objects.filter(Q(published=True) | Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)),
+            Article.objects.filter(
+                Q(published=True) & Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
+            ),
+            ImageGag.objects.filter(
+                Q(published=True)
+                | Q(slug__icontains=query)
+                | Q(alt_text__icontains=query)
+                | Q(caption__icontains=query)
+            ),
             [
                 PieceOrdering.ISSUE_DESC,
                 PieceOrdering.TRUE_CREATED_ON_DESC,
@@ -343,9 +371,9 @@ def random_article(request):
 def images(request):
     query = request.GET.get("q")
     if query:
-        image_gags = ImageGag.objects.filter(Q(published=True) | Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)).order_by(
-            "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
-        )
+        image_gags = ImageGag.objects.filter(
+            Q(published=True) & Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)
+        ).order_by("-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on")
     else:
         image_gags = ImageGag.objects.filter(Q(published=True)).order_by(
             "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
