@@ -157,13 +157,13 @@ def author(request, author):
     if author.root_slug() != author.slug:
         return redirect(reverse("author", args=[author.root_slug()]))
 
-    query = request.GET.get('q')
+    query = request.GET.get("q")
     if query:
         pieces = [
             piece
             for piece in order_pieces(
-                Article.objects.filter(Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)),
-                ImageGag.objects.filter(Q(slug__icontains=query) | Q(alt_text__icontains=query)),
+                Article.objects.filter(Q(published=True)| Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)),
+                ImageGag.objects.filter(Q(published=True) | Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)),
                 [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
             )
             if any(maker.root_slug() == author.slug for maker in piece.makers())
@@ -172,8 +172,8 @@ def author(request, author):
         pieces = [
             piece
             for piece in order_pieces(
-                Article.objects,
-                ImageGag.objects,
+                Article.objects.filter(Q(published=True)),
+                ImageGag.objects.filter(Q(published=True)),
                 [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
             )
             if any(maker.root_slug() == author.slug for maker in piece.makers())
@@ -196,11 +196,7 @@ def author(request, author):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {
-        "author": author,
-        "page_obj": page_obj,
-        "query_params": query_params.urlencode()
-    }
+    context = {"author": author, "page_obj": page_obj, "query_params": query_params.urlencode()}
     return render(request, "magazine/author.html", context)
 
 
@@ -228,8 +224,8 @@ def issue(request, vol, num):
         raise Http404
 
     pieces = order_pieces(
-        Article.objects.filter(issue=issue),
-        ImageGag.objects.filter(issue=issue),
+        Article.objects.filter(Q(published=True) | Q(issue=issue)),
+        ImageGag.objects.filter(Q(published=True) | Q(issue=issue)),
         [
             PieceOrdering.FRONT_PAGE_FIRST,
             PieceOrdering.FEATURED_FIRST,
@@ -293,36 +289,34 @@ def purity_test(request):
 
 
 def stories(request):
-    query = request.GET.get('q')
+    query = request.GET.get("q")
     if query:
         pieces = order_pieces(
-        Article.objects.filter(Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)),
-        ImageGag.objects.filter(Q(slug__icontains=query) | Q(alt_text__icontains=query)),
-        [
-            PieceOrdering.ISSUE_DESC,
-            PieceOrdering.TRUE_CREATED_ON_DESC,
-            PieceOrdering.FRONT_PAGE_FIRST,
-            PieceOrdering.FEATURED_FIRST,
-            PieceOrdering.SLUG_ASC,
-        ],
-    )
+            Article.objects.filter(Q(published=True) | Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)),
+            ImageGag.objects.filter(Q(published=True) | Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)),
+            [
+                PieceOrdering.ISSUE_DESC,
+                PieceOrdering.TRUE_CREATED_ON_DESC,
+                PieceOrdering.FRONT_PAGE_FIRST,
+                PieceOrdering.FEATURED_FIRST,
+                PieceOrdering.SLUG_ASC,
+            ],
+        )
     else:
         pieces = order_pieces(
-        Article.objects,
-        ImageGag.objects,
-        [
-            PieceOrdering.ISSUE_DESC,
-            PieceOrdering.TRUE_CREATED_ON_DESC,
-            PieceOrdering.FRONT_PAGE_FIRST,
-            PieceOrdering.FEATURED_FIRST,
-            PieceOrdering.SLUG_ASC,
-        ],
-    )
-    
+            Article.objects.filter(Q(published=True)),
+            ImageGag.objects.filter(Q(published=True)),
+            [
+                PieceOrdering.ISSUE_DESC,
+                PieceOrdering.TRUE_CREATED_ON_DESC,
+                PieceOrdering.FRONT_PAGE_FIRST,
+                PieceOrdering.FEATURED_FIRST,
+                PieceOrdering.SLUG_ASC,
+            ],
+        )
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=25)
-    
 
     query_params = request.GET.copy()
     if "page" in query_params:
@@ -342,21 +336,19 @@ def stories(request):
 
 
 def random_article(request):
-    return redirect(reverse("article", args=[Article.objects.order_by("?").first().slug]))
+    return redirect(reverse("article", args=[Article.objects.filter(Q(published=True)).order_by("?").first().slug]))
 
 
 # Returns all images chronologically
 def images(request):
-    query = request.GET.get('q')
+    query = request.GET.get("q")
     if query:
-        image_gags = ImageGag.objects.filter(
-            Q(slug__icontains=query) | Q(alt_text__icontains=query)
-        ).order_by(
-        "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
+        image_gags = ImageGag.objects.filter(Q(published=True) | Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)).order_by(
+            "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
         )
     else:
-        image_gags = ImageGag.objects.filter().order_by(
-        "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
+        image_gags = ImageGag.objects.filter(Q(published=True)).order_by(
+            "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
         )
 
     page_num = request.GET.get("page", 1)
