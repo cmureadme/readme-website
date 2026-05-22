@@ -289,7 +289,6 @@ def about_us(request):
 
 
 def paid_for(request):
-
     # Checks to see if you are on the issue specific page and then gives the paid for for that specific issue
     issue_pattern = re.compile(r".*issues/(?P<vol>\d+)/(?P<num>\d+)")
     url = request.path

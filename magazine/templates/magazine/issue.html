@@ -9,6 +9,18 @@
 <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
 {% endblock head-content %}
 
+{% block cost %}
+<div class="cost">
+    <div class ="free">
+        {{issue.free}} : Free
+    </div>
+    <div class="three-dollars">
+        {{issue.three_dollars}} : $3
+    </div>
+</div>
+{% endblock cost %}
+
+
 {% block wrapper-cont %}
 <div class="cont issue">
     <h2>Vol {{ issue.vol }}, Issue {{ issue.num }}: {{ issue.short_name }} (<a class="styled" href="{{ issue.archive.url }}">PDF</a>)</h2>
