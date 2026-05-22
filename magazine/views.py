@@ -169,7 +169,7 @@ def author(request, author):
                 ),
                 ImageGag.objects.filter(
                     Q(published=True)
-                    | Q(slug__icontains=query)
+                    & Q(slug__icontains=query)
                     | Q(alt_text__icontains=query)
                     | Q(caption__icontains=query)
                 ),
@@ -317,7 +317,7 @@ def stories(request):
             ),
             ImageGag.objects.filter(
                 Q(published=True)
-                | Q(slug__icontains=query)
+                & Q(slug__icontains=query)
                 | Q(alt_text__icontains=query)
                 | Q(caption__icontains=query)
             ),
