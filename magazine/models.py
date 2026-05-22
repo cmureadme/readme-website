@@ -66,30 +66,19 @@ class AuthorQuerySet(models.QuerySet):
 
     # Orders alphabetically ignoring spaces and quotes
     def order_by_ignore_special(self):
-        return self.annotate(
-            normalized_name=Lower(
-                Replace(
-                    Replace(
-                        Replace(
-                            Replace(
-                                Replace(
-                                    "name",
-                                    Value(" "),
-                                    Value(""),
-                                ),
-                                Value("'"),
-                                Value(""),
-                            ),
-                            Value('"'),
-                            Value(""),
-                        ),
-                        Value("("),
-                        Value(""),
-                    ),
-                    Value(")"),
-                    Value(""),
-                ),
+        ignored = ["'", '"', "(", ")"]
+
+        normalized_name = "name"
+
+        for c in ignored:
+            normalized_name = Replace(
+                normalized_name,
+                Value(c),
+                Value(""),
             )
+
+        return self.annotate(
+            normalized_name=Lower(normalized_name)
         ).order_by("normalized_name")
 
 
