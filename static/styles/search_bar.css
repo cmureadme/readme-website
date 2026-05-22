@@ -1,8 +1,9 @@
-.search-bar {
-    display: flex;
-    justify-content: center;
+.search-bar form input{
+    border-radius: 0px;
+    border: 1px solid var(--border-color);
 }
 
-.search-bar form input{
-    border-radius: 5px;
+.search-bar button{
+    border-radius: 0px;
+    border: 1px solid var(--border-color);
 }
