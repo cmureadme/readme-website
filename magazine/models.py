@@ -7,6 +7,7 @@ from django.db.models.query import QuerySet
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Case, When, Value, IntegerField
+from django.db.models.functions import Replace, Lower
 
 import markdown
 from markdown.treeprocessors import Treeprocessor
@@ -49,9 +50,9 @@ md = markdown.Markdown(extensions=["fenced_code", image_url_extension])
 CHARFIELD_MAX_LENGTH = 1024
 
 
-# Custom queryset based on the author status
-# For use in many to many relationships
 class AuthorQuerySet(models.QuerySet):
+    # Custom queryset based on the author status
+    # For use in many to many relationships
     def ordered_by_status(self):
         return self.annotate(
             status_order=Case(
@@ -62,6 +63,34 @@ class AuthorQuerySet(models.QuerySet):
                 output_field=IntegerField(),
             )
         ).order_by("status_order", "name")
+
+    # Orders alphabetically ignoring spaces and quotes
+    def order_by_ignore_special(self):
+        return self.annotate(
+            normalized_name=Lower(
+                Replace(
+                    Replace(
+                        Replace(
+                            Replace(
+                                Replace(
+                                    "name",
+                                    Value(" "),
+                                    Value(""),
+                                ),
+                                Value("'"),
+                                Value(""),
+                            ),
+                            Value('"'),
+                            Value(""),
+                        ),
+                        Value("("),
+                        Value(""),
+                    ),
+                    Value(")"),
+                    Value(""),
+                ),
+            )
+        ).order_by("normalized_name")
 
 
 class Author(models.Model):

@@ -143,9 +143,9 @@ def index(request):
 
 def author_list(request):
     context = {
-        "usual_suspects": Author.objects.filter(author_status="US", alias_of=None),
-        "independent_contractors": Author.objects.filter(author_status="IC", alias_of=None),
-        "escapees": Author.objects.filter(author_status="EE", alias_of=None),
+        "usual_suspects": Author.objects.filter(author_status="US", alias_of=None).order_by_ignore_special(),
+        "independent_contractors": Author.objects.filter(author_status="IC", alias_of=None).order_by_ignore_special(),
+        "escapees": Author.objects.filter(author_status="EE", alias_of=None).order_by_ignore_special(),
     }
     return render(request, "magazine/author_list.html", context)
 
@@ -168,8 +168,7 @@ def author(request, author):
                     Q(published=True) & Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
                 ),
                 ImageGag.objects.filter(
-                    Q(published=True)
-                    & Q(slug__icontains=query)
+                    Q(published=True) & Q(slug__icontains=query)
                     | Q(alt_text__icontains=query)
                     | Q(caption__icontains=query)
                 ),
@@ -316,8 +315,7 @@ def stories(request):
                 Q(published=True) & Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
             ),
             ImageGag.objects.filter(
-                Q(published=True)
-                & Q(slug__icontains=query)
+                Q(published=True) & Q(slug__icontains=query)
                 | Q(alt_text__icontains=query)
                 | Q(caption__icontains=query)
             ),

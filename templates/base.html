@@ -31,6 +31,7 @@
                     <div class="splash">Paid for by: {{paid_for.title}}</div>
     
                     <a href="/"><img src="{% static 'readme-site-header-blank.png' %}" alt="KGB Presents: readme"/></a>
+                    {% comment % "This block is for the issue page to override with the blank : free blank : $3 gag" %} {% endcomment %}
                     {% block cost %}{% endblock cost %}
                     <nav>
                         <ul>
