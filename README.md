@@ -14,7 +14,9 @@ The old database will not work with this new repo and you will not be able to de
 Please make all of your changes on DEV and then pull request them to main :)
 
 # Getting started
-Follow the instructions on [the local docker image repo](https://github.com/cmureadme/website-docker-local)
+We currently are only supporting linux/mac developement.
+There is both docker and venv support for local developement (note that the venv is much lighterweight and recommended).
+Refer to the directions in the [docs](https://cmureadme.github.io/readme-docs/readme-website/setup.html) for docker or venv setup instructions.
 
 # Understanding the codebase
 We have [docs](https://cmureadme.github.io/readme-docs/) yipee!
