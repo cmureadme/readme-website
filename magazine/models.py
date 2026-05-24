@@ -77,9 +77,7 @@ class AuthorQuerySet(models.QuerySet):
                 Value(""),
             )
 
-        return self.annotate(
-            normalized_name=Lower(normalized_name)
-        ).order_by("normalized_name")
+        return self.annotate(normalized_name=Lower(normalized_name)).order_by("normalized_name")
 
 
 class Author(models.Model):
