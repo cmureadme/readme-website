@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Setup linting script
-chmod +x install-lint-hook.sh
-./install-lint-hook.sh
+# Setup auto linting at pre commit hook
+chmod +x lint.sh
+ln -s ../../lint.sh .git/hooks/pre-commit
 
 # Create .env with new secret key
 read -p "Secret key (can be anything but not empty): " key
