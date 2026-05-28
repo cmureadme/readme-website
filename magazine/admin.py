@@ -133,6 +133,70 @@ class ArticleImageInline(admin.TabularInline):
     extra = 0  # how many images will be prompted to be added by default
 
 
+class IssueListFilter(admin.SimpleListFilter):
+    template = "../templates/admin/scrollable_filter.html"
+    title = "issue"
+    parameter_name = "issue"
+
+    def get_title(self):
+        return "issue"
+
+    def get_choices(self, request):
+        return Issue.objects.all()
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+        return queryset.filter(issue_id=self.value())
+
+    def lookups(self, request, model_admin):
+        return [(iss.id, f"{iss.fold()} {iss.short_name}") for iss in Issue.objects.all()]
+
+
+class PaidForIssueListFilter(IssueListFilter):
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+        return queryset.filter(id__exact=self.value())
+
+    def lookups(self, request, model_admin):
+        return [(iss.paid_for_id, f"{iss.fold()} {iss.short_name}") for iss in Issue.objects.all()]
+
+
+class AuthorListFilter(admin.SimpleListFilter):
+    template = "../templates/admin/scrollable_filter.html"
+    title = "author"
+    parameter_name = "author"
+
+    def get_title(self):
+        return "author"
+
+    def get_choices(self, request):
+        return Author.objects.all()
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        return queryset.filter(authors__id__exact=self.value())
+
+    def lookups(self, request, model_admin):
+        return [(au.id, str(au)) for au in Author.objects.all()]
+
+
+class ArtistListFilter(AuthorListFilter):
+    template = "../templates/admin/scrollable_filter.html"
+    title = "artist"
+    parameter_name = "artist"
+
+    def get_title(self):
+        return "artist"
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        return queryset.filter(artists__id__exact=self.value())
+
+
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     model = Article
@@ -141,7 +205,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     list_editable = ["published", "front_page", "featured"]
     search_fields = ["slug", "title"]
-    list_filter = ["issue", "authors"]
+    list_filter = [IssueListFilter, AuthorListFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
 
     @admin.display(description="Vol, Issue")
@@ -167,7 +231,7 @@ class ImageGagAdmin(admin.ModelAdmin):
     list_display = ["slug", "vol_issue", "published", "front_page", "featured"]
     list_editable = ["published", "front_page", "featured"]
     search_fields = ["slug"]
-    list_filter = ["issue", "artists"]
+    list_filter = [IssueListFilter, ArtistListFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
 
     @admin.display(description="Vol, Issue")
@@ -191,6 +255,7 @@ class PaidForAdmin(admin.ModelAdmin):
     model = PaidFor
     form = PaidForForm
     search_fields = ["title"]
+    list_filter = [PaidForIssueListFilter]
 
 
 @admin.register(RejectedHeadline)
@@ -200,7 +265,7 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
     list_display = ["title", "vol_issue", "featured"]
     list_editable = ["featured"]
     search_fields = ["title"]
-    list_filter = ["issue"]
+    list_filter = [IssueListFilter]
     actions = [make_featured, un_feature]
 
     @admin.display(description="Vol, Issue")

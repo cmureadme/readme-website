@@ -197,7 +197,7 @@ class Issue(models.Model):
         return f"Vol {self.vol}, Issue {self.num}, '{self.short_name}'"
 
     def fold(self):
-        return f"{self.vol}-{self.num}"
+        return f"{self.vol}.{self.num}"
 
     def archive_path(self):
         """self's issue pdf, if one exists, shall live at {{self.archive_path()}}"""
