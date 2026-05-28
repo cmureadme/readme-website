@@ -1,3 +1,4 @@
+from django.db import models
 from django.contrib import admin
 from magazine.models import (
     Issue,
@@ -18,6 +19,7 @@ from magazine.forms import (
     IssueForm,
     AuthorAdminPermissionForm,
 )
+from markdownx.widgets import AdminMarkdownxWidget
 
 
 @admin.action(description="Make piece(s) published")
@@ -207,6 +209,9 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = ["slug", "title"]
     list_filter = [IssueListFilter, AuthorListFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
+    formfield_overrides = {
+        models.TextField: {"widget": AdminMarkdownxWidget},
+    }
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
