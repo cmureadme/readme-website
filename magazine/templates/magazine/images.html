@@ -10,7 +10,8 @@
 
 {% block wrapper-cont %}
 <div class="cont images">
-{% for piece in image_gags %}
+{% include "search_bar.html" %} 
+{% for piece in page_obj %}
     {% include "./image_gag_card.html" %}  
 {% endfor %}
 

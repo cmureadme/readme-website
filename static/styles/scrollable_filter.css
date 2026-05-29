@@ -1,0 +1,4 @@
+.filter_list {
+    height: 120px;
+    overflow-y:scroll;
+}

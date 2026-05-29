@@ -32,6 +32,7 @@ urlpatterns = [
     ),
     path("donate", lambda request: HttpResponseRedirect("https://commerce.cashnet.com/CMU231?cname=35")),
     path("404", lambda request: render(request, "404.html")),
+    path("markdownx/", include("markdownx.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

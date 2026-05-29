@@ -7,6 +7,7 @@ from django.db.models.query import QuerySet
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Case, When, Value, IntegerField
+from django.db.models.functions import Replace, Lower
 
 import markdown
 from markdown.treeprocessors import Treeprocessor
@@ -48,9 +49,10 @@ md = markdown.Markdown(extensions=["fenced_code", image_url_extension])
 
 CHARFIELD_MAX_LENGTH = 1024
 
-# Custom queryset based on the author status
-# For use in many to many relationships
+
 class AuthorQuerySet(models.QuerySet):
+    # Custom queryset based on the author status
+    # For use in many to many relationships
     def ordered_by_status(self):
         return self.annotate(
             status_order=Case(
@@ -62,6 +64,20 @@ class AuthorQuerySet(models.QuerySet):
             )
         ).order_by("status_order", "name")
 
+    # Orders alphabetically ignoring spaces and quotes
+    def order_by_ignore_special(self):
+        ignored = ["'", '"', "(", ")"]
+
+        normalized_name = "name"
+
+        for c in ignored:
+            normalized_name = Replace(
+                normalized_name,
+                Value(c),
+                Value(""),
+            )
+
+        return self.annotate(normalized_name=Lower(normalized_name)).order_by("normalized_name")
 
 
 class Author(models.Model):
@@ -181,7 +197,7 @@ class Issue(models.Model):
         return f"Vol {self.vol}, Issue {self.num}, '{self.short_name}'"
 
     def fold(self):
-        return f"{self.vol}-{self.num}"
+        return f"{self.vol}.{self.num}"
 
     def archive_path(self):
         """self's issue pdf, if one exists, shall live at {{self.archive_path()}}"""
@@ -314,6 +330,8 @@ def image_gag_upload_path(instance, filename):
 
 
 class ImageGag(Piece):
+    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH, help_text="Title of the image")
+
     artists = models.ManyToManyField("Author", related_name="image_gags", blank=True)
     anon_artists = models.IntegerField(default=0)
 

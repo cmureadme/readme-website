@@ -1,6 +1,8 @@
 *.sqlite3
 *.sqlite3.bkp
 media/
+media.tar
+*.sqlite3
 
 .vscode/
 
@@ -223,3 +225,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+.DS_Store
+.idea/
+
+# static files
+staticfiles/

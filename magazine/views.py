@@ -14,6 +14,8 @@ import json
 
 from enum import Enum
 
+import re
+
 purity_test_items_file = "./purity_test_items.json"
 with open(purity_test_items_file) as json_file:
     purity_test_items = json.load(json_file)
@@ -141,9 +143,9 @@ def index(request):
 
 def author_list(request):
     context = {
-        "usual_suspects": Author.objects.filter(author_status="US", alias_of=None),
-        "independent_contractors": Author.objects.filter(author_status="IC", alias_of=None),
-        "escapees": Author.objects.filter(author_status="EE", alias_of=None),
+        "usual_suspects": Author.objects.filter(author_status="US", alias_of=None).order_by_ignore_special(),
+        "independent_contractors": Author.objects.filter(author_status="IC", alias_of=None).order_by_ignore_special(),
+        "escapees": Author.objects.filter(author_status="EE", alias_of=None).order_by_ignore_special(),
     }
     return render(request, "magazine/author_list.html", context)
 
@@ -157,18 +159,41 @@ def author(request, author):
     if author.root_slug() != author.slug:
         return redirect(reverse("author", args=[author.root_slug()]))
 
-    pieces = [
-        piece
-        for piece in order_pieces(
-            Article.objects,
-            ImageGag.objects,
-            [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
-        )
-        if any(maker.root_slug() == author.slug for maker in piece.makers())
-    ]
+    query = request.GET.get("q")
+    if query:
+        pieces = [
+            piece
+            for piece in order_pieces(
+                Article.objects.filter(
+                    Q(published=True) & (Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
+                )),
+                ImageGag.objects.filter(
+                    Q(published=True) & (Q(slug__icontains=query)
+                    | Q(alt_text__icontains=query)
+                    | Q(caption__icontains=query))
+                ),
+                [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
+            )
+            if any(maker.root_slug() == author.slug for maker in piece.makers())
+        ]
+    else:
+        pieces = [
+            piece
+            for piece in order_pieces(
+                Article.objects.filter(Q(published=True)),
+                ImageGag.objects.filter(Q(published=True)),
+                [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
+            )
+            if any(maker.root_slug() == author.slug for maker in piece.makers())
+        ]
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=10)
+
+    query_params = request.GET.copy()
+
+    if "page" in query_params:
+        query_params.pop("page")
 
     try:
         page_obj = paginator.page(page_num)
@@ -179,11 +204,7 @@ def author(request, author):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {
-        "author": author,
-        "page_obj": page_obj,
-        "pieces": page_obj,
-    }
+    context = {"author": author, "page_obj": page_obj, "query_params": query_params.urlencode()}
     return render(request, "magazine/author.html", context)
 
 
@@ -211,8 +232,8 @@ def issue(request, vol, num):
         raise Http404
 
     pieces = order_pieces(
-        Article.objects.filter(issue=issue),
-        ImageGag.objects.filter(issue=issue),
+        Article.objects.filter(Q(published=True) & Q(issue=issue)),
+        ImageGag.objects.filter(Q(published=True) & Q(issue=issue)),
         [
             PieceOrdering.FRONT_PAGE_FIRST,
             PieceOrdering.FEATURED_FIRST,
@@ -267,7 +288,18 @@ def about_us(request):
 
 
 def paid_for(request):
-    return {"paid_for": PaidFor.objects.order_by("?")[0]}
+    # Checks to see if you are on the issue specific page and then gives the paid for for that specific issue
+    issue_pattern = re.compile(r".*issues/(?P<vol>\d+)/(?P<num>\d+)")
+    url = request.path
+
+    m = issue_pattern.match(url)
+    if m:
+        vol = int(m.group("vol"))
+        num = int(m.group("num"))
+
+        return {"paid_for": Issue.objects.get(vol=vol, num=num).paid_for}
+    else:
+        return {"paid_for": PaidFor.objects.order_by("?")[0]}
 
 
 def purity_test(request):
@@ -276,21 +308,45 @@ def purity_test(request):
 
 
 def stories(request):
-    pieces = order_pieces(
-        Article.objects,
-        ImageGag.objects,
-        [
-            PieceOrdering.ISSUE_DESC,
-            PieceOrdering.TRUE_CREATED_ON_DESC,
-            PieceOrdering.FRONT_PAGE_FIRST,
-            PieceOrdering.FEATURED_FIRST,
-            PieceOrdering.SLUG_ASC,
-        ],
-    )
+    query = request.GET.get("q")
+    if query:
+        pieces = order_pieces(
+            Article.objects.filter(
+                Q(published=True) & (Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query))
+            ),
+            ImageGag.objects.filter(
+                Q(published=True) & (Q(slug__icontains=query)
+                | Q(alt_text__icontains=query)
+                | Q(caption__icontains=query))
+            ),
+            [
+                PieceOrdering.ISSUE_DESC,
+                PieceOrdering.TRUE_CREATED_ON_DESC,
+                PieceOrdering.FRONT_PAGE_FIRST,
+                PieceOrdering.FEATURED_FIRST,
+                PieceOrdering.SLUG_ASC,
+            ],
+        )
+    else:
+        pieces = order_pieces(
+            Article.objects.filter(Q(published=True)),
+            ImageGag.objects.filter(Q(published=True)),
+            [
+                PieceOrdering.ISSUE_DESC,
+                PieceOrdering.TRUE_CREATED_ON_DESC,
+                PieceOrdering.FRONT_PAGE_FIRST,
+                PieceOrdering.FEATURED_FIRST,
+                PieceOrdering.SLUG_ASC,
+            ],
+        )
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=25)
 
+    query_params = request.GET.copy()
+    if "page" in query_params:
+        query_params.pop("page")
+
     try:
         page_obj = paginator.page(page_num)
     except PageNotAnInteger:
@@ -300,22 +356,32 @@ def stories(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"page_obj": page_obj, "pieces": page_obj}
+    context = {"page_obj": page_obj, "query_params": query_params.urlencode()}
     return render(request, "magazine/stories.html", context)
 
 
 def random_article(request):
-    return redirect(reverse("article", args=[Article.objects.order_by("?").first().slug]))
+    return redirect(reverse("article", args=[Article.objects.filter(Q(published=True)).order_by("?").first().slug]))
 
 
 # Returns all images chronologically
 def images(request):
-    image_gags = ImageGag.objects.filter().order_by(
-        "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
-    )
+    query = request.GET.get("q")
+    if query:
+        image_gags = ImageGag.objects.filter(
+            Q(published=True) & (Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query))
+        ).order_by("-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on")
+    else:
+        image_gags = ImageGag.objects.filter(Q(published=True)).order_by(
+            "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
+        )
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(image_gags, per_page=25)
+
+    query_params = request.GET.copy()
+    if "page" in query_params:
+        query_params.pop("page")
 
     try:
         page_obj = paginator.page(page_num)
@@ -326,7 +392,7 @@ def images(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"page_obj": page_obj, "image_gags": page_obj}
+    context = {"page_obj": page_obj, "query_params": query_params.urlencode()}
     return render(request, "magazine/images.html", context)
 
 

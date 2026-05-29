@@ -31,7 +31,8 @@
                     <div class="splash">Paid for by: {{paid_for.title}}</div>
     
                     <a href="/"><img src="{% static 'readme-site-header-blank.png' %}" alt="KGB Presents: readme"/></a>
-                    
+                    {% comment % "This block is for the issue page to override with the blank : free blank : $3 gag" %} {% endcomment %}
+                    {% block cost %}{% endblock cost %}
                     <nav>
                         <ul>
                             <li><a class="nav-link" href='{% url "index" %}'>Front page</a></li>
@@ -41,7 +42,7 @@
                             <li><a class="nav-link" href='{% url "purity_test" %}'>CMU Purity Test</a></li>
                             <li><a class="nav-link" href='{% url "about_us" %}'>About Us</a></li>
                             <li><a class="nav-link" href ='{% url "random" %}'>Random</a></li>
-                        </ul>
+                        </ul>  
                     </nav>
                 </header>
 

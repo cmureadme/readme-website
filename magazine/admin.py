@@ -1,3 +1,4 @@
+from django.db import models
 from django.contrib import admin
 from magazine.models import (
     Issue,
@@ -18,6 +19,7 @@ from magazine.forms import (
     IssueForm,
     AuthorAdminPermissionForm,
 )
+from markdownx.widgets import AdminMarkdownxWidget
 
 
 @admin.action(description="Make piece(s) published")
@@ -133,6 +135,103 @@ class ArticleImageInline(admin.TabularInline):
     extra = 0  # how many images will be prompted to be added by default
 
 
+class IssueListFilter(admin.SimpleListFilter):
+    template = "../templates/admin/scrollable_filter.html"
+    title = "issue"
+    parameter_name = "issue"
+
+    def get_title(self):
+        return "issue"
+
+    def get_choices(self, request):
+        return Issue.objects.all()
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+        return queryset.filter(issue_id=self.value())
+
+    def lookups(self, request, model_admin):
+        return [(iss.id, f"{iss.fold()} {iss.short_name}") for iss in Issue.objects.all()]
+
+
+class PaidForIssueListFilter(IssueListFilter):
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+        return queryset.filter(id__exact=self.value())
+
+    def lookups(self, request, model_admin):
+        return [(iss.paid_for_id, f"{iss.fold()} {iss.short_name}") for iss in Issue.objects.all()]
+
+
+class AuthorListFilter(admin.SimpleListFilter):
+    template = "../templates/admin/scrollable_filter.html"
+    title = "author"
+    parameter_name = "author"
+
+    def get_title(self):
+        return "author"
+
+    def get_choices(self, request):
+        return Author.objects.all()
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        return queryset.filter(authors__id__exact=self.value())
+
+    def lookups(self, request, model_admin):
+        return [(au.id, str(au)) for au in Author.objects.all()]
+
+
+class ArtistListFilter(AuthorListFilter):
+    template = "../templates/admin/scrollable_filter.html"
+    title = "artist"
+    parameter_name = "artist"
+
+    def get_title(self):
+        return "artist"
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        return queryset.filter(artists__id__exact=self.value())
+
+
+class AltTextExistenceFilter(admin.SimpleListFilter):
+    title = "alt text existence"
+    parameter_name = "alt text existence"
+
+    def get_title(self):
+        return "alt text existence"
+
+    def get_choices(self, request):
+        return ["Yes", "No"]
+
+    def lookups(self, request, model_admin):
+        return [("Yes", True), ("No", False)]
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        if self.value() == "Yes":
+            return queryset.exclude(alt_text__iexact="")
+        if self.value() == "No":
+            return queryset.filter(alt_text__iexact="")
+
+
+class ArticleImageAltTextExistenceFilter(AltTextExistenceFilter):
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        queryset = queryset.exclude(images__exact=None)
+        if self.value() == "All images with alt text":
+            return queryset.exclude(images__alt_text__iexact="")
+        if self.value() == "Images without alt text":
+            return queryset.filter(images__alt_text__iexact="")
+
+
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     model = Article
@@ -141,8 +240,11 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     list_editable = ["published", "front_page", "featured"]
     search_fields = ["slug", "title"]
-    list_filter = ["issue", "authors"]
+    list_filter = [IssueListFilter, AuthorListFilter, ArticleImageAltTextExistenceFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
+    formfield_overrides = {
+        models.TextField: {"widget": AdminMarkdownxWidget},
+    }
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
@@ -164,15 +266,19 @@ class ArticleAdmin(admin.ModelAdmin):
 class ImageGagAdmin(admin.ModelAdmin):
     model = ImageGag
     form = ImageGagAdminForm
-    list_display = ["slug", "vol_issue", "published", "front_page", "featured"]
+    list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured", "has_alt_text"]
     list_editable = ["published", "front_page", "featured"]
-    search_fields = ["slug"]
-    list_filter = ["issue", "artists"]
+    search_fields = ["title", "slug"]
+    list_filter = [IssueListFilter, ArtistListFilter, AltTextExistenceFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
         return f"{obj.issue.vol}.{obj.issue.num}"
+
+    @admin.display(description="Has alt text")
+    def has_alt_text(self, obj):
+        return obj.alt_text != ""
 
     # Custom ordering of drop down menus
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -191,6 +297,7 @@ class PaidForAdmin(admin.ModelAdmin):
     model = PaidFor
     form = PaidForForm
     search_fields = ["title"]
+    list_filter = [PaidForIssueListFilter]
 
 
 @admin.register(RejectedHeadline)
@@ -200,7 +307,7 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
     list_display = ["title", "vol_issue", "featured"]
     list_editable = ["featured"]
     search_fields = ["title"]
-    list_filter = ["issue"]
+    list_filter = [IssueListFilter]
     actions = [make_featured, un_feature]
 
     @admin.display(description="Vol, Issue")

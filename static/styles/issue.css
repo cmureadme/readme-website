@@ -31,3 +31,13 @@
 .cont.issue .rejected-headlines ul {
     padding-left: 24px;
 }
+
+.cost {
+    position: absolute;
+    top: 36px;
+    right: 24px;
+    text-wrap: pretty;
+    font-size: 24px;
+    font-family: 'Courier Prime';
+    text-align: right;
+}

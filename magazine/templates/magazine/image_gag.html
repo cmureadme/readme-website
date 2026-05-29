@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}{{ image_gag.alt_text|default:"Image" }} - Readme{% endblock title %}
+{% block title %}{{ image_gag.title|default:"Image" }} - Readme{% endblock title %}
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/image_gag.css' %}">
