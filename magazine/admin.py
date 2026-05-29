@@ -198,21 +198,20 @@ class ArtistListFilter(AuthorListFilter):
             return queryset.filter()
         return queryset.filter(artists__id__exact=self.value())
 
+
 class AltTextExistenceFilter(admin.SimpleListFilter):
-    title= "alt text existence"
+    title = "alt text existence"
     parameter_name = "alt text existence"
 
     def get_title(self):
         return "alt text existence"
+
     def get_choices(self, request):
-        return [
-            "Yes",
-            "No"
-        ]
+        return ["Yes", "No"]
+
     def lookups(self, request, model_admin):
-        return [
-            ("Yes",True),("No",False)
-        ]
+        return [("Yes", True), ("No", False)]
+
     def queryset(self, request, queryset):
         if self.value() is None:
             return queryset.filter()
@@ -220,6 +219,17 @@ class AltTextExistenceFilter(admin.SimpleListFilter):
             return queryset.exclude(alt_text__iexact="")
         if self.value() == "No":
             return queryset.filter(alt_text__iexact="")
+
+
+class ArticleImageAltTextExistenceFilter(AltTextExistenceFilter):
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        queryset = queryset.exclude(images__exact=None)
+        if self.value() == "All images with alt text":
+            return queryset.exclude(images__alt_text__iexact="")
+        if self.value() == "Images without alt text":
+            return queryset.filter(images__alt_text__iexact="")
 
 
 @admin.register(Article)
@@ -230,7 +240,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     list_editable = ["published", "front_page", "featured"]
     search_fields = ["slug", "title"]
-    list_filter = [IssueListFilter, AuthorListFilter]
+    list_filter = [IssueListFilter, AuthorListFilter, ArticleImageAltTextExistenceFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
     formfield_overrides = {
         models.TextField: {"widget": AdminMarkdownxWidget},
@@ -256,10 +266,10 @@ class ArticleAdmin(admin.ModelAdmin):
 class ImageGagAdmin(admin.ModelAdmin):
     model = ImageGag
     form = ImageGagAdminForm
-    list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured","has_alt_text"]
+    list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured", "has_alt_text"]
     list_editable = ["published", "front_page", "featured"]
-    search_fields = ["title","slug"]
-    list_filter = [IssueListFilter, ArtistListFilter,AltTextExistenceFilter]
+    search_fields = ["title", "slug"]
+    list_filter = [IssueListFilter, ArtistListFilter, AltTextExistenceFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
 
     @admin.display(description="Vol, Issue")
@@ -269,6 +279,7 @@ class ImageGagAdmin(admin.ModelAdmin):
     @admin.display(description="Has alt text")
     def has_alt_text(self, obj):
         return obj.alt_text != ""
+
     # Custom ordering of drop down menus
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "issue":
