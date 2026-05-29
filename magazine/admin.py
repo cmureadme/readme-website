@@ -215,9 +215,9 @@ class AltTextExistenceFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         if self.value() is None:
             return queryset.filter()
-        if self.value() == 1:
+        if self.value() == "1":
             return queryset.exclude(alt_text__iexact="")
-        if self.value() == 0:
+        if self.value() == "0":
             return queryset.filter(alt_text__iexact="")
 
 
@@ -230,9 +230,9 @@ class ArticleImageAltTextExistenceFilter(AltTextExistenceFilter):
             return queryset.filter()
         queryset = queryset.exclude(images__exact=None)
         print(self.value())
-        if self.value() == 1:
+        if self.value() == "1":
             return queryset.exclude(images__alt_text__iexact="")
-        if self.value() == 0:
+        if self.value() == "0":
             return queryset.filter(images__alt_text__iexact="")
 
 
