@@ -20,12 +20,11 @@
 
 .cont.about-us .img-cont {
     display: flex;
-    justify-content: left;
+    justify-content: center;
 }
 
 .cont.about-us img {
-    width: 33.33%;
-    margin-left: 12px;
+    width: 70%;
 }
 
 .cont.about-us .donate-link {

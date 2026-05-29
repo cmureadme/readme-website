@@ -69,6 +69,7 @@ class ImageGagAdminForm(forms.ModelForm):
     class Meta:
         model = ImageGag
         fields = (
+            "title",
             "artists",
             "anon_artists",
             "image",

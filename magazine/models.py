@@ -330,6 +330,8 @@ def image_gag_upload_path(instance, filename):
 
 
 class ImageGag(Piece):
+    title = models.CharField(max_length=CHARFIELD_MAX_LENGTH, help_text="Title of the image")
+
     artists = models.ManyToManyField("Author", related_name="image_gags", blank=True)
     anon_artists = models.IntegerField(default=0)
 
