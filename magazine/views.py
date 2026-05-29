@@ -165,12 +165,12 @@ def author(request, author):
             piece
             for piece in order_pieces(
                 Article.objects.filter(
-                    Q(published=True) & Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
-                ),
+                    Q(published=True) & (Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
+                )),
                 ImageGag.objects.filter(
-                    Q(published=True) & Q(slug__icontains=query)
+                    Q(published=True) & (Q(slug__icontains=query)
                     | Q(alt_text__icontains=query)
-                    | Q(caption__icontains=query)
+                    | Q(caption__icontains=query))
                 ),
                 [PieceOrdering.ISSUE_DESC, PieceOrdering.TRUE_CREATED_ON_DESC, PieceOrdering.SLUG_ASC],
             )
@@ -312,12 +312,12 @@ def stories(request):
     if query:
         pieces = order_pieces(
             Article.objects.filter(
-                Q(published=True) & Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query)
+                Q(published=True) & (Q(title__icontains=query) | Q(slug__icontains=query) | Q(body__icontains=query))
             ),
             ImageGag.objects.filter(
-                Q(published=True) & Q(slug__icontains=query)
+                Q(published=True) & (Q(slug__icontains=query)
                 | Q(alt_text__icontains=query)
-                | Q(caption__icontains=query)
+                | Q(caption__icontains=query))
             ),
             [
                 PieceOrdering.ISSUE_DESC,
@@ -369,7 +369,7 @@ def images(request):
     query = request.GET.get("q")
     if query:
         image_gags = ImageGag.objects.filter(
-            Q(published=True) & Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query)
+            Q(published=True) & (Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query))
         ).order_by("-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on")
     else:
         image_gags = ImageGag.objects.filter(Q(published=True)).order_by(
