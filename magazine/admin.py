@@ -229,7 +229,6 @@ class ArticleImageAltTextExistenceFilter(AltTextExistenceFilter):
         if self.value() is None:
             return queryset.filter()
         queryset = queryset.exclude(images__exact=None)
-        print(self.value())
         if self.value() == "1":
             return queryset.exclude(images__alt_text__iexact="")
         if self.value() == "0":
