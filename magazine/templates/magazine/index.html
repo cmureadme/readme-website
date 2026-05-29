@@ -25,14 +25,12 @@
 
                     <hr>
                 
-                    {% with imagearticle=feat_articles.image %}
-                    {% with image=imagearticle.images.first %}
+                    {% with feat_image_gag=feat_articles.image %}
                     <div class="fucked-image">
-                        <a href="{% url 'article' imagearticle.slug %}">
-                            <img src="{{MEDIA_URL}}{{image.image}}" alt="{{image.alt_text}}"/>
+                        <a href="{% url 'image_gag' feat_image_gag.slug %}">
+                            <img src="{{MEDIA_URL}}{{feat_image_gag.image}}" alt="{{feat_image_gag.alt_text}}"/>
                         </a>
                     </div>
-                    {% endwith %}
                     {% endwith %}
                 </div>
             </div>

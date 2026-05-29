@@ -126,8 +126,8 @@ def index(request):
         "article": Article.objects.all()
         .filter(Q(published=True) & Q(issue=latest_issue) & Q(images__isnull=True))
         .order_by("?")[0],
-        "image": Article.objects.all()
-        .filter(Q(published=True) & Q(issue=latest_issue) & Q(images__isnull=False))
+        "image": ImageGag.objects.all()
+        .filter(Q(published=True) & Q(issue=latest_issue))
         .order_by("?")[0],
     }
 
