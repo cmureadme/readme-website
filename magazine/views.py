@@ -62,8 +62,7 @@ def index(request):
         ImageGag.objects.all()
         .filter(Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue)))
         .exclude(pk__in=[i.id for i in used_images])
-        .order_by("?")
-        .order_by("-issue")[0]
+        .order_by("-issue", "?")[0]
     )
     used_images += [feat_image]
 
