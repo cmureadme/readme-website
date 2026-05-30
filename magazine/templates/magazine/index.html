@@ -24,14 +24,11 @@
                     {% include "./index_article_card.html" with piece=feat_articles.article %}
 
                     <hr>
-                
-                    {% with feat_image_gag=feat_articles.image %}
-                    <div class="fucked-image">
-                        <a href="{% url 'image_gag' feat_image_gag.slug %}">
-                            <img src="{{MEDIA_URL}}{{feat_image_gag.image}}" alt="{{feat_image_gag.alt_text}}"/>
-                        </a>
+                    <div class = "feat-image">
+                        {% with piece=feat_articles.image %}
+                        {% include piece.card_template %}
+                        {% endwith %}
                     </div>
-                    {% endwith %}
                 </div>
             </div>
         </div>
