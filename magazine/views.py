@@ -81,9 +81,9 @@ def index(request):
         .exclude(pk__in=[a.id for a in used_articles])
     )
     sidebar_image_gags_pool = ImageGag.objects.all().filter(
-        Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
-        .exclude(pk__in=[i.id for i in used_images])
-    )
+        Q(published=True)
+        & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
+    ).exclude(pk__in=[i.id for i in used_images])
 
     sidebar_articles_pool_count = sidebar_articles_pool.count()
     sidebar_image_gags_pool_count = sidebar_image_gags_pool.count()
