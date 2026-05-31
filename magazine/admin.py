@@ -234,6 +234,26 @@ class ArticleImageAltTextExistenceFilter(AltTextExistenceFilter):
         if self.value() == "0":
             return queryset.filter(images__alt_text__iexact="")
 
+class BylinesExistenceFilter(admin.SimpleListFilter):
+    title = "byline existence"
+    parameter_name = "byline existence"
+    def get_title(self):
+        return "blyine existence"
+
+    def get_choices(self, request):
+        return ["Yes", "No"]
+
+    def lookups(self, request, model_admin):
+        return [(1, "Articles with byline"), (0, "Articles without byline")]
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.filter()
+        if self.value() == "1":
+            return queryset.exclude(byline__iexact="")
+        if self.value() == "0":
+            return queryset.filter(byline__iexact="")
+
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -243,7 +263,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     list_editable = ["published", "front_page", "featured"]
     search_fields = ["slug", "title"]
-    list_filter = [IssueListFilter, AuthorListFilter, ArticleImageAltTextExistenceFilter]
+    list_filter = [IssueListFilter, AuthorListFilter, ArticleImageAltTextExistenceFilter, BylinesExistenceFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
     formfield_overrides = {
         models.TextField: {"widget": AdminMarkdownxWidget},

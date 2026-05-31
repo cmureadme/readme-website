@@ -37,3 +37,8 @@
 .cont.article p:last-child {
     margin-bottom: 0;
 }
+
+.cont.article p.byline-text {
+    text-align: center;
+    font-style: italic;
+}
