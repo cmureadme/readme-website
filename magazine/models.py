@@ -262,6 +262,7 @@ class Article(Piece):
 
     authors = models.ManyToManyField("Author", related_name="articles", blank=True)
     anon_authors = models.IntegerField(default=0)
+    byline = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
 
     body = models.TextField(
         help_text="This uses markdown formatting. If you want to have an image in an article you add one like this ![](imagename.fileextension)"

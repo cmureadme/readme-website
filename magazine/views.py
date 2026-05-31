@@ -26,23 +26,63 @@ def index(request):
     second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[1]
 
     # Prevents front page from crashing if latest issue has very few articles
-    # ie Latest issue is in the proccess of being uploaded
+    # e.g. the latest issue is in the process of being uploaded
     i = 1
     while len(Article.objects.all().filter(Q(published=True) & Q(issue=latest_issue))) <= 5:
         latest_issue = Issue.objects.all().order_by("-vol", "-num")[i]
         second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
         i += 1
 
-    # incase for some reason we uploaded the lastest issues before we finished uploading the second latest issue
+    # in case for some reason we uploaded the latest issues before we finished uploading the second-latest issue
     while len(Article.objects.all().filter(Q(published=True) & Q(issue=second_latest_issue))) <= 5:
         second_latest_issue = Issue.objects.all().order_by("-vol", "-num")[i + 1]
         i += 1
+    used_articles = []
+    used_images = []
 
-    sidebar_articles_pool = Article.objects.all().filter(
-        Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
+    largest = (
+        Article.objects.all()
+        .filter(Q(published=True) & Q(front_page=True) & Q(issue=latest_issue) & Q(images__isnull=False))
+        .order_by("?")[0]
     )
-    sidebar_image_gags_pool = ImageGag.objects.all().filter(
-        Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue))
+    used_articles += [largest]
+
+    feat_column = (
+        Article.objects.all()
+        .filter(
+            Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(issue=latest_issue) & Q(images__isnull=True)
+        )
+        .exclude(pk__in=[a.id for a in used_articles])
+        .order_by("?")[0]
+    )
+    used_articles += [feat_column]
+
+    # falls back to second-latest issue
+    feat_image = (
+        ImageGag.objects.all()
+        .filter(Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue)))
+        .exclude(pk__in=[i.id for i in used_images])
+        .order_by("-issue", "?")[0]
+    )
+    used_images += [feat_image]
+
+    feat_article = (
+        Article.objects.all()
+        .filter(Q(published=True) & Q(issue=latest_issue) & Q(images__isnull=True))
+        .exclude(pk__in=[a.id for a in used_articles])
+        .order_by("?")[0]
+    )
+    used_articles += [feat_article]
+
+    sidebar_articles_pool = (
+        Article.objects.all()
+        .filter(Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue)))
+        .exclude(pk__in=[a.id for a in used_articles])
+    )
+    sidebar_image_gags_pool = (
+        ImageGag.objects.all()
+        .filter(Q(published=True) & (Q(issue=latest_issue) | Q(issue=second_latest_issue)))
+        .exclude(pk__in=[i.id for i in used_images])
     )
 
     sidebar_articles_pool_count = sidebar_articles_pool.count()
@@ -65,13 +105,16 @@ def index(request):
             sidebar_num_image_gags += 1
 
     sidebar_articles = [*sidebar_articles_pool.order_by("?")[0:sidebar_num_articles]]
+    used_articles += sidebar_articles
+
     sidebar_image_gags = [*sidebar_image_gags_pool.order_by("?")[0:sidebar_num_image_gags]]
+    used_images += sidebar_image_gags
 
     sidebar = sidebar_articles + sidebar_image_gags
     random.shuffle(sidebar)
 
-    secondary_articles_pool = Article.objects.filter(Q(published=True))
-    secondary_image_gags_pool = ImageGag.objects.filter(Q(published=True))
+    secondary_articles_pool = Article.objects.filter(Q(published=True)).exclude(pk__in=[a.id for a in used_articles])
+    secondary_image_gags_pool = ImageGag.objects.filter(Q(published=True)).exclude(pk__in=[i.id for i in used_images])
 
     secondary_articles_pool_count = secondary_articles_pool.count()
     secondary_image_gags_pool_count = secondary_image_gags_pool.count()
@@ -93,7 +136,10 @@ def index(request):
             secondary_num_image_gags += 1
 
     secondary_articles = [*secondary_articles_pool.order_by("?")[0:secondary_num_articles]]
+    used_articles += secondary_articles
+
     secondary_image_gags = [*secondary_image_gags_pool.order_by("?")[0:secondary_num_image_gags]]
+    used_images += secondary_image_gags
 
     secondary = secondary_articles + secondary_image_gags
     random.shuffle(secondary)
@@ -105,7 +151,7 @@ def index(request):
     else:
         feat_rej_heads = feat_rej_heads[:]
 
-    # Will pull from non featured rejected headlines
+    # Will pull from non-featured rejected headlines
     all_rej_heads = feat_rej_heads + [*RejectedHeadline.objects.all().filter(Q(featured=False)).order_by("?")]
     if len(all_rej_heads) > 20:
         all_rej_heads = all_rej_heads[:20]
@@ -115,20 +161,10 @@ def index(request):
     random.shuffle(all_rej_heads)
 
     feat_articles = {
-        "largest": Article.objects.all()
-        .filter(Q(published=True) & Q(front_page=True) & Q(issue=latest_issue) & Q(images__isnull=False))
-        .order_by("?")[0],
-        "column": Article.objects.all()
-        .filter(
-            Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(issue=latest_issue) & Q(images__isnull=True)
-        )
-        .order_by("?")[0],
-        "article": Article.objects.all()
-        .filter(Q(published=True) & Q(issue=latest_issue) & Q(images__isnull=True))
-        .order_by("?")[0],
-        "image": Article.objects.all()
-        .filter(Q(published=True) & Q(issue=latest_issue) & Q(images__isnull=False))
-        .order_by("?")[0],
+        "largest": largest,
+        "column": feat_column,
+        "article": feat_article,
+        "image": feat_image,
     }
 
     context = {
