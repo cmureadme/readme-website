@@ -17,6 +17,7 @@
 
 .cont.image-gag .caption-byline p {
     font-size: inherit;
+    font-style: italic;
 }
 
 .cont.image-gag .caption p:last-child {
