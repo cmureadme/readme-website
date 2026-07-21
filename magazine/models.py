@@ -82,9 +82,11 @@ class AuthorQuerySet(models.QuerySet):
 
         return self.annotate(normalized_name=Lower(normalized_name)).order_by("normalized_name")
 
+
 def author_image_upload_path(instance, filename):
-        extension = Path(filename).suffix.lower()
-        return f"author_images/{instance.slug}{extension}"
+    extension = Path(filename).suffix.lower()
+    return f"author_images/{instance.slug}{extension}"
+
 
 class Author(models.Model):
     name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
@@ -165,19 +167,21 @@ class Author(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        image_changed = not self.pk
+        old = Author.objects.get(pk=self.pk) if self.pk else None
 
-        if self.pk:
-            old = Author.objects.get(pk=self.pk)
-            image_changed = old.img != self.img
-
-        if image_changed and self.img:
+        # User removed image
+        if old and old.img and not self.img:
             old.img.delete(save=False)
-        
-        if old.slug != self.slug and old.img:
+
+        # User uploaded a replacement image
+        elif old and old.img and self.img and old.img.name != self.img.name:
+            old.img.delete(save=False)
+
+        # User changed slug but kept the same image
+        elif old and old.slug != self.slug and old.img:
             storage = old.img.storage
 
-            ext = Path(old.img.name).suffix
+            ext = Path(old.img.name).suffix.lower()
             new_name = f"author_images/{self.slug}{ext}"
 
             with storage.open(old.img.name, "rb") as f:
@@ -185,8 +189,6 @@ class Author(models.Model):
 
             storage.delete(old.img.name)
             self.img.name = new_name
-
-        
 
         super().save(*args, **kwargs)
 
@@ -242,12 +244,7 @@ class Issue(models.Model):
             except Issue.DoesNotExist:
                 old = None
 
-            if (
-                old
-                and old.archive
-                and self.archive
-                and old.archive.name != self.archive.name
-            ):
+            if old and old.archive and self.archive and old.archive.name != self.archive.name:
                 old.archive.delete(save=False)
 
         super().save(**kwargs)  # Call the "real" save() method.
