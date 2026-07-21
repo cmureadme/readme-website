@@ -52,8 +52,13 @@
     padding: 0 12px;
 }
 
+
 .image-gag-card .caption-byline p {
     font-size: inherit;
+}
+
+.image-gag-card .caption {
+    font-style: italic;
 }
 
 .image-gag-card .caption p:last-child {

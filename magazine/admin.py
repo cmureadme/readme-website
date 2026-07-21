@@ -234,9 +234,11 @@ class ArticleImageAltTextExistenceFilter(AltTextExistenceFilter):
         if self.value() == "0":
             return queryset.filter(images__alt_text__iexact="")
 
+
 class BylinesExistenceFilter(admin.SimpleListFilter):
     title = "byline existence"
     parameter_name = "byline existence"
+
     def get_title(self):
         return "blyine existence"
 
