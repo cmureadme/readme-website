@@ -8,9 +8,12 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Case, When, Value, IntegerField
 from django.db.models.functions import Replace, Lower
+from django.core.files.base import ContentFile
 
 import markdown
 from markdown.treeprocessors import Treeprocessor
+
+from pathlib import Path
 
 
 class ImageURLExtension(markdown.extensions.Extension):
@@ -79,12 +82,15 @@ class AuthorQuerySet(models.QuerySet):
 
         return self.annotate(normalized_name=Lower(normalized_name)).order_by("normalized_name")
 
+def author_image_upload_path(instance, filename):
+        extension = Path(filename).suffix.lower()
+        return f"author_images/{instance.slug}{extension}"
 
 class Author(models.Model):
     name = models.CharField(max_length=CHARFIELD_MAX_LENGTH)
     slug = models.SlugField(unique=True)
     img = models.ImageField(
-        upload_to="author_images/",
+        upload_to=author_image_upload_path,
         blank=True,
         null=True,
         help_text="Default image is set to the anon.png its better for everyone to have a pfp, but if you are waiting on someone to send one this is a good short term option",
@@ -158,6 +164,32 @@ class Author(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def save(self, *args, **kwargs):
+        image_changed = not self.pk
+
+        if self.pk:
+            old = Author.objects.get(pk=self.pk)
+            image_changed = old.img != self.img
+
+        if image_changed and self.img:
+            old.img.delete(save=False)
+        
+        if old.slug != self.slug and old.img:
+            storage = old.img.storage
+
+            ext = Path(old.img.name).suffix
+            new_name = f"author_images/{self.slug}{ext}"
+
+            with storage.open(old.img.name, "rb") as f:
+                storage.save(new_name, ContentFile(f.read()))
+
+            storage.delete(old.img.name)
+            self.img.name = new_name
+
+        
+
+        super().save(*args, **kwargs)
+
     # Allows for custom ordering
     objects = AuthorQuerySet.as_manager()
 
@@ -204,6 +236,20 @@ class Issue(models.Model):
         return f"vol{self.vol}/issue{self.num}/CMUREADME_VOL{self.vol}_ISSUE{self.num}.pdf"
 
     def save(self, **kwargs):
+        if self.pk:
+            try:
+                old = Issue.objects.get(pk=self.pk)
+            except Issue.DoesNotExist:
+                old = None
+
+            if (
+                old
+                and old.archive
+                and self.archive
+                and old.archive.name != self.archive.name
+            ):
+                old.archive.delete(save=False)
+
         super().save(**kwargs)  # Call the "real" save() method.
         articles: QuerySet[Article] = (
             self.articles.all()
