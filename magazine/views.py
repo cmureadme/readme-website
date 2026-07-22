@@ -241,7 +241,7 @@ def author(request, author):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"author": author, "page_obj": page_obj, "query_params": query_params.urlencode(), "query" : query}
+    context = {"author": author, "page_obj": page_obj, "query_params": query_params.urlencode(), "query": query}
     return render(request, "magazine/author.html", context)
 
 
@@ -346,21 +346,20 @@ def purity_test(request):
 
 def stories(request):
     pieces = order_pieces(
-                Article.objects.filter(Q(published=True)),
-                ImageGag.objects.filter(Q(published=True)),
-                [
-                    PieceOrdering.ISSUE_DESC,
-                    PieceOrdering.TRUE_CREATED_ON_DESC,
-                    PieceOrdering.FRONT_PAGE_FIRST,
-                    PieceOrdering.FEATURED_FIRST,
-                    PieceOrdering.SLUG_ASC,
-                ],
-            )
+        Article.objects.filter(Q(published=True)),
+        ImageGag.objects.filter(Q(published=True)),
+        [
+            PieceOrdering.ISSUE_DESC,
+            PieceOrdering.TRUE_CREATED_ON_DESC,
+            PieceOrdering.FRONT_PAGE_FIRST,
+            PieceOrdering.FEATURED_FIRST,
+            PieceOrdering.SLUG_ASC,
+        ],
+    )
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=25)
 
-    
     try:
         page_obj = paginator.page(page_num)
     except PageNotAnInteger:
@@ -381,8 +380,8 @@ def random_article(request):
 # Returns all images chronologically
 def images(request):
     image_gags = ImageGag.objects.filter(Q(published=True)).order_by(
-                "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
-            )
+        "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
+    )
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(image_gags, per_page=25)
@@ -449,8 +448,9 @@ def search(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"page_obj": page_obj, "query_params": query_params.urlencode(), "query" : query}
+    context = {"page_obj": page_obj, "query_params": query_params.urlencode(), "query": query}
     return render(request, "magazine/search.html", context)
+
 
 class PieceOrdering(Enum):
     ISSUE_DESC = 0

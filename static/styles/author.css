@@ -61,9 +61,20 @@
     margin-bottom: 12px;
 }
 
-.search input {
-    display: block;
+.search {
+    display: flex;
     margin: 10px auto;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar form {
+    max-width: 50%;
+}
+
+.search-bar input {
+    max-width: none;
 }
 
 @media (max-width: 560px) {
