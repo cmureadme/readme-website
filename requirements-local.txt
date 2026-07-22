@@ -5,3 +5,4 @@ pillow~=12.0.0
 python-dotenv~=1.2.1
 ruff~=0.14
 django-markdownx~=4.0.11
+django-tomselect~=2026.6.2

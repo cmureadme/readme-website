@@ -8,6 +8,8 @@ from django.db.models import Q, QuerySet
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django_tomselect import autocompletes
+
 import random
 
 import json
@@ -529,6 +531,10 @@ def order_pieces(
 
     return pieces
 
+class AuthorAutocompleteView(autocompletes.AutocompleteModelView):
+    model = Author
+    search_lookups = ['name__icontains', 'slug__icontains']
+    value_fields = ['name']
 
 # <!--
 

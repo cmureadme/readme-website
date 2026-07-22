@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib import admin
+from django_tomselect.app_settings import TomSelectConfig
+from django_tomselect import widgets
+
 from magazine.models import (
     Issue,
     Author,
@@ -269,6 +272,7 @@ class ArticleAdmin(admin.ModelAdmin):
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
     formfield_overrides = {
         models.TextField: {"widget": AdminMarkdownxWidget},
+        models.ManyToManyField:{"widget":widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url='author_autocomplete'))}
     }
 
     @admin.display(description="Vol, Issue")
@@ -296,6 +300,10 @@ class ImageGagAdmin(admin.ModelAdmin):
     search_fields = ["title", "slug"]
     list_filter = [IssueListFilter, ArtistListFilter, AltTextExistenceFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
+    formfield_overrides = {
+        models.ManyToManyField: {
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url='author_autocomplete'))}
+    }
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
@@ -350,7 +358,10 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
 class AuthorAdminPermissionAdmin(admin.ModelAdmin):
     model = AuthorAdminPermission
     form = AuthorAdminPermissionForm
-
+    formfield_overrides = {
+        models.ManyToManyField: {
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url='author_autocomplete'))}
+    }
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.related_model == Author:
             kwargs["queryset"] = Author.objects.ordered_by_status()

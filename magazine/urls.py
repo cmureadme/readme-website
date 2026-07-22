@@ -21,4 +21,5 @@ urlpatterns = [
     path("image/<str:slug>/", views.image_gag, name="image_gag"),
     path("image", views.images, name="images"),
     path("search", views.search, name="search"),
+    path("author-autocomplete", views.AuthorAutocompleteView.as_view(), name="author_autocomplete"),
 ]
