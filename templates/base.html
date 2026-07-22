@@ -41,8 +41,9 @@
                             <li><a class="nav-link" href='{% url "issue_list" %}'>Issues</a></li>
                             <li><a class="nav-link" href='{% url "purity_test" %}'>CMU Purity Test</a></li>
                             <li><a class="nav-link" href='{% url "about_us" %}'>About Us</a></li>
-                            <li class="search-bar">{% url "search" as search_action%}{% include "search_bar.html" with placeholder="Search"%}</li>
-                        </ul>  
+                            {% url "search" as search_action%}{% include "search_bar.html"%}
+                        </ul>
+
                     </nav>
                 </header>
 

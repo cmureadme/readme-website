@@ -14,7 +14,7 @@
 <div class="cont stories">
 <h1 class="results">Search Results</h1>
 {% url "search" as search_action%}
-<div class="search">{% include "search_bar.html" with placeholder=query%}</div>
+<div class="search">{% include "search_bar.html" with value=query%}</div>
 {% for piece in page_obj %}
     {% include piece.card_template %}  
 {% endfor %}

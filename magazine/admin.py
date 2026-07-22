@@ -240,7 +240,7 @@ class BylinesExistenceFilter(admin.SimpleListFilter):
     parameter_name = "byline existence"
 
     def get_title(self):
-        return "blyine existence"
+        return "byline existence"
 
     def get_choices(self, request):
         return ["Yes", "No"]
