@@ -61,6 +61,11 @@
     margin-bottom: 12px;
 }
 
+.search input {
+    display: block;
+    margin: 10px auto;
+}
+
 @media (max-width: 560px) {
     .cont.staff .staff-card {
         flex-direction: column;

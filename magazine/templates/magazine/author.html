@@ -61,13 +61,15 @@
         <p>{{ author.email }}</p>
         {% endif %}
 
+        {% url "author" author.slug as search_action %}
         {% if page_obj|length != 0 %}
-        <h2 class="margin-bottom">Latest</h2>
-
-        {% include "search_bar.html" %} 
-        {% for piece in page_obj %}
-            {% include piece.card_template %}  
-        {% endfor %}
+            <h2 class="margin-bottom">Latest</h2>
+            <div class="search">{% include "search_bar.html" with placeholder=query%}</div> 
+            {% for piece in page_obj %}
+                {% include piece.card_template %}  
+            {% endfor %}
+        {% else %}
+            <div class="search">{% include "search_bar.html" with placeholder=query%}</div> 
         {% endif %}
     </div>
     {% include "pagination.html" %}

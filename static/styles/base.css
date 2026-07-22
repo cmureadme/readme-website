@@ -247,6 +247,10 @@ hr {
     padding: calc(2 * var(--wide-padding)) var(--wide-padding);
 }
 
+.search-bar input {
+    max-width: 50%;
+}
+
 @media (max-width: 960px) {
     .body-cont.base .bar-subtext {
         font-size: 12px;

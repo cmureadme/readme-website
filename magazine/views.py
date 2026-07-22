@@ -222,6 +222,7 @@ def author(request, author):
             )
             if any(maker.root_slug() == author.slug for maker in piece.makers())
         ]
+        query = ""
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=10)
@@ -240,7 +241,7 @@ def author(request, author):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"author": author, "page_obj": page_obj, "query_params": query_params.urlencode()}
+    context = {"author": author, "page_obj": page_obj, "query_params": query_params.urlencode(), "query" : query}
     return render(request, "magazine/author.html", context)
 
 
@@ -344,6 +345,62 @@ def purity_test(request):
 
 
 def stories(request):
+    pieces = order_pieces(
+                Article.objects.filter(Q(published=True)),
+                ImageGag.objects.filter(Q(published=True)),
+                [
+                    PieceOrdering.ISSUE_DESC,
+                    PieceOrdering.TRUE_CREATED_ON_DESC,
+                    PieceOrdering.FRONT_PAGE_FIRST,
+                    PieceOrdering.FEATURED_FIRST,
+                    PieceOrdering.SLUG_ASC,
+                ],
+            )
+
+    page_num = request.GET.get("page", 1)
+    paginator = Paginator(pieces, per_page=25)
+
+    
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    context = {"page_obj": page_obj}
+    return render(request, "magazine/stories.html", context)
+
+
+def random_article(request):
+    return redirect(reverse("article", args=[Article.objects.filter(Q(published=True)).order_by("?").first().slug]))
+
+
+# Returns all images chronologically
+def images(request):
+    image_gags = ImageGag.objects.filter(Q(published=True)).order_by(
+                "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
+            )
+
+    page_num = request.GET.get("page", 1)
+    paginator = Paginator(image_gags, per_page=25)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    context = {"page_obj": page_obj}
+    return render(request, "magazine/images.html", context)
+
+
+def search(request):
     query = request.GET.get("q")
     if query:
         pieces = order_pieces(
@@ -374,6 +431,7 @@ def stories(request):
                 PieceOrdering.SLUG_ASC,
             ],
         )
+        query = ""
 
     page_num = request.GET.get("page", 1)
     paginator = Paginator(pieces, per_page=25)
@@ -391,45 +449,8 @@ def stories(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-    context = {"page_obj": page_obj, "query_params": query_params.urlencode()}
-    return render(request, "magazine/stories.html", context)
-
-
-def random_article(request):
-    return redirect(reverse("article", args=[Article.objects.filter(Q(published=True)).order_by("?").first().slug]))
-
-
-# Returns all images chronologically
-def images(request):
-    query = request.GET.get("q")
-    if query:
-        image_gags = ImageGag.objects.filter(
-            Q(published=True) & (Q(slug__icontains=query) | Q(alt_text__icontains=query) | Q(caption__icontains=query))
-        ).order_by("-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on")
-    else:
-        image_gags = ImageGag.objects.filter(Q(published=True)).order_by(
-            "-issue__vol", "-issue__num", "-front_page", "-featured", "-true_created_on"
-        )
-
-    page_num = request.GET.get("page", 1)
-    paginator = Paginator(image_gags, per_page=25)
-
-    query_params = request.GET.copy()
-    if "page" in query_params:
-        query_params.pop("page")
-
-    try:
-        page_obj = paginator.page(page_num)
-    except PageNotAnInteger:
-        # if page is not an integer, deliver the first page
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        # if the page is out of range, deliver the last page
-        page_obj = paginator.page(paginator.num_pages)
-
-    context = {"page_obj": page_obj, "query_params": query_params.urlencode()}
-    return render(request, "magazine/images.html", context)
-
+    context = {"page_obj": page_obj, "query_params": query_params.urlencode(), "query" : query}
+    return render(request, "magazine/search.html", context)
 
 class PieceOrdering(Enum):
     ISSUE_DESC = 0

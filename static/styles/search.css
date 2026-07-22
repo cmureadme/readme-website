@@ -1,0 +1,11 @@
+.results{
+    text-align: center;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.search input {
+    display: block;
+    margin: 10px auto;
+}
+
