@@ -536,6 +536,7 @@ class AuthorAutocompleteView(autocompletes.AutocompleteModelView):
     model = Author
     search_lookups = ["name__icontains", "slug__icontains"]
     value_fields = ["name"]
+
     def order_queryset(self, queryset: AuthorQuerySet) -> QuerySet:
         return queryset.ordered_by_status()
 
