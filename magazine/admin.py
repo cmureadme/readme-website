@@ -272,7 +272,9 @@ class ArticleAdmin(admin.ModelAdmin):
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
     formfield_overrides = {
         models.TextField: {"widget": AdminMarkdownxWidget},
-        models.ManyToManyField:{"widget":widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url='author_autocomplete'))}
+        models.ManyToManyField: {
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete"))
+        },
     }
 
     @admin.display(description="Vol, Issue")
@@ -302,7 +304,8 @@ class ImageGagAdmin(admin.ModelAdmin):
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
     formfield_overrides = {
         models.ManyToManyField: {
-            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url='author_autocomplete'))}
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete"))
+        }
     }
 
     @admin.display(description="Vol, Issue")
@@ -360,8 +363,10 @@ class AuthorAdminPermissionAdmin(admin.ModelAdmin):
     form = AuthorAdminPermissionForm
     formfield_overrides = {
         models.ManyToManyField: {
-            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url='author_autocomplete'))}
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete"))
+        }
     }
+
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.related_model == Author:
             kwargs["queryset"] = Author.objects.ordered_by_status()

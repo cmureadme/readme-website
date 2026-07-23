@@ -1,4 +1,4 @@
-from magazine.models import Article, ImageGag, Author, Issue, PaidFor, Piece, RejectedHeadline
+from magazine.models import Article, ImageGag, Author, Issue, PaidFor, Piece, RejectedHeadline, AuthorQuerySet
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404
@@ -531,10 +531,14 @@ def order_pieces(
 
     return pieces
 
+
 class AuthorAutocompleteView(autocompletes.AutocompleteModelView):
     model = Author
-    search_lookups = ['name__icontains', 'slug__icontains']
-    value_fields = ['name']
+    search_lookups = ["name__icontains", "slug__icontains"]
+    value_fields = ["name"]
+    def order_queryset(self, queryset: AuthorQuerySet) -> QuerySet:
+        return queryset.ordered_by_status()
+
 
 # <!--
 
