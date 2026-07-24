@@ -273,7 +273,7 @@ class ArticleAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {"widget": AdminMarkdownxWidget},
         models.ManyToManyField: {
-            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete"))
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete")),
         },
     }
 
