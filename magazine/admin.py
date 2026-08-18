@@ -74,6 +74,41 @@ def make_ee(modelAdmin, request, queryset):
 class AuthorAdmin(admin.ModelAdmin):
     model = Author
     form = AuthorAdminForm
+    fieldsets = (
+        (
+            "Name and profile picture",
+            {
+                "fields": (
+                    "name",
+                    "slug",
+                    "img",
+                )
+            },
+        ),
+        (
+            "Small facts",
+            {
+                "fields": (
+                    "author_status",
+                    "roles",
+                    "pronouns",
+                    "major",
+                    "year",
+                    "location",
+                )
+            },
+        ),
+        (
+            "Large facts",
+            {
+                "fields": (
+                    "bio",
+                    "fact",
+                )
+            },
+        ),
+        ("Contact", {"fields": ("email",)}),
+    )
     list_display = ["name", "author_status"]
     search_fields = ["name"]
     list_filter = ["author_status"]
@@ -124,6 +159,20 @@ class AuthorAdmin(admin.ModelAdmin):
 class IssueAdmin(admin.ModelAdmin):
     model = Issue
     form = IssueForm
+    fieldsets = (
+        (
+            "Naming",
+            {
+                "fields": (
+                    "short_name",
+                    "long_name",
+                )
+            },
+        ),
+        ("Publishing", {"fields": ("vol", "num", "release_date")}),
+        ("Small Gags", {"fields": ("paid_for", "free", "three_dollars")}),
+        ("Content", {"fields": ("archive",)}),
+    )
     list_display = ["short_name", "long_name", "vol_issue"]
     search_fields = ["short_name", "long_name"]
     list_filter = ["vol"]
@@ -264,6 +313,21 @@ class BylinesExistenceFilter(admin.SimpleListFilter):
 class ArticleAdmin(admin.ModelAdmin):
     model = Article
     form = ArticleAdminForm
+    fieldsets = (
+        ("Basic Info", {"fields": ("title", "slug", "authors", "anon_authors", "issue")}),
+        ("Content", {"fields": ("body",)}),
+        (
+            "Publishing",
+            {
+                "fields": (
+                    "published",
+                    "front_page",
+                    "featured",
+                    "created_on",
+                )
+            },
+        ),
+    )
     inlines = [ArticleImageInline]
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     list_editable = ["published", "front_page", "featured"]
@@ -297,6 +361,21 @@ class ArticleAdmin(admin.ModelAdmin):
 class ImageGagAdmin(admin.ModelAdmin):
     model = ImageGag
     form = ImageGagAdminForm
+    fieldsets = (
+        ("Basic Info", {"fields": ("title", "slug", "artists", "anon_artists", "issue")}),
+        ("Content", {"fields": ("image", "alt_text", "caption")}),
+        (
+            "Publishing",
+            {
+                "fields": (
+                    "published",
+                    "front_page",
+                    "featured",
+                    "created_on",
+                )
+            },
+        ),
+    )
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured", "has_alt_text"]
     list_editable = ["published", "front_page", "featured"]
     search_fields = ["title", "slug"]

@@ -6,6 +6,7 @@ from django.core.validators import validate_image_file_extension
 class AuthorAdminForm(forms.ModelForm):
     class Meta:
         model = Author
+
         fields = (
             "name",
             "slug",
@@ -30,8 +31,8 @@ class ArticleAdminForm(forms.ModelForm):
             "authors",
             "anon_authors",
             "byline",
-            "body",
             "slug",
+            "body",
             "issue",
             "published",
             "front_page",
