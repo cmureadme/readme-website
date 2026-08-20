@@ -194,6 +194,8 @@ hr {
     margin: 12px 0;
     max-width: 100%;
     font-family: var(--display-font-stack);
+    display:flex;
+    column-gap: 16px;
 }
 
 .body-cont.base header nav ul {
@@ -208,7 +210,7 @@ hr {
     list-style: none;
 }
 
-.body-cont.base header nav li {
+.body-cont.base header nav li,form,button {
     font-size: 18px;
     cursor: pointer;
     line-height: 1;
@@ -245,6 +247,10 @@ hr {
 
 .body-cont.base .cont {
     padding: calc(2 * var(--wide-padding)) var(--wide-padding);
+}
+
+.search-bar input {
+    max-width: 128px;
 }
 
 @media (max-width: 960px) {

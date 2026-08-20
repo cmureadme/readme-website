@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib import admin
+from django_tomselect.app_settings import TomSelectConfig
+from django_tomselect import widgets
+
 from magazine.models import (
     Issue,
     Author,
@@ -71,6 +74,41 @@ def make_ee(modelAdmin, request, queryset):
 class AuthorAdmin(admin.ModelAdmin):
     model = Author
     form = AuthorAdminForm
+    fieldsets = (
+        (
+            "Name and profile picture",
+            {
+                "fields": (
+                    "name",
+                    "slug",
+                    "img",
+                )
+            },
+        ),
+        (
+            "Small facts",
+            {
+                "fields": (
+                    "author_status",
+                    "roles",
+                    "pronouns",
+                    "major",
+                    "year",
+                    "location",
+                )
+            },
+        ),
+        (
+            "Large facts",
+            {
+                "fields": (
+                    "bio",
+                    "fact",
+                )
+            },
+        ),
+        ("Contact", {"fields": ("email",)}),
+    )
     list_display = ["name", "author_status"]
     search_fields = ["name"]
     list_filter = ["author_status"]
@@ -121,6 +159,20 @@ class AuthorAdmin(admin.ModelAdmin):
 class IssueAdmin(admin.ModelAdmin):
     model = Issue
     form = IssueForm
+    fieldsets = (
+        (
+            "Naming",
+            {
+                "fields": (
+                    "short_name",
+                    "long_name",
+                )
+            },
+        ),
+        ("Publishing", {"fields": ("vol", "num", "release_date")}),
+        ("Small Gags", {"fields": ("paid_for", "free", "three_dollars")}),
+        ("Content", {"fields": ("archive",)}),
+    )
     list_display = ["short_name", "long_name", "vol_issue"]
     search_fields = ["short_name", "long_name"]
     list_filter = ["vol"]
@@ -240,7 +292,7 @@ class BylinesExistenceFilter(admin.SimpleListFilter):
     parameter_name = "byline existence"
 
     def get_title(self):
-        return "blyine existence"
+        return "byline existence"
 
     def get_choices(self, request):
         return ["Yes", "No"]
@@ -261,6 +313,21 @@ class BylinesExistenceFilter(admin.SimpleListFilter):
 class ArticleAdmin(admin.ModelAdmin):
     model = Article
     form = ArticleAdminForm
+    fieldsets = (
+        ("Basic Info", {"fields": ("title", "slug", "authors", "anon_authors", "issue")}),
+        ("Content", {"fields": ("body",)}),
+        (
+            "Publishing",
+            {
+                "fields": (
+                    "published",
+                    "front_page",
+                    "featured",
+                    "created_on",
+                )
+            },
+        ),
+    )
     inlines = [ArticleImageInline]
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured"]
     list_editable = ["published", "front_page", "featured"]
@@ -269,6 +336,9 @@ class ArticleAdmin(admin.ModelAdmin):
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
     formfield_overrides = {
         models.TextField: {"widget": AdminMarkdownxWidget},
+        models.ManyToManyField: {
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete")),
+        },
     }
 
     @admin.display(description="Vol, Issue")
@@ -291,11 +361,31 @@ class ArticleAdmin(admin.ModelAdmin):
 class ImageGagAdmin(admin.ModelAdmin):
     model = ImageGag
     form = ImageGagAdminForm
+    fieldsets = (
+        ("Basic Info", {"fields": ("title", "slug", "artists", "anon_artists", "issue")}),
+        ("Content", {"fields": ("image", "alt_text", "caption")}),
+        (
+            "Publishing",
+            {
+                "fields": (
+                    "published",
+                    "front_page",
+                    "featured",
+                    "created_on",
+                )
+            },
+        ),
+    )
     list_display = ["slug", "title", "vol_issue", "published", "front_page", "featured", "has_alt_text"]
     list_editable = ["published", "front_page", "featured"]
     search_fields = ["title", "slug"]
     list_filter = [IssueListFilter, ArtistListFilter, AltTextExistenceFilter]
     actions = [make_published, un_publish, make_featured, un_feature, make_front_page, un_front_page]
+    formfield_overrides = {
+        models.ManyToManyField: {
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete"))
+        }
+    }
 
     @admin.display(description="Vol, Issue")
     def vol_issue(self, obj):
@@ -350,6 +440,11 @@ class RejectedHeadlineAdmin(admin.ModelAdmin):
 class AuthorAdminPermissionAdmin(admin.ModelAdmin):
     model = AuthorAdminPermission
     form = AuthorAdminPermissionForm
+    formfield_overrides = {
+        models.ManyToManyField: {
+            "widget": widgets.TomSelectModelMultipleWidget(config=TomSelectConfig(url="author_autocomplete"))
+        }
+    }
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.related_model == Author:

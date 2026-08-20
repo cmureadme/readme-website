@@ -1,9 +1,24 @@
 .search-bar form input{
-    border-radius: 0px;
+    border:none;
+    border-radius: 0;
+    padding-top:2px;
+    padding-bottom:0;
+}
+
+.search-bar form{
+    width:fit-content;
+    max-width: 100%;
+    border-radius: 0;
+    line-height: 1;
     border: 1px solid var(--border-color);
+    display:flex;
+    font-family: var(--display-font-stack);
 }
 
 .search-bar button{
-    border-radius: 0px;
-    border: 1px solid var(--border-color);
+    border-radius: 0;
+    border:none;
+    height:100%;
+    padding-top:3px;
+    padding-bottom:0;
 }

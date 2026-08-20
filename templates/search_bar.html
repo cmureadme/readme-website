@@ -6,8 +6,8 @@
 {% endblock head-content %}
 
 <div class="search-bar">
-    <form method="GET">
-        <input type="text" name="q">
-        <button type="submit">Search</button>
+    <form method="GET" action="{{ search_action }}">
+        <input type="text" name="q" placeholder="Search" value="{{ value }}">
+        <button>GO</button>
     </form>
-</div>
+</div >

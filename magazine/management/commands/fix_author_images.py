@@ -28,24 +28,15 @@ class Command(BaseCommand):
             ext = Path(old_name).suffix.lower()
             new_name = f"author_images/{author.slug}{ext}"
 
-
             if old_name != new_name:
                 if not storage.exists(old_name):
-                    self.stdout.write(
-                        self.style.WARNING(
-                            f"Skipping missing file: {old_name}"
-                        )
-                    )
+                    self.stdout.write(self.style.WARNING(f"Skipping missing file: {old_name}"))
                     continue
 
                 if dry_run:
-                    self.stdout.write(
-                        f"[RENAME] {old_name} -> {new_name}"
-                    )
+                    self.stdout.write(f"[RENAME] {old_name} -> {new_name}")
                 else:
-                    self.stdout.write(
-                        f"Renaming {old_name} -> {new_name}"
-                    )
+                    self.stdout.write(f"Renaming {old_name} -> {new_name}")
 
                     with storage.open(old_name, "rb") as f:
                         storage.save(new_name, ContentFile(f.read()))
@@ -72,14 +63,6 @@ class Command(BaseCommand):
                     storage.delete(path)
 
         if dry_run:
-            self.stdout.write(
-                self.style.WARNING(
-                    "Dry run complete. No files were changed."
-                )
-            )
+            self.stdout.write(self.style.WARNING("Dry run complete. No files were changed."))
         else:
-            self.stdout.write(
-                self.style.SUCCESS(
-                    "Author images fixed successfully."
-                )
-            )
+            self.stdout.write(self.style.SUCCESS("Author images fixed successfully."))

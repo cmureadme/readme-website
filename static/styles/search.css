@@ -1,0 +1,21 @@
+.results{
+    text-align: center;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.search {
+    display: flex;
+    margin: 10px auto;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar form {
+    max-width: 50%;
+}
+
+.search-bar input {
+    max-width: none;
+}
