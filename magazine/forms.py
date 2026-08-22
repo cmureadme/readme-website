@@ -1,9 +1,48 @@
+import os
+import uuid
+
 from django import forms
 from .models import Author, Article, ArticleImage, ImageGag, PaidFor, RejectedHeadline, Issue, AuthorAdminPermission
 from django.core.validators import validate_image_file_extension
+from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+from django.utils.html import format_html
+from django.forms.widgets import ClearableFileInput
+
+
+temp_storage = FileSystemStorage(location=settings.TEMP_UPLOAD_ROOT)
+
+
+class StagedFileInput(ClearableFileInput):
+    """
+    Normally renders like a regular file input. If `staged_filename` is
+    set (meaning we've recovered/stashed a file across a failed submit),
+    renders a collapsed status line instead, with the real file input
+    tucked inside a <details> toggle in case the user wants to swap it.
+    """
+
+    staged_filename = None
+
+    def render(self, name, value, attrs=None, renderer=None):
+        base_input = super().render(name, value, attrs, renderer)
+        if self.staged_filename:
+            return format_html(
+                "<details>"
+                '<summary style="cursor: pointer; color: #2e7d32; font-weight: bold;">'
+                '"{}" already uploaded — click to replace</summary>'
+                '<div style="margin-top: 8px;">{}</div>'
+                "</details>",
+                self.staged_filename,
+                base_input,
+            )
+        return base_input
 
 
 class AuthorAdminForm(forms.ModelForm):
+    # Carries a pointer to a temp copy of the PFP across failed submissions
+    img_temp_path = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Author
 
@@ -21,6 +60,58 @@ class AuthorAdminForm(forms.ModelForm):
             "email",
             "author_status",
         )
+        widgets = {"img": StagedFileInput()}
+
+    def _clean_fields(self):
+        super()._clean_fields()
+
+        uploaded = self.files.get("img")
+        temp_path = self.cleaned_data.get("img_temp_path")
+        recovered = False
+
+        if uploaded:
+            # New file chosen this round -> stash a copy in case something
+            # else on the form fails validation.
+            temp_path = self._stash_temp_file(uploaded)
+            self.data = self.data.copy()
+            self.data["img_temp_path"] = temp_path
+            self.cleaned_data["img_temp_path"] = temp_path
+            recovered = True
+
+        elif temp_path and not self.cleaned_data.get("img"):
+            # No new file, but we have one stashed from a previous failed
+            # attempt -> reuse it and clear the "required" error.
+            if temp_storage.exists(temp_path):
+                with temp_storage.open(temp_path, "rb") as f:
+                    content = f.read()
+                filename = os.path.basename(temp_path).split("__", 1)[-1]
+                self.cleaned_data["img"] = ContentFile(content, name=filename)
+                self._errors.pop("img", None)
+                recovered = True
+            else:
+                temp_path = None
+                self.add_error(
+                    None,
+                    "Your previously uploaded PFP could not be recovered — please upload it again.",
+                )
+
+        if recovered and temp_path:
+            filename = os.path.basename(temp_path).split("__", 1)[-1]
+            self.fields["img"].widget.staged_filename = filename
+
+    def _stash_temp_file(self, uploaded_file):
+        key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
+        return temp_storage.save(key, uploaded_file)
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        temp_path = self.cleaned_data.get("img_temp_path")
+        if commit:
+            instance.save()
+            self.save_m2m()
+        if temp_path and temp_storage.exists(temp_path):
+            temp_storage.delete(temp_path)
+        return instance
 
 
 class ArticleAdminForm(forms.ModelForm):
@@ -67,7 +158,70 @@ class ArticleAdminForm(forms.ModelForm):
             image.save()
 
 
+class ArticleImageAdminForm(forms.ModelForm):
+    # Carries a pointer to a temp copy of the image across failed submissions
+    image_temp_path = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = ArticleImage
+        fields = ("image", "alt_text")
+        widgets = {"image": StagedFileInput()}
+
+    def _clean_fields(self):
+        super()._clean_fields()
+
+        uploaded = self.files.get(self.add_prefix("image"))
+        temp_path = self.cleaned_data.get("image_temp_path")
+        recovered = False
+
+        if uploaded:
+            # New file chosen this round -> stash a copy in case something
+            # else on the form fails validation.
+            temp_path = self._stash_temp_file(uploaded)
+            self.data = self.data.copy()
+            self.data[self.add_prefix("image_temp_path")] = temp_path
+            self.cleaned_data["image_temp_path"] = temp_path
+            recovered = True
+
+        elif temp_path and not self.cleaned_data.get("image"):
+            # No new file, but we have one stashed from a previous failed
+            # attempt -> reuse it and clear the "required" error.
+            if temp_storage.exists(temp_path):
+                with temp_storage.open(temp_path, "rb") as f:
+                    content = f.read()
+                filename = os.path.basename(temp_path).split("__", 1)[-1]
+                self.cleaned_data["image"] = ContentFile(content, name=filename)
+                self._errors.pop("image", None)
+                recovered = True
+            else:
+                temp_path = None
+                self.add_error(
+                    None,
+                    "Your previously uploaded image could not be recovered — please upload it again.",
+                )
+
+        if recovered and temp_path:
+            filename = os.path.basename(temp_path).split("__", 1)[-1]
+            self.fields["image"].widget.staged_filename = filename
+
+    def _stash_temp_file(self, uploaded_file):
+        key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
+        return temp_storage.save(key, uploaded_file)
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        temp_path = self.cleaned_data.get("image_temp_path")
+        if commit:
+            instance.save()
+        if temp_path and temp_storage.exists(temp_path):
+            temp_storage.delete(temp_path)
+        return instance
+
+
 class ImageGagAdminForm(forms.ModelForm):
+    # Carries a pointer to a temp copy of the image across failed submissions
+    image_temp_path = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = ImageGag
         fields = (
@@ -84,6 +238,7 @@ class ImageGagAdminForm(forms.ModelForm):
             "featured",
             "created_on",
         )
+        widgets = {"image": StagedFileInput()}
 
     def clean(self):
         # In forms stage to have access to the artists many to many relationship
@@ -100,6 +255,57 @@ class ImageGagAdminForm(forms.ModelForm):
             raise forms.ValidationError("Can't have negative anonymous artists")
         return cleaned_data
 
+    def _clean_fields(self):
+        super()._clean_fields()
+
+        uploaded = self.files.get("image")
+        temp_path = self.cleaned_data.get("image_temp_path")
+        recovered = False
+
+        if uploaded:
+            # New file chosen this round -> stash a copy in case something
+            # else on the form fails validation.
+            temp_path = self._stash_temp_file(uploaded)
+            self.data = self.data.copy()
+            self.data["image_temp_path"] = temp_path
+            self.cleaned_data["image_temp_path"] = temp_path
+            recovered = True
+
+        elif temp_path and not self.cleaned_data.get("image"):
+            # No new file, but we have one stashed from a previous failed
+            # attempt -> reuse it and clear the "required" error.
+            if temp_storage.exists(temp_path):
+                with temp_storage.open(temp_path, "rb") as f:
+                    content = f.read()
+                filename = os.path.basename(temp_path).split("__", 1)[-1]
+                self.cleaned_data["image"] = ContentFile(content, name=filename)
+                self._errors.pop("image", None)
+                recovered = True
+            else:
+                temp_path = None
+                self.add_error(
+                    None,
+                    "Your previously uploaded image could not be recovered — please upload it again.",
+                )
+
+        if recovered and temp_path:
+            filename = os.path.basename(temp_path).split("__", 1)[-1]
+            self.fields["image"].widget.staged_filename = filename
+
+    def _stash_temp_file(self, uploaded_file):
+        key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
+        return temp_storage.save(key, uploaded_file)
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        temp_path = self.cleaned_data.get("image_temp_path")
+        if commit:
+            instance.save()
+            self.save_m2m()
+        if temp_path and temp_storage.exists(temp_path):
+            temp_storage.delete(temp_path)
+        return instance
+
 
 class PaidForForm(forms.ModelForm):
     class Meta:
@@ -114,6 +320,9 @@ class RejectedHeadlineForm(forms.ModelForm):
 
 
 class IssueForm(forms.ModelForm):
+    # Carries a pointer to a temp copy of the PDF across failed submissions
+    archive_temp_path = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Issue
         fields = (
@@ -127,6 +336,60 @@ class IssueForm(forms.ModelForm):
             "three_dollars",
             "release_date",
         )
+        widgets = {
+            "archive": StagedFileInput(),
+        }
+
+    def _clean_fields(self):
+        super()._clean_fields()
+
+        uploaded = self.files.get("archive")
+        temp_path = self.cleaned_data.get("archive_temp_path")
+        recovered = False
+
+        if uploaded:
+            # New file chosen this round -> stash a copy in case something
+            # else on the form fails validation.
+            temp_path = self._stash_temp_file(uploaded)
+            self.data = self.data.copy()
+            self.data["archive_temp_path"] = temp_path
+            self.cleaned_data["archive_temp_path"] = temp_path
+            recovered = True
+
+        elif temp_path and not self.cleaned_data.get("archive"):
+            # No new file, but we have one stashed from a previous failed
+            # attempt -> reuse it and clear the "required" error.
+            if temp_storage.exists(temp_path):
+                with temp_storage.open(temp_path, "rb") as f:
+                    content = f.read()
+                filename = os.path.basename(temp_path).split("__", 1)[-1]
+                self.cleaned_data["archive"] = ContentFile(content, name=filename)
+                self._errors.pop("archive", None)
+                recovered = True
+            else:
+                temp_path = None
+                self.add_error(
+                    None,
+                    "Your previously uploaded PDF could not be recovered — please upload it again.",
+                )
+
+        if recovered and temp_path:
+            filename = os.path.basename(temp_path).split("__", 1)[-1]
+            self.fields["archive"].widget.staged_filename = filename
+
+    def _stash_temp_file(self, uploaded_file):
+        key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
+        return temp_storage.save(key, uploaded_file)
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        temp_path = self.cleaned_data.get("archive_temp_path")
+        if commit:
+            instance.save()
+            self.save_m2m()
+        if temp_path and temp_storage.exists(temp_path):
+            temp_storage.delete(temp_path)
+        return instance
 
 
 class AuthorAdminPermissionForm(forms.ModelForm):

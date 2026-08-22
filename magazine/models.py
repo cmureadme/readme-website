@@ -226,6 +226,12 @@ class Issue(models.Model):
     class Meta:
         verbose_name_plural = "issues"
         ordering = ["vol", "num", "short_name"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["vol", "num"],
+                name="unique_issue_vol_num",
+            )
+        ]
 
     def __str__(self):
         return f"Vol {self.vol}, Issue {self.num}, '{self.short_name}'"

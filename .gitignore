@@ -3,6 +3,7 @@
 media/
 media.tar
 *.sqlite3
+temp_uploads/
 
 .vscode/
 

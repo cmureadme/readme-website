@@ -32,6 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Application definition
 
 INSTALLED_APPS = [
+    "readme_website.apps.ReadmeWebsiteConfig",
     "magazine.apps.MagazineConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -125,6 +126,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 MEDIA_ROOT = BASE_DIR / "media"
+TEMP_UPLOAD_ROOT = BASE_DIR / "temp_uploads"  # Prevents this from being served under the media root
 MEDIA_URL = "/media/"
 
 # Default primary key field type

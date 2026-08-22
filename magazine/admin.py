@@ -21,6 +21,7 @@ from magazine.forms import (
     PaidForForm,
     IssueForm,
     AuthorAdminPermissionForm,
+    ArticleImageAdminForm,
 )
 from markdownx.widgets import AdminMarkdownxWidget
 
@@ -82,6 +83,7 @@ class AuthorAdmin(admin.ModelAdmin):
                     "name",
                     "slug",
                     "img",
+                    "img_temp_path",
                 )
             },
         ),
@@ -171,7 +173,15 @@ class IssueAdmin(admin.ModelAdmin):
         ),
         ("Publishing", {"fields": ("vol", "num", "release_date")}),
         ("Small Gags", {"fields": ("paid_for", "free", "three_dollars")}),
-        ("Content", {"fields": ("archive",)}),
+        (
+            "Content",
+            {
+                "fields": (
+                    "archive",
+                    "archive_temp_path",
+                )
+            },
+        ),
     )
     list_display = ["short_name", "long_name", "vol_issue"]
     search_fields = ["short_name", "long_name"]
@@ -184,6 +194,7 @@ class IssueAdmin(admin.ModelAdmin):
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
+    form = ArticleImageAdminForm
     extra = 0  # how many images will be prompted to be added by default
 
 
@@ -363,7 +374,7 @@ class ImageGagAdmin(admin.ModelAdmin):
     form = ImageGagAdminForm
     fieldsets = (
         ("Basic Info", {"fields": ("title", "slug", "artists", "anon_artists", "issue")}),
-        ("Content", {"fields": ("image", "alt_text", "caption")}),
+        ("Content", {"fields": ("image", "image_temp_path", "alt_text", "caption")}),
         (
             "Publishing",
             {
