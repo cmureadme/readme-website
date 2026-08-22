@@ -21,6 +21,7 @@ from magazine.forms import (
     PaidForForm,
     IssueForm,
     AuthorAdminPermissionForm,
+    ArticleImageAdminForm,
 )
 from markdownx.widgets import AdminMarkdownxWidget
 
@@ -193,6 +194,7 @@ class IssueAdmin(admin.ModelAdmin):
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
+    form = ArticleImageAdminForm
     extra = 0  # how many images will be prompted to be added by default
 
 
