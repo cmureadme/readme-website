@@ -1,5 +1,5 @@
 import time
-
+from datetime import datetime, timezone
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.core.management.base import BaseCommand
@@ -9,7 +9,7 @@ MAX_AGE_SECONDS = 60 * 60 * 24  # 24 hours
 
 
 class Command(BaseCommand):
-    help = "Deletes stale temp file uploads from the Issue upload form."
+    help = "Deletes stale temp file uploads."
 
     def handle(self, *args, **kwargs):
         if not temp_storage.exists("."):
@@ -26,4 +26,5 @@ class Command(BaseCommand):
                 temp_storage.delete(name)
                 deleted += 1
 
-        self.stdout.write(f"Deleted {deleted} stale temp upload(s).")
+        curTime = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+        self.stdout.write(f"Deleted {deleted} stale temp upload(s) at {curTime} UTC.")
