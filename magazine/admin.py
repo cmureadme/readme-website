@@ -82,6 +82,7 @@ class AuthorAdmin(admin.ModelAdmin):
                     "name",
                     "slug",
                     "img",
+                    "img_temp_path",
                 )
             },
         ),
