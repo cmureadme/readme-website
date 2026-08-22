@@ -30,7 +30,7 @@ class StagedFileInput(ClearableFileInput):
             return format_html(
                 "<details>"
                 '<summary style="cursor: pointer; color: #2e7d32; font-weight: bold;">'
-                '✓ "{}" already uploaded — click to replace</summary>'
+                '"{}" already uploaded — click to replace</summary>'
                 '<div style="margin-top: 8px;">{}</div>'
                 "</details>",
                 self.staged_filename,
