@@ -372,7 +372,7 @@ class ImageGagAdmin(admin.ModelAdmin):
     form = ImageGagAdminForm
     fieldsets = (
         ("Basic Info", {"fields": ("title", "slug", "artists", "anon_artists", "issue")}),
-        ("Content", {"fields": ("image", "alt_text", "caption")}),
+        ("Content", {"fields": ("image", "image_temp_path", "alt_text", "caption")}),
         (
             "Publishing",
             {
