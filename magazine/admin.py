@@ -171,7 +171,15 @@ class IssueAdmin(admin.ModelAdmin):
         ),
         ("Publishing", {"fields": ("vol", "num", "release_date")}),
         ("Small Gags", {"fields": ("paid_for", "free", "three_dollars")}),
-        ("Content", {"fields": ("archive",)}),
+        (
+            "Content",
+            {
+                "fields": (
+                    "archive",
+                    "archive_temp_path",
+                )
+            },
+        ),
     )
     list_display = ["short_name", "long_name", "vol_issue"]
     search_fields = ["short_name", "long_name"]
