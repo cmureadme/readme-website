@@ -38,7 +38,12 @@
     margin-bottom: 0;
 }
 
-.cont.article p.byline-text {
+.cont.article div.byline-text {
     text-align: center;
     font-style: italic;
+}
+
+.cont.article div.byline-text.byline-no-italic {
+    text-align: center;
+    font-style: normal;
 }

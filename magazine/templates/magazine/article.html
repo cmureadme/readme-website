@@ -13,7 +13,9 @@
     <h1>{{ article.title }}</h1>
     
     {% include "./article_byline.html" %}
-    <p class="byline-text">{{ article.byline }}</p>
+    <div class="byline-text{% if not article.byline_italic %} byline-no-italic{% endif %}">
+        {{ article.byline_html|safe }}
+    </div>
 
     {% load tag %}
     
