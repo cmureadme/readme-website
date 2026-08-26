@@ -325,7 +325,7 @@ class ArticleAdmin(admin.ModelAdmin):
     model = Article
     form = ArticleAdminForm
     fieldsets = (
-        ("Basic Info", {"fields": ("title", "slug", "authors", "anon_authors", "issue")}),
+        ("Basic Info", {"fields": ("title", "slug", "authors", "anon_authors", "byline", "byline_italic", "issue")}),
         ("Content", {"fields": ("body",)}),
         (
             "Publishing",

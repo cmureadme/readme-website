@@ -311,7 +311,14 @@ class Article(Piece):
 
     authors = models.ManyToManyField("Author", related_name="articles", blank=True)
     anon_authors = models.IntegerField(default=0)
-    byline = models.CharField(max_length=CHARFIELD_MAX_LENGTH, blank=True)
+    byline = models.CharField(
+        max_length=CHARFIELD_MAX_LENGTH,
+        blank=True,
+        help_text="This uses markdown formatting, doing nothing will have the byline italicized like in print.",
+    )
+    byline_italic = models.BooleanField(
+        default=True, help_text="Uncheck to disable the default italic styling on the byline."
+    )
 
     body = models.TextField(
         help_text="This uses markdown formatting. If you want to have an image in an article you add one like this ![](imagename.fileextension)"
@@ -345,6 +352,9 @@ class Article(Piece):
         image_url_extension.setConfig("img_src_to_uri", img_src_to_uri)
 
         return md.convert(self.body)
+
+    def byline_html(self):
+        return md.convert(self.byline)
 
     def __str__(self) -> str:
         return self.slug + "_(" + str(self.issue.vol) + "." + str(self.issue.num) + ")"

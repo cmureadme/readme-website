@@ -122,6 +122,7 @@ class ArticleAdminForm(forms.ModelForm):
             "authors",
             "anon_authors",
             "byline",
+            "byline_italic",
             "slug",
             "body",
             "issue",
