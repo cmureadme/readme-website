@@ -101,7 +101,10 @@ class AuthorAdminForm(forms.ModelForm):
 
     def _stash_temp_file(self, uploaded_file):
         key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
-        return temp_storage.save(key, uploaded_file)
+        uploaded_file.seek(0)
+        content = uploaded_file.read()
+        uploaded_file.seek(0)  # reset so cleaned_data["img"] can still be saved normally later
+        return temp_storage.save(key, ContentFile(content))
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -207,7 +210,10 @@ class ArticleImageAdminForm(forms.ModelForm):
 
     def _stash_temp_file(self, uploaded_file):
         key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
-        return temp_storage.save(key, uploaded_file)
+        uploaded_file.seek(0)
+        content = uploaded_file.read()
+        uploaded_file.seek(0)  # reset so cleaned_data["image"] can still be saved normally later
+        return temp_storage.save(key, ContentFile(content))
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -295,7 +301,10 @@ class ImageGagAdminForm(forms.ModelForm):
 
     def _stash_temp_file(self, uploaded_file):
         key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
-        return temp_storage.save(key, uploaded_file)
+        uploaded_file.seek(0)
+        content = uploaded_file.read()
+        uploaded_file.seek(0)  # reset so cleaned_data["image"] can still be saved normally later
+        return temp_storage.save(key, ContentFile(content))
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -380,7 +389,10 @@ class IssueForm(forms.ModelForm):
 
     def _stash_temp_file(self, uploaded_file):
         key = f"{uuid.uuid4().hex}__{uploaded_file.name}"
-        return temp_storage.save(key, uploaded_file)
+        uploaded_file.seek(0)
+        content = uploaded_file.read()
+        uploaded_file.seek(0)  # reset so cleaned_data["archive"] can still be saved normally later
+        return temp_storage.save(key, ContentFile(content))
 
     def save(self, commit=True):
         instance = super().save(commit=False)
