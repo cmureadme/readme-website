@@ -12,27 +12,29 @@
 <div class="cont purity-test">
     <h1>CMU Purity Test</h1>
 
-    <div class = "main-content">
+    <div class="main-content">
         <p>
-            The CMU Purity Test is an opportunity for new students to track their maturation into fully-fledged CMU-ites. 
-            Take the time to see how far along you are, and reflect on what CMU still has to offer you. 
-            And unlike some tests, you can complete this one without risking life and limb - though we’ll certainly take a good swing at’cha. 
+            The CMU Purity Test is an opportunity for new students to track their maturation into fully-fledged
+            CMU-ites.
+            Take the time to see how far along you are, and reflect on what CMU still has to offer you.
+            And unlike some tests, you can complete this one without risking life and limb - though we’ll certainly take
+            a good swing at’cha.
 
         </p>
     </div>
 
-    <div class = "questions">
+    <div class="questions">
         <h2>Have you ever:</h2>
         <ol start="0" id="question-list">
             <li>
-                <input type ="checkbox" id = "freebie" checked disabled>
+                <input type="checkbox" id="freebie" checked disabled>
                 <label for="freebie"> Picked up a ReadMe magazine? </label>
             </li>
             {% for item in items %}
-                <li>
-                    <input type ="checkbox" id = {{ forloop.counter }}>
-                    <label for={{ forloop.counter }}> {{item }} </label>
-                </li>
+            <li>
+                <input type="checkbox" id={{ forloop.counter }}>
+                <label for={{ forloop.counter }}> {{item }} </label>
+            </li>
             {% endfor %}
         </ol>
     </div>
@@ -53,7 +55,7 @@
 
 {% block body-suffix %}
 <script>
-    document.getElementById("submit").addEventListener("click", function() {
+    document.getElementById("submit").addEventListener("click", function () {
         document.getElementById("score").style.display = "initial";
         var questionList = document.getElementById("question-list");
         var numChecked = 0;
@@ -63,7 +65,7 @@
 
         document.getElementById("user-score").textContent = 100 - numChecked;
 
-        switch(Math.floor(numChecked/10)) {
+        switch (Math.floor(numChecked / 10)) {
             case 0:
             case 1:
                 document.getElementById("tagline").textContent = "Rookie numbers go out and experience CMU";
@@ -91,7 +93,7 @@
         }
     })
 
-    document.getElementById("reset").addEventListener("click", function() {
+    document.getElementById("reset").addEventListener("click", function () {
         document.getElementById("score").style.display = "";
         var questionList = document.getElementById("question-list");
         for (var i = 1; i < questionList.children.length; i++) {

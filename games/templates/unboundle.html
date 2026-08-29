@@ -1,0 +1,91 @@
+{% extends "wrapper.html" %}
+
+{% load static %}
+
+{% block title %}"Wordle" - Readme{% endblock title %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/games/unboundle.css' %}">
+<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+{% endblock head-content %}
+
+{% block wrapper-cont %}
+<div class="cont not-found">
+    <h1>Unboundle</h1>
+    <p>You have as many as guesses as you want to guess a hidden word-like string that may be of any (finite, integer) length. Good luck! You're certainly going to need it.</p>
+    <br><br>
+    <div id="listOfGuesses">
+        <div class="oneGuess">
+            <div class="emptyGuess"></div><div class="promptEmptyGuess"></div> <!-- Must be on the same line for some fucking reason, otherwise it inserts a ~5px horizontal spacer -->
+        </div>
+    </div>
+    <div class="oneGuess" id="oneGuessPrefab">
+        <div class="emptyGuess"></div><div class="promptEmptyGuess"></div>
+    </div>
+</div>
+{% endblock wrapper-cont %}
+
+{% block body-suffix %}
+<script>
+    const AllLetters = "abcdefghijklmnopqrstuvwxyz-,1234567890";
+    var wordToGuess = "john";
+    var isTakingInputs = true; // Currently only used to lock game after victory. May be used in the future for locking during animations.
+    $(document).on("keydown", function(e) {
+        if(!isTakingInputs) return;
+        console.log(e.key);
+        if(AllLetters.includes(e.key)) {
+            let lc = $("#listOfGuesses .oneGuess:last").children(".emptyGuess:last"); // lc = last child
+            lc.text(e.key);//.toUpperCase());
+            lc.addClass("filled");
+            $("<div>").addClass("emptyGuess").insertAfter(lc);
+        }
+        if(e.key == "Backspace") {
+            if($("#listOfGuesses .oneGuess:last").children(".filled").length) {
+                $("#listOfGuesses .oneGuess:last").children(".filled:last").remove();
+            }
+        }
+        if(e.key == "Enter") {
+            $("#listOfGuesses .oneGuess:last").children(".emptyGuess:not(.filled)").remove();
+            $("#listOfGuesses .oneGuess:last").children(".promptEmptyGuess").remove();
+
+            let enteredString = ""; // Must build it by element
+            $("#listOfGuesses .oneGuess:last").children(".emptyGuess").each(function() {
+                enteredString += $(this).text();
+            });
+            
+            if(enteredString == wordToGuess) {
+                $("#listOfGuesses .oneGuess:last").children(".emptyGuess").css("background-color", "#5f55");
+                $("#listOfGuesses").append($("<h2>").text("Yay, you won!"));
+                isTakingInputs = false;
+                return;
+            }
+
+            let numCharInstances = {  };
+            AllLetters.split('').forEach((l) => {
+                numCharInstances[l] = 0;
+            });
+            wordToGuess.split('').forEach((l) => {
+                numCharInstances[l]++;
+            });
+            console.log(numCharInstances);
+
+            let currentInd = 0;
+            $("#listOfGuesses .oneGuess:last").children(".emptyGuess").each(function() {
+                if($(this).text() == wordToGuess[currentInd]) {
+                    $(this).css("background-color", "#5f55");
+                    numCharInstances[$(this).text()]--;
+                } else if(numCharInstances[$(this).text()] > 0) {
+                    $(this).css("background-color", "#ff55");
+                    numCharInstances[$(this).text()]--;
+                } else {
+                    $(this).css("background-color", "#9995");
+                }
+
+                currentInd++;
+            })
+
+            $("#listOfGuesses").append($("#oneGuessPrefab").clone().attr("id", ""));
+        }
+    });
+</script>
+{% endblock body-suffix %}

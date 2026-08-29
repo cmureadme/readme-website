@@ -1,0 +1,35 @@
+{% extends "wrapper.html" %}
+
+{% load static %}
+
+{% block title %}About Us - Readme{% endblock title %}
+
+{% block head-content %}
+<link rel="stylesheet" href="{% static 'styles/games/games_home.css' %}">
+{% endblock head-content %}
+
+{% block wrapper-cont %}
+<div class="cont about-us">
+    <div class="top-cont">
+        <h1>ReadMe "Games"</h1>
+    </div>
+
+    <div class="sub-cont">
+        <p>Have a pset due tomorrow that you haven't started yet? Here's some "games" to help do anything except that.</p>
+        <br>
+        <br>
+        <a href="{% url "games.unboundle" %}" class="linkContainer">
+            <img src="{% static 'games/unboundle.png' %}" alt="Unboundle"/>
+            <h3 style="text-align:center">Unboundle</h3>
+        </a>
+        <br><br><br>
+        <h2>But oh, there's more!</h2>
+        <br>
+        <p>We're currently busy posting "Under Maintanence" signs on perfectly functional classrooms, but there will be more ReadMe games here before you can say "Wow, Readme has no web devs, I should really go help them!" (please)</p>
+    </div>
+
+    <div class="sub-cont">
+
+    </div>
+</div>
+{% endblock wrapper-cont %}   

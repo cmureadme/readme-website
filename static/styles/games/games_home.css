@@ -1,0 +1,52 @@
+.cont.about-us {
+    text-align: justify;
+}
+
+.cont.about-us h1 {
+    margin-bottom: 12px;
+}
+
+.cont.about-us p {
+    margin-bottom: 6px;
+}
+
+.cont.about-us .top-cont {
+    margin-bottom: 48px;
+}
+
+.cont.about-us .sub-cont:not(:last-child) {
+    margin-bottom: 48px;
+}
+
+.cont.about-us .img-cont {
+    display: flex;
+    justify-content: center;
+}
+
+.cont.about-us img {
+    width: 70%;
+}
+
+.cont.about-us .donate-link {
+    display: block;
+    text-align: center;
+    font-weight: 900;
+    font-size: 24px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.linkContainer {
+    width: 60%;
+    margin-left: 20%;
+    display: inline-block;
+    padding: 10px;
+}
+
+.linkContainer img {
+    margin: auto;
+    width: 66% !important;
+    margin-bottom: 15px;
+}

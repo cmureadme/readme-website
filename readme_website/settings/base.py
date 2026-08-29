@@ -34,6 +34,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 INSTALLED_APPS = [
     "readme_website.apps.ReadmeWebsiteConfig",
     "magazine.apps.MagazineConfig",
+    "games.apps.GamesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
