@@ -1,20 +1,26 @@
 body {
     text-align: center;
 }
-body > div {
+
+body>div {
     display: inline-block;
 }
-body > * {
+
+body>* {
     margin: auto;
     align-self: center;
 }
+
 #listOfGuesses {
     max-width: 90vw;
 }
+
 .oneGuess {
     margin-bottom: 20px;
 }
-.emptyGuess, .promptEmptyGuess {
+
+.emptyGuess,
+.promptEmptyGuess {
     width: 50px;
     height: 50px;
     border: 1px solid #0005;
@@ -29,9 +35,61 @@ body > * {
     font-size: 30px;
     margin-bottom: 12px;
 }
+
 .promptEmptyGuess {
     border: 1px dashed #0004;
 }
+
 #oneGuessPrefab {
     display: none !important;
+}
+
+#keyboardContainer {
+    background-color: #00000016;
+    border-radius: 10px 10px 0 0;
+    position: fixed;
+    bottom: 0;
+    left: max(calc(50% - 25vh), 0);
+    max-width: 100vw;
+    width: 50vh;
+    height: 23.5vh;
+    border-collapse: collapse;
+    border-spacing: 8px;
+    padding-top: 0.5vh;
+}
+
+#keyboardContainer div div {
+    width: min(3.8vh, 7.6vw);
+    height: 5vh;
+    line-height: 5vh;
+    box-sizing: border-box;
+    margin: min(0.3vh, 0.6vw);
+    background-color: #fffc;
+    display: inline-block;
+    border-radius: 8px;
+    font-size: 2vh;
+    font-weight: bold;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+#keyboardContainer div div:active {
+    background-color: #dddf;
+}
+
+.doublelong {
+    width: min(8.8vh, 17.6vw) !important;
+}
+
+#spacer {
+    height: 30vh;
+    display: inline-block;
+}
+
+#paddingBottom {
+    padding-bottom: 0vh;
+}
+
+h2 {
+    text-align: center;
 }

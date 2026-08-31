@@ -231,3 +231,5 @@ __marimo__/
 
 # static files
 staticfiles/
+media.tar.gz
+.gitignore

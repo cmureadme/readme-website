@@ -6,86 +6,160 @@
 
 {% block head-content %}
 <link rel="stylesheet" href="{% static 'styles/games/unboundle.css' %}">
-<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.min.js"
+    integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
 {% endblock head-content %}
 
 {% block wrapper-cont %}
-<div class="cont not-found">
+<div class="cont not-found" id="paddedBottom" style="padding-bottom: 40vh !important">
     <h1>Unboundle</h1>
-    <p>You have as many as guesses as you want to guess a hidden word-like string that may be of any (finite, integer) length. Good luck! You're certainly going to need it.</p>
+    <p>You have as many as guesses as you want to guess a hidden word-like string that may be of any (finite, integer)
+        length. Good luck! You're certainly going to need it.</p>
     <br><br>
     <div id="listOfGuesses">
         <div class="oneGuess">
-            <div class="emptyGuess"></div><div class="promptEmptyGuess"></div> <!-- Must be on the same line for some fucking reason, otherwise it inserts a ~5px horizontal spacer -->
+            <div class="emptyGuess"></div>
+            <div class="promptEmptyGuess"></div>
+            <!-- Must be on the same line for some fucking reason, otherwise it inserts a ~5px horizontal spacer -->
         </div>
     </div>
     <div class="oneGuess" id="oneGuessPrefab">
-        <div class="emptyGuess"></div><div class="promptEmptyGuess"></div>
+        <div class="emptyGuess"></div>
+        <div class="promptEmptyGuess"></div>
+    </div>
+</div>
+<div id="spacer"></div>
+<div id="keyboardContainer">
+    <div>
+        <div>0</div>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+    </div>
+    <div>
+        <div>q</div>
+        <div>w</div>
+        <div>e</div>
+        <div>r</div>
+        <div>t</div>
+        <div>y</div>
+        <div>u</div>
+        <div>i</div>
+        <div>o</div>
+        <div>p</div>
+    </div>
+    <div>
+        <div>a</div>
+        <div>s</div>
+        <div>d</div>
+        <div>f</div>
+        <div>g</div>
+        <div>h</div>
+        <div>j</div>
+        <div>k</div>
+        <div>l</div>
+        <div>&#x232B;</div>
+    </div>
+    <div>
+        <div>z</div>
+        <div>x</div>
+        <div>c</div>
+        <div>v</div>
+        <div>b</div>
+        <div>n</div>
+        <div>m</div>
+        <div>,</div>
+        <div class="doublelong">ENTER</div>
     </div>
 </div>
 {% endblock wrapper-cont %}
 
 {% block body-suffix %}
 <script>
-    const AllLetters = "abcdefghijklmnopqrstuvwxyz-,1234567890";
-    var wordToGuess = "john";
+    const AllLetters = "abcdefghijklmnopqrstuvwxyz,1234567890";
+    var wordToGuess = "asmoranomardicadaistinaculdacar";
     var isTakingInputs = true; // Currently only used to lock game after victory. May be used in the future for locking during animations.
-    $(document).on("keydown", function(e) {
-        if(!isTakingInputs) return;
-        console.log(e.key);
-        if(AllLetters.includes(e.key)) {
+
+    function processKeyPress(key) {
+        if (!isTakingInputs) return;
+
+        if (AllLetters.includes(key)) {
             let lc = $("#listOfGuesses .oneGuess:last").children(".emptyGuess:last"); // lc = last child
-            lc.text(e.key);//.toUpperCase());
+            lc.text(key);//.toUpperCase());
             lc.addClass("filled");
             $("<div>").addClass("emptyGuess").insertAfter(lc);
         }
-        if(e.key == "Backspace") {
-            if($("#listOfGuesses .oneGuess:last").children(".filled").length) {
+        if (key == "Backspace") {
+            if ($("#listOfGuesses .oneGuess:last").children(".filled").length) {
                 $("#listOfGuesses .oneGuess:last").children(".filled:last").remove();
             }
         }
-        if(e.key == "Enter") {
+        if (key == "Enter" || key == "ENTER") {
             $("#listOfGuesses .oneGuess:last").children(".emptyGuess:not(.filled)").remove();
             $("#listOfGuesses .oneGuess:last").children(".promptEmptyGuess").remove();
 
             let enteredString = ""; // Must build it by element
-            $("#listOfGuesses .oneGuess:last").children(".emptyGuess").each(function() {
+            $("#listOfGuesses .oneGuess:last").children(".emptyGuess").each(function () {
                 enteredString += $(this).text();
             });
-            
-            if(enteredString == wordToGuess) {
+
+            if (enteredString == wordToGuess) {
                 $("#listOfGuesses .oneGuess:last").children(".emptyGuess").css("background-color", "#5f55");
                 $("#listOfGuesses").append($("<h2>").text("Yay, you won!"));
                 isTakingInputs = false;
                 return;
             }
 
-            let numCharInstances = {  };
+            let numCharInstances = {};
             AllLetters.split('').forEach((l) => {
                 numCharInstances[l] = 0;
             });
             wordToGuess.split('').forEach((l) => {
                 numCharInstances[l]++;
             });
-            console.log(numCharInstances);
 
             let currentInd = 0;
-            $("#listOfGuesses .oneGuess:last").children(".emptyGuess").each(function() {
-                if($(this).text() == wordToGuess[currentInd]) {
+            $("#listOfGuesses .oneGuess:last").children(".emptyGuess").each(function () {
+                if ($(this).text() == wordToGuess[currentInd]) {
                     $(this).css("background-color", "#5f55");
                     numCharInstances[$(this).text()]--;
-                } else if(numCharInstances[$(this).text()] > 0) {
+
+                    $(`div#keyboardContainer div div:contains('${$(this).text()}')`).css("background-color", "#5f55");
+                } else if (numCharInstances[$(this).text()] > 0) {
                     $(this).css("background-color", "#ff55");
                     numCharInstances[$(this).text()]--;
+
+                    let currentColor = $(`div#keyboardContainer div div:contains('${$(this).text()}')`).css("background-color");
+                    if (currentColor != "rgba(85, 255, 85, 0.333)") $(`div#keyboardContainer div div:contains('${$(this).text()}')`).css("background-color", "#ff55");
                 } else {
                     $(this).css("background-color", "#9995");
+
+                    let currentColor = $(`div#keyboardContainer div div:contains('${$(this).text()}')`).css("background-color");
+                    if (currentColor != "rgba(85, 255, 85, 0.333)" && currentColor != "rgba(255, 255, 85, 0.333)") $(`div#keyboardContainer div div:contains('${$(this).text()}')`).css("background-color", "#9995");
                 }
 
                 currentInd++;
             })
 
-            $("#listOfGuesses").append($("#oneGuessPrefab").clone().attr("id", ""));
+            let newPrompt = $("#oneGuessPrefab").clone().attr("id", "");
+            $("#listOfGuesses").append(newPrompt);
+
+            newPrompt.get(0).scrollIntoView();
         }
+    }
+
+    $(document).on("keydown", function (e) {
+        processKeyPress(e.key);
     });
+    $("#keyboardContainer div div").on("click", function () {
+        let keyPressed = $(this).text().replace("⌫", "Backspace");
+        processKeyPress(keyPressed);
+    })
 </script>
 {% endblock body-suffix %}
