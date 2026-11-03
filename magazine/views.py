@@ -356,6 +356,9 @@ def purity_test(request):
     context = {"items": purity_test_items}
     return render(request, "magazine/purity_test.html", context)
 
+def eliza(request):
+    context = {}
+    return render(request, "magazine/eliza.html", context)
 
 def stories(request):
     pieces = order_pieces(
