@@ -49,14 +49,25 @@ def index(request):
     )
     used_articles += [largest]
 
-    feat_column = (
-        Article.objects.all()
-        .filter(
-            Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(issue=latest_issue) & Q(images__isnull=True)
+    try:
+        feat_column = (
+            Article.objects.all()
+            .filter(
+                Q(published=True) & (Q(front_page=True) | Q(featured=True)) & (Q(issue=latest_issue) | Q(issue=second_latest_issue)) & Q(images__isnull=True)
+            )
+            .exclude(pk__in=[a.id for a in used_articles])
+            .order_by("?")[0]
         )
-        .exclude(pk__in=[a.id for a in used_articles])
-        .order_by("?")[0]
-    )
+    except:
+        feat_column = (
+            Article.objects.all()
+            .filter(
+                Q(published=True) & (Q(front_page=True) | Q(featured=True)) & Q(images__isnull=True)
+            )
+            .exclude(pk__in=[a.id for a in used_articles])
+            .order_by("?")[0]
+        )
+
     used_articles += [feat_column]
 
     # falls back to second-latest issue
